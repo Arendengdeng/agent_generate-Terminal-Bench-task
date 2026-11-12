@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthesis-agent"
+version = "0.1.0"
+description = "Docker-isolated synthesis of Python CLI repair task candidates"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+synthesis-agent = "synthesis_agent.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["synthesis_agent*"]
