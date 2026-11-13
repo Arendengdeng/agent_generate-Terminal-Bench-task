@@ -2,7 +2,13 @@
 
 根据已有 Plan、Contract 和可选参考材料，生成 Python 标准库 CLI 修复任务。所有生成代码只在受限 Linux Docker 容器内执行。成功仅表示“候选已生成并完成参考解法自检”，不代表独立验证通过。
 
-当前功能与剩余缺口见 [Step 2 完成情况说明](docs/step2-status.md)。离线测试 42 项通过；用户终端真实 Docker 集成 5 项通过；当前版本三题型真实模型验收尚未运行。
+当前功能与剩余缺口见 [Step 2 完成情况说明](docs/step2-status.md)。2026-11-12 离线测试 44 项通过、6 项跳过；此前用户终端真实 Docker 集成 5 项通过。
+
+Step 3 已接入候选加载、静态检查、独立 Test Agent、Harbor 导出和 Oracle/Nop 执行入口，详见 [Step 3 使用与验证记录](docs/step3-status.md)。历史候选 `runs/acceptance-csv-01` 已通过文件完整性与静态检查。真实 Test Agent 已生成 15 个测试并映射全部 4 条要求，导出包通过 Harbor lint。按用户要求切换 Harbor 为 public 网络后，**历史 CSV 候选已实际通过 Oracle=1、Nop=0 基础闭环验收**；测试充分性与难度仍待后续验证。
+
+Step 2 三题型真实模型验收保持单独待办，不阻止 Step 3 开发。当前完整离线套件 57 项通过、8 项跳过。
+
+Step 3 使用项目专用 `.harbor-venv`，依赖清单为 `requirements-verification.txt`。运行前可执行 `source .harbor-venv/bin/activate`；验证入口默认使用该环境中的 Harbor，无需用户级安装。
 
 要求 Python 3.11+、运行中的 Linux Docker Engine、已准备的 `python:3.11-slim` 镜像，以及支持工具调用的 OpenAI 兼容接口。
 
@@ -33,4 +39,4 @@ Bearer 值和包含凭证或查询参数的 URL 会脱敏。该过滤不能识�
 python -m unittest discover -s tests -v
 ```
 
-完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](Synthesis%20Agent%20设计.md)。实际测试范围见 [verification.md](verification.md)。
+完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](2.%20Synthesis%20Agent%20设计.md)。Step 2 测试范围见 [完成情况说明](docs/step2-status.md)。
