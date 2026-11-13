@@ -10,6 +10,16 @@ Step 2 三题型真实模型验收保持单独待办，不阻止 Step 3 开发�
 
 Step 3 使用项目专用 `.harbor-venv`，依赖清单为 `requirements-verification.txt`。运行前可执行 `source .harbor-venv/bin/activate`；验证入口默认使用该环境中的 Harbor，无需用户级安装。
 
+Step 4 已增加规则式 Verification Controller：每次独立验证保存 `decision.json`，区分 `accept`、`repair`、`needs_review`、`error` 和 `not_evaluated`。Oracle 失败、Nop 通过或额外正确解法失败会保留证据并列出待调查模块，不直接指定责任方。`repair` 只表示修复建议，不执行修改。接口和规则见 [Step 4 使用说明](docs/step4-status.md)。
+
+历史运行可离线判定，不调用模型、Docker 或 Harbor；输出目录必须不存在：
+
+```bash
+python -m independent_verification --stage decide --report-dir runs/step3-public-01 --output runs/step4-review-01
+```
+
+CLI 对 `repair`、`needs_review`、`error` 返回 1，取消返回 130，调用参数或输出目录错误返回 2。`accept` 与正常的部分阶段 `not_evaluated` 返回 0；部分阶段不代表验证通过。
+
 要求 Python 3.11+、运行中的 Linux Docker Engine、已准备的 `python:3.11-slim` 镜像，以及支持工具调用的 OpenAI 兼容接口。
 
 配置 `SYNTHESIS_MODEL`、`SYNTHESIS_API_KEY`（可选 `SYNTHESIS_BASE_URL`），然后运行：

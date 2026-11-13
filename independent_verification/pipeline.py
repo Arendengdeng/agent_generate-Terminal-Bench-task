@@ -1,4 +1,4 @@
-"""One-way stage orchestration, not a repair/acceptance Controller."""
+"""Stage orchestration with evidence-based decisions and no automatic repairs."""
 from pathlib import Path
 
 from synthesis_agent.config import Config
@@ -8,6 +8,7 @@ from synthesis_agent.trace import redact
 from .agent import TestAgent
 from .candidate import CandidateTask, check_candidate
 from .common import new_directory, write_json
+from .controller import decide, report_paths
 from .exporter import export_task, HARBOR_NETWORK_MODE
 from .harbor import Harbor, execute, process_text
 
@@ -47,14 +48,16 @@ def preflight(root, harbor, require_harbor=True):
 
 
 def verify(candidate_path, output, *, config=None, stage='all', tests_output=None,
-           harbor_python=None, client=None, known_correct=()):
+           harbor_python=None, client=None, known_correct=(), critical_issues=()):
     if stage not in {'inspect', 'generate', 'export', 'run', 'all'}:
         raise ValueError('unknown stage')
     config = config or Config.from_env()
     root = new_directory(output)
+    static = package = None
     result = {'status': 'error', 'stage': 'load', 'independent_validation': False,
               'end_to_end_validated': False, 'error': None, 'network_mode': HARBOR_NETWORK_MODE,
-              'oracle': unavailable(None), 'nop': unavailable(None), 'known_correct': []}
+              'oracle': unavailable(None), 'nop': unavailable(None), 'known_correct': [],
+              'critical_issues': list(critical_issues)}
     try:
         candidate = CandidateTask.load(candidate_path, config)
         result['stage'] = 'static_check'
@@ -83,11 +86,12 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
                 raise SynthesisError('Test Agent failed; see test-agent/tests.json and trace.jsonl')
             tests_output = root / 'test-agent'
         if stage == 'generate':
-            result.update(status='tests_generated')
+            result.update(status='tests_generated', stage='test_generation')
             return result
         result['stage'] = 'export'
         package = export_task(candidate, Path(tests_output).absolute(), root / 'export', config)
         task = root / 'export' / 'task'
+        result['task_dir'] = str(task)
         if stage == 'export':
             result.update(status='exported', task_dir=str(task),
                           note='Offline package only; Harbor config validation/lint and trials have not run.')
@@ -138,5 +142,13 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         for agent in ('oracle', 'nop'):
             if result[agent]['status'] == 'not_run':
                 result[agent]['error'] = result['error'] or {'type': 'STAGE_ONLY', 'message': 'execution not requested'}
-        write_json(root / 'run_result.json', redact(result, config.api_key))
-    return redact(result, config.api_key)
+        decision = decide({'static_check': static, 'package': package,
+                           'run_result': result, 'evidence_paths': report_paths(root)})
+        result.update(controller_decision=decision, decision_path=str(root / 'decision.json'))
+        # Early returns also return this object after finally; sanitize it in place.
+        safe_result = redact(result, config.api_key)
+        result.clear()
+        result.update(safe_result)
+        write_json(root / 'run_result.json', result)
+        write_json(root / 'decision.json', result['controller_decision'])
+    return result
