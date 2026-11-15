@@ -27,7 +27,13 @@ def main(argv=None):
     repairs.add_argument('--no-repair-tests', dest='repair_tests', action='store_false',
                          help='disable the Docker test repair loop')
     parser.add_argument('--max-test-repairs', type=int, default=2, help='maximum test repair rounds (default: 2)')
+    parser.add_argument('--repair', action='store_true', help='Controller-directed cross-module repair loop (all/run only)')
+    parser.add_argument('--max-repairs', type=int, default=2, help='shared repair attempt limit (default: 2)')
     args = parser.parse_args(argv)
+    if args.repair and args.stage not in {'all', 'run'}:
+        parser.error('--repair requires stage all/run')
+    if args.repair and args.repair_tests is not None:
+        parser.error('--repair owns test repairs; do not combine with --repair-tests/--no-repair-tests')
     if args.stage == 'decide':
         if not args.report_dir:
             parser.error('--report-dir is required for --stage decide')
@@ -46,7 +52,7 @@ def main(argv=None):
         result = verify(args.candidate, args.output, config=Config.from_env(**settings),
                         stage=args.stage, tests_output=args.tests, harbor_python=args.harbor_python,
                         known_correct=args.known_correct, known_invalid=args.known_invalid, repair_tests=args.repair_tests,
-                        max_test_repairs=args.max_test_repairs)
+                        max_test_repairs=args.max_test_repairs, repair=args.repair, max_repairs=args.max_repairs)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         if result['status'] == 'cancelled':
             return 130

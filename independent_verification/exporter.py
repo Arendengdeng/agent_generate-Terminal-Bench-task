@@ -14,13 +14,14 @@ from .sandbox import base_dockerfile, wrapper_source
 HARBOR_NETWORK_MODE = "public"
 
 
-def load_tests(candidate, tests_output, config=None):
+def load_tests(candidate, tests_output, config=None, *, check_static=True):
     """Read and verify a frozen test version without creating an export."""
     config = config or Config()
     tests_output = Path(tests_output)
-    static = check_candidate(candidate)
-    if static['status'] != 'passed':
-        raise SynthesisError('candidate failed static checks: ' + json.dumps(static['errors']))
+    if check_static:
+        static = check_candidate(candidate)
+        if static['status'] != 'passed':
+            raise SynthesisError('candidate failed static checks: ' + json.dumps(static['errors']))
     metadata = read_json(tests_output / 'tests.json')
     if metadata.get('status') != 'tests_generated':
         raise SynthesisError('tests have not been generated successfully')

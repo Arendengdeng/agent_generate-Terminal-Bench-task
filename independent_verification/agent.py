@@ -116,11 +116,16 @@ class TestAgent:
     def generate(self, test_input, output, *, config=None, client=None, budget=None):
         return self._run(test_input, output, config=config, client=client, budget=budget)
 
-    def repair(self, test_input, tests_output, feedback, output, *, budget=None):
-        return self._run(test_input, output, previous=tests_output, feedback=feedback, budget=budget)
+    def repair(self, test_input, tests_output, feedback, output, *, budget=None, approved_diagnosis=None):
+        return self._run(test_input, output, previous=tests_output, feedback=feedback, budget=budget,
+                         approved_diagnosis=approved_diagnosis)
+
+    def analyze(self, test_input, tests_output, feedback, output, *, budget=None):
+        return self._run(test_input, output, previous=tests_output, feedback=feedback, budget=budget,
+                         diagnose_only=True)
 
     def _run(self, test_input, output, *, config=None, client=None, previous=None,
-             feedback=None, budget=None):
+             feedback=None, budget=None, diagnose_only=False, approved_diagnosis=None):
         c = config or self.config
         data = validate_test_input(test_input, c)
         inputs = bounded_files({"inputs/contract.json": json.dumps(data["contract"], ensure_ascii=False),
@@ -220,7 +225,9 @@ class TestAgent:
                 result['diagnosis'] = copy.deepcopy(diagnosis)
                 result['attribution'] = 'test_defect'
                 write_json(root / 'diagnosis.json', redact(diagnosis, c.api_key))
-                return {'status': 'diagnosed', 'editing_enabled': True}
+                if diagnose_only:
+                    result['status'] = 'diagnosed'
+                return {'status': 'diagnosed', 'editing_enabled': not diagnose_only}
             if name == "list_files":
                 return {"files": sorted([*inputs.files, *("tests/" + p for p in tests.files)])}
             if name == "read_file":
@@ -231,6 +238,8 @@ class TestAgent:
                     return {"content": tests.files[path[6:]]}
                 raise SynthesisError("file not in allowed inputs or generated tests")
             if name in {"write_file", "delete_file"}:
+                if diagnose_only:
+                    raise SynthesisError('analysis cannot modify tests')
                 if previous is not None and diagnosis is None:
                     raise SynthesisError('submit an evidenced diagnosis before modifying tests')
                 if not args["path"].startswith("tests/"):
@@ -268,9 +277,17 @@ class TestAgent:
             inputs.export(root)
             sandbox = self.sandbox or TestSandbox(c, self.verifier_image)
             sandbox.prepare()
+            if approved_diagnosis is not None:
+                if approved_diagnosis.get('parent_digest') != parent_digest:
+                    raise SynthesisError('approved diagnosis is stale')
+                dispatch('diagnose', {k: approved_diagnosis[k] for k in DIAGNOSIS_FIELDS})
             model = client or self.client or OpenAICompatibleClient(c)
             prompt = PROMPT if previous is None else PROMPT.replace(
                 'You have no Oracle feedback.', 'You have restricted execution feedback.') + REPAIR_PROMPT
+            if diagnose_only:
+                prompt += '\nAnalysis phase: diagnose or classify only; a diagnosis terminates this phase without edits.'
+            if approved_diagnosis:
+                prompt += '\nController has authorized the saved diagnosis. Edit current tests, collect and finish; do not diagnose again.'
             messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps({
                 "contract": data["contract"], "instruction": data["instruction"],
                 "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/")),
@@ -282,7 +299,7 @@ class TestAgent:
             for _ in range(c.max_model_calls):
                 if len(json.dumps(messages).encode()) > c.max_context_bytes:
                     raise BudgetExceeded("Test Agent context budget exceeded")
-                if shared_budget['model_calls'] >= c.max_model_calls:
+                if shared_budget['model_calls'] >= c.max_model_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
                     raise BudgetExceeded('Test Agent shared model call budget exhausted')
                 model_calls += 1
                 shared_budget['model_calls'] += 1
@@ -326,9 +343,9 @@ class TestAgent:
                     if len(encoded.encode()) > c.max_response_bytes:
                         raise BudgetExceeded("observation budget exceeded")
                     messages.append({"role": "tool", "tool_call_id": call["id"], "content": encoded})
-                    if result['status'] == 'needs_review':
+                    if result['status'] in {'needs_review', 'diagnosed'}:
                         break
-                if result["status"] in {'tests_generated', 'needs_review'}:
+                if result["status"] in {'tests_generated', 'needs_review', 'diagnosed'}:
                     break
             else:
                 raise BudgetExceeded("Test Agent model call budget exhausted")

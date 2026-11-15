@@ -1,4 +1,5 @@
 import copy
+from dataclasses import replace
 import hashlib
 import json
 from pathlib import Path
@@ -7,7 +8,7 @@ import time
 from .client import OpenAICompatibleClient
 from .config import Config
 from .errors import BudgetExceeded, SandboxError, SynthesisError
-from .files import FileSet, load_seed, relative_path, safe_ancestors
+from .files import FileSet, load_seed, read_json, relative_path, safe_ancestors
 from .inputs import in_scope, instruction_appendix, validate_inputs
 from .sandbox import DockerSandbox
 from .trace import redact as redact_credentials, summarize
@@ -65,7 +66,34 @@ class SynthesisAgent:
         self.config = config or Config.from_env()
         self.client = client
 
-    def generate(self, plan, contract, output, seed=None):
+    def generate(self, plan, contract, output, seed=None, *, budget=None):
+        return self._run(plan, contract, output, seed, shared_budget=budget)
+
+    def repair(self, candidate_path, request, output, *, budget=None):
+        # Runtime import avoids making generation depend on verification imports.
+        from independent_verification.candidate import CandidateTask
+        candidate = CandidateTask.load(candidate_path, self.config)
+        if request['candidate_manifest'] != candidate.metadata['manifest']:
+            raise SynthesisError('repair request does not bind current candidate')
+        if request['responsible_module'] not in {'synthesis', 'solution', 'environment', 'task'}:
+            raise SynthesisError('unsupported synthesis repair owner')
+        plan_path = candidate.source / 'plan.json'
+        plan = read_json(plan_path) if plan_path.exists() else {
+            'title': 'Repair existing candidate', 'category': 'cli_repair',
+            'goal': candidate.contract['objective'], 'scenario': candidate.instruction,
+            'skills': ['repair']}
+        initial = load_seed(candidate.source / 'draft', self.config)
+        files = {'draft/' + p: text for p, text in initial.files.items()}
+        probe = candidate.source / 'checks/probe.py'
+        if 'checks/probe.py' in candidate.metadata['manifest']:
+            from .files import read_regular
+            files['checks/probe.py'] = read_regular(probe, self.config.max_file_bytes).decode('utf-8')
+        return self._run(plan, candidate.contract, output, initial=files,
+                         repair_request=copy.deepcopy(request), shared_budget=budget,
+                         sandbox_image=candidate.metadata['image_reference'])
+
+    def _run(self, plan, contract, output, seed=None, *, initial=None,
+             repair_request=None, shared_budget=None, sandbox_image=None):
         # Freeze caller-owned inputs before any generation.
         plan, contract = copy.deepcopy(plan), copy.deepcopy(contract)
         validate_inputs(plan, contract)
@@ -80,7 +108,10 @@ class SynthesisAgent:
             raise SynthesisError("output already exists; refusing to overwrite")
         root.mkdir(parents=True, exist_ok=False)
         files = FileSet(c)
-        sandbox = DockerSandbox(c)
+        for name, content in (initial or {}).items():
+            files.put(name, content)
+        shared_budget = shared_budget if shared_budget is not None else {'model_calls': 0, 'tool_calls': 0}
+        sandbox = DockerSandbox(replace(c, image=sandbox_image) if sandbox_image else c)
         last_check = {"status": "not_run"}
         model_calls = tool_calls = 0
         trace_sequence = 0
@@ -118,11 +149,17 @@ class SynthesisAgent:
 
         save("plan.json", plan)
         save("contract.json", contract)
+        if repair_request:
+            save('repair-request.json', repair_request)
         log("start", config=c.public(), seed_manifest=references.manifest())
         trace("start", model=c.model, token_usage=None)
 
         def writable(path):
             relative_path(path)
+            if repair_request:
+                scopes = repair_request['allowed_paths']
+                if not any(path == scope or (scope.endswith('/') and path.startswith(scope)) for scope in scopes):
+                    raise SynthesisError('path is outside authorized repair scope')
             if path == "draft/instruction.md" or path == "checks/probe.py":
                 return
             if path.startswith(("draft/environment/app/", "draft/solution/")):
@@ -258,18 +295,35 @@ class SynthesisAgent:
         try:
             sandbox.prepare()
             result["image_id"] = sandbox.image_id
-            result["image_reference"] = sandbox.image_reference
-            files.put("draft/environment/Dockerfile", sandbox.dockerfile())
+            result["image_reference"] = (sandbox_image if repair_request and
+                repair_request['responsible_module'] != 'synthesis' else sandbox.image_reference)
+            if not repair_request or repair_request['responsible_module'] == 'synthesis':
+                files.put("draft/environment/Dockerfile", sandbox.dockerfile())
             client = self.client or OpenAICompatibleClient(c)
-            messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps(
-                {"plan": plan, "contract": contract, "reference_paths": ["seed/" + p for p in references.files]}, ensure_ascii=False)}]
+            prompt = SYSTEM_PROMPT
+            if repair_request:
+                prompt = prompt.replace(
+                    'Generate a new task from the actual Plan, Contract and optional reference materials. Do not substitute a stock task.',
+                    'Repair the CURRENT candidate from the supplied repair request. Preserve files outside allowed_paths; do not regenerate the task.')
+            messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps(
+                {"plan": plan, "contract": contract, "reference_paths": ["seed/" + p for p in references.files],
+                 **({'repair_request': repair_request, 'mode': 'Repair current files only within allowed_paths; preserve all other files. Contract and Plan are immutable.'} if repair_request else {})}, ensure_ascii=False)}]
             for _ in range(c.max_model_calls):
                 if len(json.dumps(messages).encode()) > c.max_context_bytes:
                     raise BudgetExceeded("model context byte budget exceeded")
+                if shared_budget['model_calls'] >= c.max_model_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
+                    raise BudgetExceeded('shared model call budget exhausted')
                 model_calls += 1
+                shared_budget['model_calls'] += 1
                 trace("model_request", context_bytes=len(json.dumps(messages).encode()),
                       context_limit=c.max_context_bytes)
                 message = client.complete(copy.deepcopy(messages), copy.deepcopy(TOOLS))
+                usage = getattr(client, 'last_usage', None)
+                if isinstance(usage, dict):
+                    totals = shared_budget.setdefault('token_usage', {})
+                    for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+                        if type(usage.get(key)) is int and usage[key] >= 0:
+                            totals[key] = totals.get(key, 0) + usage[key]
                 if len(json.dumps(message).encode()) > c.max_response_bytes:
                     raise BudgetExceeded("model response byte budget exceeded")
                 calls = message.get("tool_calls")
@@ -281,9 +335,10 @@ class SynthesisAgent:
                     raise SynthesisError("malformed tool call IDs")
                 messages.append({"role": "assistant", "content": message.get("content"), "tool_calls": calls})
                 for call in calls:
-                    if tool_calls >= c.max_tool_calls:
+                    if tool_calls >= c.max_tool_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
                         raise BudgetExceeded("tool call budget exhausted")
                     tool_calls += 1
+                    shared_budget['tool_calls'] += 1
                     name = call.get("function", {}).get("name")
                     trace("tool_start", tool=name, tool_call_id=call["id"],
                           proposed_call=call)
@@ -347,6 +402,7 @@ class SynthesisAgent:
             save("self_check.json", last_check)
             result["trace_path"] = "trace.jsonl"
             result["budget_used"] = budget()
+            result["workflow_budget_used"] = copy.deepcopy(shared_budget)
             save("synthesis.json", result)
             log("end", status=result["status"])
             trace("end", status=result["status"], error=result["error"],

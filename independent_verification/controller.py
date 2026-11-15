@@ -47,8 +47,30 @@ def _decide(report):
     def error(code, message, details=None):
         add(1, 'error', code, message, details=details)
 
+    workflow = run.get('repair_workflow')
+    if workflow is not None:
+        valid = (isinstance(workflow, dict) and workflow.get('status') == 'passed'
+                 and workflow.get('stop_reason') == 'full_validation_passed'
+                 and workflow.get('unresolved_issues') == []
+                 and type(workflow.get('repairs')) is int and type(workflow.get('max_repairs')) is int
+                 and 0 <= workflow['repairs'] <= workflow['max_repairs']
+                 and isinstance(workflow.get('versions'), list) and bool(workflow['versions'])
+                 and workflow.get('final_version') == workflow['versions'][-1].get('version')
+                 and workflow['versions'][-1].get('execution_status') == 'passed'
+                 and workflow['repairs'] == len(workflow.get('attempts', []))
+                 and bool(workflow.get('final_validation_path')) and bool(workflow.get('final_validation_digest'))
+                 and all(type(workflow.get('budget_used', {}).get(k)) is int
+                         and type(workflow.get('budget_limits', {}).get(k)) is int
+                         and 0 <= workflow['budget_used'][k] <= workflow['budget_limits'][k]
+                         for k in ('model_calls', 'tool_calls')))
+        if not valid:
+            state = workflow.get('status') if isinstance(workflow, dict) else 'error'
+            add(-2, 'error' if state in {'error', 'cancelled'} else 'needs_review',
+                'REPAIR_WORKFLOW_INCOMPLETE', 'Repair workflow has not passed complete validation.',
+                details=workflow)
+
     if report.get('report_errors'):
-        add(-1, 'error', 'INVALID_REPORT', 'Required reports could not be read.',
+        add(-3, 'error', 'INVALID_REPORT', 'Required reports could not be read.',
             details=report['report_errors'])
     if not run or run.get('status') not in {'completed', 'failed', 'error', 'cancelled', *PARTIAL}:
         error('INVALID_REPORT', 'Missing or invalid run result.')
@@ -177,7 +199,7 @@ def report_paths(root):
     root = Path(root)
     return [str(root / 'run_result.json')] + [str(root / p) for p in (
         'static_check.json', 'preflight.json', 'test-agent/tests.json',
-        'export/package.json', 'export/export.json', 'test-loop.json') if (root / p).exists()]
+        'export/package.json', 'export/export.json', 'test-loop.json', 'repair-history.json') if (root / p).exists()]
 
 
 def load_report(run_dir):
@@ -206,6 +228,54 @@ def load_report(run_dir):
             report['package'] = read_json(package)
         except (OSError, SynthesisError) as exc:
             report['report_errors'].append({'path': str(package), 'message': str(exc)})
+    if isinstance(run, dict) and 'repair_workflow' in run:
+        try:
+            from .repair import fingerprint
+            from .candidate import CandidateTask
+            from .exporter import load_tests
+            workflow = run['repair_workflow']
+            if not isinstance(workflow, dict):
+                raise SynthesisError('repair workflow must be an object')
+            if read_json(root / 'repair-history.json') != workflow:
+                raise SynthesisError('repair history differs from run summary')
+            if workflow.get('status') == 'passed':
+                final_root = safe_ancestors(Path(workflow['final_validation_path']))
+                if not final_root.is_relative_to(root / 'versions'):
+                    raise SynthesisError('final validation must belong to this workflow')
+                final = read_json(final_root / 'run_result.json')
+                if not isinstance(final, dict):
+                    raise SynthesisError('final validation result must be an object')
+                if 'repair_workflow' in final:
+                    raise SynthesisError('final validation must have repairs disabled')
+                if fingerprint(final) != workflow['final_validation_digest']:
+                    raise SynthesisError('final validation evidence changed')
+                for key in ('status', 'stage', 'oracle', 'nop', 'known_correct', 'known_invalid', 'task_dir'):
+                    if run.get(key) != final.get(key):
+                        raise SynthesisError('root result differs from final validation')
+                final_report = load_report(final_root)
+                if decide(final_report)['decision'] != 'accept':
+                    raise SynthesisError('final verification no longer passes')
+                if report.get('static_check') != final_report.get('static_check') or report.get('package') != final_report.get('package'):
+                    raise SynthesisError('root stage evidence differs from final validation')
+                from .attribution import verify_repair_history
+                verify_repair_history(root, workflow, Config())
+                version = workflow['versions'][-1]
+                if not all((safe_ancestors(Path(version[k]).absolute().parent) / Path(version[k]).name).is_relative_to(root / 'versions')
+                           for k in ('candidate_path', 'tests_output', 'execution_path')):
+                    raise SynthesisError('final version evidence must belong to this workflow')
+                execution = read_json(version['execution_path'], 8_000_000)
+                if (execution['status'] != 'passed' or fingerprint(execution) != version['execution_digest']
+                        or execution['input_manifest'] != version['input_manifest']
+                        or execution['tests_digest'] != version['tests_digest']):
+                    raise SynthesisError('Docker execution evidence changed or is stale')
+                candidate = CandidateTask.load(version['candidate_path'])
+                metadata, _ = load_tests(candidate, version['tests_output'])
+                if (candidate.metadata['manifest'] != version['candidate_manifest']
+                        or candidate.input_manifest() != version['input_manifest']
+                        or metadata['digest'] != version['tests_digest']):
+                    raise SynthesisError('final task version changed')
+        except (OSError, SynthesisError, KeyError, TypeError, ValueError, IndexError, AttributeError, StopIteration) as exc:
+            report['report_errors'].append({'message': 'Invalid repair evidence: ' + str(exc)})
     return report
 
 

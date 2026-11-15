@@ -168,12 +168,15 @@ class RepairTests(unittest.TestCase):
         agent, _ = self.agent(repair_script())
         calls = []
         class Runner:
-            def run(self, candidate, tests, output, known):
+            def run(self, candidate, tests, output, known, known_invalid=()):
                 metadata = json.loads((Path(tests) / 'tests.json').read_text())
                 calls.append((metadata['digest'], tuple(known)))
-                return execution(candidate, metadata, passed=len(calls) > 1)
+                result = execution(candidate, metadata, passed=len(calls) > 1)
+                result['trials'].append({'label': 'invalid-000', 'status': 'completed',
+                    'reward': int(len(calls) == 1), 'expected_reward': 0, 'reports': []})
+                return result
         report = repair_tests(self.candidate, self.old, self.root, Config(), agent,
-                              runner=Runner(), known_correct=['correct-control'])
+                              runner=Runner(), known_correct=['correct-control'], known_invalid=['invalid-control'])
         self.assertEqual(report['status'], 'passed', report)
         self.assertEqual(report['repairs'], 1)
         self.assertEqual(len(calls), 2)
@@ -201,35 +204,34 @@ class RepairTests(unittest.TestCase):
         saved = json.loads((self.root / 'cancelled/test-loop.json').read_text())
         self.assertEqual(saved['status'], 'cancelled')
 
-    def test_two_repairs_are_a_hard_limit_and_each_version_is_reexecuted(self):
+    def test_workflow_requires_both_control_classes_before_any_repair(self):
         from unittest.mock import Mock
-        count = 0
-        def repair(data, previous, feedback, output, *, budget):
-            nonlocal count
-            count += 1
-            return TestAgent(Config(), ScriptedClient(script(data['contract'], source(43) + f'# attempt {count}\n')),
-                             sandbox=CollectionStub()).generate(data, output, budget=budget)
-        agent = Mock()
-        agent.repair.side_effect = repair
-        runner = Mock()
-        runner.run.side_effect = lambda candidate, tests, *args: execution(
-            candidate, json.loads((Path(tests) / 'tests.json').read_text()))
-        report = repair_tests(self.candidate, self.old, self.root, Config(), agent,
-                              max_repairs=2, runner=runner)
-        self.assertEqual(report['stop_reason'], 'repair_budget_exhausted')
-        self.assertEqual(agent.repair.call_count, 2)
-        self.assertEqual(runner.run.call_count, 3)
-        self.assertEqual(len({a['tests_digest'] for a in report['attempts']}), 3)
+        for index, (correct, invalid) in enumerate([([], []), (['legal'], []), ([], ['invalid'])]):
+            agent = Mock()
+            runner = Mock()
+            runner.run.return_value = execution(self.candidate, self.metadata)
+            report = repair_tests(self.candidate, self.old, self.root / f'controls-{index}', Config(), agent,
+                                  known_correct=correct, known_invalid=invalid, runner=runner)
+            self.assertEqual(report['stop_reason'], 'test_repair_requires_legal_and_invalid_controls')
+            self.assertEqual(report['repairs'], 0)
+            agent.analyze.assert_not_called()
+            agent.repair.assert_not_called()
 
-    def test_repeated_version_stops_without_reexecuting_it(self):
+    def test_model_diagnosis_alone_cannot_authorize_legacy_test_repair(self):
         from unittest.mock import Mock
-        runner = Mock()
-        runner.run.return_value = execution(self.candidate, self.metadata)
-        agent = Mock()
-        agent.repair.return_value = self.metadata
-        report = repair_tests(self.candidate, self.old, self.root, Config(), agent, runner=runner)
-        self.assertEqual(report['stop_reason'], 'repeated_version')
-        self.assertEqual(runner.run.call_count, 1)
+        agent, runner = Mock(), Mock()
+        proposal = json.loads(diagnose(line='5')['tool_calls'][0]['function']['arguments'])
+        proposal['parent_digest'] = self.metadata['digest']
+        agent.analyze.return_value = {'status': 'diagnosed', 'diagnosis': proposal}
+        result = execution(self.candidate, self.metadata)
+        result['trials'].append({'label': 'invalid-000', 'status': 'completed', 'reward': 0,
+                                 'expected_reward': 0, 'reports': []})
+        runner.run.return_value = result
+        report = repair_tests(self.candidate, self.old, self.root, Config(), agent, runner=runner,
+                              known_correct=['legal'], known_invalid=['invalid'])
+        self.assertEqual(report['status'], 'needs_review')
+        self.assertIn('unsupported assertion', report['stop_reason'])
+        agent.repair.assert_not_called()
 
     def test_application_traceback_source_is_omitted_from_feedback_message(self):
         from independent_verification.wrapper import feedback_message
@@ -335,10 +337,12 @@ class DockerRepairTests(unittest.TestCase):
         self.assertEqual(initial['status'], 'tests_generated', initial)
         known = root / 'known'; known.mkdir()
         (known / 'solve.sh').write_text("printf 'print(42)\\n' > /app/clean.py\n")
-        report = repair_tests(candidate, root / 'test-agent', root, Config(), agent, known_correct=[known])
+        invalid = root / 'invalid'; invalid.mkdir()
+        (invalid / 'solve.sh').write_text("printf 'print(43)\\n' > /app/clean.py\n")
+        report = repair_tests(candidate, root / 'test-agent', root, Config(), agent, known_correct=[known], known_invalid=[invalid])
         self.assertEqual(report['status'], 'passed', report)
         self.assertEqual(report['repairs'], 1)
-        for index, expected in [(0, [0, 0, 0]), (1, [1, 0, 1])]:
+        for index, expected in [(0, [0, 0, 0, 1]), (1, [1, 0, 1, 0])]:
             raw = json.loads((root / 'attempts' / f'{index:03d}' / 'execution/execution.json').read_text())
             self.assertEqual([t['reward'] for t in raw['trials']], expected)
         self.assertTrue((root / 'attempts/001/test-agent/diagnosis.json').exists())
@@ -399,7 +403,9 @@ class HarborRepairTests(unittest.TestCase):
         client = ScriptedClient(script(candidate.contract, source(43)) + repair_script())
         known = root / 'known'; known.mkdir()
         (known / 'solve.sh').write_text("printf 'print(42)\\n' > /app/clean.py\n")
-        result = verify(candidate.source, root / 'verification', client=client, known_correct=[known])
+        invalid = root / 'invalid'; invalid.mkdir()
+        (invalid / 'solve.sh').write_text("printf 'print(43)\\n' > /app/clean.py\n")
+        result = verify(candidate.source, root / 'verification', client=client, known_correct=[known], known_invalid=[invalid])
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
         self.assertTrue(result['end_to_end_validated'])
         self.assertEqual(result['test_loop']['repairs'], 1)

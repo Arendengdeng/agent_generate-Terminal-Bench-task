@@ -6,6 +6,7 @@ import time
 from synthesis_agent.files import read_json, load_seed
 from synthesis_agent.trace import redact
 from .common import write_json
+from .attribution import UnconfirmedAttribution, verify_test_diagnosis, verify_test_patch, verify_control_matrix
 from .docker_test_runner import DockerTestRunner, model_feedback
 
 
@@ -20,6 +21,7 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
     report = {'status': 'running', 'stop_reason': None, 'repairs': 0,
               'max_repairs': max_repairs, 'attempts': [], 'comparison_matrix': [],
               'final_tests_output': str(current)}
+    known_correct, known_invalid = tuple(known_correct), tuple(known_invalid)
     seen = set()
     try:
         for index in range(max_repairs + 1):
@@ -44,6 +46,8 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
             report['attempts'].append(row)
             report['final_tests_output'] = str(current)
             if execution['status'] == 'passed':
+                if report['repairs']:
+                    verify_control_matrix(execution, len(known_correct), len(known_invalid))
                 report.update(status='passed', stop_reason='docker_checks_passed')
                 break
             if execution['status'] != 'failed':
@@ -53,9 +57,23 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
             if index >= max_repairs:
                 report.update(status='needs_review', stop_reason='repair_budget_exhausted')
                 break
+            if not known_correct or not known_invalid:
+                report.update(status='needs_review', stop_reason='test_repair_requires_legal_and_invalid_controls')
+                break
+            verify_control_matrix(execution, len(known_correct), len(known_invalid))
             next_output = Path(root) / 'attempts' / f'{index + 1:03d}' / 'test-agent'
             feedback = model_feedback(execution)
-            fixed = agent.repair(candidate.test_input(), current, feedback, next_output, budget=budget)
+            analysis = agent.analyze(candidate.test_input(), current, feedback, attempt / 'analysis', budget=budget)
+            if analysis['status'] != 'diagnosed':
+                report.update(status='cancelled' if analysis['status'] == 'cancelled' else 'needs_review',
+                              stop_reason=analysis.get('review_reason') or 'attribution_not_confirmed')
+                break
+            diagnosis = analysis['diagnosis']
+            proof = verify_test_diagnosis(candidate, current, execution, diagnosis, config)
+            write_json(attempt / 'attribution.json', proof)
+            row['attribution_path'] = str(attempt / 'attribution.json')
+            fixed = agent.repair(candidate.test_input(), current, feedback, next_output, budget=budget,
+                                 approved_diagnosis=diagnosis)
             row['repair_output'] = str(next_output)
             row['attribution'] = fixed.get('attribution', 'uncertain')
             row['analysis'] = fixed.get('diagnosis') or fixed.get('analysis') or fixed.get('review_reason')
@@ -74,10 +92,15 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
                 status = fixed['status'] if fixed['status'] in {'needs_review', 'cancelled'} else 'error'
                 report.update(status=status, stop_reason=fixed.get('review_reason') or 'repair_agent_failed')
                 break
+            patch = verify_test_patch(candidate, current, next_output, diagnosis, config)
+            write_json(next_output.parent / 'patch-verification.json', patch)
             if fixed['digest'] in seen:
                 report.update(status='needs_review', stop_reason='repeated_version')
                 break
             current = next_output.absolute()
+        return report
+    except UnconfirmedAttribution as exc:
+        report.update(status='needs_review', stop_reason=str(exc))
         return report
     except KeyboardInterrupt:
         report.update(status='cancelled', stop_reason='cancelled')

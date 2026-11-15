@@ -14,7 +14,9 @@ Step 3 使用项目专用 `.harbor-venv`，依赖清单为 `requirements-verific
 
 规则式 Verification Controller 每次保存 `decision.json`，区分 `accept`、`repair`、`needs_review`、`error` 和 `not_evaluated`。Controller 的 `repair` 仍是建议；新增 Pipeline 会在最终判定前执行有界的 Test Agent 测试修复循环。接口和历史规则见 [Step 4 使用说明](docs/history/step4-status.md)。
 
-完整验证默认执行：独立生成测试 → Docker 内完整 pytest → Test Agent 诊断与测试修复（最多 2 轮）→ 全部对照重新执行 → Harbor 最终验收。诊断必须引用 Contract、当前测试位置和执行证据；歧义停止为 `needs_review`。每轮 Oracle 应通过、Nop 应失败，提供的正确替代解法也必须全部通过。修复只允许修改测试和 fixtures，不读取参考解法。
+新增显式 `--repair --max-repairs 2` 可开启跨模块 Repair Dispatcher：由 Controller 路由 Test Agent 或 Synthesis Agent，统一任务版本、修复次数和全局模型/工具调用预算。修复后重新检查，最终通过完整验证且无未决问题才可 Accept；预算耗尽保存 `needs_review`。开启该模式后，测试修复也由 Dispatcher 调度。使用方法、产物和真实验收入口见 [Repair Dispatcher](docs/repair-dispatcher.md)。
+
+完整验证默认执行：独立生成测试 → Docker 内完整 pytest → Test Agent 诊断与测试修复（最多 2 轮）→ 全部对照重新执行 → Harbor 最终验收。诊断必须引用 Contract、当前测试位置和执行证据；歧义停止为 `needs_review`。每轮 Oracle 应通过、Nop 应失败，提供的正确替代解法也必须全部通过。修复不读取参考解法。自动测试修复还要求宿主校验 Contract 与断言的矛盾、合法和违规对照及受限补丁；仅有模型诊断或 Oracle 结果不足以授权，无法确认时保留 `needs_review`。
 
 可重复传入 `--known-invalid <solution-dir>`，要求这些已知错误实现被正常断言失败识别；error/null 不计作正常拒绝。只有 Oracle 失败而其余对照符合预期时，执行层强制 `analysis_only`，禁止模型通过自报诊断改写测试。Step 1 实际验收、模型调用成本及保留的首次失败见 [验收报告](docs/history/2026-11-14-test-agent-feedback-repair-acceptance.md)。
 

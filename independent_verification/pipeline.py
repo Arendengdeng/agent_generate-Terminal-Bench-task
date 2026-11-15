@@ -51,7 +51,21 @@ def preflight(root, harbor, require_harbor=True):
 
 def verify(candidate_path, output, *, config=None, stage='all', tests_output=None,
            harbor_python=None, client=None, known_correct=(), critical_issues=(),
-           repair_tests=None, max_test_repairs=2, known_invalid=()):
+           repair_tests=None, max_test_repairs=2, known_invalid=(),
+           repair=False, max_repairs=2, _budget=None):
+    if type(repair) is not bool:
+        raise ValueError('repair must be a boolean')
+    if type(max_repairs) is not int or max_repairs < 0:
+        raise ValueError('max_repairs must be a nonnegative integer')
+    if repair:
+        if repair_tests is not None:
+            raise ValueError('repair owns test repairs; do not combine with repair_tests')
+        if stage not in {'all', 'run'}:
+            raise ValueError('--repair requires stage all/run')
+        from .repair import RepairDispatcher
+        return RepairDispatcher(config, client).run(candidate_path, output, tests_output=tests_output,
+            max_repairs=max_repairs, known_correct=tuple(known_correct), known_invalid=tuple(known_invalid),
+            critical_issues=tuple(critical_issues), harbor_python=harbor_python)
     started = time.monotonic()
     if stage not in {'inspect', 'generate', 'export', 'run', 'all'}:
         raise ValueError('unknown stage')
@@ -65,7 +79,7 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
     config = config or Config.from_env()
     root = new_directory(output)
     static = package = None
-    budget = {'model_calls': 0, 'tool_calls': 0}
+    budget = _budget if _budget is not None else {'model_calls': 0, 'tool_calls': 0}
     result = {'status': 'error', 'stage': 'load', 'independent_validation': False,
               'end_to_end_validated': False, 'error': None, 'network_mode': HARBOR_NETWORK_MODE,
               'oracle': unavailable(None), 'nop': unavailable(None), 'known_correct': [], 'known_invalid': [],
