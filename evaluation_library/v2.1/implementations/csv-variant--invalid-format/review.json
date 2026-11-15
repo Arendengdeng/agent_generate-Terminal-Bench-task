@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex source review of deterministic design and explicit mutation",
+  "method": "contract-source-review-and-independent-finite-semantics",
+  "requirements": {
+    "R1": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+    },
+    "R2": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "归一化邮箱后去重，保留最后一次姓名，但按邮箱首次出现顺序输出；正确处理空白、大小写以及带引号和逗号的字段。"
+    },
+    "R3": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+    },
+    "R4": {
+      "expected": "satisfied",
+      "rationale": "Imports are standard library (and declared local modules only). Files are opened read-only except the requested output; delivered paths obey the Contract.",
+      "requirement": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+    }
+  },
+  "status": "pending-execution",
+  "limitation": "Attributed source review plus finite independent semantic witnesses; not a proof over all legal programs or inputs."
+}

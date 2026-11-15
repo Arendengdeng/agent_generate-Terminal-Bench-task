@@ -56,7 +56,13 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
            harbor_python=None, client=None, known_correct=(), critical_issues=(),
            repair_tests=None, max_test_repairs=2, known_invalid=(),
            repair=False, max_repairs=2, _budget=None,
-           holdout_correct=(), holdout_invalid=(), controls_manifest=None):
+           holdout_correct=(), holdout_invalid=(), controls_manifest=None, challenge=None, max_challenge_attempts=4):
+    if challenge is not None and type(challenge) is not bool:
+        raise ValueError('challenge must be a boolean or None')
+    if type(max_challenge_attempts) is not int or not 1 <= max_challenge_attempts <= 100:
+        raise ValueError('max_challenge_attempts must be between 1 and 100')
+    if challenge and (stage not in {'all', 'run'} or repair):
+        raise ValueError('Challenge requires all/run and cannot be combined with cross-module --repair')
     if type(repair) is not bool:
         raise ValueError('repair must be a boolean')
     if type(max_repairs) is not int or max_repairs < 0:
@@ -79,6 +85,11 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
     if repair_tests is not None and type(repair_tests) is not bool:
         raise ValueError('repair_tests must be a boolean or None')
     loop_enabled = (stage == 'all' if repair_tests is None else repair_tests) and stage in {'all', 'run'}
+    challenge_enabled = stage == 'all' if challenge is None else challenge
+    if challenge_enabled and repair_tests is False:
+        raise ValueError('Challenge requires test repair; use --no-challenge with --no-repair-tests')
+    if challenge_enabled:
+        loop_enabled = True
     known_correct = tuple(known_correct)
     known_invalid = tuple(known_invalid)
     config = config or Config.from_env()
@@ -145,6 +156,22 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
                                      'message': loop['stop_reason']})
                 return result
             tests_output = loop['final_tests_output']
+        if challenge_enabled:
+            from .challenge_workflow import run_challenge
+            result['stage'] = 'challenge'
+            campaign = run_challenge(candidate, tests_output, root / 'challenge', config, client=client,
+                known_correct=known_correct, known_invalid=known_invalid, budget=budget,
+                max_attempts=max_challenge_attempts,
+                max_repairs=max_test_repairs - result.get('test_loop', {}).get('repairs', 0))
+            result['challenge'] = campaign
+            result['challenge_report_path'] = str(root / 'challenge/challenge-report.json')
+            if campaign['status'] != 'passed':
+                result.update(status='failed' if campaign['status'] == 'needs_review' else campaign['status'],
+                              error={'type': 'CHALLENGE_INCOMPLETE', 'message': campaign.get('stop_reason')})
+                return result
+            tests_output = campaign['final_tests_output']
+            known_correct = tuple(row['path'] for row in campaign['known_correct'])
+            known_invalid += tuple(s['solution_dir'] for s in campaign['samples'] if s['violation_status'] == 'confirmed')
         result['final_tests_output'] = str(Path(tests_output).absolute())
         result['stage'] = 'export'
         package = export_task(candidate, Path(tests_output).absolute(), root / 'export', config)
@@ -231,6 +258,8 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
                       basic_checks_passed=basic_pass, independent_validation=basic_pass,
                       end_to_end_validated=basic_pass,
                       limitation='Basic checks and a finite Contract-reviewed feedback/holdout panel; not general semantic correctness, difficulty or robustness.')
+        if challenge_enabled:
+            result['challenge_resolved'] = basic_pass and not result['challenge']['unresolved']
     except (Exception, KeyboardInterrupt) as exc:
         result.update(status='cancelled' if isinstance(exc, KeyboardInterrupt) else 'error',
                       error={'type': type(exc).__name__, 'message': str(exc)})

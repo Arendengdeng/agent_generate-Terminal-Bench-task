@@ -4,7 +4,7 @@ from pathlib import Path
 import time
 
 from synthesis_agent.agent import tool, STRING
-from synthesis_agent.client import OpenAICompatibleClient
+from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error
 from synthesis_agent.config import Config
 from synthesis_agent.errors import BudgetExceeded, SandboxError, SynthesisError
 from synthesis_agent.files import FileSet, relative_path, load_seed, read_json
@@ -300,11 +300,17 @@ class TestAgent:
             if diagnose_only:
                 prompt += '\nAnalysis phase: diagnose or classify only; a diagnosis terminates this phase without edits. '
                 prompt += 'When host_supported_diagnoses is provided, independently assess those locations and cite one of them, or stop for review. Other forms cannot be proved by this checker.'
-            if approved_diagnosis:
+            if approved_diagnosis and not (feedback and feedback.get('challenge_issues')):
                 prompt += '\nController has authorized ONLY the saved diagnosis and host_patch_rule. '
                 prompt += 'This patch scope takes precedence over general test-generation guidance. Replace only the cited assertion with allowed_assertion when supplied. '
                 prompt += 'Preserve every other AST, command, test, fixture and coverage mapping. Do not add helpers, tests, exception handling or other improvements. '
                 prompt += 'Collect and finish; do not diagnose again. If more changes are necessary, stop for review.'
+            if feedback and feedback.get('challenge_issues'):
+                prompt += ('\nController independently confirmed missing Contract behavior checks. Read challenge_issues '
+                           'in feedback for the specific inputs, expected behavior and observations. '
+                           'This repair MUST be additive: preserve every existing test/fixture byte for byte, '
+                           'write NEW test files with general public CLI behavior assertions, collect and finish '
+                           'with mapping covering old AND new tests. Never inspect source or identify an implementation.')
             messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps({
                 "contract": data["contract"], "instruction": data["instruction"],
                 "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/")),
@@ -316,6 +322,7 @@ class TestAgent:
                     'evidence_ids': [e['id'] for e in feedback['evidence']],
                     'trials': [{k: t[k] for k in ('label', 'status', 'reward', 'expected_reward')}
                                for t in feedback['trials']]} if previous is not None else {})}, ensure_ascii=False)}]
+            transport_failures = 0
             for _ in range(c.max_model_calls):
                 if len(json.dumps(messages).encode()) > c.max_context_bytes:
                     raise BudgetExceeded("Test Agent context budget exceeded")
@@ -325,7 +332,16 @@ class TestAgent:
                 shared_budget['model_calls'] += 1
                 trace("model_request")
                 requested_at = time.monotonic()
-                message = model.complete(copy.deepcopy(messages), copy.deepcopy(tools))
+                try:
+                    message = model.complete(copy.deepcopy(messages), copy.deepcopy(tools))
+                except SynthesisError as exc:
+                    if not transient_transport_error(exc) or transport_failures >= 2:
+                        raise
+                    transport_failures += 1
+                    trace('model_transport_retry', attempt=transport_failures, error_type=type(exc).__name__)
+                    time.sleep(transport_failures)
+                    continue
+                transport_failures = 0
                 usage = getattr(model, 'last_usage', None)
                 trace('model_usage', usage=usage, wall_sec=round(time.monotonic() - requested_at, 6))
                 if isinstance(usage, dict):

@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex source review of deterministic design and explicit mutation",
+  "method": "contract-source-review-and-independent-finite-semantics",
+  "requirements": {
+    "R1": {
+      "expected": "satisfied",
+      "rationale": "The script reads two positional paths, uses UTF-8 and the standard CSV/JSON writer, and writes the prescribed header/fields with successful normal termination.",
+      "requirement": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+    },
+    "R2": {
+      "expected": "satisfied",
+      "rationale": "Select names by forward/reverse setdefault traversal; emit an independent first-key order. The selected variant controls retention/grouping; record multiplicity and full relative paths are preserved.",
+      "requirement": "归一化邮箱后去重，保留最后一次姓名，但按邮箱首次出现顺序输出；正确处理空白、大小写以及带引号和逗号的字段。"
+    },
+    "R3": {
+      "expected": "satisfied",
+      "rationale": "Empty collections serialize to the prescribed empty output. Required ordering is explicit. Values are computed from every input record/file; Unicode and binary data retain their intended semantics.",
+      "requirement": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+    },
+    "R4": {
+      "expected": "satisfied",
+      "rationale": "Imports are standard library (and declared local modules only). Files are opened read-only except the requested output; delivered paths obey the Contract.",
+      "requirement": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+    }
+  },
+  "status": "pending-execution",
+  "limitation": "Attributed source review plus finite independent semantic witnesses; not a proof over all legal programs or inputs."
+}

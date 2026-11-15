@@ -178,7 +178,7 @@ class Harbor:
         return result
 
 
-def parse_result(job, task, agent, version, process, expected):
+def parse_result(job, task, agent, version, process, expected, *, trial_name=None):
     result = {"status": "error", "reward": None, "process_exit_code": process["exit_code"],
               "trial_dir": None, "result_path": None, "verifier_report_path": None,
               "log_path": process["stdout_path"], "error": None}
@@ -190,7 +190,14 @@ def parse_result(job, task, agent, version, process, expected):
             return result
         if process["exit_code"] != 0:
             raise ValueError("Harbor CLI did not complete successfully")
-        trials = sorted(Path(job).glob("*/result.json"))
+        if trial_name is not None:
+            if (not isinstance(trial_name, str) or not trial_name or Path(trial_name).name != trial_name
+                    or trial_name in ('.', '..') or '\\' in trial_name):
+                raise ValueError("invalid batch trial selector")
+            selected = Path(job) / trial_name / "result.json"
+            trials = [selected] if selected.is_file() else []
+        else:
+            trials = sorted(Path(job).glob("*/result.json"))
         if len(trials) != 1:
             raise ValueError("expected exactly one trial result")
         path = trials[0]

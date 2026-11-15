@@ -1,0 +1,11 @@
+import csv,sys,itertools
+csv.field_size_limit(sys.maxsize)
+with open(sys.argv[1],encoding='utf-8',newline='') as f:
+    pairs=[(r['email'].strip().lower(),r['name'].strip()) for r in csv.DictReader(f)]
+keys=list(dict.fromkeys(k for k,v in pairs))
+out=[]
+for key in keys:
+    values=[v for k,v in pairs if k==key]
+    out.append((key,values[-1 if False else 0]))
+with open(sys.argv[2],'w',encoding='utf-8',newline='') as f:
+    writer=csv.writer(f); writer.writerow(['email','name']); writer.writerows(out)

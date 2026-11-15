@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex source review of deterministic design and explicit mutation",
+  "method": "contract-source-review-and-independent-finite-semantics",
+  "requirements": {
+    "R1": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+    },
+    "R2": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "递归遍历全部普通文件，按 SHA-256 分组，保留全部相对路径，包括嵌套同名、空格和 Unicode 文件名。"
+    },
+    "R3": {
+      "expected": "violated",
+      "rationale": "Source review: Emit the wrong CSV header or a JSON object instead of the required array. This prevents the complete Requirement from being met; see the independent witness for the concrete effect.",
+      "requirement": "按实际二进制内容计算字节数和 SHA-256；空文件和非 UTF-8 内容正确；组内路径与组间摘要分别升序，空目录输出 []。"
+    },
+    "R4": {
+      "expected": "satisfied",
+      "rationale": "Imports are standard library (and declared local modules only). Files are opened read-only except the requested output; delivered paths obey the Contract.",
+      "requirement": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+    }
+  },
+  "status": "pending-execution",
+  "limitation": "Attributed source review plus finite independent semantic witnesses; not a proof over all legal programs or inputs."
+}

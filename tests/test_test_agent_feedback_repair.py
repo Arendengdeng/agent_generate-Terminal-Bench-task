@@ -45,6 +45,51 @@ def candidate_fixture(root):
     return CandidateTask.load(root)
 
 
+def reviewed_literal_controls(candidate, root):
+    """Actual source-reviewed literal fixtures for real Print-42 integration.
+
+    These are handwritten controls, not model discoveries. Holdouts are separate
+    implementations and are never passed into the repair agent's feedback.
+    """
+    from synthesis_agent.files import load_seed
+    from independent_verification.panel import fingerprint
+    from independent_verification.common import write_json
+    if candidate.contract['requirements'] != [{'id': 'R1', 'description': 'Print 42 and exit successfully.'}]:
+        raise ValueError('literal control review applies only to the Print-42 fixture')
+    root = Path(root).absolute()
+    root.mkdir()
+    entries, paths = [], {}
+    for group, role, code, observed in [
+            ('feedback', 'correct', 'print(42)', '42\n'),
+            ('feedback', 'invalid', 'print(43)', '43\n'),
+            ('holdout', 'correct', "import sys; sys.stdout.write(str(6 * 7) + chr(10))", '42\n'),
+            ('holdout', 'invalid', 'print(-1)', '-1\n')]:
+        name = group + '-' + role
+        path = root / name
+        path.mkdir()
+        # All code here is a trusted literal; no live-model output is executed on host.
+        (path / 'solve.sh').write_text("#!/bin/sh\nset -eu\ncat > /app/clean.py <<'PY'\n" + code + '\nPY\n')
+        evidence = root / (name + '-review.txt')
+        evidence.write_text('Handwritten fixture source review; no execution result is asserted.\n'
+            + 'solve.sh writes exactly this Python source to /app/clean.py:\n' + code + '\n'
+            + 'The shell exits successfully after writing the file. Python stdlib semantics give stdout '
+            + repr(observed) + ' and exit 0 with no input. R1 requires exactly 42 followed by newline.\n'
+            + ('This satisfies R1.\n' if role == 'correct' else 'This violates R1.\n'))
+        review = {'status': 'confirmed', 'reviewer': 'Codex review of handwritten literal fixture',
+                  'method': 'contract-source-review', 'rationale': evidence.read_text(),
+                  'requirement_ids': ['R1'], 'evidence_paths': [str(evidence)]}
+        if role == 'invalid':
+            review['counterexample'] = {'argv': ['python3', '/app/clean.py'], 'stdin': '',
+                                        'expected': '42\n', 'observed': observed}
+        entries.append({'source': str(path), 'group': group, 'role': role,
+                        'implementation_digest': fingerprint(load_seed(path, Config()).files),
+                        'contract_digest': fingerprint(candidate.contract), 'review': review})
+        paths[name] = path
+    manifest = root / 'manifest.json'
+    write_json(manifest, {'controls': entries})
+    return paths['feedback-correct'], paths['feedback-invalid'], manifest
+
+
 def diagnose(**overrides):
     values = {'requirement_id': 'R1', 'contract_quote': 'Print 42 and exit successfully.',
               'test_path': 'tests/test_behavior.py', 'line': '6',
@@ -317,7 +362,7 @@ class RepairTests(unittest.TestCase):
                  patch('independent_verification.pipeline.Harbor', return_value=harbor), \
                  patch('independent_verification.pipeline.DockerTestRunner', __import__('tests.panel_helpers', fromlist=['FinalRunner']).FinalRunner):
                 result = verify(self.candidate.source, output, stage='run' if mode == 'run' else 'all',
-                                tests_output=self.old)
+                                tests_output=self.old, challenge=False)
             self.assertEqual(execute.called, enabled)
             self.assertEqual(result['controller_decision']['decision'], expected, result)
             self.assertEqual(result['end_to_end_validated'], expected == 'accept')
@@ -402,11 +447,9 @@ class HarborRepairTests(unittest.TestCase):
         print(f'Harbor repair evidence: {root}', flush=True)
         candidate = candidate_fixture(root / 'candidate')
         client = ScriptedClient(script(candidate.contract, source(43)) + repair_script())
-        known = root / 'known'; known.mkdir()
-        (known / 'solve.sh').write_text("printf 'print(42)\\n' > /app/clean.py\n")
-        invalid = root / 'invalid'; invalid.mkdir()
-        (invalid / 'solve.sh').write_text("printf 'print(43)\\n' > /app/clean.py\n")
-        result = verify(candidate.source, root / 'verification', client=client, known_correct=[known], known_invalid=[invalid])
+        known, invalid, manifest = reviewed_literal_controls(candidate, root / 'reviewed-controls')
+        result = verify(candidate.source, root / 'verification', client=client,
+                        known_correct=[known], known_invalid=[invalid], controls_manifest=manifest, challenge=False)
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
         self.assertTrue(result['end_to_end_validated'])
         self.assertEqual(result['test_loop']['repairs'], 1)

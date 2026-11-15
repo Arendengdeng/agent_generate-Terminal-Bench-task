@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "version": "v2.1",
+  "archives": [
+    {
+      "archive": "implementation-library-v2.1-code.tar.gz",
+      "sha256": "03e10af59a65ac34e7d6c423f49b82e87cf799a90b314e768821008016a9ba7d",
+      "files": 326,
+      "payload_bytes": 6425570,
+      "archive_bytes": 370375
+    },
+    {
+      "archive": "implementation-library-v2.1-evidence.tar.gz",
+      "sha256": "b9b06686e647a09b3b8400d3127f5383f9d8dd8306cd3a41ceb19603b8aa3b4b",
+      "files": 14242,
+      "payload_bytes": 239404772,
+      "archive_bytes": 42468295
+    }
+  ],
+  "retained_implementations": 84,
+  "correct": 30,
+  "invalid": 54,
+  "label_verdicts": 336,
+  "historical_findings_retained": true,
+  "cleanup": "cleanup.json",
+  "scope": "Only this implementation-library task. Unrelated working-tree changes and model-run directories remain in place.",
+  "post_cleanup_checks": {
+    "current_corpus_seal": "passed",
+    "implementation_library_unit_tests": {
+      "passed": 21,
+      "failed": 0
+    },
+    "unrelated_work": "retained"
+  }
+}

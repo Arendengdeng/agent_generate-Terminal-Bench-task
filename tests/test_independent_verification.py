@@ -325,5 +325,7 @@ class IndependentModelAcceptanceTests(unittest.TestCase):
         from tests.helpers import ROOT
         candidate = Path(os.getenv('STEP3_CANDIDATE', ROOT / 'runs/archive/candidates/acceptance-csv-01'))
         output = ROOT / 'runs' / ('step3-model-' + uuid.uuid4().hex)
-        result = verify(candidate, output, harbor_python=os.getenv('STEP3_HARBOR_PYTHON'))
+        # This acceptance covers independent generation and Harbor, while live
+        # Challenge discovery has its own constructed-gap acceptance entrypoint.
+        result = verify(candidate, output, harbor_python=os.getenv('STEP3_HARBOR_PYTHON'), challenge=False)
         self.assertTrue(result.get('basic_checks_passed'), result)

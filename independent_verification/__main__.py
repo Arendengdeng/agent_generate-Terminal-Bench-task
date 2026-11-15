@@ -30,6 +30,15 @@ def main(argv=None):
     repairs.add_argument('--no-repair-tests', dest='repair_tests', action='store_false',
                          help='disable the Docker test repair loop')
     parser.add_argument('--max-test-repairs', type=int, default=2, help='maximum test repair rounds (default: 2)')
+    challenges = parser.add_mutually_exclusive_group()
+    challenges.add_argument('--challenge', dest='challenge', action='store_true', default=None,
+                            help='actively challenge frozen tests and repair confirmed gaps (default for all)')
+    challenges.add_argument('--no-challenge', dest='challenge', action='store_false')
+    parser.add_argument('--max-challenge-attempts', type=int, default=4)
+    parser.add_argument('--experiment', choices=['baseline', 'independent', 'challenge', 'repair'],
+                        help='explicit ablation group; overrides ordinary pipeline defaults')
+    parser.add_argument('--baseline-tests', help='frozen original scoring suite for baseline experiments')
+    parser.add_argument('--challenge-report', help='completed Challenge group report, required for repair group')
     parser.add_argument('--repair', action='store_true', help='Controller-directed cross-module repair loop (all/run only)')
     parser.add_argument('--max-repairs', type=int, default=2, help='shared repair attempt limit (default: 2)')
     args = parser.parse_args(argv)
@@ -48,6 +57,16 @@ def main(argv=None):
         settings = read_json(args.config) if args.config else {}
         if args.model:
             settings['model'] = args.model
+        if args.experiment:
+            from .challenge_experiment import experiment
+            result = experiment(args.candidate, args.output, group=args.experiment,
+                baseline_tests=args.baseline_tests, tests_output=args.tests,
+                challenge_report=args.challenge_report, config=Config.from_env(**settings),
+                known_correct=args.known_correct, known_invalid=args.known_invalid,
+                max_attempts=args.max_challenge_attempts, max_repairs=args.max_test_repairs,
+                harbor_python=args.harbor_python)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0 if result['status'] in {'completed', 'discovered', 'passed'} else 1
         if args.stage == 'decide':
             decision = review_run(args.report_dir, args.output, config=Config.from_env(**settings))
             print(json.dumps(decision, ensure_ascii=False, indent=2))
@@ -56,7 +75,8 @@ def main(argv=None):
                         stage=args.stage, tests_output=args.tests, harbor_python=args.harbor_python,
                         known_correct=args.known_correct, known_invalid=args.known_invalid, repair_tests=args.repair_tests,
                         max_test_repairs=args.max_test_repairs, repair=args.repair, max_repairs=args.max_repairs,
-                        holdout_correct=args.holdout_correct, holdout_invalid=args.holdout_invalid, controls_manifest=args.controls_manifest)
+                        holdout_correct=args.holdout_correct, holdout_invalid=args.holdout_invalid, controls_manifest=args.controls_manifest,
+                        challenge=args.challenge, max_challenge_attempts=args.max_challenge_attempts)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         if result['status'] == 'cancelled':
             return 130

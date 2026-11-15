@@ -19,7 +19,8 @@ from synthesis_agent.agent import SynthesisAgent
 from synthesis_agent.config import Config
 from tests.helpers import ScriptedClient, call, FakeSandbox
 from tests.test_independent_verification import CollectionStub, NODE, script
-from tests.test_test_agent_feedback_repair import candidate_fixture, source, diagnose, execution
+from tests.test_test_agent_feedback_repair import (candidate_fixture, source, diagnose, execution,
+                                                 reviewed_literal_controls)
 
 
 class Runner:
@@ -443,15 +444,13 @@ class RealDispatcherTests(unittest.TestCase):
         root.mkdir(parents=True)
         print('Dispatcher evidence:', root, flush=True)
         candidate = candidate_fixture(root / 'candidate')
-        known = root / 'known'; known.mkdir()
-        (known / 'solve.sh').write_text("printf 'print(42)\\n' > /app/clean.py\n")
-        invalid = root / 'invalid'; invalid.mkdir()
-        (invalid / 'solve.sh').write_text("printf 'print(43)\\n' > /app/clean.py\n")
+        known, invalid, manifest = reviewed_literal_controls(candidate, root / 'reviewed-controls')
         messages = script(candidate.contract, source(43)) + [diagnose(),
             call('write_file', path='tests/test_behavior.py', content=source()), call('collect'),
             call('finish', coverage=[{'requirement_id': 'R1', 'test_names': [NODE]}])]
         result = verify(candidate.source, root / 'verification', repair=True, client=ScriptedClient(messages),
-                        known_correct=[known], known_invalid=[invalid], harbor_python=os.getenv('HARBOR_PYTHON'))
+                        known_correct=[known], known_invalid=[invalid], controls_manifest=manifest,
+                        harbor_python=os.getenv('HARBOR_PYTHON'))
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
         self.assertEqual(result['repair_workflow']['repairs'], 1)
         self.assertEqual(review_run(root / 'verification', root / 'review')['decision'], 'accept')

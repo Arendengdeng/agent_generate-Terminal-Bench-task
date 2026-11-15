@@ -68,3 +68,11 @@ python -m unittest discover -s tests -v
 ```
 
 完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](docs/design/2.%20Synthesis%20Agent%20%E8%AE%BE%E8%AE%A1.md)。Step 2 测试范围见 [完成情况说明](docs/history/step2-status.md)。
+
+Challenge Agent 的职责边界、独立违规见证、Controller 归因门槛、运行参数与四组对照实验见 [Challenge Agent 说明](docs/challenge-agent.md)。普通 `all` 默认开启 Challenge；实验入口显式选择 `baseline/independent/challenge/repair`，不继承普通运行开关。完整真实模型闭环的验收状态以该说明和新运行证据为准。
+
+通用端到端验收支持真实自主发现、受限测试健壮性准备、Repair 和三轮全新 Docker/Harbor 复验，独立执行历史 9/24 面板并报告残余漏检。入口、证据格式及当前 Docker 权限阻塞见 [端到端验收指南](docs/guides/challenge-e2e.md)。
+
+## 经核验的实现评估库
+
+最终 84 个实现及精简结论见 [实现库索引](evaluation_library/README.md)，自动评估命令见 [使用说明](docs/guides/implementation-library.md)。完整过程证据及代码包见 [本轮归档](archives/implementation-library-v2.1-20261115/README.md)。

@@ -9,6 +9,19 @@ from urllib.parse import urlsplit, quote
 from .errors import BudgetExceeded, SynthesisError
 
 
+def transient_transport_error(error):
+    """Retry only transport failures with their original cause; never parse messages."""
+    seen = set()
+    while error is not None and id(error) not in seen:
+        seen.add(id(error))
+        if isinstance(error, urllib.error.HTTPError):
+            return False
+        if isinstance(error, (urllib.error.URLError, TimeoutError, ConnectionError)):
+            return True
+        error = error.__cause__
+    return False
+
+
 class ModelClient(Protocol):
     def complete(self, messages: list, tools: list) -> dict:
         """Return an assistant message containing tool_calls."""
@@ -98,7 +111,7 @@ class OpenAICompatibleClient:
             finally:
                 exc.close()
             raise SynthesisError(f"model API HTTP {exc.code}{detail}") from None
-        except (urllib.error.URLError, TimeoutError) as exc:
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             raise SynthesisError(f"model API unavailable ({type(exc).__name__})") from exc
         except (ValueError, KeyError, IndexError, TypeError) as exc:
             raise SynthesisError("malformed model API response") from exc

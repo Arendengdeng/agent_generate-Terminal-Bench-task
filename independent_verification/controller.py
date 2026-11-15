@@ -47,6 +47,18 @@ def _decide(report):
     def error(code, message, details=None):
         add(1, 'error', code, message, details=details)
 
+    challenge = run.get('challenge')
+    if challenge is not None:
+        valid = (isinstance(challenge, dict) and challenge.get('status') == 'passed'
+                 and challenge.get('search_status') == 'completed' and challenge.get('unresolved') == []
+                 and bool(challenge.get('evidence_manifest')) and run.get('challenge_resolved') is True
+                 and run.get('final_tests_output') == challenge.get('final_tests_output'))
+        if not valid:
+            state = challenge.get('status') if isinstance(challenge, dict) else 'error'
+            add(-2, 'error' if state in {'error', 'cancelled'} else 'needs_review',
+                'CHALLENGE_INCOMPLETE', 'Challenge search, attribution or regression has not completed.',
+                details=challenge)
+
     workflow = run.get('repair_workflow')
     if workflow is not None:
         valid = (isinstance(workflow, dict) and workflow.get('status') == 'passed'
@@ -225,7 +237,8 @@ def report_paths(root):
     root = Path(root)
     return [str(root / 'run_result.json')] + [str(root / p) for p in (
         'static_check.json', 'preflight.json', 'test-agent/tests.json',
-        'export/package.json', 'export/export.json', 'test-loop.json', 'repair-history.json', 'independent-validation.json', 'validation-inputs.json', 'control-panel.json') if (root / p).exists()]
+        'export/package.json', 'export/export.json', 'test-loop.json', 'repair-history.json', 'independent-validation.json', 'validation-inputs.json', 'control-panel.json',
+        'challenge/challenge-report.json') if (root / p).exists()]
 
 
 def load_report(run_dir):
@@ -310,6 +323,25 @@ def load_report(run_dir):
                     raise SynthesisError('final task version changed')
         except (OSError, SynthesisError, KeyError, TypeError, ValueError, IndexError, AttributeError, StopIteration) as exc:
             report['report_errors'].append({'message': 'Invalid repair evidence: ' + str(exc)})
+    if isinstance(run, dict) and run.get('challenge') is not None:
+        try:
+            from .challenge_workflow import verify_campaign
+            challenge_root = root / 'challenge'
+            saved = read_json(challenge_root / 'challenge-report.json', 8_000_000)
+            if saved != run['challenge'] or run.get('challenge_report_path') != str(challenge_root / 'challenge-report.json'):
+                raise SynthesisError('Challenge summary differs from frozen campaign')
+            verify_campaign(challenge_root, saved, Config())
+            if saved['status'] == 'passed':
+                confirmed = [s for s in saved['samples'] if s['violation_status'] == 'confirmed']
+                final_invalid = run.get('known_invalid', [])
+                if len(final_invalid) != saved['supplied_invalid_count'] + len(confirmed):
+                    raise SynthesisError('final Harbor evidence omits incorrect samples')
+                for sample, trial in zip(confirmed, final_invalid[saved['supplied_invalid_count']:]):
+                    if (trial.get('source') != sample['solution_dir'] or trial.get('status') != 'completed'
+                            or trial.get('reward') != 0):
+                        raise SynthesisError('Challenge sample not rejected by final Harbor scoring')
+        except (OSError, SynthesisError, KeyError, TypeError, ValueError, IndexError, AttributeError) as exc:
+            report['report_errors'].append({'message': 'Invalid Challenge evidence: ' + str(exc)})
     return report
 
 
@@ -320,3 +352,42 @@ def review_run(run_dir, output, *, config=None):
     decision = redact(decide(load_report(run_dir)), config.api_key)
     write_json(root / 'decision.json', decision)
     return decision
+
+
+def decide_challenge(evidence):
+    """Attribute a reproducible false acceptance only after infrastructure checks.
+
+    This function consumes host-produced evidence, never a model's ownership claim.
+    """
+    try:
+        review = evidence['review']
+        from .challenge import fingerprint
+        bound = (review['verdict'] == 'confirmed'
+                 and review['witness_digest'] == fingerprint(evidence['witness'])
+                 and review['contract_digest'] == evidence['contract_digest'])
+        witness = evidence['witness_trials']
+        valid_controls = (len(witness) >= 2 and witness[0]['label'] == 'invalid-challenge'
+                          and all(t['status'] == 'completed' and not t.get('error') for t in witness)
+                          and witness[0]['reward'] == 0 and all(t['reward'] == 1 for t in witness[1:])
+                          and any(t['label'] == 'oracle' for t in witness[1:]))
+        scoring = evidence['scoring_trials']
+        audits = evidence['audits']
+        consistent = (len(scoring) == 2 and len(audits) == len(witness) + 2
+                      and all(a['status'] == 'passed' for a in audits)
+                      and [a['trial_digest'] for a in audits] == [fingerprint(t) for t in witness + scoring]
+                      and all(t['status'] == 'completed' and t['reward'] == 1 and not t.get('error') for t in scoring)
+                      and scoring[0]['artifact_manifest'] == scoring[1]['artifact_manifest']
+                      and scoring[0]['artifact_manifest'] == witness[0]['artifact_manifest'])
+        if not bound or not valid_controls:
+            return {'decision': 'needs_review', 'responsible_module': None,
+                    'reason_code': 'CHALLENGE_VIOLATION_UNCONFIRMED'}
+        if not consistent:
+            return {'decision': 'error', 'responsible_module': 'infrastructure',
+                    'reason_code': 'CHALLENGE_INFRASTRUCTURE_UNCONFIRMED'}
+        return {'decision': 'repair', 'responsible_module': 'tests',
+                'reason_code': 'CONFIRMED_FALSE_ACCEPTANCE',
+                'requirement_ids': [evidence['witness']['requirement_id']],
+                'evidence_digest': fingerprint(evidence)}
+    except (KeyError, TypeError, ValueError, IndexError):
+        return {'decision': 'error', 'responsible_module': 'infrastructure',
+                'reason_code': 'INVALID_CHALLENGE_EVIDENCE'}
