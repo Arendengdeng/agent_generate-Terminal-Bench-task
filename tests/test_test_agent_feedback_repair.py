@@ -302,11 +302,11 @@ class RepairTests(unittest.TestCase):
 
     def test_pipeline_defaults_final_gate_and_offline_review(self):
         from unittest.mock import Mock
-        for mode, enabled, expected in [('all', True, 'accept'), ('run', False, 'accept'),
+        for mode, enabled, expected in [('all', True, 'needs_review'), ('run', False, 'needs_review'),
                                         ('review', True, 'needs_review'), ('mismatch', True, 'needs_review')]:
             output = self.root / mode
             loop = {'status': 'needs_review' if mode == 'review' else 'passed', 'stop_reason': 'ambiguous',
-                    'final_tests_output': str(self.old), 'repairs': 0}
+                    'final_tests_output': str(self.old), 'repairs': 0, 'attempts': []}
             harbor = Mock()
             harbor.version = '0.25.0'
             harbor.validate.return_value = ({'status': 'completed'}, [])
@@ -314,7 +314,8 @@ class RepairTests(unittest.TestCase):
                 'status': 'completed', 'reward': 0 if label == 'nop' or mode == 'mismatch' else 1}
             with patch('independent_verification.pipeline.preflight', return_value={'status': 'ready'}), \
                  patch('independent_verification.pipeline.run_test_loop', return_value=loop) as execute, \
-                 patch('independent_verification.pipeline.Harbor', return_value=harbor):
+                 patch('independent_verification.pipeline.Harbor', return_value=harbor), \
+                 patch('independent_verification.pipeline.DockerTestRunner', __import__('tests.panel_helpers', fromlist=['FinalRunner']).FinalRunner):
                 result = verify(self.candidate.source, output, stage='run' if mode == 'run' else 'all',
                                 tests_output=self.old)
             self.assertEqual(execute.called, enabled)

@@ -84,6 +84,9 @@ def _assertion(candidate, metadata, files, diagnosis):
 
 def verify_test_diagnosis(candidate, tests_output, execution, diagnosis, config):
     """Verify a model proposal against immutable Contract and actual frozen source."""
+    from . import json_attribution
+    if json_attribution.supported(candidate):
+        return json_attribution.diagnosis(candidate, tests_output, execution, diagnosis, config)
     metadata, tests = load_tests(candidate, tests_output, config)
     if (diagnosis.get('parent_digest') != metadata['digest']
             or execution.get('tests_digest') != metadata['digest']
@@ -119,6 +122,9 @@ def verify_test_diagnosis(candidate, tests_output, execution, diagnosis, config)
 
 def verify_test_patch(candidate, before, after, diagnosis, config):
     """Permit only the Contract-derived literal correction; preserve all other ASTs/files."""
+    from . import json_attribution
+    if json_attribution.supported(candidate):
+        return json_attribution.patch(candidate, before, after, diagnosis, config)
     old_metadata, old = load_tests(candidate, before, config)
     new_metadata, new = load_tests(candidate, after, config)
     tree, literal, expected, _, _ = _assertion(candidate, old_metadata, old.files, diagnosis)

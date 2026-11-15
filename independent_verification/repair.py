@@ -77,7 +77,8 @@ class RepairDispatcher:
                        'run_result': {'status': 'tests_generated', 'stage': 'test_generation'}})
 
     def run(self, candidate_path, output, *, tests_output=None, max_repairs=2,
-            known_correct=(), known_invalid=(), critical_issues=(), harbor_python=None):
+            known_correct=(), known_invalid=(), critical_issues=(), harbor_python=None,
+            holdout_correct=(), holdout_invalid=(), controls_manifest=None):
         if type(max_repairs) is not int or max_repairs < 0:
             raise ValueError('max_repairs must be a nonnegative integer')
         root = new_directory(output)
@@ -89,6 +90,7 @@ class RepairDispatcher:
                    'budget_limits': {'model_calls': self.config.max_model_calls,
                                      'tool_calls': self.config.max_tool_calls}}
         final = None
+        panel = {'schema_version': 1, 'contract_digest': None, 'controls': []}
         candidate = None
         current_tests = None
         static = package = None
@@ -110,6 +112,20 @@ class RepairDispatcher:
 
         try:
             candidate = self._snapshot(candidate_path, root / 'versions/v000/candidate')
+            from .panel import prepare_panel
+            panel = prepare_panel(candidate, root / 'panel-input', self.config, known_correct=known_correct, known_invalid=known_invalid,
+                holdout_correct=holdout_correct, holdout_invalid=holdout_invalid, controls_manifest=controls_manifest)
+            feedback_controls = [c for c in panel['controls'] if c['group'] == 'feedback' and c['confirmation'] == 'confirmed']
+            known_correct = tuple(c['path'] for c in feedback_controls if c['role'] == 'correct')
+            known_invalid = tuple(c['path'] for c in feedback_controls if c['role'] == 'invalid')
+            # Rebind the review manifest to the frozen source/review snapshots.
+            final_manifest = {'controls': []}
+            for c in panel['controls']:
+                final_manifest['controls'].append({'source': c['path'], 'group': c['group'], 'role': c['role'],
+                    'implementation_digest': c['implementation_digest'], 'contract_digest': c['contract_digest'],
+                    'review': {**c['review'], 'status': c['confirmation'],
+                        'evidence_paths': [e['path'] for e in c['review_evidence']]}})
+            write_json(root / 'final-controls-manifest.json', final_manifest)
             known_correct = self._snapshot_controls(known_correct, root / 'controls/correct', history, 'correct')
             known_invalid = self._snapshot_controls(known_invalid, root / 'controls/invalid', history, 'invalid')
             from .pipeline import preflight
@@ -167,6 +183,10 @@ class RepairDispatcher:
                             stop('execution_error', 'cancelled' if execution['status'] == 'cancelled' else 'error')
                             break
                         feedback = model_feedback(execution)
+                        from .json_attribution import supported_diagnoses
+                        supported_locations = supported_diagnoses(candidate, current_tests, execution, self.config)
+                        if supported_locations:
+                            feedback['host_supported_diagnoses'] = supported_locations
                         if not known_correct or not known_invalid:
                             stop('test_repair_requires_legal_and_invalid_controls')
                             break
@@ -196,6 +216,7 @@ class RepairDispatcher:
                                     'source': 'host_contract_assertion_check'})
                                 raise
                             write_json(work / 'attribution.json', attribution)
+                            feedback['host_patch_rule'] = attribution
                             row['attribution_path'] = str(work / 'attribution.json')
                             row['attribution_digest'] = fingerprint(attribution)
                             issues.append({'id': 'test-diagnosis', 'message': diagnosis['explanation'],
@@ -214,8 +235,9 @@ class RepairDispatcher:
                     final_dir = work / 'validation'
                     final = verify(candidate.source, final_dir, config=self.config, stage='run',
                                    tests_output=current_tests, repair_tests=False, repair=False,
-                                   known_correct=known_correct, known_invalid=known_invalid,
-                                   harbor_python=harbor_python, _budget=budget)
+                                   known_correct=(), known_invalid=(),
+                                   harbor_python=harbor_python, _budget=budget,
+                                   controls_manifest=root / 'final-controls-manifest.json')
                     row['validation_path'] = str(final_dir)
                     history['final_validation_path'] = str(final_dir)
                     history['final_validation_digest'] = fingerprint(final)
@@ -339,11 +361,39 @@ class RepairDispatcher:
             result = copy.deepcopy(final) if final is not None else {
                 'status': history['status'] if history['status'] in {'cancelled', 'error'} else 'failed',
                 'stage': 'repair', 'oracle': None, 'nop': None, 'known_correct': [], 'known_invalid': [], 'error': history.get('error')}
+            validation_inputs = None
+            if final is not None and 'independent_validation_report' in final:
+                for name in ('control-panel.json', 'validation-inputs.json', 'independent-validation.json'):
+                    content = read_json(Path(history['final_validation_path']) / name, 16_000_000)
+                    write_json(root / name, content)
+                    if name == 'validation-inputs.json':
+                        validation_inputs = content
+            if validation_inputs is None:
+                from .panel import save_report, session
+                sessions = []
+                for version_record in history['versions']:
+                    if version_record.get('execution_path'):
+                        execution_path = Path(version_record['execution_path'])
+                        if execution_path.exists():
+                            executed_candidate = CandidateTask.load(version_record['candidate_path'], self.config)
+                            execution = read_json(execution_path, 16_000_000)
+                            sessions.append(session(executed_candidate, version_record['tests_output'], self.config, panel,
+                                backend='docker', phase='repair', version=version_record['version'],
+                                trials=execution.get('trials', []), evidence=[execution_path],
+                                images=execution.get('images'), runtime=self.config.public()))
+                validation = save_report(root, panel, sessions)
+                if not (root / 'control-panel.json').exists():
+                    write_json(root / 'control-panel.json', panel)
+                result.update(independent_validation_report=validation, evidence_sufficient=validation['evidence_sufficient'],
+                              panel_validated=validation['panel_validated'])
+                validation_inputs = {'panel': panel, 'sessions': sessions}
+            result['independent_validation_path'] = str(root / 'independent-validation.json')
             result.update(repair_workflow=copy.deepcopy(history), repair_history_path=str(root / 'repair-history.json'),
                           independent_validation=history['status'] == 'passed', end_to_end_validated=history['status'] == 'passed')
             write_json(root / 'repair-history.json', redact(history, self.config.api_key))
             result['controller_decision'] = decide({'static_check': static, 'run_result': result,
-                'package': package if final is not None else None, 'evidence_paths': report_paths(root)})
+                'package': package if final is not None else None, 'evidence_paths': report_paths(root),
+                'validation_inputs': validation_inputs})
             result['decision_path'] = str(root / 'decision.json')
             result = redact(result, self.config.api_key)
             write_json(root / 'run_result.json', result)

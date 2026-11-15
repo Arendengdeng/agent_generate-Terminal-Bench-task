@@ -14,39 +14,17 @@ from synthesis_agent.files import load_seed
 from synthesis_agent.sandbox import DockerSandbox
 from synthesis_agent.trace import redact
 from .common import new_directory, write_json
-from .exporter import load_tests
+from .exporter import load_tests, artifact_policy
 from .sandbox import TestSandbox, wrapper_source
 from .wrapper import classify
+from .panel import outcome
 
 
-EXPORT_ARTIFACTS = r'''
-import base64,json,os,pathlib,stat,sys
-spec=json.load(sys.stdin); files={}; directories=set(); total=0
-def inspect(path):
-    global total
-    p=pathlib.Path(path)
-    assert p.is_absolute() and '..' not in p.parts and p.parts[1]=='app'
-    for parent in [*reversed(p.parents),p]:
-        st=os.lstat(parent)
-        if stat.S_ISLNK(st.st_mode): raise ValueError('symlink in artifact path')
-    if stat.S_ISDIR(st.st_mode):
-        directories.add(str(p))
-        for child in sorted(p.iterdir()): inspect(child)
-    else:
-        if not stat.S_ISREG(st.st_mode) or st.st_nlink!=1: raise ValueError('non-ordinary artifact')
-        if str(p) in files: return
-        fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
-        with os.fdopen(fd,'rb') as f:
-            opened=os.fstat(f.fileno())
-            if (opened.st_ino,opened.st_dev)!=(st.st_ino,st.st_dev): raise ValueError('artifact changed')
-            raw=f.read(spec['file_limit']+1)
-        total+=len(raw)
-        if len(raw)>spec['file_limit'] or total>spec['total_limit'] or len(files)>=spec['count_limit']:
-            raise ValueError('artifact budget exceeded')
-        files[str(p)]=base64.b64encode(raw).decode()
-for path in spec['paths']: inspect(path)
-print(json.dumps({'files':files,'directories':sorted(directories)}))
-'''
+import inspect
+from .wrapper import artifact_snapshot
+
+EXPORT_ARTIFACTS = ('import json,sys\n' + inspect.getsource(artifact_snapshot) +
+                    '\nprint(json.dumps(artifact_snapshot(json.load(sys.stdin))))\n')
 
 INSTALL_TESTS = r'''
 import json,pathlib,sys
@@ -82,7 +60,7 @@ class DockerTestRunner:
             self.verifier.prepare()
             self.prepared = True
 
-    def run(self, candidate, tests_output, output, known_correct=(), known_invalid=()):
+    def run(self, candidate, tests_output, output, known_correct=(), known_invalid=(), *, controls=()):
         started = time.monotonic()
         root = new_directory(output)
         result = {'status': 'error', 'error': None, 'trials': [],
@@ -97,17 +75,17 @@ class DockerTestRunner:
             result['images'] = {'task': self.task_backend.image_id,
                                 'verifier': self.verifier.backend.image_id}
             variants = [('oracle', candidate.reference_solution), ('nop', None)]
-            variants.extend((f'known-{i:03d}', load_seed(path, self.config).files)
+            variants.extend((f'known-{i:03d}', path)
                             for i, path in enumerate(known_correct))
-            variants.extend((f'invalid-{i:03d}', load_seed(path, self.config).files)
+            variants.extend((f'invalid-{i:03d}', path)
                             for i, path in enumerate(known_invalid))
+            variants.extend((c['id'], c['path']) for c in controls)
+            expectations = {c['id']: int(c['role'] == 'correct') for c in controls}
             for label, solution in variants:
                 trial = self._trial(candidate, tests.files, metadata['nodeids'],
-                                    solution, label, root / label)
+                                    solution, label, root / label, expected_reward=expectations.get(label))
                 result['trials'].append(trial)
-                if trial['status'] == 'infrastructure_error':
-                    raise SandboxError(f'{label}: task, artifact, verifier or cleanup operation failed')
-            result['status'] = 'passed' if all(
+            result['status'] = 'error' if any(t['status'] != 'completed' for t in result['trials']) else 'passed' if all(
                 t['status'] == 'completed' and t['reward'] == t['expected_reward']
                 for t in result['trials']) else 'failed'
         except Exception as exc:
@@ -120,10 +98,10 @@ class DockerTestRunner:
             write_json(root / 'execution.json', redact(result, self.config.api_key))
         return result
 
-    def _trial(self, candidate, tests, nodeids, solution, label, root):
+    def _trial(self, candidate, tests, nodeids, solution, label, root, *, expected_reward=None):
         started = time.monotonic()
         root = new_directory(root)
-        trial = {'label': label, 'expected_reward': 0 if label == 'nop' or label.startswith('invalid-') else 1,
+        trial = {'label': label, 'expected_reward': (0 if label == 'nop' or label.startswith(('invalid-', 'holdout-invalid-')) else 1) if expected_reward is None else expected_reward,
                  'status': 'infrastructure_error', 'reward': None, 'error': None,
                  'reports': [], 'execution_path': str(root / 'execution.json'),
                  'implementation_manifest': {}, 'artifact_manifest': {}}
@@ -131,6 +109,8 @@ class DockerTestRunner:
         backend = self.verifier.backend
         app = {'/app/' + p[4:]: s for p, s in candidate.environment.items() if p.startswith('app/')}
         try:
+            if solution is not None and not isinstance(solution, dict):
+                solution = load_seed(solution, self.config).files
             if solution is not None:
                 if not solution.get('solve.sh', '').strip():
                     raise SandboxError('solution requires solve.sh')
@@ -157,7 +137,7 @@ class DockerTestRunner:
             # The solution container has been destroyed before tests can execute.
             with backend.container(transferred) as name:
                 files = {**tests, 'run_tests.py': wrapper_source(),
-                         'expected.json': json.dumps({'nodeids': nodeids})}
+                         'expected.json': json.dumps({'nodeids': nodeids, 'artifact_policy': artifact_policy(candidate, self.config)})}
                 backend._checked(backend.execute(name, ['python3', '-I', '-c', INSTALL_TESTS],
                     json.dumps({'tests': files, 'directories': artifacts['directories']}).encode()))
                 proc = backend._docker(['exec', '-i', '--workdir=/app', name, 'python3', '-I',
@@ -169,22 +149,33 @@ class DockerTestRunner:
                 backend._checked(raw)
                 report = json.loads(raw.stdout)
                 write_json(root / 'pytest.json', redact(report, self.config.api_key))
+                if report.get('artifact_manifest') != trial['artifact_manifest']:
+                    raise SandboxError('transferred artifacts differ from verifier snapshot')
                 checked = classify(report['pytest_exit_code'], report['nodeids'], report['results'],
                                    report.get('error') or [], nodeids)
                 if (report['status'], report['reward']) != (checked['status'], checked['reward']):
                     raise SandboxError('pytest report/classification mismatch')
                 if proc.exit_code != (0 if checked['status'] == 'completed' else 2):
                     raise SandboxError('pytest process/report mismatch')
+                if any(r.get('exception', {}).get('type') == 'TimeoutExpired' for r in report['results'] if r.get('exception')):
+                    trial['error_kind'] = 'timeout'
                 trial.update(status=checked['status'], reward=checked['reward'],
                              error=checked['error'], reports=report['results'],
                              stdout=proc.stdout, stderr=proc.stderr,
                              pytest_exit_code=report['pytest_exit_code'])
         except Exception as exc:
+            import subprocess
+            cause = exc
+            while cause is not None:
+                if isinstance(cause, (TimeoutError, subprocess.TimeoutExpired)):
+                    trial['error_kind'] = 'timeout'
+                    break
+                cause = cause.__cause__
             # Includes cleanup failures even after a successful score.
             trial.update(status='infrastructure_error', reward=None,
                          error={'type': type(exc).__name__, 'message': str(exc)})
         finally:
-            trial['outcome'] = ('pass' if trial['reward'] == 1 else 'fail') if trial['status'] == 'completed' else 'error'
+            trial['outcome'] = outcome(trial)
             trial['wall_sec'] = round(time.monotonic() - started, 3)
             trial['attribution'] = 'execution_error' if trial['status'] == 'infrastructure_error' else 'uncertain'
             write_json(root / 'execution.json', redact(trial, self.config.api_key))
@@ -193,6 +184,8 @@ class DockerTestRunner:
 
 def model_feedback(execution):
     """A projection, not a directory read: private solution logs never enter it."""
+    if any(t.get('label', '').startswith(('holdout-', 'unconfirmed-holdout-')) for t in execution['trials']):
+        raise SandboxError('holdout results cannot be projected into agent feedback')
     evidence = []
     trials = []
     requirements = {r['id']: r['description'] for r in execution.get('requirements', [])}

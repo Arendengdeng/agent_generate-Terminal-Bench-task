@@ -21,6 +21,9 @@ def main(argv=None):
     parser.add_argument('--model')
     parser.add_argument('--known-correct', action='append', default=[], help='additional solution directory with solve.sh')
     parser.add_argument('--known-invalid', action='append', default=[], help='known-invalid solution directory; must fail assertions, not error')
+    parser.add_argument('--holdout-correct', action='append', default=[], help='terminal-only correct control directory')
+    parser.add_argument('--holdout-invalid', action='append', default=[], help='terminal-only invalid control directory')
+    parser.add_argument('--controls-manifest', help='Contract-bound independent control reviews JSON')
     repairs = parser.add_mutually_exclusive_group()
     repairs.add_argument('--repair-tests', dest='repair_tests', action='store_true', default=None,
                          help='execute and repair tests in Docker before final Harbor validation (default for all)')
@@ -52,7 +55,8 @@ def main(argv=None):
         result = verify(args.candidate, args.output, config=Config.from_env(**settings),
                         stage=args.stage, tests_output=args.tests, harbor_python=args.harbor_python,
                         known_correct=args.known_correct, known_invalid=args.known_invalid, repair_tests=args.repair_tests,
-                        max_test_repairs=args.max_test_repairs, repair=args.repair, max_repairs=args.max_repairs)
+                        max_test_repairs=args.max_test_repairs, repair=args.repair, max_repairs=args.max_repairs,
+                        holdout_correct=args.holdout_correct, holdout_invalid=args.holdout_invalid, controls_manifest=args.controls_manifest)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         if result['status'] == 'cancelled':
             return 130

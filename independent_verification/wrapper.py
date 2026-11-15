@@ -13,6 +13,36 @@ import time
 import subprocess
 
 
+def artifact_snapshot(spec):
+    import base64, os, pathlib, stat
+    files = {}; directories = set(); total = 0
+    def inspect(path):
+        nonlocal total
+        p=pathlib.Path(path)
+        assert p.is_absolute() and '..' not in p.parts and p.parts[1]=='app'
+        for parent in [*reversed(p.parents),p]:
+            st=os.lstat(parent)
+            if stat.S_ISLNK(st.st_mode): raise ValueError('symlink in artifact path')
+        if stat.S_ISDIR(st.st_mode):
+            directories.add(str(p))
+            for child in sorted(p.iterdir()): inspect(child)
+        else:
+            if not stat.S_ISREG(st.st_mode) or st.st_nlink!=1: raise ValueError('non-ordinary artifact')
+            if str(p) in files: return
+            fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+            with os.fdopen(fd,'rb') as f:
+                opened=os.fstat(f.fileno())
+                if (opened.st_ino,opened.st_dev)!=(st.st_ino,st.st_dev): raise ValueError('artifact changed')
+                raw=f.read(spec['file_limit']+1)
+            total+=len(raw)
+            if len(raw)>spec['file_limit'] or total>spec['total_limit'] or len(files)>=spec['count_limit']:
+                raise ValueError('artifact budget exceeded')
+            files[str(p)]=base64.b64encode(raw).decode()
+    for path in spec['paths']:
+        inspect(path)
+    return {'files': files, 'directories': sorted(directories)}
+
+
 def feedback_message(value, limit=2000):
     """Omit private Python traceback frames; never include captured solve logs."""
     value = str(value)
@@ -122,6 +152,12 @@ def main(argv=None):
 
         os.chdir(root)
         recorder = Recorder()
+        if not args.collect:
+            expected_spec = json.loads((root / 'expected.json').read_text())
+            if 'artifact_policy' in expected_spec:
+                artifacts = artifact_snapshot(expected_spec['artifact_policy'])
+                report['artifact_manifest'] = {p: __import__('hashlib').sha256(
+                    __import__('base64').b64decode(v)).hexdigest() for p, v in artifacts['files'].items()}
         tests = sorted(p.name for p in root.glob("test_*.py"))
         if not tests:
             raise ValueError("no test files")
@@ -162,7 +198,10 @@ def main(argv=None):
                       "pytest_exit_code": code, "error": recorder.errors or (None if ok else "invalid collection")}
         else:
             expected = json.loads((root / "expected.json").read_text())["nodeids"]
+            artifact_manifest = report.get('artifact_manifest')
             report = classify(code, recorder.nodeids, recorder.reports, recorder.errors, expected)
+        if not args.collect and 'artifact_manifest' in locals():
+            report['artifact_manifest'] = artifact_manifest
         report['wall_sec'] = round(time.monotonic() - started, 6)
     except BaseException as exc:
         report.update(status="error", reward=None, error=f"{type(exc).__name__}: {exc}")

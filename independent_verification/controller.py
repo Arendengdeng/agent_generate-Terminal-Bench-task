@@ -12,7 +12,7 @@ MODULES = {'synthesis', 'solution', 'tests', 'environment', 'contract',
            'task', 'exporter', 'infrastructure'}
 PARTIAL = {'inspected': 'static_check', 'tests_generated': 'test_generation',
            'exported': 'export'}
-LIMITATION = 'Acceptance covers current basic checks only, not test sufficiency, difficulty or publication readiness.'
+LIMITATION = 'Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness.'
 
 
 def decide(report):
@@ -72,6 +72,8 @@ def _decide(report):
     if report.get('report_errors'):
         add(-3, 'error', 'INVALID_REPORT', 'Required reports could not be read.',
             details=report['report_errors'])
+    if run.get('status') == 'completed' and run.get('stage') != 'execution':
+        error('INVALID_REPORT', 'Completed result must be at execution stage.')
     if not run or run.get('status') not in {'completed', 'failed', 'error', 'cancelled', *PARTIAL}:
         error('INVALID_REPORT', 'Missing or invalid run result.')
     static_errors_valid = (isinstance(static, dict) and isinstance(static.get('errors'), list)
@@ -133,6 +135,8 @@ def _decide(report):
         invalid = []
     trials += [(f'known_invalid[{i}]', trial) for i, trial in enumerate(invalid)]
     for label, trial in trials:
+        if label not in ('oracle', 'nop') and isinstance(trial, dict) and trial.get('confirmation') == 'unconfirmed':
+            continue
         if isinstance(trial, dict):
             paths.extend(trial[p] for p in ('result_path', 'verifier_report_path', 'log_path')
                          if isinstance(trial.get(p), str) and trial[p])
@@ -154,6 +158,28 @@ def _decide(report):
             code = 'ORACLE_NOT_PASSING' if label == 'oracle' else 'KNOWN_CORRECT_NOT_PASSING'
             add(3, 'needs_review', code, f'{label} failed; the responsible module is undetermined.',
                 ('solution', 'tests', 'environment', 'contract'), details=trial)
+
+    if trials_required:
+        inputs = report.get('validation_inputs')
+        if inputs is None:
+            add(5, 'needs_review', 'INDEPENDENT_EVIDENCE_MISSING',
+                'Contract-reviewed feedback and holdout evidence is required.')
+        else:
+            from .panel import summarize
+            validation = summarize(inputs['panel'], inputs['sessions'])
+            if validation != run.get('independent_validation_report'):
+                error('INVALID_REPORT', 'Independent validation summary disagrees with trial evidence.')
+            for suite in validation['suites']:
+                if suite['phase'] == 'final' and suite['backend'] == 'harbor' and suite['baseline'] != {'oracle': 'pass', 'nop': 'fail'}:
+                    add(3, 'needs_review', 'INDEPENDENT_BASELINE_FAILED', 'Frozen Harbor baseline trials did not meet Oracle/Nop expectations.')
+            if not validation['evidence_sufficient']:
+                add(5, 'needs_review', 'INDEPENDENT_EVIDENCE_INSUFFICIENT', 'Confirmed feedback and holdout controls of both classes are required.')
+            if validation['execution_errors']:
+                error('PANEL_EXECUTION_ERROR', 'Independent controls contain execution errors or timeouts.')
+            if validation['backend_consistency'] != 'consistent':
+                add(2 if validation['backend_consistency'] == 'mismatch' else 5, 'needs_review', 'BACKEND_INCONSISTENT', 'Docker and Harbor results are missing or disagree.', details=validation['backend_mismatches'])
+            if not validation['panel_validated']:
+                add(5, 'needs_review', 'PANEL_NOT_VALIDATED', 'Not all confirmed controls have their required Harbor assertion outcome.')
 
     issues = report.get('critical_issues', run.get('critical_issues', []))
     if not isinstance(issues, list) or any(not isinstance(issue, dict) or not isinstance(issue.get('message'), str)
@@ -199,7 +225,7 @@ def report_paths(root):
     root = Path(root)
     return [str(root / 'run_result.json')] + [str(root / p) for p in (
         'static_check.json', 'preflight.json', 'test-agent/tests.json',
-        'export/package.json', 'export/export.json', 'test-loop.json', 'repair-history.json') if (root / p).exists()]
+        'export/package.json', 'export/export.json', 'test-loop.json', 'repair-history.json', 'independent-validation.json', 'validation-inputs.json', 'control-panel.json') if (root / p).exists()]
 
 
 def load_report(run_dir):
@@ -213,7 +239,7 @@ def load_report(run_dir):
                 and not (root / name).is_symlink()):
             continue  # Candidate loading failed before a static report could exist.
         try:
-            report[key] = read_json(root / name)
+            report[key] = read_json(root / name, 16_000_000 if key == 'run_result' else 256_000)
         except (OSError, SynthesisError) as exc:
             report['report_errors'].append({'path': str(root / name), 'message': str(exc)})
     # Full runs require the final lint report. An offline export cannot replace it.
@@ -228,6 +254,14 @@ def load_report(run_dir):
             report['package'] = read_json(package)
         except (OSError, SynthesisError) as exc:
             report['report_errors'].append({'path': str(package), 'message': str(exc)})
+    if isinstance(run, dict) and run.get('independent_validation_report') is not None:
+        try:
+            from .panel import verify_saved
+            if verify_saved(root, Config()) != run['independent_validation_report']:
+                raise SynthesisError('run summary differs from independent report')
+            report['validation_inputs'] = read_json(root / 'validation-inputs.json', 16_000_000)
+        except (OSError, SynthesisError, KeyError, TypeError, ValueError) as exc:
+            report['report_errors'].append({'message': 'Invalid independent evidence: ' + str(exc)})
     if isinstance(run, dict) and 'repair_workflow' in run:
         try:
             from .repair import fingerprint
@@ -242,7 +276,7 @@ def load_report(run_dir):
                 final_root = safe_ancestors(Path(workflow['final_validation_path']))
                 if not final_root.is_relative_to(root / 'versions'):
                     raise SynthesisError('final validation must belong to this workflow')
-                final = read_json(final_root / 'run_result.json')
+                final = read_json(final_root / 'run_result.json', 16_000_000)
                 if not isinstance(final, dict):
                     raise SynthesisError('final validation result must be an object')
                 if 'repair_workflow' in final:

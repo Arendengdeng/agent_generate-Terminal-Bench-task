@@ -5,6 +5,7 @@ from pathlib import Path
 import signal
 import subprocess
 import time
+import threading
 
 from synthesis_agent.errors import SynthesisError
 from synthesis_agent.files import load_seed, read_json, read_regular
@@ -66,6 +67,54 @@ def process_text(record, stream="stdout", limit=8_000_000):
     return read_regular(record[stream + "_path"], limit).decode("utf-8")
 
 
+
+class ImageObserver:
+    """Read-only observation while Harbor containers exist; cleanup deletes local images."""
+    def __init__(self, job):
+        self.job = Path(job)
+        self.done = threading.Event()
+        self.images = {}
+        self.errors = []
+        self.thread = threading.Thread(target=self._watch, daemon=True)
+
+    def start(self):
+        self.thread.start()
+
+    def stop(self):
+        self.done.set()
+        self.thread.join(timeout=25)
+
+    def result(self):
+        return {'status': 'recorded' if set(self.images) == {'task', 'verifier'} else 'partial' if self.images else 'unavailable',
+                'roles': dict(self.images), 'observation_errors': self.errors[:5]}
+
+    def _watch(self):
+        env = {k: v for k, v in os.environ.items() if k in {
+            'PATH', 'HOME', 'DOCKER_HOST', 'DOCKER_CONTEXT', 'DOCKER_CONFIG',
+            'DOCKER_TLS_VERIFY', 'DOCKER_CERT_PATH', 'XDG_RUNTIME_DIR'}}
+        while not self.done.is_set():
+            try:
+                prefixes = tuple(p.parent.name.lower() + '__' for p in self.job.glob('*/config.json'))
+                if prefixes:
+                    proc = subprocess.run(['docker', 'ps', '-a', '--filter', 'label=com.docker.compose.project',
+                        '--filter', 'label=com.docker.compose.service=main', '--format', '{{.ID}} {{.Names}}'], capture_output=True, text=True, timeout=10, env=env)
+                    for line in proc.stdout.splitlines():
+                        container, name = line.split(maxsplit=1)
+                        if not name.lower().startswith(prefixes):
+                            continue
+                        role = 'verifier' if '__verifier' in name.lower() else 'task'
+                        if role in self.images:
+                            continue
+                        inspected = subprocess.run(['docker', 'inspect', '--format',
+                            '[{{json .Name}},{{json .Image}},{{json .Config.Image}}]', container],
+                            capture_output=True, text=True, timeout=10, env=env)
+                        if inspected.returncode == 0:
+                            actual_name, image_id, reference = json.loads(inspected.stdout)
+                            self.images[role] = {'id': image_id, 'reference': reference, 'container': actual_name.lstrip('/')}
+            except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
+                self.errors.append(type(exc).__name__)
+            self.done.wait(0.5)
+
 class Harbor:
     def __init__(self, python=None, timeout=1800):
         project_python = Path(__file__).resolve().parents[1] / ".harbor-venv" / "bin" / "python"
@@ -110,11 +159,19 @@ class Harbor:
 
     def run(self, task, root, label, agent, expected, config):
         before = load_seed(task, config).manifest()
-        run = self.cli(["run", "-p", str(task), "-a", agent, "-k", "1", "-r", "0",
-                        "--env", "docker", "-o", str(root / "jobs"), "--job-name", label],
-                       root, root / label)
+        observer = ImageObserver(root / 'jobs' / label)
+        observer.start()
+        try:
+            run = self.cli(["run", "-p", str(task), "-a", agent, "-k", "1", "-r", "0",
+                            "--env", "docker", "-o", str(root / "jobs"), "--job-name", label],
+                           root, root / label)
+        finally:
+            observer.stop()
+        write_json(root / (label + '-images.json'), observer.result())
         result = parse_result(root / "jobs" / label, task, agent, self.version, run, expected)
         result['wall_sec'] = run.get('wall_sec')
+        result['images'] = observer.result()
+        result['images_path'] = str(root / (label + '-images.json'))
         if before != load_seed(task, config).manifest():
             result.update(status="error", reward=None,
                           error={"type": "PACKAGE_CHANGED", "message": "frozen task package changed during execution"})
@@ -146,6 +203,14 @@ def parse_result(job, task, agent, version, process, expected):
                 or native.get("verifier_environment_mode") != "separate"
                 or native.get("step_results")):
             raise ValueError("trial identity, completion or verifier mode mismatch")
+        report_path = path.parent / "verifier" / "execution.json"
+        if report_path.exists():
+            result['verifier_report_path'] = str(report_path)
+            verifier = read_json(report_path, 8_000_000)
+            result['artifact_manifest'] = verifier.get('artifact_manifest')
+            if any(r.get('exception', {}).get('type') == 'TimeoutExpired'
+                   for r in verifier.get('results', []) if r.get('exception')):
+                result['error_kind'] = 'timeout'
         exception = native.get("exception_info")
         if exception:
             result["error"] = {"type": exception["exception_type"], "message": exception["exception_message"]}
@@ -161,6 +226,8 @@ def parse_result(job, task, agent, version, process, expected):
         rewards = native["verifier_result"]["rewards"]
         if set(rewards) != {"reward"} or type(rewards["reward"]) not in (int, float) or rewards["reward"] not in (0, 1):
             raise ValueError("invalid native reward")
+        if any(r.get('exception', {}).get('type') == 'TimeoutExpired' for r in report.get('results', []) if r.get('exception')):
+            result['error_kind'] = 'timeout'
         if report["status"] != "completed" or report.get("error") or type(report["reward"]) is not int:
             raise ValueError("verifier did not complete scoring")
         checked = classify(report["pytest_exit_code"], report["nodeids"], report["results"], [], expected)

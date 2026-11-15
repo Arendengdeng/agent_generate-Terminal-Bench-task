@@ -274,12 +274,13 @@ class IndependentTests(unittest.TestCase):
                 return {'status': 'completed'}, []
             def run(self, task, root, label, agent, expected, config):
                 observed.append((label, agent, (task / 'tests/test_behavior.py').read_text()))
-                return {'status': 'completed', 'reward': int(label.startswith('known'))}
+                return {'status': 'completed', 'reward': int('correct' in label)}
         with patch('independent_verification.pipeline.preflight', return_value={'status': 'ready'}), \
-             patch('independent_verification.pipeline.Harbor', FakeHarbor):
+             patch('independent_verification.pipeline.Harbor', FakeHarbor), \
+             patch('independent_verification.pipeline.DockerTestRunner', __import__('tests.panel_helpers', fromlist=['FinalRunner']).FinalRunner):
             result = verify(self.candidate.source, self.root / 'verify', stage='run', tests_output=out,
                             known_correct=[self.candidate.source / 'draft/solution'])
-        self.assertEqual([r[0] for r in observed], ['oracle', 'nop', 'known-000'])
+        self.assertEqual([r[0] for r in observed], ['oracle', 'nop', 'unconfirmed-feedback-correct-000'])
         self.assertEqual(len({r[2] for r in observed}), 1)
         self.assertFalse(result['basic_checks_passed'])
         self.assertEqual(result['known_correct'][0]['reward'], 1)

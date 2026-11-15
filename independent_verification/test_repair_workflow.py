@@ -6,6 +6,7 @@ import time
 from synthesis_agent.files import read_json, load_seed
 from synthesis_agent.trace import redact
 from .common import write_json
+from .panel import outcome
 from .attribution import UnconfirmedAttribution, verify_test_diagnosis, verify_test_patch, verify_control_matrix
 from .docker_test_runner import DockerTestRunner, model_feedback
 
@@ -39,7 +40,7 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
                     'version': index, 'tests_digest': digest, 'implementation': trial['label'],
                     'status': trial['status'], 'reward': trial['reward'],
                     'expected_reward': trial['expected_reward'],
-                    'outcome': ('pass' if trial['reward'] == 1 else 'fail') if trial['status'] == 'completed' else 'error'})
+                    'outcome': outcome(trial)})
             row = {'index': index, 'tests_output': str(current), 'tests_digest': digest,
                    'execution_path': str(attempt / 'execution' / 'execution.json'),
                    'status': execution['status']}
@@ -63,6 +64,10 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
             verify_control_matrix(execution, len(known_correct), len(known_invalid))
             next_output = Path(root) / 'attempts' / f'{index + 1:03d}' / 'test-agent'
             feedback = model_feedback(execution)
+            from .json_attribution import supported_diagnoses
+            supported_locations = supported_diagnoses(candidate, current, execution, config)
+            if supported_locations:
+                feedback['host_supported_diagnoses'] = supported_locations
             analysis = agent.analyze(candidate.test_input(), current, feedback, attempt / 'analysis', budget=budget)
             if analysis['status'] != 'diagnosed':
                 report.update(status='cancelled' if analysis['status'] == 'cancelled' else 'needs_review',
@@ -71,6 +76,7 @@ def repair_tests(candidate, tests_output, root, config, agent, *, known_correct=
             diagnosis = analysis['diagnosis']
             proof = verify_test_diagnosis(candidate, current, execution, diagnosis, config)
             write_json(attempt / 'attribution.json', proof)
+            feedback['host_patch_rule'] = proof
             row['attribution_path'] = str(attempt / 'attribution.json')
             fixed = agent.repair(candidate.test_input(), current, feedback, next_output, budget=budget,
                                  approved_diagnosis=diagnosis)

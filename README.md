@@ -16,7 +16,9 @@ Step 3 使用项目专用 `.harbor-venv`，依赖清单为 `requirements-verific
 
 新增显式 `--repair --max-repairs 2` 可开启跨模块 Repair Dispatcher：由 Controller 路由 Test Agent 或 Synthesis Agent，统一任务版本、修复次数和全局模型/工具调用预算。修复后重新检查，最终通过完整验证且无未决问题才可 Accept；预算耗尽保存 `needs_review`。开启该模式后，测试修复也由 Dispatcher 调度。使用方法、产物和真实验收入口见 [Repair Dispatcher](docs/repair-dispatcher.md)。
 
-完整验证默认执行：独立生成测试 → Docker 内完整 pytest → Test Agent 诊断与测试修复（最多 2 轮）→ 全部对照重新执行 → Harbor 最终验收。诊断必须引用 Contract、当前测试位置和执行证据；歧义停止为 `needs_review`。每轮 Oracle 应通过、Nop 应失败，提供的正确替代解法也必须全部通过。修复不读取参考解法。自动测试修复还要求宿主校验 Contract 与断言的矛盾、合法和违规对照及受限补丁；仅有模型诊断或 Oracle 结果不足以授权，无法确认时保留 `needs_review`。
+完整验证默认执行：独立生成测试 → Docker 内完整 pytest → Test Agent 诊断与测试修复（最多 2 轮）→ 全部对照重新执行 → Harbor 最终验收。诊断必须引用 Contract、当前测试位置和执行证据；歧义停止为 `needs_review`。每轮 Oracle 应通过、Nop 应失败，已确认的正确替代解法也必须全部通过。完整独立验收另要求已确认反馈组及保留组各包含正确/违规实现，且冻结测试下两个后端结果一致。修复不读取参考解法。自动测试修复还要求宿主校验 Contract 与断言的矛盾、合法和违规对照及受限补丁；仅有模型诊断或 Oracle 结果不足以授权，无法确认时保留 `needs_review`。
+
+独立对照审查清单、保留组隔离与统计口径见 [独立对照验证](docs/guides/independent-controls.md)。仅 Oracle/Nop 通过不再判完整独立验收成功。
 
 可重复传入 `--known-invalid <solution-dir>`，要求这些已知错误实现被正常断言失败识别；error/null 不计作正常拒绝。只有 Oracle 失败而其余对照符合预期时，执行层强制 `analysis_only`，禁止模型通过自报诊断改写测试。Step 1 实际验收、模型调用成本及保留的首次失败见 [验收报告](docs/history/2026-11-14-test-agent-feedback-repair-acceptance.md)。
 

@@ -22,13 +22,19 @@ from tests.helpers import ScriptedClient
 
 
 def report(oracle=1, nop=0):
-    return {'static_check': {'status': 'passed', 'errors': []},
+    result = {'static_check': {'status': 'passed', 'errors': []},
             'package': {'structure_valid': True, 'lint': {'status': 'completed'}, 'errors': []},
             'run_result': {'status': 'completed', 'stage': 'execution', 'error': None,
                            'oracle': {'status': 'completed', 'reward': oracle, 'log_path': 'oracle.log'},
                            'nop': {'status': 'completed', 'reward': nop}, 'known_correct': [],
                            'basic_checks_passed': True},
             'evidence_paths': ['run_result.json', 'static_check.json', 'export/export.json']}
+    from tests.panel_helpers import synthetic_validation_inputs
+    from independent_verification.panel import summarize
+    inputs = synthetic_validation_inputs()
+    result['validation_inputs'] = inputs
+    result['run_result']['independent_validation_report'] = summarize(inputs['panel'], inputs['sessions'])
+    return result
 
 
 class DecisionTests(unittest.TestCase):
@@ -159,6 +165,8 @@ class ControllerIntegrationTests(unittest.TestCase):
         self.root = Path(self.temp.name)
 
     def save_report(self, source, name='history'):
+        source = copy.deepcopy(source)
+        source['run_result'].pop('independent_validation_report', None)
         root = self.root / name
         write_json(root / 'run_result.json', source['run_result'])
         write_json(root / 'static_check.json', source['static_check'])
@@ -195,7 +203,7 @@ class ControllerIntegrationTests(unittest.TestCase):
         self.assertEqual(review_run(history, self.root / 'review')['decision'], 'needs_review')
         source = report()
         history = self.save_report(source, 'passed')
-        self.assertEqual(review_run(history, self.root / 'passed-review')['decision'], 'accept')
+        self.assertEqual(review_run(history, self.root / 'passed-review')['decision'], 'needs_review')
 
     def test_offline_missing_corrupt_or_symlinked_reports_do_not_accept(self):
         for name in ('run_result.json', 'static_check.json', 'export/export.json'):
@@ -297,11 +305,12 @@ class ControllerIntegrationTests(unittest.TestCase):
             def run(self, task, root, label, *args):
                 return {'status': 'completed', 'reward': 0 if label == 'nop' else 1}
 
-        for issues, expected in [([], 'accept'), ([{'message': 'Confirmed test defect',
+        for issues, expected in [([], 'needs_review'), ([{'message': 'Confirmed test defect',
                 'responsible_module': 'tests', 'evidence_paths': ['review.json']}], 'repair')]:
             output = self.root / expected
             with patch('independent_verification.pipeline.preflight', return_value={'status': 'ready'}), \
                  patch('independent_verification.pipeline.Harbor', HarborStub), \
+                 patch('independent_verification.pipeline.DockerTestRunner', __import__('tests.panel_helpers', fromlist=['FinalRunner']).FinalRunner), \
                  patch('synthesis_agent.agent.SynthesisAgent.generate') as repair:
                 result = verify(candidate.source, output, stage='run', tests_output=tests, critical_issues=issues)
             repair.assert_not_called()

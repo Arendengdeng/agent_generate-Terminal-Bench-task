@@ -56,9 +56,10 @@ You are repairing YOUR CURRENT TESTS from execution evidence, not solving the ta
 Read feedback using read_feedback (offset is a decimal character offset, chunks are 4000 characters).
 Oracle/Nop rewards alone do not establish which component is wrong. Analyze the Contract,
 test source/fixtures and exception evidence. If ambiguous, call needs_review and stop.
-Before any edits, call diagnose with a specific requirement ID, an exact Contract quote,
+Before any edits, call diagnose with a specific requirement ID and its COMPLETE Requirement description as contract_quote,
 current test/fixture path and line, evidence ID from feedback, and an explanation of why
-that test or fixture contradicts the Contract. Host reference checks are not semantic proof.
+that test or fixture contradicts the Contract. Explain related input/output specifications in explanation.
+Host reference checks are not semantic proof. When host_patch_rule is supplied, preserve its exact patch scope.
 Do not weaken requirements merely to pass Oracle. Never blanket-catch all exceptions.
 Only tests and fixtures may change; solution, implementation, Contract, wrapper and scoring
 are immutable and private. No new requirements, skips, xfails or hardcoded solution behavior.
@@ -147,6 +148,8 @@ class TestAgent:
                     or feedback.get('input_manifest') != inputs.manifest()
                     or feedback.get('status') != 'failed'):
                 raise SynthesisError('repair feedback is stale, unbound or not a test failure')
+            if any(t.get('label', '').startswith(('holdout-', 'unconfirmed-holdout-')) for t in feedback.get('trials', [])):
+                raise SynthesisError('holdout results cannot enter Test Agent context')
             parent_digest = tests.digest()
         root = new_directory(output)
         feedback_text = json.dumps(redact(feedback, c.api_key), ensure_ascii=False) if previous is not None else ''
@@ -207,6 +210,12 @@ class TestAgent:
                             'reason': 'Oracle failure alone cannot authorize test edits.'}
                 if tests.digest() != parent_digest or diagnosis is not None:
                     raise SynthesisError('diagnosis must bind the unmodified parent version, once')
+                supported_locations = feedback.get('host_supported_diagnoses', [])
+                if supported_locations and not any(all(args[k] == location[k] for k in
+                        ('requirement_id', 'test_path', 'line', 'evidence_id')) for location in supported_locations):
+                    raise SynthesisError('This checker can only confirm these locations: ' + json.dumps([
+                        {k: location[k] for k in ('requirement_id', 'test_path', 'line', 'evidence_id')}
+                        for location in supported_locations]))
                 req = next((r for r in data['contract']['requirements'] if r['id'] == args['requirement_id']), None)
                 clause = '\n'.join(str(data['contract'].get(k, '')) for k in
                                    ('input_spec', 'output_spec', 'objective', 'command'))
@@ -267,6 +276,10 @@ class TestAgent:
                     return {'status': 'needs_review', 'reason': 'no_changes'}
                 if collection.get("status") != "completed" or collection.get("digest") != tests.digest():
                     raise SynthesisError("finish requires successful collection of current tests")
+                if previous is not None and feedback.get('host_patch_rule'):
+                    if args['coverage'] != metadata['coverage'] or collection['nodeids'] != metadata['nodeids']:
+                        raise SynthesisError('Approved patch must retain the original test nodes and exact coverage mapping: '
+                                             + json.dumps(metadata['coverage']))
                 validate_coverage(data["contract"], args["coverage"], collection["nodeids"])
                 result.update(status="tests_generated", coverage=copy.deepcopy(args["coverage"]),
                               nodeids=collection["nodeids"])
@@ -285,14 +298,21 @@ class TestAgent:
             prompt = PROMPT if previous is None else PROMPT.replace(
                 'You have no Oracle feedback.', 'You have restricted execution feedback.') + REPAIR_PROMPT
             if diagnose_only:
-                prompt += '\nAnalysis phase: diagnose or classify only; a diagnosis terminates this phase without edits.'
+                prompt += '\nAnalysis phase: diagnose or classify only; a diagnosis terminates this phase without edits. '
+                prompt += 'When host_supported_diagnoses is provided, independently assess those locations and cite one of them, or stop for review. Other forms cannot be proved by this checker.'
             if approved_diagnosis:
-                prompt += '\nController has authorized the saved diagnosis. Edit current tests, collect and finish; do not diagnose again.'
+                prompt += '\nController has authorized ONLY the saved diagnosis and host_patch_rule. '
+                prompt += 'This patch scope takes precedence over general test-generation guidance. Replace only the cited assertion with allowed_assertion when supplied. '
+                prompt += 'Preserve every other AST, command, test, fixture and coverage mapping. Do not add helpers, tests, exception handling or other improvements. '
+                prompt += 'Collect and finish; do not diagnose again. If more changes are necessary, stop for review.'
             messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps({
                 "contract": data["contract"], "instruction": data["instruction"],
                 "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/")),
                 **({'repair_parent_digest': parent_digest, 'feedback_chars': len(feedback_text),
                     'repair_permission': feedback.get('repair_permission', 'diagnosis_required'),
+                    'host_patch_rule': feedback.get('host_patch_rule'),
+                    'host_supported_diagnoses': feedback.get('host_supported_diagnoses'),
+                    'frozen_coverage': metadata['coverage'],
                     'evidence_ids': [e['id'] for e in feedback['evidence']],
                     'trials': [{k: t[k] for k in ('label', 'status', 'reward', 'expected_reward')}
                                for t in feedback['trials']]} if previous is not None else {})}, ensure_ascii=False)}]

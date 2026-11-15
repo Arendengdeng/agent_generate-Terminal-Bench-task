@@ -174,7 +174,7 @@ def run_scene(name, root, config, live):
         badout = root / 'invalid-output'; badout.mkdir()
         (badout / 'solve.sh').write_text(solution("print('not-json')\n"))
         bad = DockerTestRunner(config).run(c, root / 'initial-tests', root / 'invalid-error', correct, [badout])
-        assert bad['status'] == 'failed' and bad['trials'][-1]['status'] == 'error'
+        assert bad['status'] == 'error' and bad['trials'][-1]['status'] == 'error'
         assert bad['trials'][-1]['reward'] is None
         scenario.update(result='passed', api_calls=0, cost=report['cost'],
                         evidence=['missing-image/test-loop.json', 'missing-harbor/run_result.json', 'invalid-error/execution.json'])

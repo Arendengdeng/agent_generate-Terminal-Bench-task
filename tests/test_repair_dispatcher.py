@@ -68,8 +68,11 @@ class DispatcherTests(unittest.TestCase):
         self.harbor = Mock(version='0.25.0')
         self.harbor.validate.return_value = ({'status': 'completed'}, [])
         self.harbor.run.side_effect = lambda task, root, label, *args: {
-            'status': 'completed', 'reward': 0 if label == 'nop' or label.startswith('invalid-') else 1}
+            'status': 'completed', 'reward': 0 if label == 'nop' or label.startswith(('invalid-', 'holdout-invalid-')) else 1}
         self.stack.enter_context(patch('independent_verification.pipeline.Harbor', return_value=self.harbor))
+        from tests.panel_helpers import FinalRunner, reviewed_manifest
+        self.stack.enter_context(patch('independent_verification.pipeline.DockerTestRunner', FinalRunner))
+        self.default_manifest = reviewed_manifest(self.candidate, self.root / 'default-reviews', [self.correct], [self.invalid])
 
     def dispatcher(self, messages=None, config=None, runner=None):
         config = config or self.config
@@ -82,6 +85,9 @@ class DispatcherTests(unittest.TestCase):
     def run_dispatcher(self, dispatcher, name='run', **kwargs):
         kwargs.setdefault('known_correct', [self.correct])
         kwargs.setdefault('known_invalid', [self.invalid])
+        from tests.panel_helpers import reviewed_manifest
+        kwargs.setdefault('controls_manifest', reviewed_manifest(self.candidate, self.root / (name + '-reviews'),
+                          kwargs['known_correct'], kwargs['known_invalid']))
         return dispatcher.run(self.candidate.source, self.root / name, tests_output=self.initial, **kwargs)
 
     def test_detect_diagnose_route_repair_reexecute_full_validate_and_replay(self):
@@ -103,7 +109,7 @@ class DispatcherTests(unittest.TestCase):
         self.assertEqual(request['requirements'], self.candidate.contract['requirements'])
         self.assertTrue(Path(history['attempts'][0]['changes_path']).exists())
         self.assertEqual(len(dispatcher.runner.calls), 2)
-        self.assertEqual(self.harbor.run.call_count, 4)
+        self.assertEqual(self.harbor.run.call_count, 6)
         self.assertEqual(original, (self.initial / 'tests/test_behavior.py').read_bytes())
         self.assertNotIn('PRIVATE_SOLUTION_SENTINEL', json.dumps(client.contexts))
         self.assertEqual(review_run(self.root / 'run', self.root / 'review'), result['controller_decision'])
@@ -133,7 +139,7 @@ class DispatcherTests(unittest.TestCase):
     def test_initial_generation_consumes_shared_budget(self):
         config = Config(max_model_calls=3)
         dispatcher, _ = self.dispatcher(script(self.candidate.contract, source(43)), config=config)
-        result = dispatcher.run(self.candidate.source, self.root / 'generation', known_correct=[self.correct], known_invalid=[self.invalid])
+        result = dispatcher.run(self.candidate.source, self.root / 'generation', known_correct=[self.correct], known_invalid=[self.invalid], controls_manifest=self.default_manifest)
         self.assertEqual(result['repair_workflow']['stop_reason'], 'call_budget_exhausted', result)
         self.assertEqual(result['repair_workflow']['budget_used']['model_calls'], 3)
         self.assertEqual(result['repair_workflow']['repairs'], 0)
@@ -164,7 +170,7 @@ class DispatcherTests(unittest.TestCase):
         dispatcher, _ = self.dispatcher()
         result = self.run_dispatcher(dispatcher, 'gate')
         self.assertEqual(result['controller_decision']['decision'], 'needs_review', result)
-        self.harbor.run.side_effect = lambda task, root, label, *args: {'status': 'completed', 'reward': int(label != 'nop' and not label.startswith('invalid-'))}
+        self.harbor.run.side_effect = lambda task, root, label, *args: {'status': 'completed', 'reward': int(label != 'nop' and not label.startswith(('invalid-', 'holdout-invalid-')))}
         dispatcher, _ = self.dispatcher()
         result = self.run_dispatcher(dispatcher, 'tamper')
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
@@ -230,7 +236,7 @@ class DispatcherTests(unittest.TestCase):
             call('finish', coverage=[{'requirement_id': 'R1', 'test_names': [NODE]}])]
         dispatcher, _ = self.dispatcher(messages)
         with patch('synthesis_agent.agent.DockerSandbox', Sandbox):
-            result = dispatcher.run(candidate.source, self.root / 'cross', max_repairs=2, known_correct=[self.correct], known_invalid=[self.invalid])
+            result = dispatcher.run(candidate.source, self.root / 'cross', max_repairs=2, known_correct=[self.correct], known_invalid=[self.invalid], controls_manifest=self.default_manifest)
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
         history = result['repair_workflow']
         self.assertEqual(history['repairs'], 2)

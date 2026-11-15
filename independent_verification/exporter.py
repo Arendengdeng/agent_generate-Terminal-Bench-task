@@ -14,6 +14,12 @@ from .sandbox import base_dockerfile, wrapper_source
 HARBOR_NETWORK_MODE = "public"
 
 
+def artifact_policy(candidate, config):
+    return {'paths': candidate.contract['deliverables']['artifact_paths'],
+            'file_limit': config.max_file_bytes, 'total_limit': config.max_total_bytes,
+            'count_limit': config.max_files}
+
+
 def load_tests(candidate, tests_output, config=None, *, check_static=True):
     """Read and verify a frozen test version without creating an export."""
     config = config or Config()
@@ -52,7 +58,7 @@ def export_task(candidate, tests_output, output, config=None):
               'COPY . /tests/\nWORKDIR /tests\n')
     files.put('tests/test.sh', '#!/bin/sh\nset -eu\nexec python3 -I /tests/run_tests.py\n')
     files.put('tests/run_tests.py', wrapper_source())
-    files.put('tests/expected.json', json.dumps({'nodeids': metadata['nodeids']}))
+    files.put('tests/expected.json', json.dumps({'nodeids': metadata['nodeids'], 'artifact_policy': artifact_policy(candidate, config)}))
     files.put('task.toml', 'schema_version = "1.3"\nartifacts = ' + json.dumps(artifacts) + '\n' +
               '[agent]\ntimeout_sec = 300\n' +
               '[verifier]\ntimeout_sec = 120\nenvironment_mode = "separate"\n' +
