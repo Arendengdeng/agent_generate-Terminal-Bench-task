@@ -316,7 +316,7 @@ class RepairTests(unittest.TestCase):
                  patch('independent_verification.pipeline.run_test_loop', return_value=loop) as execute, \
                  patch('independent_verification.pipeline.Harbor', return_value=harbor):
                 result = verify(self.candidate.source, output, stage='run' if mode == 'run' else 'all',
-                                tests_output=self.old)
+                                tests_output=self.old, challenge=False)
             self.assertEqual(execute.called, enabled)
             self.assertEqual(result['controller_decision']['decision'], expected, result)
             self.assertEqual(result['end_to_end_validated'], expected == 'accept')

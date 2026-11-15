@@ -288,6 +288,12 @@ class TestAgent:
                 prompt += '\nAnalysis phase: diagnose or classify only; a diagnosis terminates this phase without edits.'
             if approved_diagnosis:
                 prompt += '\nController has authorized the saved diagnosis. Edit current tests, collect and finish; do not diagnose again.'
+            if feedback and feedback.get('challenge_issues'):
+                prompt += ('\nController independently confirmed missing Contract behavior checks. Read challenge_issues '
+                           'in feedback for the specific inputs, expected behavior and observations. '
+                           'This repair MUST be additive: preserve every existing test/fixture byte for byte, '
+                           'write NEW test files with general public CLI behavior assertions, collect and finish '
+                           'with mapping covering old AND new tests. Never inspect source or identify an implementation.')
             messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps({
                 "contract": data["contract"], "instruction": data["instruction"],
                 "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/")),

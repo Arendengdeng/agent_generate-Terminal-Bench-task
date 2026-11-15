@@ -20,7 +20,7 @@ from .wrapper import classify
 
 
 EXPORT_ARTIFACTS = r'''
-import base64,json,os,pathlib,stat,sys
+import base64,hashlib,json,os,pathlib,stat,sys
 spec=json.load(sys.stdin); files={}; directories=set(); total=0
 def inspect(path):
     global total
@@ -45,7 +45,8 @@ def inspect(path):
             raise ValueError('artifact budget exceeded')
         files[str(p)]=base64.b64encode(raw).decode()
 for path in spec['paths']: inspect(path)
-print(json.dumps({'files':files,'directories':sorted(directories)}))
+print(json.dumps({'files':files,'directories':sorted(directories),
+                  'manifest':{p:hashlib.sha256(base64.b64decode(v)).hexdigest() for p,v in files.items()}}))
 '''
 
 INSTALL_TESTS = r'''
@@ -154,8 +155,17 @@ class DockerTestRunner:
                 artifacts = json.loads(exported.stdout)
                 transferred = {p: base64.b64decode(v, validate=True) for p, v in artifacts['files'].items()}
                 trial['artifact_manifest'] = {p: hashlib.sha256(v).hexdigest() for p, v in transferred.items()}
+                if artifacts['manifest'] != trial['artifact_manifest']:
+                    raise SandboxError('artifact export mismatch')
             # The solution container has been destroyed before tests can execute.
             with backend.container(transferred) as name:
+                transferred_check = backend.execute(name, ['python3', '-I', '-c',
+                    'import hashlib,json,pathlib,sys; print(json.dumps({p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest() for p in json.load(sys.stdin)}))'],
+                    json.dumps(sorted(transferred)).encode())
+                backend._checked(transferred_check)
+                trial['received_artifact_manifest'] = json.loads(transferred_check.stdout)
+                if trial['received_artifact_manifest'] != trial['artifact_manifest']:
+                    raise SandboxError('artifact transfer mismatch')
                 files = {**tests, 'run_tests.py': wrapper_source(),
                          'expected.json': json.dumps({'nodeids': nodeids})}
                 backend._checked(backend.execute(name, ['python3', '-I', '-c', INSTALL_TESTS],
@@ -169,6 +179,14 @@ class DockerTestRunner:
                 backend._checked(raw)
                 report = json.loads(raw.stdout)
                 write_json(root / 'pytest.json', redact(report, self.config.api_key))
+                integrity = backend.execute(name, ['python3', '-I', '-c',
+                    'import hashlib,json,pathlib,sys; print(json.dumps({p:hashlib.sha256((pathlib.Path("/tmp/tests")/p).read_bytes()).hexdigest() for p in json.load(sys.stdin)}))'],
+                    json.dumps(sorted(files)).encode())
+                backend._checked(integrity)
+                trial['verifier_files_manifest'] = json.loads(integrity.stdout)
+                expected_verifier_files = {p: hashlib.sha256(s.encode()).hexdigest() for p, s in files.items()}
+                if trial['verifier_files_manifest'] != expected_verifier_files:
+                    raise SandboxError('Verifier files changed during execution')
                 checked = classify(report['pytest_exit_code'], report['nodeids'], report['results'],
                                    report.get('error') or [], nodeids)
                 if (report['status'], report['reward']) != (checked['status'], checked['reward']):
@@ -178,7 +196,9 @@ class DockerTestRunner:
                 trial.update(status=checked['status'], reward=checked['reward'],
                              error=checked['error'], reports=report['results'],
                              stdout=proc.stdout, stderr=proc.stderr,
-                             pytest_exit_code=report['pytest_exit_code'])
+                             pytest_exit_code=report['pytest_exit_code'],
+                             nodeids=report['nodeids'], verifier_exit_code=proc.exit_code,
+                             tests_digest=hashlib.sha256(json.dumps(tests, sort_keys=True).encode()).hexdigest())
         except Exception as exc:
             # Includes cleanup failures even after a successful score.
             trial.update(status='infrastructure_error', reward=None,
@@ -189,6 +209,11 @@ class DockerTestRunner:
             trial['attribution'] = 'execution_error' if trial['status'] == 'infrastructure_error' else 'uncertain'
             write_json(root / 'execution.json', redact(trial, self.config.api_key))
         return trial
+
+    def run_solution(self, candidate, tests, nodeids, solution, label, output):
+        """Execute one immutable implementation; never expose the suite to its container."""
+        self._prepare(candidate)
+        return self._trial(candidate, tests, nodeids, solution, label, output)
 
 
 def model_feedback(execution):

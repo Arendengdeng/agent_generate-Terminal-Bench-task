@@ -66,3 +66,5 @@ python -m unittest discover -s tests -v
 ```
 
 完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](docs/design/2.%20Synthesis%20Agent%20%E8%AE%BE%E8%AE%A1.md)。Step 2 测试范围见 [完成情况说明](docs/history/step2-status.md)。
+
+Challenge Agent 的职责边界、独立违规见证、Controller 归因门槛、运行参数与四组对照实验见 [Challenge Agent 说明](docs/challenge-agent.md)。普通 `all` 默认开启 Challenge；实验入口显式选择 `baseline/independent/challenge/repair`，不继承普通运行开关。完整真实模型闭环的验收状态以该说明和新运行证据为准。

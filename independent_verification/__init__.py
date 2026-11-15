@@ -10,3 +10,6 @@ __all__ = ["TestAgent", "CandidateTask", "check_candidate", "export_task", "deci
 
 from .repair import RepairDispatcher, RepairRequest
 __all__ += ["RepairDispatcher", "RepairRequest"]
+
+from .challenge import ChallengeAgent
+__all__ += ["ChallengeAgent"]
