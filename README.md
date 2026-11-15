@@ -1,21 +1,35 @@
 # Synthesis Agent
 
+文档入口见 [文档索引](docs/README.md)，设计规划见 [设计文档归档](docs/design/README.md)；历史任务与验证记录见 [运行记录索引](runs/README.md)。本地配置模板为 [.env.example](.env.example)，复制为 `.env` 后填写模型与密钥，并执行 `set -a; source .env; set +a` 加载到当前 shell。
+
 根据已有 Plan、Contract 和可选参考材料，生成 Python 标准库 CLI 修复任务。所有生成代码只在受限 Linux Docker 容器内执行。成功仅表示“候选已生成并完成参考解法自检”，不代表独立验证通过。
 
-当前功能与剩余缺口见 [Step 2 完成情况说明](docs/step2-status.md)。2026-11-12 离线测试 44 项通过、6 项跳过；此前用户终端真实 Docker 集成 5 项通过。
+当前功能与剩余缺口见 [Step 2 完成情况说明](docs/history/step2-status.md)。2026-11-12 离线测试 44 项通过、6 项跳过；此前用户终端真实 Docker 集成 5 项通过。
 
-Step 3 已接入候选加载、静态检查、独立 Test Agent、Harbor 导出和 Oracle/Nop 执行入口，详见 [Step 3 使用与验证记录](docs/step3-status.md)。历史候选 `runs/acceptance-csv-01` 已通过文件完整性与静态检查。真实 Test Agent 已生成 15 个测试并映射全部 4 条要求，导出包通过 Harbor lint。按用户要求切换 Harbor 为 public 网络后，**历史 CSV 候选已实际通过 Oracle=1、Nop=0 基础闭环验收**；测试充分性与难度仍待后续验证。
+Step 3 已接入候选加载、静态检查、独立 Test Agent、Harbor 导出和 Oracle/Nop 执行入口，详见 [Step 3 使用与验证记录](docs/history/step3-status.md)。历史候选 `runs/archive/candidates/acceptance-csv-01` 已通过文件完整性与静态检查。真实 Test Agent 已生成 15 个测试并映射全部 4 条要求，导出包通过 Harbor lint。按用户要求切换 Harbor 为 public 网络后，**历史 CSV 候选已实际通过 Oracle=1、Nop=0 基础闭环验收**；测试充分性与难度仍待后续验证。
 
-Step 2 三题型真实模型验收保持单独待办，不阻止 Step 3 开发。当前完整离线套件 57 项通过、8 项跳过。
+Step 2 三题型真实模型验收保持单独待办，不阻止独立验证开发。历史测试数量见各阶段记录；当前行为与验收方法见 [测试执行与修复闭环](docs/guides/test-repair.md)。
 
 Step 3 使用项目专用 `.harbor-venv`，依赖清单为 `requirements-verification.txt`。运行前可执行 `source .harbor-venv/bin/activate`；验证入口默认使用该环境中的 Harbor，无需用户级安装。
 
-Step 4 已增加规则式 Verification Controller：每次独立验证保存 `decision.json`，区分 `accept`、`repair`、`needs_review`、`error` 和 `not_evaluated`。Oracle 失败、Nop 通过或额外正确解法失败会保留证据并列出待调查模块，不直接指定责任方。`repair` 只表示修复建议，不执行修改。接口和规则见 [Step 4 使用说明](docs/step4-status.md)。
+规则式 Verification Controller 每次保存 `decision.json`，区分 `accept`、`repair`、`needs_review`、`error` 和 `not_evaluated`。Controller 的 `repair` 仍是建议；新增 Pipeline 会在最终判定前执行有界的 Test Agent 测试修复循环。接口和历史规则见 [Step 4 使用说明](docs/history/step4-status.md)。
+
+完整验证默认执行：独立生成测试 → Docker 内完整 pytest → Test Agent 诊断与测试修复（最多 2 轮）→ 全部对照重新执行 → Harbor 最终验收。诊断必须引用 Contract、当前测试位置和执行证据；歧义停止为 `needs_review`。每轮 Oracle 应通过、Nop 应失败，提供的正确替代解法也必须全部通过。修复只允许修改测试和 fixtures，不读取参考解法。
+
+可重复传入 `--known-invalid <solution-dir>`，要求这些已知错误实现被正常断言失败识别；error/null 不计作正常拒绝。只有 Oracle 失败而其余对照符合预期时，执行层强制 `analysis_only`，禁止模型通过自报诊断改写测试。Step 1 实际验收、模型调用成本及保留的首次失败见 [验收报告](docs/history/2026-11-14-test-agent-feedback-repair-acceptance.md)。
+
+```bash
+python -m independent_verification --candidate runs/csv-repair --output runs/csv-verification --max-test-repairs 2
+```
+
+`all` 默认启用闭环，`--no-repair-tests` 可关闭。`run --tests` 默认只运行已有测试；增加 `--repair-tests` 才允许付费模型修复。`inspect/generate/export/decide` 不启动闭环。运行前须准备本地 `independent-verifier:pytest-9.2.0` 镜像；构建方式见 Step 3 文档。生成和修复共享调用预算，不会每轮重置。
+
+旧的 `independent_verification/validation/` 子系统及其失效测试、示例和使用说明已移除；历史运行和审计材料保留，不作为当前接口。
 
 历史运行可离线判定，不调用模型、Docker 或 Harbor；输出目录必须不存在：
 
 ```bash
-python -m independent_verification --stage decide --report-dir runs/step3-public-01 --output runs/step4-review-01
+python -m independent_verification --stage decide --report-dir runs/archive/verification/step3-public-01 --output runs/step4-review-01
 ```
 
 CLI 对 `repair`、`needs_review`、`error` 返回 1，取消返回 130，调用参数或输出目录错误返回 2。`accept` 与正常的部分阶段 `not_evaluated` 返回 0；部分阶段不代表验证通过。
@@ -49,4 +63,4 @@ Bearer 值和包含凭证或查询参数的 URL 会脱敏。该过滤不能识�
 python -m unittest discover -s tests -v
 ```
 
-完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](2.%20Synthesis%20Agent%20设计.md)。Step 2 测试范围见 [完成情况说明](docs/step2-status.md)。
+完整调用方式、隔离边界、工具协议、配置及真实验收命令见 [Synthesis Agent 设计.md](docs/design/2.%20Synthesis%20Agent%20%E8%AE%BE%E8%AE%A1.md)。Step 2 测试范围见 [完成情况说明](docs/history/step2-status.md)。

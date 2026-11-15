@@ -57,6 +57,7 @@ def execute(argv, cwd, prefix, timeout=1800, output_limit=8_000_000):
             except ProcessLookupError:
                 pass
             process.wait()
+        record['wall_sec'] = round(time.monotonic() - started, 3)
         write_json(prefix.with_suffix(".process.json"), record)
     return record
 
@@ -113,6 +114,7 @@ class Harbor:
                         "--env", "docker", "-o", str(root / "jobs"), "--job-name", label],
                        root, root / label)
         result = parse_result(root / "jobs" / label, task, agent, self.version, run, expected)
+        result['wall_sec'] = run.get('wall_sec')
         if before != load_seed(task, config).manifest():
             result.update(status="error", reward=None,
                           error={"type": "PACKAGE_CHANGED", "message": "frozen task package changed during execution"})

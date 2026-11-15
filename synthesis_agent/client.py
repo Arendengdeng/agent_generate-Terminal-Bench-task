@@ -49,11 +49,13 @@ def api_error_detail(raw, api_key):
 class OpenAICompatibleClient:
     def __init__(self, config):
         self.config = config
+        self.last_usage = None
         if not config.model:
             raise SynthesisError("configure SYNTHESIS_MODEL or --model")
         self.opener = urllib.request.build_opener(NoRedirect())
 
     def complete(self, messages, tools):
+        self.last_usage = None
         c = self.config
         payload = {"model": c.model, "messages": messages, "tools": tools,
                    "tool_choice": "required", "parallel_tool_calls": False}
@@ -76,6 +78,11 @@ class OpenAICompatibleClient:
             if len(raw) > c.max_response_bytes:
                 raise BudgetExceeded("model response byte budget exceeded")
             result = json.loads(raw)
+            usage = result.get('usage')
+            if isinstance(usage, dict):
+                self.last_usage = {k: v for k, v in usage.items()
+                                   if k in {'prompt_tokens', 'completion_tokens', 'total_tokens',
+                                            'prompt_tokens_details', 'completion_tokens_details'}}
             if result["choices"][0].get("finish_reason") == "length":
                 raise SynthesisError("model response truncated by token limit")
             message = result["choices"][0]["message"]

@@ -209,7 +209,8 @@ class DockerSandbox:
         try:
             self._checked(self._docker(self.create_args(name)))
             self._checked(self._docker(["start", name]))
-            payload = {p: base64.b64encode(s.encode()).decode() for p, s in files.items()}
+            payload = {p: base64.b64encode(s if isinstance(s, bytes) else s.encode()).decode()
+                       for p, s in files.items()}
             self._checked(self.execute(name, ["python3", "-I", "-c", IMPORT_SCRIPT], json.dumps(payload).encode()))
             yield name
         finally:

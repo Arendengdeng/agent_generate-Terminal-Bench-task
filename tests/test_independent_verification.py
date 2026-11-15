@@ -322,7 +322,7 @@ class IndependentModelAcceptanceTests(unittest.TestCase):
     def test_historical_candidate_real_agent_and_harbor(self):
         import uuid
         from tests.helpers import ROOT
-        candidate = Path(os.getenv('STEP3_CANDIDATE', ROOT / 'runs/acceptance-csv-01'))
+        candidate = Path(os.getenv('STEP3_CANDIDATE', ROOT / 'runs/archive/candidates/acceptance-csv-01'))
         output = ROOT / 'runs' / ('step3-model-' + uuid.uuid4().hex)
         result = verify(candidate, output, harbor_python=os.getenv('STEP3_HARBOR_PYTHON'))
         self.assertTrue(result.get('basic_checks_passed'), result)

@@ -65,7 +65,14 @@ def _decide(report):
     # Explicit stage failures are distinct from valid zero rewards. Expected
     # static/lint failures below do not require trials that were deliberately skipped.
     expected_failure = (run.get('status') == 'failed' and isinstance(run.get('error'), dict)
-                        and run['error'].get('type') in {'STATIC_CHECK_FAILED', 'INVALID_PACKAGE'})
+                        and run['error'].get('type') in {'STATIC_CHECK_FAILED', 'INVALID_PACKAGE', 'TEST_LOOP_NEEDS_REVIEW'})
+    if expected_failure and run['error']['type'] == 'TEST_LOOP_NEEDS_REVIEW':
+        add(3, 'needs_review', 'TEST_LOOP_NEEDS_REVIEW',
+            'Test repair stopped without passing the Docker gate.',
+            ('tests', 'solution', 'environment', 'contract'), details=run.get('test_loop'))
+    loop = run.get('test_loop')
+    if loop is not None and (not isinstance(loop, dict) or loop.get('status') != 'passed') and not expected_failure:
+        error('TEST_LOOP_INCOMPLETE', 'The enabled test repair loop did not pass.', loop)
     if run.get('status') in {'error', 'cancelled'} or (run.get('error') and not expected_failure):
         error('PIPELINE_ERROR', 'Pipeline failed or was cancelled.',
               {'stage': run.get('stage'), 'status': run.get('status'), 'error': run.get('error')})
@@ -98,6 +105,11 @@ def _decide(report):
         known = []
     trials = [('oracle', run.get('oracle')), ('nop', run.get('nop'))]
     trials += [(f'known_correct[{i}]', trial) for i, trial in enumerate(known)]
+    invalid = run.get('known_invalid', [])
+    if not isinstance(invalid, list):
+        error('INVALID_REPORT', 'known_invalid must be an array.')
+        invalid = []
+    trials += [(f'known_invalid[{i}]', trial) for i, trial in enumerate(invalid)]
     for label, trial in trials:
         if isinstance(trial, dict):
             paths.extend(trial[p] for p in ('result_path', 'verifier_report_path', 'log_path')
@@ -110,10 +122,13 @@ def _decide(report):
         if type(reward) not in (int, float) or reward not in (0, 1) or trial.get('error'):
             error('INVALID_REPORT', f'{label} has invalid scoring evidence.', trial)
             continue
-        if label == 'nop' and reward == 1:
+        if label.startswith('known_invalid[') and reward == 1:
+            add(3, 'needs_review', 'KNOWN_INVALID_PASSING', 'A supplied invalid implementation passed.',
+                ('tests', 'contract'), details=trial)
+        elif label == 'nop' and reward == 1:
             add(3, 'needs_review', 'NOP_PASSING', 'Nop passed; the responsible module is undetermined.',
                 ('task', 'tests', 'environment', 'contract'), details=trial)
-        elif label != 'nop' and reward == 0:
+        elif label != 'nop' and not label.startswith('known_invalid[') and reward == 0:
             code = 'ORACLE_NOT_PASSING' if label == 'oracle' else 'KNOWN_CORRECT_NOT_PASSING'
             add(3, 'needs_review', code, f'{label} failed; the responsible module is undetermined.',
                 ('solution', 'tests', 'environment', 'contract'), details=trial)
@@ -162,7 +177,7 @@ def report_paths(root):
     root = Path(root)
     return [str(root / 'run_result.json')] + [str(root / p) for p in (
         'static_check.json', 'preflight.json', 'test-agent/tests.json',
-        'export/package.json', 'export/export.json') if (root / p).exists()]
+        'export/package.json', 'export/export.json', 'test-loop.json') if (root / p).exists()]
 
 
 def load_report(run_dir):

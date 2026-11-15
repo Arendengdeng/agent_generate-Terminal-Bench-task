@@ -14,7 +14,8 @@ from .sandbox import base_dockerfile, wrapper_source
 HARBOR_NETWORK_MODE = "public"
 
 
-def export_task(candidate, tests_output, output, config=None):
+def load_tests(candidate, tests_output, config=None):
+    """Read and verify a frozen test version without creating an export."""
     config = config or Config()
     tests_output = Path(tests_output)
     static = check_candidate(candidate)
@@ -31,6 +32,12 @@ def export_task(candidate, tests_output, output, config=None):
     for p in tests.files:
         test_path(p)
     validate_coverage(candidate.contract, metadata.get('coverage'), metadata.get('nodeids'))
+    return metadata, tests
+
+
+def export_task(candidate, tests_output, output, config=None):
+    config = config or Config()
+    metadata, tests = load_tests(candidate, tests_output, config)
     files = FileSet(config)
     files.put('instruction.md', candidate.instruction)
     for folder, contents in [('environment', candidate.environment),

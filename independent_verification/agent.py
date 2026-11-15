@@ -1,12 +1,13 @@
 import copy
 import json
+from pathlib import Path
 import time
 
 from synthesis_agent.agent import tool, STRING
 from synthesis_agent.client import OpenAICompatibleClient
 from synthesis_agent.config import Config
 from synthesis_agent.errors import BudgetExceeded, SandboxError, SynthesisError
-from synthesis_agent.files import FileSet, relative_path
+from synthesis_agent.files import FileSet, relative_path, load_seed, read_json
 from synthesis_agent.inputs import validate_inputs
 from synthesis_agent.trace import redact, summarize
 
@@ -50,6 +51,41 @@ collected node IDs. All collected tests are mandatory. A mapping is not proof of
 You have no Oracle feedback. Do not claim correctness, difficulty, or independent verification passed.
 """
 
+REPAIR_PROMPT = """
+You are repairing YOUR CURRENT TESTS from execution evidence, not solving the task.
+Read feedback using read_feedback (offset is a decimal character offset, chunks are 4000 characters).
+Oracle/Nop rewards alone do not establish which component is wrong. Analyze the Contract,
+test source/fixtures and exception evidence. If ambiguous, call needs_review and stop.
+Before any edits, call diagnose with a specific requirement ID, an exact Contract quote,
+current test/fixture path and line, evidence ID from feedback, and an explanation of why
+that test or fixture contradicts the Contract. Host reference checks are not semantic proof.
+Do not weaken requirements merely to pass Oracle. Never blanket-catch all exceptions.
+Only tests and fixtures may change; solution, implementation, Contract, wrapper and scoring
+are immutable and private. No new requirements, skips, xfails or hardcoded solution behavior.
+After fixing the evidenced defect, collect again and finish with complete updated mapping.
+The workflow will execute the ENTIRE suite on all controls again, then validate with Harbor.
+Feedback includes full pytest results, stdout/stderr, commands and requirement mappings.
+known_invalid controls are supplied, independently labeled defective implementations, not new specifications.
+If one passes, inspect its observable evidence and add missing Contract assertions, not an implementation-specific check.
+Use classify_failure for implementation_defect, execution_error or uncertain; those stop without editing tests.
+Only diagnose a test_defect when the Contract and current test/fixture demonstrate the defect.
+If repair_permission is analysis_only, you MUST NOT edit or diagnose tests. Classify the evidence
+as implementation_defect or uncertain, explain it, and stop. Oracle failure alone cannot unlock edits.
+"""
+
+DIAGNOSIS_FIELDS = {k: STRING for k in ('requirement_id', 'contract_quote', 'test_path',
+                                     'line', 'evidence_id', 'explanation')}
+REPAIR_TOOLS = [
+    tool('classify_failure', 'Classify a failure with evidence; non-test causes stop without editing.',
+         {k: STRING for k in ('category', 'evidence_id', 'explanation')},
+         ['category', 'evidence_id', 'explanation']),
+    tool('read_feedback', 'Read a bounded chunk of execution feedback.', {'offset': STRING}, ['offset']),
+    tool('diagnose', 'Cite evidence of a definite test/fixture defect before editing.',
+         DIAGNOSIS_FIELDS, list(DIAGNOSIS_FIELDS)),
+    tool('needs_review', 'Stop because the responsible component is uncertain.',
+         {'reason': STRING}, ['reason']),
+]
+
 
 def validate_test_input(test_input, config):
     if not isinstance(test_input, dict) or set(test_input) != {"contract", "instruction", "initial_environment"}:
@@ -77,21 +113,53 @@ class TestAgent:
         self.sandbox = sandbox
         self.verifier_image = verifier_image
 
-    def generate(self, test_input, output, *, config=None, client=None):
+    def generate(self, test_input, output, *, config=None, client=None, budget=None):
+        return self._run(test_input, output, config=config, client=client, budget=budget)
+
+    def repair(self, test_input, tests_output, feedback, output, *, budget=None):
+        return self._run(test_input, output, previous=tests_output, feedback=feedback, budget=budget)
+
+    def _run(self, test_input, output, *, config=None, client=None, previous=None,
+             feedback=None, budget=None):
         c = config or self.config
         data = validate_test_input(test_input, c)
         inputs = bounded_files({"inputs/contract.json": json.dumps(data["contract"], ensure_ascii=False),
                                 "inputs/instruction.md": data["instruction"],
                                 **{"inputs/environment/" + p: s for p, s in data["initial_environment"].items()}}, c)
-        root = new_directory(output)
         tests = FileSet(c)
+        parent_digest = None
+        if previous is not None:
+            metadata = read_json(Path(previous) / 'tests.json')
+            tests = load_seed(Path(previous) / 'tests', c)
+            if (metadata.get('status') != 'tests_generated' or metadata.get('manifest') != tests.manifest()
+                    or metadata.get('digest') != tests.digest()
+                    or metadata.get('input_manifest') != inputs.manifest()):
+                raise SynthesisError('repair requires frozen tests bound to current inputs')
+            for path in tests.files:
+                test_path(path)
+            validate_coverage(data['contract'], metadata.get('coverage'), metadata.get('nodeids'))
+            if (not isinstance(feedback, dict) or feedback.get('tests_digest') != tests.digest()
+                    or feedback.get('input_manifest') != inputs.manifest()
+                    or feedback.get('status') != 'failed'):
+                raise SynthesisError('repair feedback is stale, unbound or not a test failure')
+            parent_digest = tests.digest()
+        root = new_directory(output)
+        feedback_text = json.dumps(redact(feedback, c.api_key), ensure_ascii=False) if previous is not None else ''
+        if previous is not None:
+            write_json(root / 'feedback.json', redact(feedback, c.api_key))
+        tools = TOOLS + REPAIR_TOOLS if previous is not None else TOOLS
+        diagnosis = None
+        shared_budget = budget if budget is not None else {'model_calls': 0, 'tool_calls': 0}
         collection = {}
+        collection_index = 0
         calls = model_calls = 0
         started = time.monotonic()
         result = {"status": "error", "error": None, "tests_dir": "tests",
                   "trace_path": "trace.jsonl", "entrypoint_template": "pytest-wrapper-v1",
                   "reward_policy": "pass_1_assertion_fail_0_error_null", "coverage": [],
                   "independent_validation": False, "input_manifest": inputs.manifest()}
+        if parent_digest:
+            result['parent_digest'] = parent_digest
 
         def trace(event, **fields):
             row = {"event": event, "model_call": model_calls, "tool_call": calls,
@@ -100,12 +168,59 @@ class TestAgent:
                 stream.write(json.dumps(summarize(redact(row, c.api_key)), ensure_ascii=False) + "\n")
 
         def dispatch(name, args):
-            nonlocal collection
-            schema = next((t["function"]["parameters"] for t in TOOLS if t["function"]["name"] == name), None)
+            nonlocal collection, diagnosis, collection_index
+            schema = next((t["function"]["parameters"] for t in tools if t["function"]["name"] == name), None)
             if schema is None or not isinstance(args, dict) or set(args) != set(schema["properties"]):
                 raise SynthesisError("unknown tool or invalid arguments")
             if name != "finish" and any(not isinstance(v, str) for v in args.values()):
                 raise SynthesisError("tool arguments must be strings")
+            if name == 'read_feedback':
+                offset = int(args['offset'])
+                if offset < 0 or offset > len(feedback_text):
+                    raise SynthesisError('invalid feedback offset')
+                return {'content': feedback_text[offset:offset + 4000],
+                        'next_offset': min(offset + 4000, len(feedback_text)), 'total_chars': len(feedback_text)}
+            if name == 'needs_review':
+                if not args['reason'].strip():
+                    raise SynthesisError('review reason is required')
+                result.update(status='needs_review', review_reason=args['reason'], attribution='uncertain')
+                return {'status': 'needs_review'}
+            if name == 'classify_failure':
+                if args['category'] not in {'test_defect', 'implementation_defect', 'execution_error', 'uncertain'}:
+                    raise SynthesisError('invalid failure category')
+                if not any(e['id'] == args['evidence_id'] for e in feedback['evidence']) or not args['explanation'].strip():
+                    raise SynthesisError('classification requires current evidence and explanation')
+                result.update(attribution=args['category'], analysis=dict(args))
+                if args['category'] != 'test_defect':
+                    result.update(status='needs_review', review_reason=args['explanation'])
+                return {'status': result['status'], 'attribution': args['category']}
+            if name == 'diagnose':
+                if feedback.get('repair_permission') == 'analysis_only':
+                    result.update(status='needs_review', attribution='uncertain',
+                                  review_reason='oracle_only_failure_requires_review')
+                    return {'status': 'needs_review', 'editing_enabled': False,
+                            'reason': 'Oracle failure alone cannot authorize test edits.'}
+                if tests.digest() != parent_digest or diagnosis is not None:
+                    raise SynthesisError('diagnosis must bind the unmodified parent version, once')
+                req = next((r for r in data['contract']['requirements'] if r['id'] == args['requirement_id']), None)
+                clause = '\n'.join(str(data['contract'].get(k, '')) for k in
+                                   ('input_spec', 'output_spec', 'objective', 'command'))
+                if req is None or not args['contract_quote'].strip() or args['contract_quote'] not in clause + req['description']:
+                    raise SynthesisError('diagnosis must quote the cited Contract requirement or public specification')
+                path = args['test_path']
+                if not path.startswith('tests/') or path[6:] not in tests.files:
+                    raise SynthesisError('diagnosis must cite a current test or fixture')
+                line = int(args['line'])
+                if not 1 <= line <= len(tests.files[path[6:]].splitlines()):
+                    raise SynthesisError('diagnosis line is outside current file')
+                evidence = next((e for e in feedback['evidence'] if e['id'] == args['evidence_id']), None)
+                if evidence is None or not args['explanation'].strip():
+                    raise SynthesisError('diagnosis requires current execution evidence and explanation')
+                diagnosis = {**args, 'parent_digest': parent_digest}
+                result['diagnosis'] = copy.deepcopy(diagnosis)
+                result['attribution'] = 'test_defect'
+                write_json(root / 'diagnosis.json', redact(diagnosis, c.api_key))
+                return {'status': 'diagnosed', 'editing_enabled': True}
             if name == "list_files":
                 return {"files": sorted([*inputs.files, *("tests/" + p for p in tests.files)])}
             if name == "read_file":
@@ -116,6 +231,8 @@ class TestAgent:
                     return {"content": tests.files[path[6:]]}
                 raise SynthesisError("file not in allowed inputs or generated tests")
             if name in {"write_file", "delete_file"}:
+                if previous is not None and diagnosis is None:
+                    raise SynthesisError('submit an evidenced diagnosis before modifying tests')
                 if not args["path"].startswith("tests/"):
                     raise SynthesisError("inputs are immutable; write only tests/")
                 path = test_path(args["path"][6:])
@@ -128,8 +245,17 @@ class TestAgent:
             if name == "collect":
                 collection = {**sandbox.collect(copy.deepcopy(data["initial_environment"]), copy.deepcopy(tests.files)),
                               "digest": tests.digest()}
+                archived = root / 'collections' / f'{collection_index:03d}'
+                tests.export(archived / 'tests')
+                write_json(archived / 'collection.json', redact(collection, c.api_key))
+                collection_index += 1
                 return collection
             if name == "finish":
+                if previous is not None and diagnosis is None:
+                    raise SynthesisError('repair finish requires an evidenced diagnosis')
+                if previous is not None and tests.digest() == parent_digest:
+                    result.update(status='needs_review', review_reason='no_changes')
+                    return {'status': 'needs_review', 'reason': 'no_changes'}
                 if collection.get("status") != "completed" or collection.get("digest") != tests.digest():
                     raise SynthesisError("finish requires successful collection of current tests")
                 validate_coverage(data["contract"], args["coverage"], collection["nodeids"])
@@ -143,15 +269,33 @@ class TestAgent:
             sandbox = self.sandbox or TestSandbox(c, self.verifier_image)
             sandbox.prepare()
             model = client or self.client or OpenAICompatibleClient(c)
-            messages = [{"role": "system", "content": PROMPT}, {"role": "user", "content": json.dumps({
+            prompt = PROMPT if previous is None else PROMPT.replace(
+                'You have no Oracle feedback.', 'You have restricted execution feedback.') + REPAIR_PROMPT
+            messages = [{"role": "system", "content": prompt}, {"role": "user", "content": json.dumps({
                 "contract": data["contract"], "instruction": data["instruction"],
-                "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/"))}, ensure_ascii=False)}]
+                "initial_environment": sorted(p for p in inputs.files if p.startswith("inputs/environment/")),
+                **({'repair_parent_digest': parent_digest, 'feedback_chars': len(feedback_text),
+                    'repair_permission': feedback.get('repair_permission', 'diagnosis_required'),
+                    'evidence_ids': [e['id'] for e in feedback['evidence']],
+                    'trials': [{k: t[k] for k in ('label', 'status', 'reward', 'expected_reward')}
+                               for t in feedback['trials']]} if previous is not None else {})}, ensure_ascii=False)}]
             for _ in range(c.max_model_calls):
                 if len(json.dumps(messages).encode()) > c.max_context_bytes:
                     raise BudgetExceeded("Test Agent context budget exceeded")
+                if shared_budget['model_calls'] >= c.max_model_calls:
+                    raise BudgetExceeded('Test Agent shared model call budget exhausted')
                 model_calls += 1
+                shared_budget['model_calls'] += 1
                 trace("model_request")
-                message = model.complete(copy.deepcopy(messages), copy.deepcopy(TOOLS))
+                requested_at = time.monotonic()
+                message = model.complete(copy.deepcopy(messages), copy.deepcopy(tools))
+                usage = getattr(model, 'last_usage', None)
+                trace('model_usage', usage=usage, wall_sec=round(time.monotonic() - requested_at, 6))
+                if isinstance(usage, dict):
+                    totals = shared_budget.setdefault('token_usage', {})
+                    for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+                        if type(usage.get(key)) is int and usage[key] >= 0:
+                            totals[key] = totals.get(key, 0) + usage[key]
                 if len(json.dumps(message).encode()) > c.max_response_bytes:
                     raise BudgetExceeded("model response budget exceeded")
                 proposed = message.get("tool_calls")
@@ -164,13 +308,14 @@ class TestAgent:
                 messages.append({"role": "assistant", "content": message.get("content"), "tool_calls": proposed})
                 for call in proposed:
                     calls += 1
-                    if calls > c.max_tool_calls:
+                    if shared_budget['tool_calls'] >= c.max_tool_calls:
                         raise BudgetExceeded("Test Agent tool budget exceeded")
+                    shared_budget['tool_calls'] += 1
                     trace("tool_start", call=call)
                     try:
                         name = call["function"]["name"]
-                        if name == "finish" and len(proposed) != 1:
-                            raise SynthesisError("finish must be the only tool call")
+                        if name in {'finish', 'needs_review'} and len(proposed) != 1:
+                            raise SynthesisError('terminal tool must be the only tool call')
                         observation = dispatch(name, json.loads(call["function"]["arguments"]))
                     except (BudgetExceeded, SandboxError):
                         raise
@@ -181,7 +326,9 @@ class TestAgent:
                     if len(encoded.encode()) > c.max_response_bytes:
                         raise BudgetExceeded("observation budget exceeded")
                     messages.append({"role": "tool", "tool_call_id": call["id"], "content": encoded})
-                if result["status"] == "tests_generated":
+                    if result['status'] == 'needs_review':
+                        break
+                if result["status"] in {'tests_generated', 'needs_review'}:
                     break
             else:
                 raise BudgetExceeded("Test Agent model call budget exhausted")
@@ -195,7 +342,10 @@ class TestAgent:
             except Exception as exc:
                 result.update(status="error", error={"type": type(exc).__name__, "message": str(exc)})
             result.update(manifest=tests.manifest(), digest=tests.digest(),
-                          budget_used={"model_calls": model_calls, "tool_calls": calls})
+                          budget_used={"model_calls": model_calls, "tool_calls": calls},
+                          workflow_budget_used=dict(shared_budget))
+            result['cost'] = {'wall_sec': round(time.monotonic() - started, 3),
+                              'token_usage': shared_budget.get('token_usage')}
             write_json(root / "collection.json", redact(collection, c.api_key))
             write_json(root / "tests.json", redact(result, c.api_key))
             trace("end", status=result["status"])
