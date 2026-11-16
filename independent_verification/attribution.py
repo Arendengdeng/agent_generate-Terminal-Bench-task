@@ -9,6 +9,7 @@ import re
 import shlex
 
 from synthesis_agent.errors import SynthesisError
+from synthesis_agent.consistency import check_instruction
 from .exporter import load_tests
 
 
@@ -84,6 +85,8 @@ def _assertion(candidate, metadata, files, diagnosis):
 
 def verify_test_diagnosis(candidate, tests_output, execution, diagnosis, config):
     """Verify a model proposal against immutable Contract and actual frozen source."""
+    if check_instruction(candidate.contract, candidate.instruction)['status'] == 'blocked':
+        raise UnconfirmedAttribution('instruction_contract_drift_requires_synthesis')
     from . import json_attribution
     if json_attribution.supported(candidate):
         return json_attribution.diagnosis(candidate, tests_output, execution, diagnosis, config)
@@ -122,6 +125,8 @@ def verify_test_diagnosis(candidate, tests_output, execution, diagnosis, config)
 
 def verify_test_patch(candidate, before, after, diagnosis, config):
     """Permit only the Contract-derived literal correction; preserve all other ASTs/files."""
+    if check_instruction(candidate.contract, candidate.instruction)['status'] == 'blocked':
+        raise UnconfirmedAttribution('instruction_contract_drift_requires_synthesis')
     from . import json_attribution
     if json_attribution.supported(candidate):
         return json_attribution.patch(candidate, before, after, diagnosis, config)

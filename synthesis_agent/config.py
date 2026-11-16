@@ -23,6 +23,9 @@ class Config:
     max_response_bytes: int = 1_000_000
     max_context_bytes: int = 4_000_000
     max_completion_tokens: int = 8000
+    max_diagnosis_calls: int = 2
+    max_diagnosis_context_bytes: int = 24_576
+    max_diagnosis_completion_tokens: int = 2000
     memory_mb: int = 256
     cpus: float = 1.0
     pids_limit: int = 64

@@ -7,7 +7,7 @@ import shlex
 import time
 
 from synthesis_agent.agent import tool, STRING
-from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error
+from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error, complete_accounted
 from synthesis_agent.config import Config
 from synthesis_agent.errors import BudgetExceeded, SynthesisError
 from synthesis_agent.files import FileSet, load_seed, read_json, relative_path
@@ -43,7 +43,9 @@ class Calls:
             if self.client is None:
                 self.client = OpenAICompatibleClient(c)
             try:
-                message = self.client.complete(copy.deepcopy(messages), copy.deepcopy(tools))
+                message = complete_accounted(self.client, copy.deepcopy(messages), copy.deepcopy(tools),
+                    budget=budget, config=c, on_retry=lambda: None,
+                    on_event=lambda event: self.record('api_attempt', details=event))
                 break
             except SynthesisError as exc:
                 if not transient_transport_error(exc) or attempt == 2:
@@ -51,11 +53,6 @@ class Calls:
                 self.record('model_transport_retry', attempt=attempt + 1, error_type=type(exc).__name__)
                 time.sleep(attempt + 1)
         usage = getattr(self.client, 'last_usage', None)
-        if isinstance(usage, dict):
-            totals = budget.setdefault('token_usage', {})
-            for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
-                if type(usage.get(key)) is int and usage[key] >= 0:
-                    totals[key] = totals.get(key, 0) + usage[key]
         if len(json.dumps(message).encode()) > c.max_response_bytes:
             raise BudgetExceeded('Challenge response budget exhausted')
         self.record('model_response', message=message, usage=usage)

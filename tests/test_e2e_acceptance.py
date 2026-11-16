@@ -275,7 +275,9 @@ class TransportTests(unittest.TestCase):
         budget = {'model_calls': 0, 'tool_calls': 0}
         with patch('independent_verification.challenge.time.sleep'):
             Calls(Config(), Client(), budget, self.root).complete(messages, [])
-        self.assertEqual(budget, {'model_calls': 2, 'tool_calls': 1})
+        self.assertEqual((budget['model_calls'],budget['tool_calls']), (2,1))
+        self.assertFalse(budget['token_usage_complete'])
+        self.assertEqual(budget['usage_unknown_attempts'],[1,2])
         self.assertIn('model_transport_retry', (self.root / 'trace.jsonl').read_text())
 
     def test_retry_budget_exhaustion_never_hides_failed_request(self):

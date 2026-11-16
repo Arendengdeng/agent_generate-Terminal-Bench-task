@@ -210,7 +210,7 @@ class RepairTests(unittest.TestCase):
         self.assertIn('successful collection', client.contexts[-1][-1]['content'])
 
     def test_workflow_reexecutes_all_controls_on_fixed_version(self):
-        agent, _ = self.agent(repair_script())
+        agent, _ = self.agent(repair_script()[1:])
         calls = []
         class Runner:
             def run(self, candidate, tests, output, known, known_invalid=()):
@@ -378,7 +378,7 @@ class DockerRepairTests(unittest.TestCase):
         root.mkdir(parents=True)
         print(f'Docker repair evidence: {root}', flush=True)
         candidate = candidate_fixture(root / 'candidate')
-        agent = TestAgent(Config(), ScriptedClient(script(candidate.contract, source(43)) + repair_script()))
+        agent = TestAgent(Config(), ScriptedClient(script(candidate.contract, source(43)) + repair_script()[1:]))
         initial = agent.generate(candidate.test_input(), root / 'test-agent')
         self.assertEqual(initial['status'], 'tests_generated', initial)
         known = root / 'known'; known.mkdir()
@@ -446,7 +446,7 @@ class HarborRepairTests(unittest.TestCase):
         root.mkdir(parents=True)
         print(f'Harbor repair evidence: {root}', flush=True)
         candidate = candidate_fixture(root / 'candidate')
-        client = ScriptedClient(script(candidate.contract, source(43)) + repair_script())
+        client = ScriptedClient(script(candidate.contract, source(43)) + repair_script()[1:])
         known, invalid, manifest = reviewed_literal_controls(candidate, root / 'reviewed-controls')
         result = verify(candidate.source, root / 'verification', client=client,
                         known_correct=[known], known_invalid=[invalid], controls_manifest=manifest, challenge=False)

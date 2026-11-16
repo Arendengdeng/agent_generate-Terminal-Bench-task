@@ -87,8 +87,15 @@ class JSONAttributionTests(unittest.TestCase):
         client=ScriptedClient([call('diagnose',**args(wrong)),call('diagnose',**args(proposed))])
         analyzed=TestAgent(self.config,client,sandbox=CollectionStub()).analyze(
             self.candidate.test_input(),old,feedback,self.root/'analysis')
+        self.assertEqual(analyzed['status'],'needs_review')
+        self.assertEqual(len(client.contexts),1)
+        client=ScriptedClient([call('diagnose',**args(proposed))])
+        analyzed=TestAgent(self.config,client,sandbox=CollectionStub()).analyze(
+            self.candidate.test_input(),old,feedback,self.root/'valid-analysis')
         self.assertEqual(analyzed['status'],'diagnosed')
         self.assertEqual(analyzed['diagnosis']['line'],proposed['line'])
+        self.assertIn('source_excerpts',client.contexts[0][1]['content'])
+        self.assertIn('isinstance',client.contexts[0][1]['content'])
         feedback['host_patch_rule']={'patch_scope':'replace only the cited assertion'}
         fixed,_=tests_source('numeric',[],None)
         coverage=meta['coverage']

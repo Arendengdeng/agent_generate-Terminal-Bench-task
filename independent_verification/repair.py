@@ -16,7 +16,7 @@ from .attribution import UnconfirmedAttribution, verify_test_diagnosis, verify_t
 from .candidate import CandidateTask, check_candidate
 from .common import new_directory, write_json
 from .controller import decide, report_paths
-from .docker_test_runner import DockerTestRunner, model_feedback
+from .docker_test_runner import DockerTestRunner
 from .exporter import load_tests
 
 
@@ -182,11 +182,8 @@ class RepairDispatcher:
                         if execution['status'] != 'failed':
                             stop('execution_error', 'cancelled' if execution['status'] == 'cancelled' else 'error')
                             break
-                        feedback = model_feedback(execution)
-                        from .json_attribution import supported_diagnoses
-                        supported_locations = supported_diagnoses(candidate, current_tests, execution, self.config)
-                        if supported_locations:
-                            feedback['host_supported_diagnoses'] = supported_locations
+                        from .diagnosis import prepare_feedback
+                        feedback = prepare_feedback(candidate, current_tests, execution, self.config)
                         if not known_correct or not known_invalid:
                             stop('test_repair_requires_legal_and_invalid_controls')
                             break

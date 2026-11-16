@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import time
 
-from .client import OpenAICompatibleClient
+from .client import OpenAICompatibleClient, complete_accounted
 from .config import Config
 from .errors import BudgetExceeded, SandboxError, SynthesisError
 from .files import FileSet, load_seed, read_json, relative_path, safe_ancestors
@@ -36,7 +36,8 @@ TOOLS = [
 
 SYSTEM_PROMPT = """You are the Synthesis Agent for Linux Python-standard-library CLI data-processing repair tasks.
 Generate a new task from the actual Plan, Contract and optional reference materials. Do not substitute a stock task.
-Contract is immutable and defines task requirements and permitted task artifacts. Reject incompatible scope by explaining the conflict.
+Contract is immutable and defines task requirements and permitted task artifacts.
+Instruction must not add obligations outside Contract, including output line endings or behavior for out-of-domain inputs. Reject incompatible scope by explaining the conflict.
 Create a realistically faulty initial app, realistic data, instruction, reference solution and behavioral self-check.
 Allowed write paths: draft/instruction.md, draft/environment/app/<file>, draft/solution/<file>, checks/probe.py.
 draft/environment/Dockerfile is trusted and immutable. Do not generate Dockerfiles elsewhere, dependencies or installers.
@@ -317,13 +318,13 @@ class SynthesisAgent:
                 shared_budget['model_calls'] += 1
                 trace("model_request", context_bytes=len(json.dumps(messages).encode()),
                       context_limit=c.max_context_bytes)
-                message = client.complete(copy.deepcopy(messages), copy.deepcopy(TOOLS))
-                usage = getattr(client, 'last_usage', None)
-                if isinstance(usage, dict):
-                    totals = shared_budget.setdefault('token_usage', {})
-                    for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
-                        if type(usage.get(key)) is int and usage[key] >= 0:
-                            totals[key] = totals.get(key, 0) + usage[key]
+                def retry_count():
+                    nonlocal model_calls
+                    model_calls += 1
+                    trace('model_request', transport_retry=True)
+                message = complete_accounted(client, copy.deepcopy(messages), copy.deepcopy(TOOLS),
+                    budget=shared_budget, config=c, on_retry=retry_count,
+                    on_event=lambda event: trace('api_attempt', details=event))
                 if len(json.dumps(message).encode()) > c.max_response_bytes:
                     raise BudgetExceeded("model response byte budget exceeded")
                 calls = message.get("tool_calls")

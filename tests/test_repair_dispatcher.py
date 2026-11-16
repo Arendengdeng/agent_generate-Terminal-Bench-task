@@ -103,7 +103,9 @@ class DispatcherTests(unittest.TestCase):
         history = result['repair_workflow']
         self.assertEqual(history['repairs'], 1)
         self.assertEqual([r['version'] for r in history['versions']], ['v000', 'v001'])
-        self.assertEqual(history['budget_used'], {'model_calls': 4, 'tool_calls': 4})
+        self.assertEqual({k:history['budget_used'][k] for k in ('model_calls','tool_calls')}, {'model_calls':4,'tool_calls':4})
+        self.assertFalse(history['budget_used']['token_usage_complete'])
+        self.assertEqual(history['budget_used']['usage_unknown_attempts'],[1,2,3,4])
         self.assertNotEqual(history['versions'][0]['tests_digest'], history['versions'][1]['tests_digest'])
         request = json.loads(Path(history['attempts'][0]['request_path']).read_text())
         self.assertEqual(request['responsible_module'], 'tests')
@@ -149,7 +151,8 @@ class DispatcherTests(unittest.TestCase):
         dispatcher, _ = self.dispatcher(config=Config(max_model_calls=4, max_tool_calls=4))
         result = self.run_dispatcher(dispatcher, max_repairs=1)
         self.assertEqual(result['controller_decision']['decision'], 'accept', result)
-        self.assertEqual(result['repair_workflow']['budget_used'], {'model_calls': 4, 'tool_calls': 4})
+        self.assertEqual({k:result['repair_workflow']['budget_used'][k] for k in ('model_calls','tool_calls')}, {'model_calls':4,'tool_calls':4})
+        self.assertFalse(result['repair_workflow']['budget_used']['token_usage_complete'])
 
     def test_no_changes_uncertainty_cancellation_and_infrastructure(self):
         cases = [
@@ -204,11 +207,11 @@ class DispatcherTests(unittest.TestCase):
         agent = TestAgent(Config(), ScriptedClient([
             call('write_file', path='tests/test_behavior.py', content='bad'), diagnose()]), sandbox=CollectionStub())
         result = agent.analyze(self.candidate.test_input(), self.initial, feedback, self.root / 'analyze')
-        self.assertEqual(result['status'], 'diagnosed')
+        self.assertEqual(result['status'], 'needs_review')
         self.assertEqual(result['digest'], metadata['digest'])
         self.assertEqual((self.root / 'analyze/tests/test_behavior.py').read_text(), source(43))
         result = agent.repair(self.candidate.test_input(), self.initial, feedback, self.root / 'stale',
-                              approved_diagnosis={**result['diagnosis'], 'parent_digest': 'stale'})
+                              approved_diagnosis={'parent_digest': 'stale'})
         self.assertEqual(result['status'], 'error')
 
     def test_shared_tool_budget_counts_failed_calls(self):
