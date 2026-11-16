@@ -67,8 +67,10 @@ class SynthesisAgent:
         self.config = config or Config.from_env()
         self.client = client
 
-    def generate(self, plan, contract, output, seed=None, *, budget=None):
-        return self._run(plan, contract, output, seed, shared_budget=budget)
+    def generate(self, plan, contract, output, seed=None, *, budget=None,
+                 max_no_progress=None, max_self_check_failures=None):
+        return self._run(plan, contract, output, seed, shared_budget=budget,
+                         max_no_progress=max_no_progress, max_self_check_failures=max_self_check_failures)
 
     def repair(self, candidate_path, request, output, *, budget=None):
         # Runtime import avoids making generation depend on verification imports.
@@ -94,7 +96,8 @@ class SynthesisAgent:
                          sandbox_image=candidate.metadata['image_reference'])
 
     def _run(self, plan, contract, output, seed=None, *, initial=None,
-             repair_request=None, shared_budget=None, sandbox_image=None):
+             repair_request=None, shared_budget=None, sandbox_image=None,
+             max_no_progress=None, max_self_check_failures=None):
         # Freeze caller-owned inputs before any generation.
         plan, contract = copy.deepcopy(plan), copy.deepcopy(contract)
         validate_inputs(plan, contract)
@@ -115,6 +118,7 @@ class SynthesisAgent:
         sandbox = DockerSandbox(replace(c, image=sandbox_image) if sandbox_image else c)
         last_check = {"status": "not_run"}
         model_calls = tool_calls = 0
+        no_progress = check_failures = 0
         trace_sequence = 0
         started = time.monotonic()
         result = {"status": "error", "independent_validation": False,
@@ -235,6 +239,10 @@ class SynthesisAgent:
                 report["status"] = "passed" if initial_failed and repaired_passed else "failed"
                 if report["status"] == "failed":
                     report["error"] = "requires initial failure and all repaired requirements passing"
+            except SandboxError as exc:
+                if max_no_progress is not None or max_self_check_failures is not None:
+                    raise
+                report.update(status='error', error=str(exc))
             except (SynthesisError, ValueError) as exc:
                 report["status"] = "error"
                 report["error"] = str(exc)
@@ -247,6 +255,9 @@ class SynthesisAgent:
                 }
                 if not unchanged:
                     report.update(status="error", error="original environment mutated during self-check")
+                # Preserve self-check evidence even when a sandbox failure propagates.
+                last_check = report
+                save("self_check.json", report)
             if files.digest() != digest:
                 report["status"] = "error"
                 report.setdefault("error", "initial candidate mutated during self-check")
@@ -344,6 +355,7 @@ class SynthesisAgent:
                     trace("tool_start", tool=name, tool_call_id=call["id"],
                           proposed_call=call)
                     args = None
+                    previous_digest = files.digest()
                     try:
                         args = json.loads(call["function"]["arguments"])
                         if name == "finish" and len(calls) != 1:
@@ -353,6 +365,12 @@ class SynthesisAgent:
                         trace("tool_result", tool=name, tool_call_id=call["id"], arguments=args,
                               outcome="error", observation={"error": str(exc), "type": type(exc).__name__})
                         raise
+                    except SandboxError as exc:
+                        observation = {"error": str(exc), "type": type(exc).__name__}
+                        if max_no_progress is not None or max_self_check_failures is not None:
+                            trace('tool_result', tool=name, tool_call_id=call['id'], arguments=args,
+                                  outcome='error', observation=observation)
+                            raise
                     except (SynthesisError, ValueError, TypeError, KeyError) as exc:
                         observation = {"error": str(exc), "type": type(exc).__name__}
                     except Exception as exc:
@@ -365,6 +383,28 @@ class SynthesisAgent:
                           outcome="error" if failed else "ok",
                           observation=summarize(redact(observation)))
                     log("tool", index=tool_calls, call=call, observation=observation)
+                    # Batch-only guards stop waste before the next model request.
+                    no_progress = 0 if files.digest() != previous_digest else no_progress + 1
+                    if name == 'self_check':
+                        check_failures = 0 if observation.get('status') == 'passed' else check_failures + 1
+                    if name != 'finish' or observation.get('status') != 'candidate_generated':
+                        category = None
+                        if max_self_check_failures and check_failures >= max_self_check_failures:
+                            category = 'self_check_failure'
+                            # Probe errors are evidence, assertion failures alone are not.
+                            if any(last_check.get(k, {}).get('status') == 'error' for k in ('initial', 'repaired')):
+                                category = 'probe_defect'
+                        elif max_no_progress and no_progress >= max_no_progress:
+                            category = 'no_progress'
+                        if category:
+                            reason = (f'{no_progress} consecutive tool calls without persisted file changes'
+                                      if category == 'no_progress' else
+                                      f'{check_failures} consecutive self-check failures: {last_check.get("error", "checks failed")}')
+                            result.update(failure_category=category,
+                                failure_reason=reason,
+                                failed_stage='self_check' if category != 'no_progress' else 'generation',
+                                failure_evidence=['trace.jsonl', 'self_check.json'])
+                            raise SynthesisError(result['failure_reason'])
                     encoded = json.dumps(observation, ensure_ascii=False)
                     # Never silently truncate observations into invalid JSON.
                     if len(encoded.encode()) > c.max_response_bytes:
@@ -380,6 +420,10 @@ class SynthesisAgent:
         except (Exception, KeyboardInterrupt) as exc:
             result.update(status="cancelled" if isinstance(exc, KeyboardInterrupt) else "error",
                           error={"type": type(exc).__name__, "message": str(exc)})
+            if isinstance(exc, SandboxError) or getattr(exc, 'api_failure', None):
+                result.update(failure_category='infrastructure_failure',
+                              failure_reason=str(exc), failed_stage='generation',
+                              failure_evidence=['trace.jsonl'])
             log("failure", error=result["error"])
             trace("failure", error=result["error"])
         finally:

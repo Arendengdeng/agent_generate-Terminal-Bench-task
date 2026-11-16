@@ -368,7 +368,7 @@ class DispatcherTests(unittest.TestCase):
         metadata = TestAgent(Config(), ScriptedClient(script(contract, source(43))), sandbox=CollectionStub()).generate(
             candidate.test_input(), folder)
         proposal.update(contract_quote='Print the right value.', parent_digest=metadata['digest'])
-        with self.assertRaisesRegex(UnconfirmedAttribution, 'outside supported'):
+        with self.assertRaisesRegex(UnconfirmedAttribution, 'unsupported_proof_rule'):
             verify_test_diagnosis(candidate, folder, execution(candidate, metadata), proposal, self.config)
 
     def test_weakened_patch_cannot_pass_even_if_oracle_would_accept(self):

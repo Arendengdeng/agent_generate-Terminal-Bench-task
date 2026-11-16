@@ -100,7 +100,7 @@ def validate_test_input(test_input, config):
                      "scenario": "verify", "skills": ["testing"]}, data["contract"])
     if not isinstance(data["instruction"], str) or not data["instruction"].strip():
         raise SynthesisError("instruction must be nonempty text")
-    consistency = check_instruction(data['contract'], data['instruction'])
+    consistency = check_instruction(data['contract'], data['instruction'], rules=config.consistency_rules)
     if consistency['status'] == 'blocked':
         raise SynthesisError('CONTRACT_INSTRUCTION_DRIFT: ' + json.dumps(consistency, ensure_ascii=False))
     initial = bounded_files(data["initial_environment"], config)
@@ -300,6 +300,13 @@ class TestAgent:
         trace("start", config=c.public(), input_manifest=inputs.manifest())
         try:
             inputs.export(root)
+            if previous is not None and not feedback.get('challenge_issues'):
+                from .repair_proofs import repair_capability
+                capability = repair_capability(data['contract'], metadata, tests.files)
+                result['repair_capability'] = capability
+                if not capability['supported']:
+                    result.update(status='needs_review', review_reason='unsupported_proof_rule')
+                    return result
             sandbox = self.sandbox or TestSandbox(c, self.verifier_image)
             if not diagnose_only:
                 sandbox.prepare()

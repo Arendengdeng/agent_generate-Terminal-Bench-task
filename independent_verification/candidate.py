@@ -75,12 +75,13 @@ class CandidateTask:
                        **{'inputs/environment/' + p: s for p, s in self.environment.items()}})
 
 
-def check_candidate(candidate):
+def check_candidate(candidate, config=None):
     """Conservative checks for the existing single-container stdlib CLI format.
 
     This is not a semantic specification checker or proof of absence of leakage.
     """
-    consistency = check_instruction(candidate.contract, candidate.instruction)
+    consistency = check_instruction(candidate.contract, candidate.instruction,
+                                    rules=(config or Config()).consistency_rules)
     errors = [{'path': 'instruction.md', 'message': f['code'], **f}
               for f in consistency['findings']]
     def fail(path, message):

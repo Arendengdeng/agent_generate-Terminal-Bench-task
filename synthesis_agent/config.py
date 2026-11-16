@@ -26,13 +26,19 @@ class Config:
     max_diagnosis_calls: int = 2
     max_diagnosis_context_bytes: int = 24_576
     max_diagnosis_completion_tokens: int = 2000
+    consistency_rules: tuple[str, ...] = ()
     memory_mb: int = 256
     cpus: float = 1.0
     pids_limit: int = 64
 
     def __post_init__(self):
+        from .format_rules import RULE_NAMES
+        if (not isinstance(self.consistency_rules, (tuple, list))
+                or any(not isinstance(rule, str) or rule not in RULE_NAMES for rule in self.consistency_rules)):
+            raise SynthesisError('unknown consistency rule selection')
+        object.__setattr__(self, 'consistency_rules', tuple(self.consistency_rules))
         for name in self.__dataclass_fields__:
-            if name not in {"base_url", "model", "api_key", "image", "cpus"}:
+            if name not in {"base_url", "model", "api_key", "image", "cpus", "consistency_rules"}:
                 value = getattr(self, name)
                 if type(value) is not int or value <= 0:
                     raise SynthesisError(f"{name} must be a positive integer")
@@ -60,4 +66,6 @@ class Config:
         return cls(**values)
 
     def public(self):
-        return {k: getattr(self, k) for k in self.__dataclass_fields__ if k != "api_key"}
+        return {k: list(value) if isinstance(value, tuple) else value
+                for k in self.__dataclass_fields__ if k != "api_key"
+                for value in (getattr(self, k),)}

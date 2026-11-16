@@ -76,7 +76,8 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         return RepairDispatcher(config, client).run(candidate_path, output, tests_output=tests_output,
             max_repairs=max_repairs, known_correct=tuple(known_correct), known_invalid=tuple(known_invalid),
             critical_issues=tuple(critical_issues), harbor_python=harbor_python,
-            holdout_correct=tuple(holdout_correct), holdout_invalid=tuple(holdout_invalid), controls_manifest=controls_manifest)
+            holdout_correct=tuple(holdout_correct), holdout_invalid=tuple(holdout_invalid), controls_manifest=controls_manifest,
+            budget=_budget)
     started = time.monotonic()
     if stage not in {'inspect', 'generate', 'export', 'run', 'all'}:
         raise ValueError('unknown stage')
@@ -111,7 +112,7 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         known_correct = tuple(c['path'] for c in feedback if c['role'] == 'correct')
         known_invalid = tuple(c['path'] for c in feedback if c['role'] == 'invalid')
         result['stage'] = 'static_check'
-        static = check_candidate(candidate)
+        static = check_candidate(candidate, config)
         write_json(root / 'static_check.json', static)
         if static['status'] != 'passed':
             result.update(status='failed', error={'type': 'STATIC_CHECK_FAILED', 'details': static['errors']})
@@ -202,10 +203,19 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
             trials=docker.get('trials', []), evidence=[root / 'final-docker/execution.json'],
             images=docker.get('images'), runtime=config.public(), execution_status=docker['status']))
         harbor_trials = []
+        challenge_trials = []
         for agent in ('oracle', 'nop'):
             result[agent] = harbor.run(task, root, agent, agent, package['nodeids'], config)
             harbor_trials.append({'label': agent, **result[agent]})
-        for control in panel['controls']:
+        final_controls = list(panel['controls'])
+        for sample in result.get('challenge', {}).get('samples', []):
+            if sample.get('violation_status') == 'confirmed':
+                final_controls.append({'id': 'invalid-challenge-' + sample['id'],
+                    'group': 'feedback', 'role': 'invalid', 'confirmation': 'confirmed',
+                    'source': sample['solution_dir'], 'path': sample['solution_dir'],
+                    'implementation_digest': sample['solution_digest']})
+        panel_ids = {c['id'] for c in panel['controls']}
+        for control in final_controls:
             kind = ('known_' if control['group'] == 'feedback' else 'holdout_') + control['role']
             label, solution_dir = control['id'], control['path']
             try:
@@ -228,12 +238,16 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
                             'error': {'type': type(exc).__name__, 'message': str(exc)}}
             row = {'label': label, 'source': control['source'], 'confirmation': control['confirmation'], **evidence}
             result[kind].append(row)
-            harbor_trials.append(row)
+            (harbor_trials if label in panel_ids else challenge_trials).append(row)
         if frozen_digest != fingerprint(load_seed(task, config).files):
             raise SynthesisError('frozen package changed during final evaluation')
         write_json(root / 'harbor-trials.json', harbor_trials)
+        if challenge_trials:
+            write_json(root / 'challenge-harbor-trials.json', challenge_trials)
         paths = [root / 'harbor-trials.json', *(task / p for p in load_seed(task, config).files)]
-        for trial in harbor_trials:
+        if challenge_trials:
+            paths.append(root / 'challenge-harbor-trials.json')
+        for trial in harbor_trials + challenge_trials:
             paths += [trial.get(k) for k in ('result_path', 'verifier_report_path', 'log_path', 'images_path') if trial.get(k)]
         sessions.append(session(candidate, tests_output, config, panel, backend='harbor', phase='final', version='frozen',
             trials=harbor_trials, evidence=paths, images={'task_base': candidate.metadata['image_reference'],
@@ -248,7 +262,7 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         sessions[-1]['context'].update(tests_digest=actual_tests.digest(),
             wrapper_digest=fingerprint((task / 'tests/run_tests.py').read_text()),
             artifact_policy_digest=fingerprint(read_json(task / 'tests/expected.json')['artifact_policy']))
-        completed = all(t['status'] == 'completed' for t in harbor_trials if t.get('confirmation') != 'unconfirmed')
+        completed = all(t['status'] == 'completed' for t in harbor_trials + challenge_trials if t.get('confirmation') != 'unconfirmed')
         basic_pass = (all(result[a]['status'] == 'completed' for a in ('oracle', 'nop'))
                       and result['oracle']['reward'] == 1 and result['nop']['reward'] == 0)
         if loop_enabled:

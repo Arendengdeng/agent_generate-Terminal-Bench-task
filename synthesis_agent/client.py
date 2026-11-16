@@ -146,6 +146,9 @@ def complete_accounted(client, messages, tools, *, budget, config, on_retry, on_
             for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
                 if type(value.get(key)) is int and value[key] >= 0:
                     totals[key] = totals.get(key, 0) + value[key]
+        checkpoint = getattr(budget, 'checkpoint', None)
+        if checkpoint is not None:
+            checkpoint()
 
     check_tokens()
     if isinstance(client, OpenAICompatibleClient):

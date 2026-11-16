@@ -1,10 +1,10 @@
-# 核心分支实际架构
+# 系统架构
 
-本分支源自c8be56d加审计时未提交的核心可靠性改动，保持实现机制，未重写成演示系统。角色共用Config和模型服务，但调用者分别构造fresh messages；宿主拥有调度、文件白名单、执行与最终接受权。
+角色共用Config和模型服务，但调用者分别构造fresh messages；宿主拥有调度、文件白名单、执行与最终接受权。
 
 ## 数据和生成
 
-`validate_inputs(plan, contract)`检查支持域、必需文本、唯一requirement IDs、artifact路径和正整数limits。外部Plan表述方向；Contract表述完成真值，生成时appendix自动附在Instruction。`check_instruction`仅有限识别CSV行尾、空邮箱域外要求和附录不一致。
+`validate_inputs(plan, contract)`检查支持域、必需文本、唯一requirement IDs、artifact路径和正整数limits。外部Plan表述方向；Contract表述完成真值，生成时appendix自动附在Instruction。`check_instruction`默认核对Contract附录一致性；CSV格式规则由Config.consistency_rules显式启用，不因文本出现CSV自动启用。
 
 `SynthesisAgent._run`维护FileSet，工具read/write/delete/shell/self_check/finish；Dockerfile由可信模板写入。shell每次新容器、不持久化修改。self_check在初始与修复新容器执行生成者probe，要求初始至少一项assertion fail、修复全部pass、app修改在Contract范围内、原环境不变。成功绑定当前digest，状态candidate_generated，仅为候选。
 
@@ -44,7 +44,7 @@ flowchart TD
   A --> F[冻结后Docker / Harbor终验]
 ```
 
-普通test-only loop最多2次，诊断默认一次有效提交、最多2尝试、24576bytes请求、2000completion。Oracle-only failure=analysis_only不能改测试。proof支持有限Print-N stdout和JSON doubling模板，不能自动授权一般CSV修复。
+普通test-only loop最多2次，诊断默认一次有效提交、最多2尝试、24576bytes请求、2000completion。Oracle-only failure=analysis_only不能改测试。repair_proofs注册有限Print-N stdout和JSON doubling适配器；不支持的Contract或测试形态在模型诊断前停止为needs_review，不能自动授权一般CSV修复。
 
 RepairDispatcher是另一路径：RepairRequest绑定版本/问题/requirements/evidence/manifest/tests_digest/allowed_paths/remaining_budget；保存versions/repairs/history，统一调用/工具/修复上限，拒绝重复状态和无改动。static failure归Synthesis；普通测试缺陷需宿主确认；外部owner声明不授权。公开输入改动需重新生成Test。最后调用禁修复verify，离线重判重算原始证据与proof。
 
@@ -71,3 +71,11 @@ Harbor0.25.0导出schema1.3和separate verifier，读取原生result、reward.tx
 3. `pipeline.py → controller.py/panel.py → test_repair_workflow.py/attribution.py/diagnosis.py`。
 4. `repair.py → challenge.py/challenge_workflow.py → exporter.py/harbor.py`。
 5. `acceptance.py/robustness.py`是通用验收适配层；`tests`中scripted客户端是测试设施，不是生产Agent。
+
+## Candidate Orchestrator
+
+`candidate_batch.orchestrator.CandidateOrchestrator`串联真实Synthesis与原生verify。
+失败记abandoned，相邻两次同类失败暂停；resume校验输入、历史产物、源码指纹和累计预算，基础设施故障需免费预检。
+PersistentBudget在调用计数和usage更新后持久化，Dispatcher分支也接收同一budget。
+原生终验现将所有violation_status=confirmed的Challenge实现加入Harbor运行，另存challenge-harbor-trials.json；Docker也执行这些实现。
+编排器没有另设接受标准；普通all与Dispatcher的修复路径边界保持原状。

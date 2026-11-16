@@ -25,7 +25,7 @@ def load_tests(candidate, tests_output, config=None, *, check_static=True):
     config = config or Config()
     tests_output = Path(tests_output)
     if check_static:
-        static = check_candidate(candidate)
+        static = check_candidate(candidate, config)
         if static['status'] != 'passed':
             raise SynthesisError('candidate failed static checks: ' + json.dumps(static['errors']))
     metadata = read_json(tests_output / 'tests.json')

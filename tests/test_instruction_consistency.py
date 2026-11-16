@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from synthesis_agent.config import Config
-from synthesis_agent.consistency import check_instruction
+from synthesis_agent.consistency import check_instruction as generic_check_instruction
 from synthesis_agent.errors import SynthesisError
 from synthesis_agent.files import FileSet
 from synthesis_agent.candidate_batch.controls import recipe, solve
@@ -20,6 +20,14 @@ from independent_verification.docker_test_runner import DockerTestRunner, model_
 from independent_verification.pipeline import verify
 from tests.csv_drift_fixture import DATA
 from tests.helpers import ScriptedClient, call
+
+
+CSV_RULES = ('csv-line-endings', 'csv-email-domain')
+CSV_CONFIG = Config(consistency_rules=CSV_RULES)
+
+
+def check_instruction(contract, instruction):
+    return generic_check_instruction(contract, instruction, rules=CSV_RULES)
 
 
 def historical(root, corrected=False):
@@ -83,36 +91,36 @@ class ConsistencyTests(unittest.TestCase):
         self.assertIn('CONTRACT_APPENDIX_MISMATCH', [f['code'] for f in check_instruction(DATA['contract'], bad)['findings']])
 
     def test_explicit_contract_support_and_negative_statements(self):
-        for text in ('Output CSV with LF-only line endings.', r'行尾使用 `\n`。', 'Skip blank email records.'):
+        for text in ('Output CSV with LF-only line endings.', r'输出行尾使用 `\n`。', 'Skip blank email records.'):
             self.assertEqual(check_instruction(DATA['contract'], text)['status'], 'blocked')
         contract = copy.deepcopy(DATA['contract'])
         contract['output_spec'] += r' 行尾使用 \n。空邮箱记录丢弃。'
-        self.assertEqual(check_instruction(contract, r'行尾使用 \n。')['status'], 'no_findings')
+        self.assertEqual(check_instruction(contract, r'输出行尾使用 \n。')['status'], 'no_findings')
         self.assertEqual(check_instruction(contract, '空邮箱记录丢弃。')['status'], 'no_findings')
         self.assertEqual(check_instruction(DATA['contract'], '不要求 LF-only line endings。')['status'], 'no_findings')
         self.assertEqual(check_instruction(DATA['contract'], '按归一化邮箱去重，保留首次姓名。')['status'], 'no_findings')
-        for instruction in ('不得修改输入；行尾使用 LF。', 'Do not modify input. Output must use LF.'):
+        for instruction in ('不得修改输入；输出行尾使用 LF。', 'Do not modify input. Output must use LF.'):
             self.assertEqual(check_instruction(DATA['contract'], instruction)['status'], 'blocked')
         crlf = copy.deepcopy(DATA['contract']); crlf['output_spec'] += ' 行尾使用 CRLF。'
-        self.assertEqual(check_instruction(crlf, '行尾使用 LF。')['status'], 'blocked')
+        self.assertEqual(check_instruction(crlf, '输出行尾使用 LF。')['status'], 'blocked')
 
     def test_gate_blocks_before_models_and_repair(self):
         candidate = historical('/tmp')
-        self.assertEqual(check_candidate(candidate)['status'], 'failed')
+        self.assertEqual(check_candidate(candidate, CSV_CONFIG)['status'], 'failed')
         with self.assertRaisesRegex(SynthesisError, 'CONTRACT_INSTRUCTION_DRIFT'):
-            validate_test_input(candidate.test_input(), Config())
+            validate_test_input(candidate.test_input(), CSV_CONFIG)
         with self.assertRaisesRegex(UnconfirmedAttribution, 'requires_synthesis'):
-            prepare_feedback(candidate, 'unused', DATA['execution'], Config())
+            prepare_feedback(candidate, 'unused', DATA['execution'], CSV_CONFIG)
         with self.assertRaisesRegex(UnconfirmedAttribution, 'requires_synthesis'):
-            verify_test_diagnosis(candidate, 'unused', DATA['execution'], {}, Config())
+            verify_test_diagnosis(candidate, 'unused', DATA['execution'], {}, CSV_CONFIG)
         with self.assertRaisesRegex(UnconfirmedAttribution, 'requires_synthesis'):
-            verify_test_patch(candidate, 'unused', 'unused', {}, Config())
+            verify_test_patch(candidate, 'unused', 'unused', {}, CSV_CONFIG)
         with tempfile.TemporaryDirectory() as tmp:
             client = Mock()
             with patch('independent_verification.pipeline.CandidateTask.load', return_value=candidate), \
                  patch('independent_verification.pipeline.prepare_panel', return_value={'controls': []}), \
                  patch('independent_verification.pipeline.preflight') as preflight:
-                result = verify('unused', Path(tmp)/'verify', client=client)
+                result = verify('unused', Path(tmp)/'verify', client=client, config=CSV_CONFIG)
             self.assertEqual(result['controller_decision']['responsible_module'], 'synthesis')
             self.assertEqual(result['controller_decision']['decision'], 'repair')
             preflight.assert_not_called(); client.complete.assert_not_called()
@@ -130,10 +138,15 @@ class ConsistencyTests(unittest.TestCase):
             evidence_packet(DATA['contract'], DATA['tests'], feedback)
 
     def analyze(self, root, client, config=None):
-        candidate = historical(root, True)
-        tests = freeze(candidate, Path(root)/'tests')
-        execution = copy.deepcopy(DATA['execution']); execution['input_manifest'] = candidate.input_manifest()
-        feedback = model_feedback(execution)
+        from tests.test_test_agent_feedback_repair import candidate_fixture, source, execution
+        from tests.test_independent_verification import CollectionStub, script
+        candidate = candidate_fixture(Path(root)/'candidate')
+        tests = Path(root)/'tests'
+        metadata = TestAgent(Config(), ScriptedClient(script(candidate.contract, source(43))),
+                             sandbox=CollectionStub()).generate(candidate.test_input(), tests)
+        raw = execution(candidate, metadata)
+        raw.update(requirements=candidate.contract['requirements'], coverage=metadata['coverage'])
+        feedback = model_feedback(raw)
         sandbox = Mock(); sandbox.prepare.side_effect = AssertionError('Diagnosis must not prepare Docker')
         result = TestAgent(config or Config(), client, sandbox=sandbox).analyze(
             candidate.test_input(), tests, feedback, Path(root)/'analysis')
