@@ -61,8 +61,8 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         raise ValueError('challenge must be a boolean or None')
     if type(max_challenge_attempts) is not int or not 1 <= max_challenge_attempts <= 100:
         raise ValueError('max_challenge_attempts must be between 1 and 100')
-    if challenge and (stage not in {'all', 'run'} or repair):
-        raise ValueError('Challenge requires all/run and cannot be combined with cross-module --repair')
+    if challenge and stage not in {'all', 'run'}:
+        raise ValueError('Challenge requires all/run')
     if type(repair) is not bool:
         raise ValueError('repair must be a boolean')
     if acceptance_tests is not None and not repair:
@@ -80,7 +80,7 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
             critical_issues=tuple(critical_issues), harbor_python=harbor_python,
             repair_policy=repair_policy, acceptance_tests=acceptance_tests,
             holdout_correct=tuple(holdout_correct), holdout_invalid=tuple(holdout_invalid), controls_manifest=controls_manifest,
-            budget=_budget)
+            budget=_budget, challenge=bool(challenge), max_challenge_attempts=max_challenge_attempts)
     started = time.monotonic()
     if stage not in {'inspect', 'generate', 'export', 'run', 'all'}:
         raise ValueError('unknown stage')

@@ -84,7 +84,7 @@ class RepairDispatcher:
     def run(self, candidate_path, output, *, tests_output=None, max_repairs=2,
             known_correct=(), known_invalid=(), critical_issues=(), harbor_python=None,
             holdout_correct=(), holdout_invalid=(), controls_manifest=None, budget=None,
-            repair_policy=POLICY, acceptance_tests=None):
+            repair_policy=POLICY, acceptance_tests=None, challenge=False, max_challenge_attempts=4):
         if type(max_repairs) is not int or max_repairs < 0:
             raise ValueError('max_repairs must be a nonnegative integer')
         if repair_policy not in {POLICY, 'host-contract-evidence-v1'}:
@@ -300,8 +300,12 @@ class RepairDispatcher:
                     if use_frozen:
                         self._verify_frozen_tests(frozen_suite)
                         final_tests = self._bind_frozen_tests(candidate, frozen_suite, work / 'acceptance-bound')
+                    # Challenge may search the frozen suite, but no final-stage tool may edit it.
+                    # A confirmed bypass rejects this candidate rather than thawing acceptance.
                     final = verify(candidate.source, final_dir, config=self.config, stage='run',
-                                   tests_output=final_tests, repair_tests=False, repair=False, challenge=False,
+                                   tests_output=final_tests, repair_tests=True if challenge else False, repair=False,
+                                   challenge=challenge, max_test_repairs=0, client=self.client,
+                                   max_challenge_attempts=max_challenge_attempts,
                                    known_correct=(), known_invalid=(),
                                    harbor_python=harbor_python, _budget=budget,
                                    controls_manifest=root / 'final-controls-manifest.json')
@@ -426,9 +430,9 @@ class RepairDispatcher:
         except KeyboardInterrupt:
             stop('cancelled', 'cancelled')
         except Exception as exc:
-            stop('call_budget_exhausted' if isinstance(exc, BudgetExceeded) else (str(exc) if isinstance(exc, (ReviewRequired, UnconfirmedAttribution)) else 'workflow_error'),
+            stop(exc.code if isinstance(exc, BudgetExceeded) else (str(exc) if isinstance(exc, (ReviewRequired, UnconfirmedAttribution)) else 'workflow_error'),
                  'needs_review' if isinstance(exc, (BudgetExceeded, ReviewRequired, UnconfirmedAttribution)) else 'error')
-            history['error'] = {'type': type(exc).__name__, 'message': str(exc)}
+            history['error'] = exc.report() if isinstance(exc, BudgetExceeded) else {'type': type(exc).__name__, 'message': str(exc)}
         finally:
             history['budget_used'] = copy.deepcopy(budget)
             if history['attempts'] and history['attempts'][-1]['status'] == 'started':
@@ -464,7 +468,7 @@ class RepairDispatcher:
                         write_json(root / 'export/export.json', package)
                 except (OSError, SynthesisError) as exc:
                     stop('invalid_final_package', 'error')
-                    history['error'] = {'type': type(exc).__name__, 'message': str(exc)}
+                    history['error'] = exc.report() if isinstance(exc, BudgetExceeded) else {'type': type(exc).__name__, 'message': str(exc)}
                     history['unresolved_issues'].append({'id': 'package', 'message': 'Final package report could not be saved'})
             result = copy.deepcopy(final) if final is not None else {
                 'status': history['status'] if history['status'] in {'cancelled', 'error'} else 'failed',
@@ -558,8 +562,10 @@ class RepairDispatcher:
         path.write_text(redact(changes, self.config.api_key), encoding='utf-8')
 
     def _check_budget(self, budget):
-        if budget['model_calls'] >= self.config.max_model_calls or budget['tool_calls'] >= self.config.max_tool_calls:
-            raise BudgetExceeded('shared workflow call budget exhausted')
+        if budget['model_calls'] >= self.config.max_model_calls:
+            raise BudgetExceeded('shared workflow model budget exhausted', code='model_call_budget_exceeded')
+        if budget['tool_calls'] >= self.config.max_tool_calls:
+            raise BudgetExceeded('shared workflow tool budget exhausted', code='tool_call_budget_exceeded')
 
     @staticmethod
     def _require_agent(result, expected):
@@ -567,7 +573,7 @@ class RepairDispatcher:
             if result['status'] == 'cancelled':
                 raise KeyboardInterrupt()
             if (result.get('error') or {}).get('type') == 'BudgetExceeded':
-                raise BudgetExceeded(result['error']['message'])
+                raise BudgetExceeded(result['error']['message'], code=result['error'].get('code', 'budget_exhausted'))
             if result['status'] == 'needs_review':
                 raise ReviewRequired(result.get('review_reason') or 'uncertain attribution')
             raise SynthesisError(result.get('review_reason') or str(result.get('error')) or 'agent failed')

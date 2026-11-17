@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import time
 import uuid
 import urllib.request
 
@@ -45,7 +46,7 @@ def manifest(root):
 
 
 def source_files():
-    folders = ('synthesis_agent', 'independent_verification', 'experiments/01_e2e_reliability',
+    folders = ('synthesis_agent', 'independent_verification', 'experiments/01_e2e_reliability', 'experiments/02_general_repair',
                'specs/jsonl-latest-record', 'benchmarks/jsonl-latest-record', 'tests')
     files = [p for folder in folders for p in (REPO / folder).rglob('*')
              if p.is_file() and '__pycache__' not in p.parts and not p.is_symlink()]
@@ -148,7 +149,9 @@ def capture_provenance(root, config):
 def freeze(root, work, native, config):
     dest = root / 'frozen'
     dest.mkdir()
-    shutil.copytree(work / 'candidate', dest / 'candidate')
+    workflow = native.get('repair_workflow')
+    source = Path(workflow['versions'][-1]['candidate_path']) if workflow else work / 'candidate'
+    shutil.copytree(source, dest / 'candidate')
     candidate = CandidateTask.load(dest / 'candidate', config)
     metadata, tests = load_tests(candidate, Path(native['final_tests_output']), config)
     tests.export(dest / 'tests' / 'tests')
@@ -177,7 +180,8 @@ def scoring_matrix(verification, result, extra=None):
             ids['invalid-challenge-' + sample['id']] = sample['solution_digest']
             expected[sample['solution_digest']] = 0
     matrix, valid, evidence = {}, True, {}
-    docker = read(verification / 'final-docker' / 'execution.json')['trials']
+    execution_root = Path(result.get('repair_workflow', {}).get('final_validation_path', verification))
+    docker = read(execution_root / 'final-docker' / 'execution.json')['trials']
     harbor = [dict(result[name], label=name) for name in ('oracle', 'nop')]
     for name in ('known_correct', 'known_invalid', 'holdout_correct', 'holdout_invalid'):
         harbor += result[name]
@@ -283,6 +287,9 @@ def revalidate(root, frozen, work, native, config, options, protocol):
 
 
 def finish(root, result, config):
+    result['finished_at'] = datetime.now(timezone.utc).isoformat()
+    if 'started_unix' in result:
+        result['wall_sec'] = round(time.time() - result['started_unix'], 3)
     batch_path = root / 'batch' / 'batch.json'
     batch = read(batch_path) if batch_path.exists() else {}
     result['costs'] = costs(root, batch.get('budget', {'model_calls': 0, 'tool_calls': 0}))
@@ -304,6 +311,8 @@ def finish(root, result, config):
             run = read(path)
             repairs.append({'candidate': work.name, 'test_repairs': run.get('test_loop', {}).get('repairs', 0),
                             'challenge_repairs': run.get('challenge', {}).get('repairs', 0),
+                            'general_repairs': run.get('repair_workflow', {}).get('repairs', 0),
+                            'general_stop_reason': run.get('repair_workflow', {}).get('stop_reason'),
                             'challenge_samples': [{k: s.get(k) for k in ('id', 'status', 'violation_status', 'reason')}
                                                   for s in run.get('challenge', {}).get('samples', [])]})
         if (work / 'exception.json').exists():
@@ -311,7 +320,7 @@ def finish(root, result, config):
     result['repair_activity'] = repairs
     result['failures'] = failures
     write_json(root / 'experiment-result.json', redact(result, config.api_key))
-    report_dir = REPO / 'reports' / '01_e2e_reliability'
+    report_dir = REPO / 'reports' / result.get('experiment_id', '01_e2e_reliability')
     report_dir.mkdir(parents=True, exist_ok=True)
     report = report_dir / 'runs.md'
     totals = result['costs']['totals']
@@ -335,7 +344,7 @@ def finish(root, result, config):
               'No actual repair is claimed when repair counts are zero. Unknown usage is reserved, not measured.',
               'Inspect costs.reconciliation for charged calls without a traced API attempt; these are not silently dropped.',
               'If preflight is blocked, generation and revalidation are not run and model cost is zero.',
-              'No framework changes or Git commit are made by this driver.']
+              'Git commit is not created; the frozen source archive includes any pre-run framework changes.']
     lines += ['', '## Candidate failures', '']
     for candidate in result['candidates']:
         lines.append(f"- Candidate {candidate['id']}: {candidate.get('failure_category')}; "
@@ -364,17 +373,19 @@ def finish(root, result, config):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id', default=None)
+    parser.add_argument('--protocol', type=Path, default=Path(__file__).with_name('protocol.json'))
     args = parser.parse_args(argv)
     run_id = args.run_id or datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-') + uuid.uuid4().hex[:8]
     if Path(run_id).name != run_id or run_id in ('.', '..'):
         parser.error('run-id must be a single directory name')
     load_environment()
-    protocol = read(Path(__file__).with_name('protocol.json'))
+    protocol = read(args.protocol)
     config = Config.from_env(max_model_calls=protocol['max_model_calls'], max_tool_calls=protocol['max_tool_calls'])
     root = REPO / 'runs' / protocol['experiment_id'] / run_id
     root.mkdir(parents=True, exist_ok=False)
-    result = {'schema_version': 1, 'run_id': run_id, 'native_controller_decision': None,
+    result = {'schema_version': 1, 'experiment_id': protocol['experiment_id'], 'run_id': run_id, 'native_controller_decision': None,
               'native_controller_evidence': None, 'native_independent_validation': None,
+              'started_at': datetime.now(timezone.utc).isoformat(), 'started_unix': time.time(),
               'experiment_result': 'incomplete', 'revalidations': []}
     saved = capture_provenance(root, config)
     try:
@@ -389,7 +400,10 @@ def main(argv=None):
             result['reason'] = 'preflight_unavailable'
             return finish(root, result, config)
         options = {'controls_manifest': str(root / 'inputs' / 'controls' / 'controls.json'),
-                   'challenge': True, 'repair_tests': True, 'repair': False,
+                   'challenge': True,
+                   'repair_tests': None if protocol.get('general_repair') else True,
+                   'repair': bool(protocol.get('general_repair')),
+                   'max_repairs': protocol['max_test_repairs'],
                    'max_test_repairs': protocol['max_test_repairs'],
                    'max_challenge_attempts': protocol['max_challenge_attempts']}
         batch = CandidateOrchestrator(config).run(plan, contract, root / 'batch',

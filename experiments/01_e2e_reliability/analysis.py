@@ -50,7 +50,7 @@ def costs(root, budget):
         relative = str(path.relative_to(root))
         if '/analysis/' in relative or '/diagnos' in relative:
             stage = 'diagnosis'
-        elif '/repair/' in relative or '/test-repair/' in relative or '/test-loop/' in relative:
+        elif '/test-agent-' in relative or '/repair/' in relative or '/test-repair/' in relative or '/test-loop/' in relative:
             stage = 'test_repair'
         elif '/challenge/' in relative:
             stage = 'challenge_review' if '/search/' not in relative else 'challenge_search'

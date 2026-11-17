@@ -6,6 +6,7 @@ from pathlib import Path
 CATEGORIES = frozenset({
     'no_progress', 'self_check_failure', 'probe_defect', 'test_generation_failure',
     'verification_failure', 'repair_exhausted', 'infrastructure_failure', 'budget_exhausted',
+    'context_budget_exceeded', 'response_budget_exceeded',
 })
 
 
@@ -25,8 +26,16 @@ def classify(result, stage, root):
     workflow = result.get('repair_workflow') or result.get('test_loop') or {}
     stop = workflow.get('stop_reason')
     decision = result.get('controller_decision') or {}
-    if error_type == 'BudgetExceeded' or stop == 'call_budget_exhausted':
+    def budget_category(record):
+        code = record.get('code', 'budget_exhausted')
+        return code if code in {'context_budget_exceeded', 'response_budget_exceeded'} else 'budget_exhausted'
+
+    if error_type == 'BudgetExceeded':
+        category = budget_category(error)
+    elif stop in {'call_budget_exhausted', 'model_call_budget_exceeded', 'tool_call_budget_exceeded', 'token_budget_exceeded'}:
         category = 'budget_exhausted'
+    elif stop in {'context_budget_exceeded', 'response_budget_exceeded'}:
+        category = stop
     elif error_type in {'SandboxError', 'ConnectionError', 'TimeoutError', 'URLError', 'HTTPError'}:
         category = 'infrastructure_failure'
     elif decision.get('responsible_module') == 'infrastructure':
@@ -45,7 +54,8 @@ def classify(result, stage, root):
             continue
         for record in records(json.loads(path.read_text())):
             if record.get('type') == 'BudgetExceeded':
-                category = 'budget_exhausted'
+                if category != 'budget_exhausted':
+                    category = budget_category(record)
             elif category != 'budget_exhausted' and (record.get('type') == 'SandboxError'
                     or record.get('status') == 'infrastructure_error'
                     or (path.name == 'harbor-trials.json' and record.get('status') == 'error')):
@@ -64,6 +74,9 @@ def classify(result, stage, root):
     if category is None:
         if stop == 'repair_budget_exhausted':
             category, reason = 'repair_exhausted', stop
+        elif (stage == 'verification' and workflow.get('attribution_policy') == 'execution-feedback-v1'
+              and isinstance(stop, str) and result.get('status') != 'cancelled'):
+            category, reason = 'verification_failure', stop
         elif decision.get('decision') == 'needs_review' or result.get('status') in {'needs_review', 'cancelled'}:
             pass
         elif stage == 'test_generation' or result.get('stage') == 'test_generation':
@@ -95,6 +108,8 @@ def diagnose(rows):
         'confirmed_commonalities': common,
         'differences': differences,
         'possible_systemic_causes': {
+            'context_budget_exceeded': ['The minimal diagnosis context did not fit the fixed byte limit; inspect checkpoints and request sizes. This is not global call or token exhaustion.'],
+            'response_budget_exceeded': ['A response or observation exceeded its fixed size limit; inspect its retained evidence.'],
             'no_progress': ['The repeated lack of persisted changes may reflect unclear shared instructions or an ineffective exploration strategy. Neither cause is confirmed.'],
             'probe_defect': ['Repeated probe errors may come from shared probe construction or fixture assumptions. The recorded exceptions must be compared before identifying a common cause.'],
             'self_check_failure': ['Repeated self-check failures may reflect shared task constraints or repair strategy. Assertion failures alone do not identify the defective component.'],

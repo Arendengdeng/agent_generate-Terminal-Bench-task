@@ -213,7 +213,7 @@ class CandidateOrchestrator:
                     write(work / 'verification-result.json', result)
             except (Exception, KeyboardInterrupt) as exc:
                 result = {'status': 'cancelled' if isinstance(exc, KeyboardInterrupt) else 'error',
-                          'error': {'type': type(exc).__name__, 'message': str(exc)}}
+                          'error': exc.report() if isinstance(exc, BudgetExceeded) else {'type': type(exc).__name__, 'message': str(exc)}}
                 write(work / 'exception.json', result)
             row.update(budget_after=copy.deepcopy(budget))
             accepted = (stage == 'verification'

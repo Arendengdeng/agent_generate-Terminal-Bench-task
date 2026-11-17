@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import time
 
-from .client import OpenAICompatibleClient, complete_accounted
+from .client import OpenAICompatibleClient, complete_accounted, request_bytes, check_token_budget
 from .config import Config
 from .errors import BudgetExceeded, SandboxError, SynthesisError
 from .files import FileSet, load_seed, read_json, relative_path, safe_ancestors
@@ -105,7 +105,7 @@ class SynthesisAgent:
         if contract["limits"]["command_timeout_sec"] > c.command_timeout_sec:
             raise SynthesisError("Contract command timeout exceeds configured sandbox timeout")
         if len(json.dumps([plan, contract]).encode()) > c.max_context_bytes // 2:
-            raise BudgetExceeded("input context budget exceeded")
+            raise BudgetExceeded("input context budget exceeded", code='context_budget_exceeded')
         references = load_seed(seed, c)
         root = safe_ancestors(Path(output).absolute().parent) / Path(output).name
         if root.exists() or root.is_symlink():
@@ -297,7 +297,7 @@ class SynthesisAgent:
                 return {"ok": True, "digest": files.digest()}
             if name == "shell":
                 if len(args["command"].encode()) > c.max_file_bytes:
-                    raise BudgetExceeded("shell command byte budget exceeded")
+                    raise BudgetExceeded("shell command byte budget exceeded", code='response_budget_exceeded')
                 return sandbox.shell(snapshot(), args["command"])
             if name == "self_check":
                 return self_check()
@@ -323,13 +323,16 @@ class SynthesisAgent:
                 {"plan": plan, "contract": contract, "reference_paths": ["seed/" + p for p in references.files],
                  **({'repair_request': repair_request, 'mode': 'Repair current files only within allowed_paths; preserve all other files. Contract and Plan are immutable.'} if repair_request else {})}, ensure_ascii=False)}]
             for _ in range(c.max_model_calls):
-                if len(json.dumps(messages).encode()) > c.max_context_bytes:
-                    raise BudgetExceeded("model context byte budget exceeded")
-                if shared_budget['model_calls'] >= c.max_model_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
-                    raise BudgetExceeded('shared model call budget exhausted')
+                if len(request_bytes(c, messages, TOOLS)) > c.max_context_bytes:
+                    raise BudgetExceeded("model context byte budget exceeded", code='context_budget_exceeded')
+                if shared_budget['model_calls'] >= c.max_model_calls:
+                    raise BudgetExceeded('shared model call budget exhausted', code='model_call_budget_exceeded')
+                if shared_budget['tool_calls'] >= c.max_tool_calls:
+                    raise BudgetExceeded('shared tool call budget exhausted', code='tool_call_budget_exceeded')
+                check_token_budget(messages, TOOLS, shared_budget, c)
                 model_calls += 1
                 shared_budget['model_calls'] += 1
-                trace("model_request", context_bytes=len(json.dumps(messages).encode()),
+                trace("model_request", context_bytes=len(request_bytes(c, messages, TOOLS)),
                       context_limit=c.max_context_bytes)
                 def retry_count():
                     nonlocal model_calls
@@ -339,7 +342,7 @@ class SynthesisAgent:
                     budget=shared_budget, config=c, on_retry=retry_count,
                     on_event=lambda event: trace('api_attempt', details=event))
                 if len(json.dumps(message).encode()) > c.max_response_bytes:
-                    raise BudgetExceeded("model response byte budget exceeded")
+                    raise BudgetExceeded("model response byte budget exceeded", code='response_budget_exceeded')
                 calls = message.get("tool_calls")
                 trace("model_response", tool_calls=calls)
                 if not isinstance(calls, list) or not calls:
@@ -350,7 +353,7 @@ class SynthesisAgent:
                 messages.append({"role": "assistant", "content": message.get("content"), "tool_calls": calls})
                 for call in calls:
                     if tool_calls >= c.max_tool_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
-                        raise BudgetExceeded("tool call budget exhausted")
+                        raise BudgetExceeded("tool call budget exhausted", code='tool_call_budget_exceeded')
                     tool_calls += 1
                     shared_budget['tool_calls'] += 1
                     name = call.get("function", {}).get("name")
@@ -410,7 +413,7 @@ class SynthesisAgent:
                     encoded = json.dumps(observation, ensure_ascii=False)
                     # Never silently truncate observations into invalid JSON.
                     if len(encoded.encode()) > c.max_response_bytes:
-                        raise BudgetExceeded("tool observation byte budget exceeded")
+                        raise BudgetExceeded("tool observation byte budget exceeded", code='response_budget_exceeded')
                     messages.append({"role": "tool", "tool_call_id": call["id"], "content": encoded})
                     if name == "finish" and observation.get("status") == "candidate_generated":
                         result.update(status="candidate_generated", status_label="候选已生成")
@@ -418,10 +421,10 @@ class SynthesisAgent:
                 if result["status"] == "candidate_generated":
                     break
             else:
-                raise BudgetExceeded("model call budget exhausted")
+                raise BudgetExceeded("model call budget exhausted", code='model_call_budget_exceeded')
         except (Exception, KeyboardInterrupt) as exc:
             result.update(status="cancelled" if isinstance(exc, KeyboardInterrupt) else "error",
-                          error={"type": type(exc).__name__, "message": str(exc)})
+                          error=exc.report() if isinstance(exc, BudgetExceeded) else {"type": type(exc).__name__, "message": str(exc)})
             if isinstance(exc, SandboxError) or getattr(exc, 'api_failure', None):
                 result.update(failure_category='infrastructure_failure',
                               failure_reason=str(exc), failed_stage='generation',
@@ -439,7 +442,7 @@ class SynthesisAgent:
                     if hashlib.sha256((root / path).read_bytes()).hexdigest() != expected:
                         raise SynthesisError("exported candidate digest mismatch")
             except Exception as exc:
-                result.update(status="error", error={"type": type(exc).__name__, "message": str(exc)})
+                result.update(status="error", error=exc.report() if isinstance(exc, BudgetExceeded) else {"type": type(exc).__name__, "message": str(exc)})
             if result["status"] == "candidate_generated":
                 result.update(instruction_path="draft/instruction.md", environment_dir="draft/environment",
                               dockerfile_path="draft/environment/Dockerfile", solution_dir="draft/solution",

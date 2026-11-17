@@ -5,7 +5,8 @@ from pathlib import Path
 import time
 
 from synthesis_agent.agent import tool, STRING
-from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error, complete_accounted
+from synthesis_agent.client import (OpenAICompatibleClient, transient_transport_error, complete_accounted,
+                                    request_bytes, check_token_budget)
 from synthesis_agent.config import Config
 from synthesis_agent.errors import BudgetExceeded, SandboxError, SynthesisError
 from synthesis_agent.files import FileSet, relative_path, load_seed, read_json
@@ -97,8 +98,12 @@ INVESTIGATION_TOOLS = [
     tool('record_hypothesis', 'Record or revise a provisional hypothesis and next check; this does NOT finish investigation or authorize edits. Components may be empty if unknown.',
          {k: STRING for k in ('components', 'hypothesis', 'evidence_id', 'next_check')},
          ['components', 'hypothesis', 'evidence_id', 'next_check']),
-    tool('read_source', 'Read a public source or development test in 4000-character chunks.',
-         {'path': STRING, 'offset': STRING}, ['path', 'offset']),
+    tool('read_source', 'Read numbered public source lines near the failure. Optional start_line/end_line; at most 60 lines. Legacy offset is characters and cannot combine with lines.',
+         {'path': STRING, 'offset': STRING, 'start_line': STRING, 'end_line': STRING}, ['path']),
+    tool('list_evidence', 'Page authorized evidence metadata and failure source locations; offset is a decimal entry index.',
+         {'offset': STRING}, ['offset']),
+    tool('read_observation', 'Read a full earlier investigation observation in chunks; empty observation_id lists IDs. No host paths.',
+         {'observation_id': STRING, 'offset': STRING}, ['observation_id', 'offset']),
     tool('read_evidence', 'Read a bounded chunk of a public observation; offsets are decimal characters.',
          {'evidence_id': STRING, 'offset': STRING}, ['evidence_id', 'offset']),
     tool('run_check', 'Run a diagnostic shell command in a NEW disposable public initial environment. No host, solution, probe or evaluation data.',
@@ -224,10 +229,14 @@ class TestAgent:
             with (root / "trace.jsonl").open("a", encoding="utf-8") as stream:
                 stream.write(json.dumps(summarize(redact(row, c.api_key)), ensure_ascii=False) + "\n")
 
+        context = None
+
         def dispatch(name, args):
             nonlocal collection, diagnosis, collection_index
             schema = next((t["function"]["parameters"] for t in tools if t["function"]["name"] == name), None)
-            if schema is None or not isinstance(args, dict) or set(args) != set(schema["properties"]):
+            if (schema is None or not isinstance(args, dict)
+                    or not set(schema.get("required", [])) <= set(args)
+                    or set(args) - set(schema["properties"])):
                 raise SynthesisError("unknown tool or invalid arguments")
             if name != "finish" and any(not isinstance(v, str) for v in args.values()):
                 raise SynthesisError("tool arguments must be strings")
@@ -252,16 +261,24 @@ class TestAgent:
                 result['hypotheses'].append(row)
                 write_json(root / 'investigations' / f'hypothesis-{row["round"]:03d}.json', row)
                 return row
+            if name == 'list_evidence':
+                from .diagnosis import evidence_index
+                return evidence_index(feedback['execution_feedback'], int(args['offset']))
+            if name == 'read_observation':
+                return context.read(args['observation_id'], int(args['offset']))
             if name == 'read_source':
+                from .diagnosis import source_excerpt
                 path = relative_path(args['path'])
                 content = inputs.files.get(path)
                 if content is None and path.startswith('tests/'):
                     content = tests.files.get(path[6:])
-                offset = int(args['offset'])
-                if content is None or not 0 <= offset <= len(content):
-                    raise SynthesisError('source or offset is not authorized')
-                return {'content': content[offset:offset + 4000], 'next_offset': min(offset + 4000, len(content)),
-                        'total_chars': len(content), 'truncated': offset + 4000 < len(content)}
+                if content is None:
+                    raise SynthesisError('source is not authorized')
+                lines = [f['line'] for e in feedback['evidence']
+                         for f in (e.get('exception') or {}).get('test_traceback', [])
+                         if f.get('path') in {path, path.removeprefix('tests/')} and type(f.get('line')) is int]
+                return source_excerpt(content, path, args,
+                    version=feedback['execution_feedback']['task_version'], failure_line=lines[0] if lines else 1)
             if name == 'run_check':
                 from synthesis_agent.sandbox import DockerSandbox
                 declaration = data['initial_environment']['Dockerfile'].splitlines()[0]
@@ -453,11 +470,25 @@ class TestAgent:
                     'remaining_budget': {k: getattr(c, 'max_' + k) - shared_budget[k]
                                          for k in ('model_calls', 'tool_calls')}}, ensure_ascii=False)
             if diagnose_only and generic:
+                from .diagnosis import DiagnosisContext, evidence_index
                 packet = feedback['execution_feedback']
+                context = DiagnosisContext(model.config if isinstance(model, OpenAICompatibleClient) else c, tools, lambda name, value: write_json(
+                    root / 'investigations' / name, redact(value, c.api_key)))
                 write_json(root / 'diagnosis-input.json', redact(packet, c.api_key))
+                rejection = feedback.get('previous_trial_rejection')
+                rejection_view = None
+                if rejection:
+                    from .diagnosis import clipped_text
+                    archived = context.observe('previous_trial_rejection', {}, rejection)
+                    rejection_view = {'type': rejection.get('type'),
+                        'reason': clipped_text(str(rejection.get('reason', '')), 500),
+                        'observation_id': archived['observation_id'],
+                        'read_more': 'read_observation retrieves the full rejection and patch excerpt'}
                 messages = [{'role': 'system', 'content': (
-                    'Investigate failures against the Contract. Use read_source to read public initial files and development tests in chunks, '
-                    'read_evidence by ID in chunks, and run_check in disposable public environments. '
+                    'Investigate failures against the Contract. Prefer read_source at the failure line using start_line/end_line; it returns numbered public source excerpts. '
+                    'Use list_evidence to page source locations and evidence IDs, read_evidence by ID, and run_check in disposable public environments. '
+                    'Older complete tool rounds may become deterministic checkpoints, never conclusions or authorizations. '
+                    'Use read_observation to retrieve full archived observations; an empty ID lists authorized IDs. '
                     'This workflow validates a generated REPAIR TASK. Its initial public app is intentionally faulty, '
                     'and nop is expected to be rejected. Do not propose fixing the initial app merely because it violates '
                     'the Contract. The private Solution is a separate reference repair applied before the oracle trial; '
@@ -476,17 +507,25 @@ class TestAgent:
                     {'role': 'user', 'content': json.dumps({
                         'contract': data['contract'], 'version': packet['task_version'],
                         'status': packet['status'], 'files': sorted([*inputs.files, *('tests/' + p for p in tests.files)]),
-                        'evidence_index': [{k: e[k] for k in ('id', 'type', 'nodeid', 'outcome', 'status') if k in e}
-                                           for e in packet['evidence']],
+                        'evidence_index': evidence_index(packet),
                         'trials': [{k: t[k] for k in ('label', 'status', 'reward', 'expected_reward')} for t in feedback['trials']],
                         'repair_parent_digest': parent_digest,
-                        'previous_trial_rejection': feedback.get('previous_trial_rejection'),
+                        'previous_trial_rejection': rejection_view,
                         'remaining_budget': {k: getattr(c, 'max_' + k) - shared_budget[k]
                                              for k in ('model_calls', 'tool_calls')}}, ensure_ascii=False)}]
             elif diagnose_only:
                 from .diagnosis import evidence_packet
                 packet = evidence_packet(data['contract'], tests.files, feedback)
                 write_json(root / 'diagnosis-input.json', redact(packet, c.api_key))
+                rejection = feedback.get('previous_trial_rejection')
+                rejection_view = None
+                if rejection:
+                    from .diagnosis import clipped_text
+                    archived = context.observe('previous_trial_rejection', {}, rejection)
+                    rejection_view = {'type': rejection.get('type'),
+                        'reason': clipped_text(str(rejection.get('reason', '')), 500),
+                        'observation_id': archived['observation_id'],
+                        'read_more': 'read_observation retrieves the full rejection and patch excerpt'}
                 messages = [{'role': 'system', 'content': (
                     'Analyze only the supplied Contract, mapped failure evidence and exact local test source. '
                     'Return one diagnose, classify_failure or needs_review call. No file reads or edits. '
@@ -497,16 +536,19 @@ class TestAgent:
                     {'role': 'user', 'content': json.dumps(packet, ensure_ascii=False)}]
             transport_failures = 0
             for _ in range(min(c.max_model_calls, c.max_diagnosis_calls) if diagnose_only and not generic else c.max_model_calls):
-                request_bytes = len(json.dumps({'model': c.model, 'messages': messages, 'tools': tools,
-                    'tool_choice': 'required', 'parallel_tool_calls': False,
-                    'max_completion_tokens': c.max_completion_tokens}, ensure_ascii=True).encode())
-                if request_bytes > c.max_context_bytes:
-                    raise BudgetExceeded("Test Agent context budget exceeded")
-                if shared_budget['model_calls'] >= c.max_model_calls or shared_budget['tool_calls'] >= c.max_tool_calls:
-                    raise BudgetExceeded('Test Agent shared model call budget exhausted')
+                if shared_budget['model_calls'] >= c.max_model_calls:
+                    raise BudgetExceeded('Test Agent shared model call budget exhausted', code='model_call_budget_exceeded')
+                if shared_budget['tool_calls'] >= c.max_tool_calls:
+                    raise BudgetExceeded('Test Agent shared tool call budget exhausted', code='tool_call_budget_exceeded')
+                if context is not None:
+                    messages = context.fit(messages)
+                payload_config = model.config if isinstance(model, OpenAICompatibleClient) else c
+                if len(request_bytes(payload_config, messages, tools)) > min(c.max_context_bytes, payload_config.max_context_bytes):
+                    raise BudgetExceeded('Test Agent context budget exceeded', code='context_budget_exceeded')
+                check_token_budget(messages, tools, shared_budget, c)
                 model_calls += 1
                 shared_budget['model_calls'] += 1
-                trace("model_request")
+                trace("model_request", request_bytes=len(request_bytes(payload_config, messages, tools)))
                 requested_at = time.monotonic()
                 try:
                     def retry_count():
@@ -527,7 +569,7 @@ class TestAgent:
                 usage = getattr(model, 'last_usage', None)
                 trace('model_usage', usage=usage, wall_sec=round(time.monotonic() - requested_at, 6))
                 if len(json.dumps(message).encode()) > c.max_response_bytes:
-                    raise BudgetExceeded("model response budget exceeded")
+                    raise BudgetExceeded("model response budget exceeded", code='response_budget_exceeded')
                 proposed = message.get("tool_calls")
                 if not isinstance(proposed, list) or not proposed:
                     raise SynthesisError("model must return tool calls")
@@ -542,23 +584,27 @@ class TestAgent:
                 for call in proposed:
                     calls += 1
                     if shared_budget['tool_calls'] >= c.max_tool_calls:
-                        raise BudgetExceeded("Test Agent tool budget exceeded")
+                        raise BudgetExceeded("Test Agent tool budget exceeded", code='tool_call_budget_exceeded')
                     shared_budget['tool_calls'] += 1
                     trace("tool_start", call=call)
+                    name, arguments = "invalid_call", {}
                     try:
                         name = call["function"]["name"]
                         terminal = {'finish', 'needs_review'} | ({'propose_repair', 'diagnose', 'classify_failure'} if generic else set())
                         if name in terminal and len(proposed) != 1:
                             raise SynthesisError('terminal tool must be the only tool call')
-                        observation = dispatch(name, json.loads(call["function"]["arguments"]))
+                        arguments = json.loads(call["function"]["arguments"])
+                        observation = dispatch(name, arguments)
                     except (BudgetExceeded, SandboxError):
                         raise
                     except (SynthesisError, KeyError, TypeError, ValueError) as exc:
                         observation = {"error": str(exc), "type": type(exc).__name__}
                     trace("tool_result", tool_call_id=call["id"], observation=observation)
+                    if context is not None:
+                        observation = context.observe(name, arguments if isinstance(arguments, dict) else {}, observation, raw_call=call)
                     encoded = json.dumps(observation, ensure_ascii=False)
                     if len(encoded.encode()) > c.max_response_bytes:
-                        raise BudgetExceeded("observation budget exceeded")
+                        raise BudgetExceeded("observation budget exceeded", code='response_budget_exceeded')
                     messages.append({"role": "tool", "tool_call_id": call["id"], "content": encoded})
                     if result['status'] in {'needs_review', 'diagnosed'}:
                         break
@@ -567,18 +613,18 @@ class TestAgent:
                 if result["status"] in {'tests_generated', 'needs_review', 'diagnosed'}:
                     break
             else:
-                raise BudgetExceeded("Test Agent model call budget exhausted")
+                raise BudgetExceeded("Test Agent model call budget exhausted", code='model_call_budget_exceeded')
         except (Exception, KeyboardInterrupt) as exc:
             result.update(status="cancelled" if isinstance(exc, KeyboardInterrupt) else "error",
-                          error={"type": type(exc).__name__, "message": str(exc)})
+                          error=exc.report() if isinstance(exc, BudgetExceeded) else {"type": type(exc).__name__, "message": str(exc)})
             if diagnose_only and isinstance(exc, BudgetExceeded):
-                result.update(status='needs_review', review_reason='diagnosis_budget_exhausted')
+                result.update(status='needs_review', review_reason=exc.code)
             trace("failure", error=result["error"])
         finally:
             try:
                 tests.export(root / "tests")
             except Exception as exc:
-                result.update(status="error", error={"type": type(exc).__name__, "message": str(exc)})
+                result.update(status="error", error=exc.report() if isinstance(exc, BudgetExceeded) else {"type": type(exc).__name__, "message": str(exc)})
             result.update(manifest=tests.manifest(), digest=tests.digest(),
                           budget_used={"model_calls": model_calls, "tool_calls": calls},
                           workflow_budget_used=dict(shared_budget))

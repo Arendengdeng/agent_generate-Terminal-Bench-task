@@ -101,6 +101,8 @@ def exception_details(error, api_key='', secrets=()):
                 message = message.replace(secret, '[REDACTED]')
         message = redact(message, api_key)[:1000]
         result = {'type': type(exc).__name__, 'message': message}
+        if isinstance(exc, BudgetExceeded):
+            result['code'] = exc.code
         number = getattr(exc, 'errno', None)
         if type(number) is int:
             result['errno'] = number
@@ -118,19 +120,38 @@ def exception_details(error, api_key='', secrets=()):
     return describe(error)
 
 
+def request_bytes(config, messages, tools):
+    """The exact transport payload, shared with local context checks."""
+    payload = {'model': config.model, 'messages': messages, 'tools': tools,
+               'tool_choice': 'required', 'parallel_tool_calls': False}
+    if urlsplit(config.base_url).hostname == 'api.deepseek.com':
+        payload.update(thinking={'type': 'disabled'}, max_tokens=config.max_completion_tokens)
+        payload.pop('parallel_tool_calls')
+    else:
+        payload['max_completion_tokens'] = config.max_completion_tokens
+    return json.dumps(payload).encode()
+
+
+def check_token_budget(messages, tools, budget, config):
+    reserve = len(json.dumps({'messages': messages, 'tools': tools}).encode()) + 4096 + config.max_completion_tokens
+    limit = budget.get('max_total_tokens')
+    known = budget.get('token_usage', {}).get('total_tokens', 0)
+    if limit is not None and known + budget.get('unknown_token_reserve', 0) + reserve > limit:
+        raise BudgetExceeded('shared token budget cannot reserve next model attempt', code='token_budget_exceeded')
+    return reserve
+
+
 def complete_accounted(client, messages, tools, *, budget, config, on_retry, on_event):
     """Transport accounting only. Caller has already counted the first attempt."""
-    reserve = len(json.dumps({'messages': messages, 'tools': tools}).encode()) + 4096 + config.max_completion_tokens
+    reserve = check_token_budget(messages, tools, budget, config)
+
     def check_tokens():
-        limit = budget.get('max_total_tokens')
-        known = budget.get('token_usage', {}).get('total_tokens', 0)
-        if limit is not None and known + budget.get('unknown_token_reserve', 0) + reserve > limit:
-            raise BudgetExceeded('shared token budget cannot reserve next model attempt')
+        check_token_budget(messages, tools, budget, config)
 
     def retry():
         check_tokens()
         if budget['model_calls'] >= config.max_model_calls:
-            raise BudgetExceeded('shared model budget exhausted before transport retry')
+            raise BudgetExceeded('shared model budget exhausted before transport retry', code='model_call_budget_exceeded')
         budget['model_calls'] += 1
         on_retry()
 
@@ -179,16 +200,9 @@ class OpenAICompatibleClient:
         self.last_usage = None
         self.last_attempts = []
         c = self.config
-        payload = {"model": c.model, "messages": messages, "tools": tools,
-                   "tool_choice": "required", "parallel_tool_calls": False}
-        if urlsplit(c.base_url).hostname == "api.deepseek.com":
-            payload.update(thinking={"type": "disabled"}, max_tokens=c.max_completion_tokens)
-            payload.pop("parallel_tool_calls")
-        else:
-            payload["max_completion_tokens"] = c.max_completion_tokens
-        data = json.dumps(payload).encode()
+        data = request_bytes(c, messages, tools)
         if len(data) > c.max_context_bytes:
-            raise BudgetExceeded("model context byte budget exceeded")
+            raise BudgetExceeded("model context byte budget exceeded", code='context_budget_exceeded')
         headers = {"Content-Type": "application/json"}
         if c.api_key:
             headers["Authorization"] = "Bearer " + c.api_key
@@ -210,7 +224,7 @@ class OpenAICompatibleClient:
                                unquote(parsed.username or ''), unquote(parsed.password or '')) if v)
         for attempt in range(2):
             if self.attempt_count >= c.max_model_calls:
-                raise BudgetExceeded('client model attempt budget exhausted')
+                raise BudgetExceeded('client model attempt budget exhausted', code='model_call_budget_exceeded')
             if attempt:
                 if before_retry is not None:
                     before_retry()
@@ -228,7 +242,7 @@ class OpenAICompatibleClient:
                     raw = response.read(c.max_response_bytes + 1)
                     record['read_body_wall_sec'] = round(time.monotonic() - phase_started, 6)
                 if len(raw) > c.max_response_bytes:
-                    raise BudgetExceeded("model response byte budget exceeded")
+                    raise BudgetExceeded("model response byte budget exceeded", code='response_budget_exceeded')
                 phase, phase_started = 'parse_response', time.monotonic()
                 result = json.loads(raw)
                 usage = result.get('usage')
