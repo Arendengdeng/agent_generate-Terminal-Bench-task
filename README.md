@@ -68,6 +68,10 @@ Agent 可读取公开输入、开发测试和分块执行证据，在无网络�
 
 Self-check 与独立执行使用版本化证据 envelope：任务版本、阶段、状态、Requirement、带类型和可见范围的证据、文件变化。命令、退出码、异常、日志和文件摘要保留原有类型；证据读取只接受内存白名单 ID，不打开模型指定的宿主路径。长日志可分块读取；未执行、断言失败、执行错误和未决保持区别。
 
+Synthesis 首次 Self-check 后禁用直接 `write_file`/`delete_file`。模型通过 `record_hypothesis` 提出假设，再用 `apply_repair(parent_digest, hypothesis_id, changes)` 提交原子补丁；每个 change 包含 `path`、`reason`、`content`（null 表示删除）。宿主核对版本、证据引用、路径与预算，不根据任务类型选择修复目标。每次补丁自动复跑完整 Self-check，自动执行也占用共享工具预算和既有失败次数。已全通过的修复后行为建立保护基线，退化则整体回滚；Probe 变化时另用保护基线 Probe 复查。尚未完全解决的修复保留为 unresolved，不能 finish。
+
+Probe 失败证据包含 traceback、源码行、有界局部数据、子进程命令/输出，以及参数引用的 `/app`、`/tmp` 普通文件前后快照。数据截断明确标记；仅跟踪 `subprocess.run`，不推测其他执行方式的输入输出。模型通过 `read_self_check_evidence(evidence_id, offset)` 分页读取本次私有证据；Independent Test 的公开读取权限不变。`self-check/` 保留各轮文件、执行报告、假设及补丁前后快照，`self-check-history.json` 索引版本、回归、回滚和来源。`repair_self_check` 可从未被接受的文件快照恢复调查，不构造成功候选或绕过独立验收。
+
 `--acceptance-tests` 指向独立生成或人工审核、绑定初始公开输入的 Test Agent 输出。验收测试在模型调用前复制并冻结，开发测试的修改不会改变它。若不指定且提供了 `--tests`，则保守地冻结该套初始测试；它本身若有错误，开发测试修复也不能绕过它。两者均未提供时，分别独立生成开发套件与验收套件后冻结。公开环境变化后仅重新绑定元数据，测试内容、节点和映射不变。
 
 测试试修要求已确认的正确与错误对照；保留原节点、已有行为检查和 Requirement 映射，禁止 skip、xfail 和宽泛异常捕获。每次修改复跑完整开发对照并记录回归；连续两个版本出现同类失败、无修改、重复版本或预算耗尽时停止。最终冻结验收关闭所有修复，执行 Docker/Harbor 和 held-out；held-out 结果不进入后续修复。静态结构问题仍沿用既有确定性修复路径。普通 `--repair-tests`/Challenge 入口保留既有策略；新机制通过跨模块 `--repair` 使用。

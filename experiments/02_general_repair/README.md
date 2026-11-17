@@ -64,3 +64,40 @@ not additional Agent tool charges. Full input/output token counts and candidate/
 breakdowns reconcile against the original ledger. Read-only calls are not automatically
 classified as waste. Not-reached stages supply no estimate of their full cost. Historical
 40-call runs are preserved and are not pooled with the exploratory run as a success rate.
+
+## Self-check diagnosis and atomic repair regression
+
+```bash
+python3 experiments/02_general_repair/self_check_replay.py --run-id UNIQUE_SELF_CHECK_RUN_ID
+python3 experiments/01_e2e_reliability/run.py --protocol experiments/02_general_repair/self_check_e2e_protocol.json --run-id UNIQUE_E2E_RUN_ID
+SELF_CHECK_DOCKER=1 python3 -m unittest tests.test_synthesis_self_check -v
+```
+
+`benchmarks/jsonl-latest-record/self_check_cases.json` freezes the first Self-check
+file states of candidates 0001/0002/0003 from `explore80-20261117T170350Z-77905313`.
+Every file manifest and digest was checked against the original build logs. Candidate
+0003 also supplies its second check's passing Solution checkpoint for rollback testing.
+These are development regression cases, not a blind generalization panel.
+
+The replay freezes inputs and source, runs each initial case three times with the new
+mechanism and once with the Git HEAD baseline in isolated Python workers. The baseline
+system prompt receives an existing-snapshot mode and the untrusted current file data
+to avoid task regeneration. Improved replay also receives all current file data. Each invocation has the exploratory protocol's independent 80 model /
+240 tool / 1,000,000 token limits, eight unchanged calls and three failing checks;
+the improved initial check and automatic regressions count against these limits.
+No retry-until-success or feedback from evaluation is allowed. The baseline has one
+repetition and cannot establish a reliable comparative success rate.
+
+Only Plan, Contract, candidate files and runtime observations enter the model's tools.
+The evaluator and reviewed feedback controls run after the model has stopped; they
+are never mapped into its containers or passed to its client. The evaluator checks
+Contract behavior and the final Probe against correct/invalid controls, including a
+deterministic 1000-record panel. It cannot prove all checks are sufficient or that a
+proposed explanation is correct; review the stored hypotheses and actual diff as well.
+No held-out controls are used for this development replay.
+
+`comparison.json`, per-invocation `replay-result.json`, immutable progress files and
+private Self-check version histories preserve failures, budget use, original failure
+reproduction, and evaluation results. Missing/error evaluation is never successful
+rejection. The separate full E2E protocol changes only the variant description; it
+keeps independent testing, Repair, Challenge, acceptance and conditional frozen replay.

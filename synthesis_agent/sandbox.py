@@ -114,9 +114,91 @@ print(json.dumps(result, sort_keys=True))
 
 # Probe exceptions are deliberately not all mapped to task failure.
 PROBE_RUNNER = r'''
-import contextlib, io, json, sys, traceback
+import contextlib, io, json, sys, traceback, subprocess, os, stat, hashlib, linecache
 payload = json.load(sys.stdin)
 results = []
+# Only plain values are inspected: arbitrary repr/property methods are never called.
+def plain(value, depth=0):
+    if type(value) in (str, bytes):
+        text = value.decode('utf-8', 'replace') if type(value) is bytes else value
+        return text if len(text) <= 1800 else {'preview': text[:1800], 'truncated': True, 'characters': len(text)}
+    if value is None or type(value) in (bool, int, float):
+        return value
+    if depth >= 3:
+        return {'omitted': 'depth_limit'}
+    if type(value) in (tuple, list):
+        return {'items': [plain(v, depth + 1) for v in value[:12]], 'length': len(value), 'truncated': len(value) > 12}
+    if type(value) is dict:
+        pairs = list(value.items())[:12]
+        return {str(k): plain(v, depth + 1) for k, v in pairs if type(k) in (str, int)} | ({'_truncated': True} if len(value) > 12 else {})
+    return {'omitted': 'non_plain_value'}
+
+def bounded(value, limit):
+    encoded = json.dumps(value, ensure_ascii=True)
+    return value if len(encoded) <= limit else {'preview': encoded[:limit // 2], 'truncated': True, 'serialized_bytes': len(encoded)}
+
+def file_data(value, cwd):
+    if type(value) is not str:
+        return None
+    path = os.path.abspath(os.path.join(cwd, value))
+    if not path.startswith(('/app/', '/tmp/')):
+        return None
+    try:
+        # Reject symlink ancestors as well as the leaf; never traverse outside scope.
+        current = '/'
+        for part in path.strip('/').split('/'):
+            current = os.path.join(current, part)
+            if stat.S_ISLNK(os.lstat(current).st_mode):
+                return None
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        with os.fdopen(fd, 'rb') as stream:
+            info = os.fstat(stream.fileno())
+            if not stat.S_ISREG(info.st_mode):
+                return None
+            data = stream.read(1801)
+        return {'path': path, 'size': info.st_size, 'content': data[:1800].decode('utf-8', 'replace'),
+                'truncated': len(data) > 1800, 'sha256': hashlib.sha256(data).hexdigest() if len(data) <= 1800 else None}
+    except OSError:
+        return None
+
+commands = []
+command_count = 0
+original_run = subprocess.run
+def observed_run(*args, **kwargs):
+    global command_count
+    argv = args[0] if args else kwargs.get('args')
+    cwd = kwargs.get('cwd') or os.getcwd()
+    paths = argv if type(argv) in (list, tuple) else []
+    row = {'command': plain(argv), 'cwd': plain(cwd), 'stdin': plain(kwargs.get('input')),
+           'before': [data for arg in paths[:12] if (data := file_data(arg, cwd))]}
+    try:
+        result = original_run(*args, **kwargs)
+        row.update(exit_code=result.returncode, stdout=plain(result.stdout), stderr=plain(result.stderr))
+        return result
+    except BaseException as exc:
+        row.update(exception=type(exc).__name__, message=str(exc)[:1000])
+        raise
+    finally:
+        row['after'] = [data for arg in paths[:12] if (data := file_data(arg, cwd))]
+        commands.append(bounded(row, 6500))
+        del commands[:-3]
+        command_count += 1
+subprocess.run = observed_run
+
+linecache.cache['probe.py'] = (len(payload['source']), None, payload['source'].splitlines(True), 'probe.py')
+def exception_data(exc):
+    frames = []
+    tb = exc.__traceback__
+    while tb:
+        frame = tb.tb_frame
+        if frame.f_code.co_filename == 'probe.py':
+            frames.append({'path': 'checks/probe.py', 'line': tb.tb_lineno, 'function': frame.f_code.co_name,
+                           'source': linecache.getline('probe.py', tb.tb_lineno).strip(),
+                           'locals': bounded({k: plain(v) for k, v in list(frame.f_locals.items())[:24]
+                                              if not k.startswith('__')}, 5500)})
+        tb = tb.tb_next
+    return {'type': type(exc).__name__, 'traceback': traceback.format_exc()[-6000:],
+            'frames': frames[-5:]}
 class BoundedCapture(io.TextIOBase):
     def __init__(self):
         self.parts = []
@@ -134,18 +216,30 @@ try:
         exec(compile(payload['source'], 'probe.py', 'exec'), scope)
         check = scope['check']
         for rid in payload['ids']:
+            commands.clear()
+            command_count = 0
             try:
                 check(rid)
             except AssertionError as exc:
-                results.append({'id': rid, 'status': 'fail', 'message': str(exc)[:2000]})
+                results.append({'id': rid, 'status': 'fail', 'message': str(exc)[:2000], 'exception': exception_data(exc),
+                                'commands': list(commands), 'commands_omitted': max(0, command_count - len(commands))})
             except BaseException as exc:
-                results.append({'id': rid, 'status': 'error', 'message': type(exc).__name__ + ': ' + str(exc)[:2000]})
+                results.append({'id': rid, 'status': 'error', 'message': type(exc).__name__ + ': ' + str(exc)[:2000],
+                                'exception': exception_data(exc), 'commands': list(commands),
+                                'commands_omitted': max(0, command_count - len(commands))})
             else:
                 results.append({'id': rid, 'status': 'pass'})
-    print(json.dumps({'results': results, 'output': ''.join(capture.parts)}, ensure_ascii=True))
+    report = {'results': results, 'output': ''.join(capture.parts)}
 except BaseException as exc:
-    print(json.dumps({'error': type(exc).__name__ + ': ' + str(exc)[:2000]}))
-    sys.exit(2)
+    report = {'error': type(exc).__name__ + ': ' + str(exc)[:2000], 'exception': exception_data(exc), 'results': results}
+finally:
+    subprocess.run = original_run
+# Detail travels separately from the small verdict, and is read in bounded chunks by the host.
+with open(payload['evidence_path'], 'x', encoding='utf-8') as stream:
+    json.dump(report, stream, ensure_ascii=True)
+print(json.dumps({'results': [{k: v for k, v in row.items() if k in ('id', 'status', 'message')} for row in results],
+                  **({'error': report['error']} if 'error' in report else {})}))
+sys.exit(2 if 'error' in report else 0)
 '''
 
 
@@ -241,14 +335,26 @@ class DockerSandbox:
             raise SandboxError("invalid app snapshot") from exc
 
     def probe(self, name, source, contract):
+        evidence_path = '/tmp/self-check-' + uuid.uuid4().hex + '.json'
         payload = {"source": source, "ids": [r["id"] for r in contract["requirements"]],
                    "command_timeout": contract["limits"]["command_timeout_sec"],
-                   "output_limit": self.config.max_output_bytes // 4}
+                   "output_limit": self.config.max_output_bytes // 4, 'evidence_path': evidence_path}
         result = self.execute(name, ["python3", "-I", "-c", PROBE_RUNNER], json.dumps(payload).encode())
         try:
             report = json.loads(result.stdout)
+            # Fixed host-selected path, bounded regular-file read; model cannot choose a host path.
+            reader = ('import os,stat,sys; p=sys.argv[1]; limit=int(sys.argv[2]); '
+                      'f=os.open(p,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK); '
+                      'assert stat.S_ISREG(os.fstat(f).st_mode); '
+                      'data=os.read(f,limit+1); assert len(data)<=limit; sys.stdout.buffer.write(data)')
+            detail = self.execute(name, ['python3', '-I', '-c', reader, evidence_path,
+                                        str(self.config.max_total_bytes)], output_limit=self.config.max_total_bytes + 1)
+            if detail.exit_code == 0:
+                report = json.loads(detail.stdout)
+            else:
+                report['evidence_error'] = detail.as_dict()
             if result.exit_code or "error" in report:
-                return {"status": "error", "error": report.get("error", "probe process failed"), "execution": result.as_dict()}
+                return {**report, "status": "error", "error": report.get("error", "probe process failed"), "execution": result.as_dict()}
             rows = report["results"]
             if [row["id"] for row in rows] != payload["ids"] or any(row["status"] not in {"pass", "fail", "error"} for row in rows):
                 raise ValueError("invalid probe results")

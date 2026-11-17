@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "kind": "development_regression_panel",
+  "cases": [
+    {
+      "id": "0001",
+      "source_run_id": "explore80-20261117T170350Z-77905313",
+      "source_log_sha256": "00852741de81ce71392059ef5c0f991667fe883945357a3f8d328acbdafc6905",
+      "plan": {
+        "title": "修复 JSONL 最新版本记录归并工具",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "按 key 归并最新版本记录，同版本保留最后出现者，输出确定。",
+        "skills": [
+          "JSONL 解析",
+          "版本选择与稳定覆盖",
+          "Unicode 排序",
+          "CLI 调试"
+        ],
+        "scenario": "离线配置事件包含乱序和重复更新，需生成最新配置快照。",
+        "initial_state": "提供存在归并缺陷的 latest.py 与少量格式示例。"
+      },
+      "contract": {
+        "objective": "修复 latest.py，按 key 保留最新版本记录。",
+        "workspace": "/app",
+        "command": "python /app/latest.py <input.jsonl> <output.json>",
+        "input_spec": "UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。",
+        "output_spec": "UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/latest.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。"
+          },
+          {
+            "id": "R2",
+            "description": "按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。"
+          },
+          {
+            "id": "R3",
+            "description": "结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1000
+        }
+      },
+      "initial": {
+        "files": {
+          "draft/environment/Dockerfile": "FROM python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp\nRUN mkdir -p /app && chown 65532:65532 /app\nCOPY --chown=65532:65532 app/ /app/\nUSER 65532:65532\nWORKDIR /app\nCMD [\"/bin/sh\"]\n",
+          "draft/instruction.md": "# 修复 JSONL 最新版本记录归并工具\n\n## 场景\n\n离线环境中，配置系统会把每次配置事件追加写入一个 JSONL 事件日志。事件由多台设备上报，\n因此同一个 `key` 可能多次出现，版本号是单调的整数，但日志中的行顺序并不保证按版本或按 key 排列。\n运维脚本 `latest.py` 需要把这些事件日志归并成一份\"最新配置快照\"JSON 文件，供下游工具读取。\n\n## 现状\n\n`/app/latest.py` 已经存在，但当前版本在归并逻辑上存在问题：对乱序事件、同版本的重复更新等情况的处理\n与预期不符，生成的快照不是每个 key 的正确最新记录。\n\n`/app` 中附带了少量示例数据，可用来手动观察程序的行为，但示例数据并不能覆盖全部边界情况。\n\n## 需要完成的工作\n\n修复 `/app/latest.py`，使其成为可用的归并工具。调用方式：\n\n```\npython /app/latest.py <input.jsonl> <output.json>\n```\n\n程序需要读取输入事件日志，按 key 归并出每个 key 的最新版本记录，并写出 JSON 数组。\n输入格式、输出结构与排序规则等要求见下方的 Contract 附录（其中包含输入约束、输出约束、\n各条需求以及超时与规模上限）。\n\n注意：\n\n- 输入路径与输出路径不同，输入文件必须保持原样不被改动。\n- 只能使用 Python 标准库，不得依赖第三方包，也不得新增其他交付文件。\n- 程序需要在命令行下以正常退出码结束，并把结果写入指定的输出文件。\n\n\n## 完成标准（Contract 原文）\n\n```json\n{\n  \"objective\": \"修复 latest.py，按 key 保留最新版本记录。\",\n  \"workspace\": \"/app\",\n  \"command\": \"python /app/latest.py <input.jsonl> <output.json>\",\n  \"input_spec\": \"UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。\",\n  \"output_spec\": \"UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。\",\n  \"deliverables\": {\n    \"artifact_paths\": [\n      \"/app/latest.py\"\n    ],\n    \"allowed_dependencies\": \"python-stdlib\",\n    \"allow_additional_files\": false\n  },\n  \"requirements\": [\n    {\n      \"id\": \"R1\",\n      \"description\": \"接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。\"\n    },\n    {\n      \"id\": \"R2\",\n      \"description\": \"按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。\"\n    },\n    {\n      \"id\": \"R3\",\n      \"description\": \"结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。\"\n    },\n    {\n      \"id\": \"R4\",\n      \"description\": \"不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。\"\n    }\n  ],\n  \"limits\": {\n    \"command_timeout_sec\": 10,\n    \"max_input_lines\": 1000\n  }\n}\n```\n",
+          "draft/environment/app/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge a JSONL log of configuration events into a latest-version snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_events(path):\n    events = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            line = line.strip()\n            if not line:\n                continue\n            events.append(json.loads(line))\n    return events\n\n\ndef merge(events):\n    latest = {}\n    for event in sorted(events, key=lambda e: e[\"version\"]):\n        latest[event[\"key\"]] = event\n    return latest\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n\n    events = load_events(argv[1])\n    merged = merge(events)\n\n    rows = [merged[key] for key in sorted(merged)]\n    with open(argv[2], \"w\", encoding=\"utf-8\") as fh:\n        json.dump(rows, fh, ensure_ascii=True)\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/environment/app/sample_events.jsonl": "{\"key\": \"db.host\", \"version\": 3, \"value\": \"db-03.internal\"}\n{\"key\": \"cache.ttl\", \"version\": 1, \"value\": \"60\"}\n{\"key\": \"db.host\", \"version\": 1, \"value\": \"db-01.internal\"}\n{\"key\": \"api.timeout\", \"version\": 2, \"value\": \"30\"}\n{\"key\": \"cache.ttl\", \"version\": 2, \"value\": \"120\"}\n{\"key\": \"api.timeout\", \"version\": 2, \"value\": \"45\"}\n{\"key\": \"db.host\", \"version\": 2, \"value\": \"db-02.internal\"}\n",
+          "draft/solution/solve.sh": "#!/bin/sh\n# Repair /app/latest.py: keep max-version record per key, last occurrence wins,\n# output sorted by key.\nset -e\ncat > /app/latest.py <<'PY'\n#!/usr/bin/env python3\n\"\"\"Merge a JSONL log of configuration events into a latest-version snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_events(path):\n    events = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            if not line.strip():\n                continue\n            events.append(json.loads(line))\n    return events\n\n\ndef merge(events):\n    latest = {}\n    for event in events:\n        key = event[\"key\"]\n        version = event[\"version\"]\n        if isinstance(version, bool) or not isinstance(version, int):\n            raise ValueError(\"version must be an integer: %r\" % (version,))\n        current = latest.get(key)\n        # Strictly greater keeps the last record among equal max versions;\n        # only compare versions, never file order.\n        if current is None or version > current[\"version\"]:\n            latest[key] = {\"key\": key, \"version\": version, \"value\": event[\"value\"]}\n    return latest\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n\n    events = load_events(argv[1])\n    merged = merge(events)\n\n    rows = [merged[key] for key in sorted(merged)]\n    with open(argv[2], \"w\", encoding=\"utf-8\") as fh:\n        json.dump(rows, fh, ensure_ascii=False)\n        fh.write(\"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\nPY\n",
+          "checks/probe.py": "\"\"\"Behavioral probe for the JSONL latest-version merge CLI task.\"\"\"\n\nimport hashlib\nimport json\nimport os\nimport subprocess\nimport sys\nimport tempfile\n\nCOMMAND_TIMEOUT_SEC = 10\nAPP = \"/app\"\nCLI = os.path.join(APP, \"latest.py\")\nREQUIREMENTS = (\"R1\", \"R2\", \"R3\", \"R4\")\n\n\ndef _run(events, expect_preserved=True):\n    \"\"\"Write events to a temp input, run the CLI, return (parsed output, raw).\"\"\"\n    tmpdir = tempfile.mkdtemp(prefix=\"latest-probe-\", dir=\"/tmp\")\n    in_path = os.path.join(tmpdir, \"events.jsonl\")\n    out_path = os.path.join(tmpdir, \"out\", \"snapshot.json\")\n    os.makedirs(os.path.dirname(out_path), exist_ok=True)\n    data = \"\".join(json.dumps(e, ensure_ascii=False) + \"\\n\" for e in events)\n    blob = data.encode(\"utf-8\")\n    with open(in_path, \"wb\") as fh:\n        fh.write(blob)\n    digest = hashlib.sha256(blob).hexdigest()\n\n    proc = subprocess.run(\n        [sys.executable, CLI, in_path, out_path],\n        capture_output=True,\n        timeout=COMMAND_TIMEOUT_SEC,\n    )\n    assert proc.returncode == 0, \"CLI failed rc=%r stderr=%r\" % (\n        proc.returncode,\n        proc.stderr,\n    )\n    assert os.path.isfile(out_path), \"no output file produced\"\n\n    if expect_preserved:\n        with open(in_path, \"rb\") as fh:\n            after = fh.read()\n        assert hashlib.sha256(after).hexdigest() == digest, \"input file was modified\"\n\n    with open(out_path, \"rb\") as fh:\n        raw = fh.read()\n    parsed = json.loads(raw.decode(\"utf-8\"))\n    assert isinstance(parsed, list), \"output is not a JSON array: %r\" % (parsed,)\n    return parsed, raw\n\n\ndef _normalize(rows):\n    out = []\n    for row in rows:\n        assert isinstance(row, dict), \"array element is not an object: %r\" % (row,)\n        assert set(row) == {\"key\", \"version\", \"value\"}, \"bad object keys: %r\" % (row,)\n        out.append((row[\"key\"], row[\"version\"], row[\"value\"]))\n    return out\n\n\ndef _expected(events):\n    best = {}\n    for e in events:\n        cur = best.get(e[\"key\"])\n        if cur is None or e[\"version\"] >= cur[\"version\"]:\n            best[e[\"key\"]] = (e[\"key\"], e[\"version\"], e[\"value\"])\n    return [best[k] for k in sorted(best)]\n\n\ndef _check_merge(events):\n    rows, _ = _run(events)\n    actual = _normalize(rows)\n    expected = _expected(events)\n    assert actual == expected, \"merge mismatch\\nactual=%r\\nexpected=%r\" % (\n        actual,\n        expected,\n    )\n    keys = [r[0] for r in actual]\n    assert keys == sorted(keys), \"keys not sorted: %r\" % (keys,)\n    assert len(keys) == len(set(keys)), \"duplicate keys: %r\" % (keys,)\n\n\ndef check(requirement_id):\n    if requirement_id not in REQUIREMENTS:\n        raise ValueError(\"unknown requirement id: %r\" % (requirement_id,))\n\n    if requirement_id == \"R1\":\n        rows, raw = _run(\n            [\n                {\"key\": \"b\", \"version\": 1, \"value\": \"x\"},\n                {\"key\": \"a\", \"version\": 2, \"value\": \"y\"},\n            ]\n        )\n        assert isinstance(rows, list)\n        assert len(rows) == 2\n        norm = _normalize(rows)\n        assert norm == [(\"a\", 2, \"y\"), (\"b\", 1, \"x\")], norm\n        assert raw.decode(\"utf-8\").strip() != \"\"\n\n    elif requirement_id == \"R2\":\n        # Out of order versions.\n        _check_merge(\n            [\n                {\"key\": \"k\", \"version\": 5, \"value\": \"v5\"},\n                {\"key\": \"k\", \"version\": 2, \"value\": \"v2\"},\n                {\"key\": \"k\", \"version\": 9, \"value\": \"v9\"},\n                {\"key\": \"k\", \"version\": 1, \"value\": \"v1\"},\n            ]\n        )\n        # Same max version repeated: last occurrence wins; earlier max does not.\n        _check_merge(\n            [\n                {\"key\": \"k\", \"version\": 4, \"value\": \"first-4\"},\n                {\"key\": \"k\", \"version\": 7, \"value\": \"first-7\"},\n                {\"key\": \"k\", \"version\": 4, \"value\": \"second-4\"},\n                {\"key\": \"k\", \"version\": 7, \"value\": \"second-7\"},\n                {\"key\": \"k\", \"version\": 1, \"value\": \"late-1\"},\n            ]\n        )\n        # Big version jump with numeric (not lexicographic) comparison.\n        _check_merge(\n            [\n                {\"key\": \"k\", \"version\": 10, \"value\": \"ten\"},\n                {\"key\": \"k\", \"version\": 9, \"value\": \"nine\"},\n                {\"key\": \"k\", \"version\": 100, \"value\": \"hundred\"},\n                {\"key\": \"k\", \"version\": 99, \"value\": \"ninetynine\"},\n            ]\n        )\n\n    elif requirement_id == \"R3\":\n        rows, _ = _run([])\n        assert rows == [], rows\n\n        _check_merge([{\"key\": \"solo\", \"version\": 0, \"value\": \"\"}])\n\n        _check_merge(\n            [\n                {\"key\": \"配置.名称\", \"version\": 2, \"value\": \"值二\"},\n                {\"key\": \"配置.名称\", \"version\": 1, \"value\": \"值一\"},\n                {\"key\": \"A\", \"version\": 1, \"value\": \"大写\"},\n                {\"key\": \"a\", \"version\": 1, \"value\": \"小写\"},\n                {\"key\": \"é\", \"version\": 0, \"value\": \"\"},\n                {\"key\": \"日本\", \"version\": 3, \"value\": \"こんにちは\"},\n                {\"key\": \"key.with space\", \"version\": 2, \"value\": \"sp\"},\n                {\"key\": \"z\", \"version\": 0, \"value\": \"\"},\n            ]\n        )\n\n        events = []\n        for i in range(1000):\n            events.append({\"key\": \"key-%03d\" % (i % 125), \"version\": i, \"value\": \"v%d\" % i})\n        _check_merge(events)\n\n    elif requirement_id == \"R4\":\n        events = [\n            {\"key\": \"preserve\", \"version\": 3, \"value\": \"same\"},\n            {\"key\": \"preserve\", \"version\": 1, \"value\": \"old\"},\n        ]\n        _check_merge(events)  # _run verifies input hash unchanged\n\n        # Only latest.py is a deliverable in /app.\n        allowed = {\"latest.py\", \"sample_events.jsonl\", \"__pycache__\"}\n        unlisted = [\n            name\n            for name in os.listdir(APP)\n            if name not in allowed and not name.startswith(\"sample_events\")\n        ]\n        assert not unlisted, \"unexpected files in /app: %r\" % (unlisted,)\n        assert os.path.isfile(CLI), \"latest.py missing\"\n\n        # Standard library only: run with -S (no site-packages) and empty env.\n        tmpdir = tempfile.mkdtemp(prefix=\"latest-stdlib-\", dir=\"/tmp\")\n        in_path = os.path.join(tmpdir, \"in.jsonl\")\n        out_path = os.path.join(tmpdir, \"out.json\")\n        with open(in_path, \"w\", encoding=\"utf-8\") as fh:\n            fh.write(json.dumps({\"key\": \"x\", \"version\": 1, \"value\": \"1\"}) + \"\\n\")\n        proc = subprocess.run(\n            [sys.executable, \"-S\", \"-E\", CLI, in_path, out_path],\n            capture_output=True,\n            timeout=COMMAND_TIMEOUT_SEC,\n        )\n        assert proc.returncode == 0, \"stdlib-only run failed: %r\" % (\n            proc.stderr,\n        )\n        with open(out_path, \"r\", encoding=\"utf-8\") as fh:\n            parsed = json.load(fh)\n        assert _normalize(parsed) == [(\"x\", 1, \"1\")], parsed\n    else:  # pragma: no cover\n        raise ValueError(requirement_id)\n"
+        },
+        "digest": "a2c0b99a9a4892a9a09a53c0fcc44df0f991a7643ccdb6d943acc063a4e25841",
+        "signature": {
+          "initial": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "error"
+            ],
+            [
+              "R3",
+              "error"
+            ],
+            [
+              "R4",
+              "error"
+            ]
+          ],
+          "repaired": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "error"
+            ],
+            [
+              "R3",
+              "error"
+            ],
+            [
+              "R4",
+              "error"
+            ]
+          ]
+        },
+        "status": "error"
+      }
+    },
+    {
+      "id": "0002",
+      "source_run_id": "explore80-20261117T170350Z-77905313",
+      "source_log_sha256": "25d595c93c5dca6179095bdbfbd3415a74c6ed4d5afd1650fe34f01fc85bdc75",
+      "plan": {
+        "title": "修复 JSONL 最新版本记录归并工具",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "按 key 归并最新版本记录，同版本保留最后出现者，输出确定。",
+        "skills": [
+          "JSONL 解析",
+          "版本选择与稳定覆盖",
+          "Unicode 排序",
+          "CLI 调试"
+        ],
+        "scenario": "离线配置事件包含乱序和重复更新，需生成最新配置快照。",
+        "initial_state": "提供存在归并缺陷的 latest.py 与少量格式示例。"
+      },
+      "contract": {
+        "objective": "修复 latest.py，按 key 保留最新版本记录。",
+        "workspace": "/app",
+        "command": "python /app/latest.py <input.jsonl> <output.json>",
+        "input_spec": "UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。",
+        "output_spec": "UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/latest.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。"
+          },
+          {
+            "id": "R2",
+            "description": "按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。"
+          },
+          {
+            "id": "R3",
+            "description": "结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1000
+        }
+      },
+      "initial": {
+        "files": {
+          "draft/environment/Dockerfile": "FROM python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp\nRUN mkdir -p /app && chown 65532:65532 /app\nCOPY --chown=65532:65532 app/ /app/\nUSER 65532:65532\nWORKDIR /app\nCMD [\"/bin/sh\"]\n",
+          "draft/environment/app/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL update records into a latest-configuration snapshot.\n\nUsage:\n    python latest.py <input.jsonl> <output.json>\n\nEvery input line is a JSON object holding a non-empty string \"key\", a\nnon-negative integer \"version\" and a string \"value\".  For each key the\nrecord with the greatest version wins; when the greatest version appears\nmore than once the last occurrence wins.  Output is a JSON array sorted by\nkey in ascending Python string order.\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as handle:\n        for line in handle:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef pick_latest(records):\n    chosen = {}\n    for record in records:\n        key = record[\"key\"]\n        version = record[\"version\"]\n        current = chosen.get(key)\n        if current is None or version > current[\"version\"]:\n            chosen[key] = {\"key\": key, \"version\": version, \"value\": record[\"value\"]}\n    return chosen\n\n\ndef sort_keys(chosen):\n    return sorted(chosen)\n\n\ndef build_snapshot(path):\n    records = load_records(path)\n    chosen = pick_latest(records)\n    return [chosen[key] for key in sort_keys(chosen)]\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    snapshot = build_snapshot(argv[1])\n    with open(argv[2], \"w\", encoding=\"utf-8\") as handle:\n        json.dump(snapshot, handle, ensure_ascii=False, indent=2)\n        handle.write(\"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/environment/app/data/sample_events.jsonl": "{\"key\": \"db.host\", \"version\": 2, \"value\": \"db2.internal\"}\n{\"key\": \"cache.ttl\", \"version\": 1, \"value\": \"300\"}\n{\"key\": \"db.host\", \"version\": 1, \"value\": \"db1.internal\"}\n{\"key\": \"ui.theme\", \"version\": 0, \"value\": \"light\"}\n{\"key\": \"cache.ttl\", \"version\": 1, \"value\": \"600\"}\n{\"key\": \"ui.theme\", \"version\": 3, \"value\": \"\"}\n{\"key\": \"db.host\", \"version\": 2, \"value\": \"db2.backup\"}\n",
+          "draft/environment/app/data/expected_sample.json": "[\n  {\"key\": \"cache.ttl\", \"version\": 1, \"value\": \"600\"},\n  {\"key\": \"db.host\", \"version\": 2, \"value\": \"db2.backup\"},\n  {\"key\": \"ui.theme\", \"version\": 3, \"value\": \"\"}\n]\n",
+          "draft/environment/app/README.md": "# latest.py\n\nMerges offline configuration update events (JSONL) into one latest snapshot\n(JSON array).\n\n```\npython latest.py data/sample_events.jsonl /tmp/out.json\n```\n\n`data/sample_events.jsonl` is a small event stream and\n`data/expected_sample.json` shows the snapshot it should produce.\n",
+          "draft/solution/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL update records into a latest-configuration snapshot.\n\nUsage:\n    python latest.py <input.jsonl> <output.json>\n\nEvery input line is a JSON object holding a non-empty string \"key\", a\nnon-negative integer \"version\" and a string \"value\".  For each key the\nrecord with the greatest version wins; when the greatest version appears\nmore than once the last occurrence wins.  Output is a JSON array sorted by\nkey in ascending Python string order.\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as handle:\n        for line in handle:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef pick_latest(records):\n    chosen = {}\n    for record in records:\n        key = record[\"key\"]\n        version = record[\"version\"]\n        entry = {\"key\": key, \"version\": version, \"value\": record[\"value\"]}\n        current = chosen.get(key)\n        # A later record wins whenever its version is at least the stored one,\n        # so ties keep the last occurrence and higher versions replace.\n        if current is None or version >= current[\"version\"]:\n            chosen[key] = entry\n    return chosen\n\n\ndef build_snapshot(path):\n    records = load_records(path)\n    chosen = pick_latest(records)\n    return [chosen[key] for key in sorted(chosen)]\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    snapshot = build_snapshot(argv[1])\n    with open(argv[2], \"w\", encoding=\"utf-8\") as handle:\n        json.dump(snapshot, handle, ensure_ascii=False, indent=2)\n        handle.write(\"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/solution/solve.sh": "#!/bin/sh\n# Repair the latest.py merger by installing the corrected implementation.\nset -eu\nhere=$(CDPATH= cd -- \"$(dirname -- \"$0\")\" && pwd)\ncp \"$here/latest.py\" /app/latest.py\nchmod 0644 /app/latest.py\n",
+          "checks/probe.py": "\"\"\"Behavioral probe for the latest.py JSONL merger repair task.\"\"\"\n\nimport json\nimport os\nimport subprocess\nimport tempfile\n\nCOMMAND_TIMEOUT_SEC = 10\nAPP = \"/app\"\nSCRIPT = os.path.join(APP, \"latest.py\")\n\n\ndef _run(in_path, out_path):\n    return subprocess.run(\n        [\"python\", SCRIPT, in_path, out_path],\n        cwd=\"/tmp\",\n        timeout=COMMAND_TIMEOUT_SEC,\n        capture_output=True,\n        text=True,\n    )\n\n\ndef _write_jsonl(handle, records):\n    for record in records:\n        handle.write(json.dumps(record, ensure_ascii=False) + \"\\n\")\n\n\ndef _merge(in_text, tag):\n    \"\"\"Write input, run the CLI, return (parsed output, raw input, out bytes).\"\"\"\n    tmpdir = tempfile.mkdtemp(prefix=\"latest-probe-\", dir=\"/tmp\")\n    in_path = os.path.join(tmpdir, \"events-%s.jsonl\" % tag)\n    out_path = os.path.join(tmpdir, \"snapshot-%s.json\" % tag)\n    with open(in_path, \"w\", encoding=\"utf-8\") as handle:\n        handle.write(in_text)\n    proc = _run(in_path, out_path)\n    assert proc.returncode == 0, (\n        \"expected exit 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )\n    assert os.path.exists(out_path), \"output file %s was not created\" % out_path\n    with open(in_path, \"rb\") as handle:\n        in_bytes = handle.read()\n    with open(out_path, \"rb\") as handle:\n        out_bytes = handle.read()\n    try:\n        parsed = json.loads(out_bytes.decode(\"utf-8\"))\n    except ValueError as exc:\n        raise AssertionError(\"output is not valid UTF-8 JSON: %r (%r)\" % (out_bytes, exc))\n    return parsed, in_bytes, out_bytes, tmpdir\n\n\ndef _check_structure(result):\n    assert isinstance(result, list), \"output must be a JSON array, got %r\" % (result,)\n    for item in result:\n        assert isinstance(item, dict), \"each element must be an object, got %r\" % (item,)\n        assert set(item.keys()) == {\"key\", \"version\", \"value\"}, (\n            \"element must have exactly key/version/value, got %r\" % (sorted(item),)\n        )\n        assert isinstance(item[\"key\"], str) and item[\"key\"], \"key must be non-empty string\"\n        version = item[\"version\"]\n        assert isinstance(version, int) and not isinstance(version, bool) and version >= 0, (\n            \"version must be a non-negative integer, got %r\" % (version,)\n        )\n        assert isinstance(item[\"value\"], str), \"value must be a string, got %r\" % (item[\"value\"],)\n\n\ndef _expected(records):\n    best = {}\n    for record in records:\n        key = record[\"key\"]\n        if key not in best or record[\"version\"] >= best[key][\"version\"]:\n            best[key] = {\"key\": key, \"version\": record[\"version\"], \"value\": record[\"value\"]}\n    return [best[key] for key in sorted(best)]\n\n\ndef _run_records(records, tag):\n    tmpdir = tempfile.mkdtemp(prefix=\"latest-src-\", dir=\"/tmp\")\n    src = os.path.join(tmpdir, \"in-%s.jsonl\" % tag)\n    with open(src, \"w\", encoding=\"utf-8\") as handle:\n        _write_jsonl(handle, records)\n    with open(src, \"r\", encoding=\"utf-8\") as handle:\n        text = handle.read()\n    parsed, in_bytes, _out, _d = _merge(text, tag)\n    _check_structure(parsed)\n    expected = _expected(records)\n    assert parsed == expected, \"records=%r\\nexpected=%r\\ngot=%r\" % (records, expected, parsed)\n    return parsed, in_bytes, text\n\n\ndef check(requirement_id):\n    if requirement_id == \"R1\":\n        records = [\n            {\"key\": \"alpha\", \"version\": 1, \"value\": \"a1\"},\n            {\"key\": \"beta\", \"version\": 4, \"value\": \"b4\"},\n        ]\n        parsed, _in, _out, _d = _run_records(records, \"r1\")\n        assert [item[\"key\"] for item in parsed] == [\"alpha\", \"beta\"], (\n            \"keys should be alpha, beta; got %r\" % ([i[\"key\"] for i in parsed],)\n        )\n        return\n\n    if requirement_id == \"R2\":\n        records = [\n            {\"key\": \"svc\", \"version\": 3, \"value\": \"v3-first\"},\n            {\"key\": \"svc\", \"version\": 10, \"value\": \"v10\"},\n            {\"key\": \"svc\", \"version\": 9, \"value\": \"v9\"},\n            {\"key\": \"svc\", \"version\": 3, \"value\": \"v3-last\"},\n            {\"key\": \"svc\", \"version\": 2, \"value\": \"v2\"},\n            {\"key\": \"other\", \"version\": 7, \"value\": \"o7\"},\n            {\"key\": \"other\", \"version\": 7, \"value\": \"o7-last\"},\n            {\"key\": \"other\", \"version\": 70, \"value\": \"o70\"},\n            {\"key\": \"other\", \"version\": 8, \"value\": \"o8\"},\n            {\"key\": \"third\", \"version\": 2, \"value\": \"t2\"},\n            {\"key\": \"third\", \"version\": 2, \"value\": \"t2-last\"},\n            {\"key\": \"third\", \"version\": 1, \"value\": \"t1\"},\n        ]\n        parsed, _in, _out, _d = _run_records(records, \"r2\")\n        by_key = {item[\"key\"]: item for item in parsed}\n        assert by_key[\"svc\"] == {\"key\": \"svc\", \"version\": 10, \"value\": \"v10\"}, by_key[\"svc\"]\n        assert by_key[\"other\"] == {\"key\": \"other\", \"version\": 70, \"value\": \"o70\"}, by_key[\"other\"]\n        assert by_key[\"third\"] == {\"key\": \"third\", \"version\": 2, \"value\": \"t2-last\"}, by_key[\"third\"]\n\n    elif requirement_id == \"R3\":\n        # empty input\n        parsed, _in, _out, _d = _merge(\"\", \"r3-empty\")\n        assert parsed == [], \"empty input must give [], got %r\" % (parsed,)\n\n        records = [\n            {\"key\": \"z\\u00e9ro\", \"version\": 0, \"value\": \"\"},\n            {\"key\": \"Alpha\", \"version\": 0, \"value\": \"up\"},\n            {\"key\": \"\\u4e2d\\u6587\", \"version\": 2, \"value\": \"\\u503c\"},\n            {\"key\": \"alpha\", \"version\": 5, \"value\": \"lower\"},\n            {\"key\": \"_under\", \"version\": 1, \"value\": \"\\u00e9\\u00e8\"},\n            {\"key\": \"z\\u00e9ro\", \"version\": 0, \"value\": \"zero-last\"},\n            {\"key\": \"a b\", \"version\": 3, \"value\": \" spaced \"},\n        ]\n        parsed, _in, _out, _d = _run_records(records, \"r3-unicode\")\n        keys = [item[\"key\"] for item in parsed]\n        assert len(keys) == len(set(keys)), \"duplicate keys in output: %r\" % (keys,)\n        assert keys == sorted(keys), \"keys must be in ascending Python string order: %r\" % (keys,)\n        assert len(keys) == 6, \"expected 6 distinct keys, got %r\" % (keys,)\n\n        big = []\n        for i in range(1000):\n            key = \"k%04d\" % (i % 250)\n            version = i % 5\n            value = \"value-%d\" % i\n            big.append({\"key\": key, \"version\": version, \"value\": value})\n        parsed, in_bytes, text = _run_records(big, \"r3-big\")\n        assert len(parsed) == 250, \"expected 250 distinct keys from 1000 lines, got %d\" % len(parsed)\n        for item in parsed:\n            k = int(item[\"key\"][1:])\n            assert item[\"value\"] == \"value-%d\" % (k + 995), item\n            assert item[\"version\"] == (k + 995) % 5, item\n        assert in_bytes == text.encode(\"utf-8\"), \"input file was modified by the run\"\n\n    elif requirement_id == \"R4\":\n        records = [\n            {\"key\": \"cfg\", \"version\": 1, \"value\": \"one\"},\n            {\"key\": \"cfg\", \"version\": 1, \"value\": \"one-last\"},\n            {\"key\": \"\\u952e\\u503c\", \"version\": 0, \"value\": \"\"},\n        ]\n        parsed, in_bytes, text = _run_records(records, \"r4\")\n        assert in_bytes == text.encode(\"utf-8\"), \"input file content changed during the run\"\n        # basic preservation check on the shipped sample fixture\n        sample = os.path.join(APP, \"data\", \"sample_events.jsonl\")\n        if os.path.exists(sample):\n            with open(sample, \"rb\") as handle:\n                before = handle.read()\n            tmpdir = tempfile.mkdtemp(prefix=\"latest-r4-\", dir=\"/tmp\")\n            out_path = os.path.join(tmpdir, \"sample-out.json\")\n            proc = _run(sample, out_path)\n            assert proc.returncode == 0, \"sample run failed: %r\" % (proc.stderr,)\n            with open(sample, \"rb\") as handle:\n                after = handle.read()\n            assert before == after, \"sample input file was modified\"\n            assert os.path.exists(out_path), \"sample output missing\"\n        # only latest.py is the deliverable: no extra top-level python modules\n        assert os.path.isfile(SCRIPT), \"/app/latest.py must exist as a file\"\n\n    else:\n        raise ValueError(\"unknown requirement id: %r\" % (requirement_id,))\n",
+          "draft/instruction.md": "# latest.py 归并修复任务\n\n## 场景\n\n离线配置系统把每次配置更新作为一行 JSON 事件记录下来（JSONL）。事件到达顺序\n不保证与版本顺序一致，同一次更新的记录也可能重复。现在需要用 `latest.py`\n把这些事件归并成一份\"每个 key 的最新配置快照\"，供后续发布流程使用。\n\n`/app` 下已有：\n\n- `latest.py`：目前的归并工具，用起来还有些问题需要修复；\n- `data/sample_events.jsonl`：一小段示例事件流；\n- `data/expected_sample.json`：该示例事件流应当得到的快照；\n- `README.md`：简要说明。\n\n## 操作方式\n\n在 `/app` 下运行：\n\n```\npython /app/latest.py <input.jsonl> <output.json>\n```\n\n程序读取输入 JSONL 文件，写出输出 JSON 文件，正常结束时退出码为 0。\n输入输出路径不同，父目录已存在。\n\n## 输入数据约定\n\n- UTF-8 编码的 JSONL，每行恰好是一个 JSON 对象，含 `key`、`version`、`value` 三个字段；\n- `key` 为非空字符串，`version` 为非负整数（`true`/`false` 不算合法版本），`value` 为字符串；\n- 最多 1000 行；允许空文件；不含空行、非法 JSON 或其他非法输入。\n\n## 期望输出\n\nUTF-8 编码的 JSON 数组：每个出现的 key 恰好一个对象，对象恰好包含\n`key`、`version`、`value`（值取自被选中的那条输入记录），即该 key 的最大\nversion；若最大 version 出现多次，则取输入中最后出现的那条。数组按 key 的\nPython 字符串升序排列（区分大小写、按码点比较）。空输入输出 `[]`。\nJSON 的空白与转义形式不作要求。\n\n## 自检建议\n\n先用示例数据对比 `data/expected_sample.json`，再自行构造乱序、重复版本、\nUnicode key、零版本、空 value、空文件以及 1000 行的用例验证行为。\n\n\n## 完成标准（Contract 原文）\n\n```json\n{\n  \"objective\": \"修复 latest.py，按 key 保留最新版本记录。\",\n  \"workspace\": \"/app\",\n  \"command\": \"python /app/latest.py <input.jsonl> <output.json>\",\n  \"input_spec\": \"UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。\",\n  \"output_spec\": \"UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。\",\n  \"deliverables\": {\n    \"artifact_paths\": [\n      \"/app/latest.py\"\n    ],\n    \"allowed_dependencies\": \"python-stdlib\",\n    \"allow_additional_files\": false\n  },\n  \"requirements\": [\n    {\n      \"id\": \"R1\",\n      \"description\": \"接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。\"\n    },\n    {\n      \"id\": \"R2\",\n      \"description\": \"按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。\"\n    },\n    {\n      \"id\": \"R3\",\n      \"description\": \"结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。\"\n    },\n    {\n      \"id\": \"R4\",\n      \"description\": \"不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。\"\n    }\n  ],\n  \"limits\": {\n    \"command_timeout_sec\": 10,\n    \"max_input_lines\": 1000\n  }\n}\n```\n"
+        },
+        "digest": "f4e8949cb49afde46c432953666598580925e9c611793174edd4a97785442834",
+        "signature": {
+          "initial": [
+            [
+              "R1",
+              "error"
+            ],
+            [
+              "R2",
+              "fail"
+            ],
+            [
+              "R3",
+              "fail"
+            ],
+            [
+              "R4",
+              "fail"
+            ]
+          ],
+          "repaired": [
+            [
+              "R1",
+              "error"
+            ],
+            [
+              "R2",
+              "error"
+            ],
+            [
+              "R3",
+              "error"
+            ],
+            [
+              "R4",
+              "pass"
+            ]
+          ]
+        },
+        "status": "error"
+      }
+    },
+    {
+      "id": "0003",
+      "source_run_id": "explore80-20261117T170350Z-77905313",
+      "source_log_sha256": "6e990331593e83fa5befc34d0bb73896f79338d63e7e445b63a5458abd495627",
+      "plan": {
+        "title": "修复 JSONL 最新版本记录归并工具",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "按 key 归并最新版本记录，同版本保留最后出现者，输出确定。",
+        "skills": [
+          "JSONL 解析",
+          "版本选择与稳定覆盖",
+          "Unicode 排序",
+          "CLI 调试"
+        ],
+        "scenario": "离线配置事件包含乱序和重复更新，需生成最新配置快照。",
+        "initial_state": "提供存在归并缺陷的 latest.py 与少量格式示例。"
+      },
+      "contract": {
+        "objective": "修复 latest.py，按 key 保留最新版本记录。",
+        "workspace": "/app",
+        "command": "python /app/latest.py <input.jsonl> <output.json>",
+        "input_spec": "UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。",
+        "output_spec": "UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/latest.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。"
+          },
+          {
+            "id": "R2",
+            "description": "按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。"
+          },
+          {
+            "id": "R3",
+            "description": "结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1000
+        }
+      },
+      "initial": {
+        "files": {
+          "draft/environment/Dockerfile": "FROM python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp\nRUN mkdir -p /app && chown 65532:65532 /app\nCOPY --chown=65532:65532 app/ /app/\nUSER 65532:65532\nWORKDIR /app\nCMD [\"/bin/sh\"]\n",
+          "draft/environment/app/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL configuration events into the latest snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef latest_by_key(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        version = rec[\"version\"]\n        if key not in best or version >= best[key][\"version\"]:\n            best[key] = rec\n    return best\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: python latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    in_path, out_path = argv[1], argv[2]\n    records = load_records(in_path)\n    best = latest_by_key(records)\n    result = [best[key] for key in sorted(best)]\n    body = \"[\" + \", \".join(json.dumps(item, ensure_ascii=False) for item in result) + \"]\"\n    with open(out_path, \"w\", encoding=\"utf-8\") as fh:\n        fh.write(body + \"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/solution/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL configuration events into the latest snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef latest_by_key(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        version = rec[\"version\"]\n        if key not in best or version > best[key][\"version\"]:\n            best[key] = rec\n    return best\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: python latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    in_path, out_path = argv[1], argv[2]\n    records = load_records(in_path)\n    best = latest_by_key(records)\n    result = [best[key] for key in sorted(best)]\n    body = \"[\" + \", \".join(json.dumps(item, ensure_ascii=False) for item in result) + \"]\"\n    with open(out_path, \"w\", encoding=\"utf-8\") as fh:\n        fh.write(body + \"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/solution/solve.sh": "#!/bin/sh\n# Repair /app/latest.py by installing the corrected implementation.\nset -eu\nif [ ! -f /solution/latest.py ]; then\n    echo \"missing /solution/latest.py\" >&2\n    exit 1\nfi\ncp /solution/latest.py /app/latest.py\nchmod 0644 /app/latest.py\n",
+          "draft/instruction.md": "# 修复 JSONL 最新版本记录归并工具\n\n## 场景\n\n离线配置中心把设备配置事件以 JSONL 形式落盘（追加写入），同一 key 会有多次更新，\n记录可能乱序到达，也可能出现同一版本的重复投递。下游的发布流程需要一份\"最新配置快照\"JSON。\n\n`/app/latest.py` 是仓库里现成的归并工具，但最近一次改动后，快照结果与预期不一致：\n部分 key 的版本选错，重复投递的记录也没有按约定保留最后出现的那条。\n\n## 运行方式\n\n```\npython /app/latest.py <input.jsonl> <output.json>\n```\n\n- 输入：UTF-8 JSONL，每行恰好一个对象，字段为 `key`（非空字符串）、`version`（非负整数）、`value`（字符串）。\n  行数最多 1000，允许空文件。输入已保证格式合法（没有空行、非法 JSON 或布尔型 version）。\n- 输出：UTF-8 JSON 文件，写一个 JSON 数组。\n- 输入与输出是不同路径，输出文件的父目录已存在。\n\n## 你的任务\n\n修好 `/app/latest.py`，使生成的快照符合下面的业务规则：\n\n1. 每个 key 在结果中只出现一次，且携带该 key 的最大版本号。\n2. 同一最大版本被多次投递时，保留输入文件中最后出现的那条记录（value 以最后一次为准）。\n3. 结果数组按 key 的 Python 字符串升序（即 Unicode 码点序）排列。\n4. 输入为空时输出空数组。\n5. 运行过程中不要改动输入文件；只修改 `/app/latest.py`，不要引入第三方依赖。\n\n## 自测样例\n\n```\n$ cat events.jsonl\n{\"key\": \"b\", \"version\": 2, \"value\": \"b2-old\"}\n{\"key\": \"a\", \"version\": 1, \"value\": \"a1\"}\n{\"key\": \"b\", \"version\": 2, \"value\": \"b2-new\"}\n{\"key\": \"b\", \"version\": 1, \"value\": \"b1\"}\n$ python /app/latest.py events.jsonl snapshot.json\n$ cat snapshot.json\n[{\"key\": \"a\", \"version\": 1, \"value\": \"a1\"}, {\"key\": \"b\", \"version\": 2, \"value\": \"b2-new\"}]\n```\n\n建议为边界情况（空输入、零版本、空 value、Unicode key、上千行记录）也补一些本地用例。\n\n\n## 完成标准（Contract 原文）\n\n```json\n{\n  \"objective\": \"修复 latest.py，按 key 保留最新版本记录。\",\n  \"workspace\": \"/app\",\n  \"command\": \"python /app/latest.py <input.jsonl> <output.json>\",\n  \"input_spec\": \"UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。\",\n  \"output_spec\": \"UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。\",\n  \"deliverables\": {\n    \"artifact_paths\": [\n      \"/app/latest.py\"\n    ],\n    \"allowed_dependencies\": \"python-stdlib\",\n    \"allow_additional_files\": false\n  },\n  \"requirements\": [\n    {\n      \"id\": \"R1\",\n      \"description\": \"接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。\"\n    },\n    {\n      \"id\": \"R2\",\n      \"description\": \"按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。\"\n    },\n    {\n      \"id\": \"R3\",\n      \"description\": \"结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。\"\n    },\n    {\n      \"id\": \"R4\",\n      \"description\": \"不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。\"\n    }\n  ],\n  \"limits\": {\n    \"command_timeout_sec\": 10,\n    \"max_input_lines\": 1000\n  }\n}\n```\n",
+          "checks/probe.py": "\"\"\"Behavioral self-check for the JSONL latest-version merge CLI.\"\"\"\n\nimport json\nimport os\nimport shutil\nimport subprocess\nimport tempfile\n\nCOMMAND_TIMEOUT_SEC = 10\nAPP = \"/app\"\nSCRIPT = os.path.join(APP, \"latest.py\")\nINITIAL_SNAPSHOT = {}  # filled lazily: only used to assert input preservation\n\n\ndef _run(in_path, out_path, cwd=APP):\n    return subprocess.run(\n        [\"python\", SCRIPT, in_path, out_path],\n        cwd=cwd,\n        timeout=COMMAND_TIMEOUT_SEC,\n        capture_output=True,\n        text=True,\n    )\n\n\ndef _write_jsonl(path, records):\n    with open(path, \"w\", encoding=\"utf-8\") as fh:\n        for rec in records:\n            fh.write(json.dumps(rec, ensure_ascii=False) + \"\\n\")\n\n\ndef _read_output(path):\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        text = fh.read()\n    return text, json.loads(text)\n\n\ndef _shape_ok(items):\n    if not isinstance(items, list):\n        return False\n    for item in items:\n        if not isinstance(item, dict):\n            return False\n        if set(item.keys()) != {\"key\", \"version\", \"value\"}:\n            return False\n        if not isinstance(item[\"key\"], str) or not item[\"key\"]:\n            return False\n        if isinstance(item[\"version\"], bool) or not isinstance(item[\"version\"], int):\n            return False\n        if not isinstance(item[\"value\"], str):\n            return False\n    return True\n\n\ndef _expected(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        if key not in best or rec[\"version\"] >= best[key][\"version\"]:\n            best[key] = rec\n    return [\n        {\"key\": k, \"version\": best[k][\"version\"], \"value\": best[k][\"value\"]}\n        for k in sorted(best)\n    ]\n\n\ndef _case(records):\n    \"\"\"Run the CLI on records and return (returncode, parsed output, input bytes).\"\"\"\n    tmp = tempfile.mkdtemp(prefix=\"latest_probe_\", dir=\"/tmp\")\n    try:\n        in_path = os.path.join(tmp, \"events.jsonl\")\n        out_path = os.path.join(tmp, \"snapshot.json\")\n        _write_jsonl(in_path, records)\n        with open(in_path, \"rb\") as fh:\n            before = fh.read()\n        proc = _run(in_path, out_path)\n        with open(in_path, \"rb\") as fh:\n            after = fh.read()\n        assert proc.returncode == 0, (\n            \"exit code %r, stderr=%r\" % (proc.returncode, proc.stderr[-2000:])\n        )\n        assert after == before, \"input file was modified\"\n        assert os.path.exists(out_path), \"output file missing\"\n        text, items = _read_output(out_path)\n        return text, items\n    finally:\n        shutil.rmtree(tmp, ignore_errors=True)\n\n\ndef _check_r1():\n    records = [\n        {\"key\": \"alpha\", \"version\": 3, \"value\": \"a3\"},\n        {\"key\": \"beta\", \"version\": 1, \"value\": \"b1\"},\n    ]\n    text, items = _case(records)\n    assert _shape_ok(items), \"output is not a list of {key,version,value}: %r\" % (text[:500],)\n    assert len(items) == 2, \"expected 2 records, got %r\" % (items,)\n    assert set(i[\"key\"] for i in items) == {\"alpha\", \"beta\"}, \"wrong keys: %r\" % (items,)\n\n\ndef _check_r2():\n    # Out-of-order versions, max version repeated -> last occurrence wins.\n    records = [\n        {\"key\": \"z\", \"version\": 7, \"value\": \"z7-first\"},\n        {\"key\": \"a\", \"version\": 10, \"value\": \"a10\"},\n        {\"key\": \"z\", \"version\": 3, \"value\": \"z3\"},\n        {\"key\": \"z\", \"version\": 7, \"value\": \"z7-last\"},\n        {\"key\": \"a\", \"version\": 2, \"value\": \"a2\"},\n        {\"key\": \"z\", \"version\": 1, \"value\": \"z1\"},\n        {\"key\": \"a\", \"version\": 10, \"value\": \"a10-last\"},\n        {\"key\": \"m\", \"version\": 0, \"value\": \"m0\"},\n    ]\n    _, items = _case(records)\n    assert items == _expected(records), \"unexpected merge: %r\" % (items,)\n    by_key = {i[\"key\"]: i for i in items}\n    assert by_key[\"z\"][\"value\"] == \"z7-last\", \"tie not resolved to last occurrence: %r\" % (by_key[\"z\"],)\n    assert by_key[\"a\"][\"value\"] == \"a10-last\", \"tie not resolved to last occurrence: %r\" % (by_key[\"a\"],)\n    assert by_key[\"z\"][\"version\"] == 7, \"max version not selected for z: %r\" % (by_key[\"z\"],)\n\n    # Version selection must be numeric, not lexicographic.\n    numeric = [\n        {\"key\": \"n\", \"version\": 9, \"value\": \"nine\"},\n        {\"key\": \"n\", \"version\": 100, \"value\": \"hundred\"},\n        {\"key\": \"n\", \"version\": 10, \"value\": \"ten\"},\n    ]\n    _, items = _case(numeric)\n    assert items == [{\"key\": \"n\", \"version\": 100, \"value\": \"hundred\"}], (\n        \"numeric max wrong: %r\" % (items,)\n    )\n\n    # Larger version appearing before smaller, first record is not the max.\n    descending = [\n        {\"key\": \"k\", \"version\": 5, \"value\": \"five\"},\n        {\"key\": \"k\", \"version\": 4, \"value\": \"four\"},\n        {\"key\": \"k\", \"version\": 2, \"value\": \"two\"},\n    ]\n    _, items = _case(descending)\n    assert items == [{\"key\": \"k\", \"version\": 5, \"value\": \"five\"}], (\n        \"descending order merge wrong: %r\" % (items,)\n    )\n\n\ndef _check_r3():\n    # Empty input.\n    text, items = _case([])\n    assert items == [], \"empty input should yield [], got %r\" % (text,)\n\n    # Unicode keys, zero version, empty value.\n    uni = [\n        {\"key\": \"\\u00e9t\\u00e9\", \"version\": 0, \"value\": \"\"},\n        {\"key\": \"Zeta\", \"version\": 2, \"value\": \"\\u4e2d\\u6587\"},\n        {\"key\": \"apple\", \"version\": 1, \"value\": \"\\U0001f600\"},\n        {\"key\": \"\\u00e9t\\u00e9\", \"version\": 0, \"value\": \"second\"},\n        {\"key\": \"\\u03b1\", \"version\": 4, \"value\": \"greek\"},\n        {\"key\": \"a\", \"version\": 1, \"value\": \"plain\"},\n    ]\n    _, items = _case(uni)\n    assert _shape_ok(items), \"bad structure for unicode case: %r\" % (items,)\n    assert items == _expected(uni), \"unicode/zero/empty merge wrong: %r\" % (items,)\n    keys = [i[\"key\"] for i in items]\n    assert keys == sorted(keys), \"keys not sorted ascending: %r\" % (keys,)\n    assert len(keys) == len(set(keys)), \"duplicate keys in output: %r\" % (keys,)\n    assert keys[:3] == [\"Zeta\", \"a\", \"apple\"], \"Python string ordering wrong: %r\" % (keys,)\n\n    # 1000 lines, many keys with duplicates, out of order.\n    big = []\n    for i in range(1000):\n        key = \"k%04d\" % (i % 137)\n        version = (i * 7) % 23\n        big.append({\"key\": key, \"version\": version, \"value\": \"v%d\" % i})\n    # shuffle deterministically\n    big = big[500:] + big[:500]\n    _, items = _case(big)\n    assert items == _expected(big), \"1000-line merge mismatch (len=%d)\" % (len(items),)\n    keys = [i[\"key\"] for i in items]\n    assert keys == sorted(keys), \"1000-line keys not sorted\"\n    assert len(keys) == 137, \"expected 137 keys, got %d\" % (len(keys),)\n\n\ndef _check_r4():\n    tmp = tempfile.mkdtemp(prefix=\"latest_probe_\", dir=\"/tmp\")\n    try:\n        in_path = os.path.join(tmp, \"in.jsonl\")\n        out_path = os.path.join(tmp, \"out.json\")\n        records = [\n            {\"key\": \"x\", \"version\": 1, \"value\": \"keep\"},\n            {\"key\": \"y\", \"version\": 5, \"value\": \"\\u00fc\"},\n        ]\n        _write_jsonl(in_path, records)\n        with open(in_path, \"rb\") as fh:\n            before = fh.read()\n        stat_before = os.stat(in_path)\n        proc = _run(in_path, out_path)\n        assert proc.returncode == 0, (\n            \"exit code %r, stderr=%r\" % (proc.returncode, proc.stderr[-2000:])\n        )\n        with open(in_path, \"rb\") as fh:\n            after = fh.read()\n        assert after == before, \"input content was modified\"\n        assert os.stat(in_path).st_size == stat_before.st_size, \"input size changed\"\n        assert os.path.exists(out_path), \"output not created\"\n        _, items = _read_output(out_path)\n        assert items == _expected(records), \"output mismatch: %r\" % (items,)\n\n        # Must not depend on third-party packages or write extra files in /app.\n        listing_before = set(os.listdir(APP))\n        proc = _run(in_path, out_path)\n        assert proc.returncode == 0, \"rerun failed: %r\" % (proc.stderr[-2000:],)\n        assert set(os.listdir(APP)) == listing_before, \"extra files created in /app\"\n        has_pycache = os.path.exists(os.path.join(APP, \"__pycache__\"))\n        assert not has_pycache, \"unexpected __pycache__ in /app\"\n    finally:\n        shutil.rmtree(tmp, ignore_errors=True)\n\n\n_CHECKS = {\n    \"R1\": _check_r1,\n    \"R2\": _check_r2,\n    \"R3\": _check_r3,\n    \"R4\": _check_r4,\n}\n\n\ndef check(requirement_id):\n    fn = _CHECKS.get(requirement_id)\n    if fn is None:\n        raise ValueError(\"unknown requirement id: %r\" % (requirement_id,))\n    fn()\n"
+        },
+        "digest": "eb934877f87b2ec7e200964dd6f2ab90559f772f9043f21eff0afa8a62019c10",
+        "signature": {
+          "initial": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "pass"
+            ],
+            [
+              "R3",
+              "pass"
+            ],
+            [
+              "R4",
+              "pass"
+            ]
+          ],
+          "repaired": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "fail"
+            ],
+            [
+              "R3",
+              "fail"
+            ],
+            [
+              "R4",
+              "pass"
+            ]
+          ]
+        },
+        "status": "failed"
+      },
+      "protected_checkpoint": {
+        "files": {
+          "draft/environment/Dockerfile": "FROM python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp\nRUN mkdir -p /app && chown 65532:65532 /app\nCOPY --chown=65532:65532 app/ /app/\nUSER 65532:65532\nWORKDIR /app\nCMD [\"/bin/sh\"]\n",
+          "draft/environment/app/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL configuration events into the latest snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef latest_by_key(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        version = rec[\"version\"]\n        if key not in best or version >= best[key][\"version\"]:\n            best[key] = rec\n    return best\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: python latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    in_path, out_path = argv[1], argv[2]\n    records = load_records(in_path)\n    best = latest_by_key(records)\n    result = [best[key] for key in sorted(best)]\n    body = \"[\" + \", \".join(json.dumps(item, ensure_ascii=False) for item in result) + \"]\"\n    with open(out_path, \"w\", encoding=\"utf-8\") as fh:\n        fh.write(body + \"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/solution/latest.py": "#!/usr/bin/env python3\n\"\"\"Merge JSONL configuration events into the latest snapshot.\n\nUsage: python latest.py <input.jsonl> <output.json>\n\"\"\"\n\nimport json\nimport sys\n\n\ndef load_records(path):\n    records = []\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        for line in fh:\n            line = line.strip()\n            if not line:\n                continue\n            records.append(json.loads(line))\n    return records\n\n\ndef latest_by_key(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        version = rec[\"version\"]\n        # Later records must win on ties so that the last delivery of a\n        # version is the one kept in the snapshot.\n        if key not in best or version >= best[key][\"version\"]:\n            best[key] = {\"key\": key, \"version\": version, \"value\": rec[\"value\"]}\n    return best\n\n\ndef main(argv):\n    if len(argv) != 3:\n        sys.stderr.write(\"usage: python latest.py <input.jsonl> <output.json>\\n\")\n        return 2\n    in_path, out_path = argv[1], argv[2]\n    records = load_records(in_path)\n    best = latest_by_key(records)\n    result = [best[key] for key in sorted(best)]\n    body = json.dumps(result, ensure_ascii=False)\n    with open(out_path, \"w\", encoding=\"utf-8\") as fh:\n        fh.write(body + \"\\n\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main(sys.argv))\n",
+          "draft/solution/solve.sh": "#!/bin/sh\n# Repair /app/latest.py by installing the corrected implementation.\nset -eu\nif [ ! -f /solution/latest.py ]; then\n    echo \"missing /solution/latest.py\" >&2\n    exit 1\nfi\ncp /solution/latest.py /app/latest.py\nchmod 0644 /app/latest.py\n",
+          "draft/instruction.md": "# 修复 JSONL 最新版本记录归并工具\n\n## 场景\n\n离线配置中心把设备配置事件以 JSONL 形式落盘（追加写入），同一 key 会有多次更新，\n记录可能乱序到达，也可能出现同一版本的重复投递。下游的发布流程需要一份\"最新配置快照\"JSON。\n\n`/app/latest.py` 是仓库里现成的归并工具，但最近一次改动后，快照结果与预期不一致：\n部分 key 的版本选错，重复投递的记录也没有按约定保留最后出现的那条。\n\n## 运行方式\n\n```\npython /app/latest.py <input.jsonl> <output.json>\n```\n\n- 输入：UTF-8 JSONL，每行恰好一个对象，字段为 `key`（非空字符串）、`version`（非负整数）、`value`（字符串）。\n  行数最多 1000，允许空文件。输入已保证格式合法（没有空行、非法 JSON 或布尔型 version）。\n- 输出：UTF-8 JSON 文件，写一个 JSON 数组。\n- 输入与输出是不同路径，输出文件的父目录已存在。\n\n## 你的任务\n\n修好 `/app/latest.py`，使生成的快照符合下面的业务规则：\n\n1. 每个 key 在结果中只出现一次，且携带该 key 的最大版本号。\n2. 同一最大版本被多次投递时，保留输入文件中最后出现的那条记录（value 以最后一次为准）。\n3. 结果数组按 key 的 Python 字符串升序（即 Unicode 码点序）排列。\n4. 输入为空时输出空数组。\n5. 运行过程中不要改动输入文件；只修改 `/app/latest.py`，不要引入第三方依赖。\n\n## 自测样例\n\n```\n$ cat events.jsonl\n{\"key\": \"b\", \"version\": 2, \"value\": \"b2-old\"}\n{\"key\": \"a\", \"version\": 1, \"value\": \"a1\"}\n{\"key\": \"b\", \"version\": 2, \"value\": \"b2-new\"}\n{\"key\": \"b\", \"version\": 1, \"value\": \"b1\"}\n$ python /app/latest.py events.jsonl snapshot.json\n$ cat snapshot.json\n[{\"key\": \"a\", \"version\": 1, \"value\": \"a1\"}, {\"key\": \"b\", \"version\": 2, \"value\": \"b2-new\"}]\n```\n\n建议为边界情况（空输入、零版本、空 value、Unicode key、上千行记录）也补一些本地用例。\n\n\n## 完成标准（Contract 原文）\n\n```json\n{\n  \"objective\": \"修复 latest.py，按 key 保留最新版本记录。\",\n  \"workspace\": \"/app\",\n  \"command\": \"python /app/latest.py <input.jsonl> <output.json>\",\n  \"input_spec\": \"UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。\",\n  \"output_spec\": \"UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。\",\n  \"deliverables\": {\n    \"artifact_paths\": [\n      \"/app/latest.py\"\n    ],\n    \"allowed_dependencies\": \"python-stdlib\",\n    \"allow_additional_files\": false\n  },\n  \"requirements\": [\n    {\n      \"id\": \"R1\",\n      \"description\": \"接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。\"\n    },\n    {\n      \"id\": \"R2\",\n      \"description\": \"按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。\"\n    },\n    {\n      \"id\": \"R3\",\n      \"description\": \"结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。\"\n    },\n    {\n      \"id\": \"R4\",\n      \"description\": \"不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。\"\n    }\n  ],\n  \"limits\": {\n    \"command_timeout_sec\": 10,\n    \"max_input_lines\": 1000\n  }\n}\n```\n",
+          "checks/probe.py": "\"\"\"Behavioral self-check for the JSONL latest-version merge CLI.\"\"\"\n\nimport json\nimport os\nimport shutil\nimport subprocess\nimport tempfile\n\nCOMMAND_TIMEOUT_SEC = 10\nAPP = \"/app\"\nSCRIPT = os.path.join(APP, \"latest.py\")\nINITIAL_SNAPSHOT = {}  # filled lazily: only used to assert input preservation\n\n\ndef _run(in_path, out_path, cwd=APP):\n    return subprocess.run(\n        [\"python\", SCRIPT, in_path, out_path],\n        cwd=cwd,\n        timeout=COMMAND_TIMEOUT_SEC,\n        capture_output=True,\n        text=True,\n    )\n\n\ndef _write_jsonl(path, records):\n    with open(path, \"w\", encoding=\"utf-8\") as fh:\n        for rec in records:\n            fh.write(json.dumps(rec, ensure_ascii=False) + \"\\n\")\n\n\ndef _read_output(path):\n    with open(path, \"r\", encoding=\"utf-8\") as fh:\n        text = fh.read()\n    return text, json.loads(text)\n\n\ndef _shape_ok(items):\n    if not isinstance(items, list):\n        return False\n    for item in items:\n        if not isinstance(item, dict):\n            return False\n        if set(item.keys()) != {\"key\", \"version\", \"value\"}:\n            return False\n        if not isinstance(item[\"key\"], str) or not item[\"key\"]:\n            return False\n        if isinstance(item[\"version\"], bool) or not isinstance(item[\"version\"], int):\n            return False\n        if not isinstance(item[\"value\"], str):\n            return False\n    return True\n\n\ndef _expected(records):\n    best = {}\n    for rec in records:\n        key = rec[\"key\"]\n        if key not in best or rec[\"version\"] >= best[key][\"version\"]:\n            best[key] = rec\n    return [\n        {\"key\": k, \"version\": best[k][\"version\"], \"value\": best[k][\"value\"]}\n        for k in sorted(best)\n    ]\n\n\ndef _case(records):\n    \"\"\"Run the CLI on records and return (returncode, parsed output, input bytes).\"\"\"\n    tmp = tempfile.mkdtemp(prefix=\"latest_probe_\", dir=\"/tmp\")\n    try:\n        in_path = os.path.join(tmp, \"events.jsonl\")\n        out_path = os.path.join(tmp, \"snapshot.json\")\n        _write_jsonl(in_path, records)\n        with open(in_path, \"rb\") as fh:\n            before = fh.read()\n        proc = _run(in_path, out_path)\n        with open(in_path, \"rb\") as fh:\n            after = fh.read()\n        assert proc.returncode == 0, (\n            \"exit code %r, stderr=%r\" % (proc.returncode, proc.stderr[-2000:])\n        )\n        assert after == before, \"input file was modified\"\n        assert os.path.exists(out_path), \"output file missing\"\n        text, items = _read_output(out_path)\n        return text, items\n    finally:\n        shutil.rmtree(tmp, ignore_errors=True)\n\n\ndef _check_r1():\n    records = [\n        {\"key\": \"alpha\", \"version\": 3, \"value\": \"a3\"},\n        {\"key\": \"beta\", \"version\": 1, \"value\": \"b1\"},\n    ]\n    text, items = _case(records)\n    assert _shape_ok(items), \"output is not a list of {key,version,value}: %r\" % (text[:500],)\n    assert len(items) == 2, \"expected 2 records, got %r\" % (items,)\n    assert set(i[\"key\"] for i in items) == {\"alpha\", \"beta\"}, \"wrong keys: %r\" % (items,)\n\n\ndef _check_r2():\n    # Out-of-order versions, max version repeated -> last occurrence wins.\n    records = [\n        {\"key\": \"z\", \"version\": 7, \"value\": \"z7-first\"},\n        {\"key\": \"a\", \"version\": 10, \"value\": \"a10\"},\n        {\"key\": \"z\", \"version\": 3, \"value\": \"z3\"},\n        {\"key\": \"z\", \"version\": 7, \"value\": \"z7-last\"},\n        {\"key\": \"a\", \"version\": 2, \"value\": \"a2\"},\n        {\"key\": \"z\", \"version\": 1, \"value\": \"z1\"},\n        {\"key\": \"a\", \"version\": 10, \"value\": \"a10-last\"},\n        {\"key\": \"m\", \"version\": 0, \"value\": \"m0\"},\n    ]\n    _, items = _case(records)\n    assert items == _expected(records), \"unexpected merge: %r\" % (items,)\n    by_key = {i[\"key\"]: i for i in items}\n    assert by_key[\"z\"][\"value\"] == \"z7-last\", \"tie not resolved to last occurrence: %r\" % (by_key[\"z\"],)\n    assert by_key[\"a\"][\"value\"] == \"a10-last\", \"tie not resolved to last occurrence: %r\" % (by_key[\"a\"],)\n    assert by_key[\"z\"][\"version\"] == 7, \"max version not selected for z: %r\" % (by_key[\"z\"],)\n\n    # Version selection must be numeric, not lexicographic.\n    numeric = [\n        {\"key\": \"n\", \"version\": 9, \"value\": \"nine\"},\n        {\"key\": \"n\", \"version\": 100, \"value\": \"hundred\"},\n        {\"key\": \"n\", \"version\": 10, \"value\": \"ten\"},\n    ]\n    _, items = _case(numeric)\n    assert items == [{\"key\": \"n\", \"version\": 100, \"value\": \"hundred\"}], (\n        \"numeric max wrong: %r\" % (items,)\n    )\n\n    # Larger version appearing before smaller, first record is not the max.\n    descending = [\n        {\"key\": \"k\", \"version\": 5, \"value\": \"five\"},\n        {\"key\": \"k\", \"version\": 4, \"value\": \"four\"},\n        {\"key\": \"k\", \"version\": 2, \"value\": \"two\"},\n    ]\n    _, items = _case(descending)\n    assert items == [{\"key\": \"k\", \"version\": 5, \"value\": \"five\"}], (\n        \"descending order merge wrong: %r\" % (items,)\n    )\n\n\ndef _check_r3():\n    # Empty input.\n    text, items = _case([])\n    assert items == [], \"empty input should yield [], got %r\" % (text,)\n\n    # Unicode keys, zero version, empty value.\n    uni = [\n        {\"key\": \"\\u00e9t\\u00e9\", \"version\": 0, \"value\": \"\"},\n        {\"key\": \"Zeta\", \"version\": 2, \"value\": \"\\u4e2d\\u6587\"},\n        {\"key\": \"apple\", \"version\": 1, \"value\": \"\\U0001f600\"},\n        {\"key\": \"\\u00e9t\\u00e9\", \"version\": 0, \"value\": \"second\"},\n        {\"key\": \"\\u03b1\", \"version\": 4, \"value\": \"greek\"},\n        {\"key\": \"a\", \"version\": 1, \"value\": \"plain\"},\n    ]\n    _, items = _case(uni)\n    assert _shape_ok(items), \"bad structure for unicode case: %r\" % (items,)\n    assert items == _expected(uni), \"unicode/zero/empty merge wrong: %r\" % (items,)\n    keys = [i[\"key\"] for i in items]\n    assert keys == sorted(keys), \"keys not sorted ascending: %r\" % (keys,)\n    assert len(keys) == len(set(keys)), \"duplicate keys in output: %r\" % (keys,)\n    assert keys[:3] == [\"Zeta\", \"a\", \"apple\"], \"Python string ordering wrong: %r\" % (keys,)\n\n    # 1000 lines, many keys with duplicates, out of order.\n    big = []\n    for i in range(1000):\n        key = \"k%04d\" % (i % 137)\n        version = (i * 7) % 23\n        big.append({\"key\": key, \"version\": version, \"value\": \"v%d\" % i})\n    # shuffle deterministically\n    big = big[500:] + big[:500]\n    _, items = _case(big)\n    assert items == _expected(big), \"1000-line merge mismatch (len=%d)\" % (len(items),)\n    keys = [i[\"key\"] for i in items]\n    assert keys == sorted(keys), \"1000-line keys not sorted\"\n    assert len(keys) == 137, \"expected 137 keys, got %d\" % (len(keys),)\n\n\ndef _check_r4():\n    tmp = tempfile.mkdtemp(prefix=\"latest_probe_\", dir=\"/tmp\")\n    try:\n        in_path = os.path.join(tmp, \"in.jsonl\")\n        out_path = os.path.join(tmp, \"out.json\")\n        records = [\n            {\"key\": \"x\", \"version\": 1, \"value\": \"keep\"},\n            {\"key\": \"y\", \"version\": 5, \"value\": \"\\u00fc\"},\n        ]\n        _write_jsonl(in_path, records)\n        with open(in_path, \"rb\") as fh:\n            before = fh.read()\n        stat_before = os.stat(in_path)\n        proc = _run(in_path, out_path)\n        assert proc.returncode == 0, (\n            \"exit code %r, stderr=%r\" % (proc.returncode, proc.stderr[-2000:])\n        )\n        with open(in_path, \"rb\") as fh:\n            after = fh.read()\n        assert after == before, \"input content was modified\"\n        assert os.stat(in_path).st_size == stat_before.st_size, \"input size changed\"\n        assert os.path.exists(out_path), \"output not created\"\n        _, items = _read_output(out_path)\n        assert items == _expected(records), \"output mismatch: %r\" % (items,)\n\n        # Must not depend on third-party packages or write extra files in /app.\n        listing_before = set(os.listdir(APP))\n        proc = _run(in_path, out_path)\n        assert proc.returncode == 0, \"rerun failed: %r\" % (proc.stderr[-2000:],)\n        assert set(os.listdir(APP)) == listing_before, \"extra files created in /app\"\n        has_pycache = os.path.exists(os.path.join(APP, \"__pycache__\"))\n        assert not has_pycache, \"unexpected __pycache__ in /app\"\n    finally:\n        shutil.rmtree(tmp, ignore_errors=True)\n\n\n_CHECKS = {\n    \"R1\": _check_r1,\n    \"R2\": _check_r2,\n    \"R3\": _check_r3,\n    \"R4\": _check_r4,\n}\n\n\ndef check(requirement_id):\n    fn = _CHECKS.get(requirement_id)\n    if fn is None:\n        raise ValueError(\"unknown requirement id: %r\" % (requirement_id,))\n    fn()\n"
+        },
+        "digest": "e963098e560be3aae58cd95bce89bae7b0a20e92cf6aafcea798307e72ed7acf",
+        "signature": {
+          "initial": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "pass"
+            ],
+            [
+              "R3",
+              "pass"
+            ],
+            [
+              "R4",
+              "pass"
+            ]
+          ],
+          "repaired": [
+            [
+              "R1",
+              "pass"
+            ],
+            [
+              "R2",
+              "pass"
+            ],
+            [
+              "R3",
+              "pass"
+            ],
+            [
+              "R4",
+              "pass"
+            ]
+          ]
+        },
+        "status": "failed"
+      }
+    }
+  ]
+}
