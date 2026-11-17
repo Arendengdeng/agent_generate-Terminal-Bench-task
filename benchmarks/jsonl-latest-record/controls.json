@@ -1,0 +1,156 @@
+{
+  "controls": [
+    {
+      "group": "feedback",
+      "role": "correct",
+      "source": "feedback-correct",
+      "implementation_digest": "482949794699fadbb9e477a71517f91d242a8d7da4bd38d06222c16c262cfa9d",
+      "contract_digest": "2a148e92a37d07de83bbf85608a65d7ebd8b2acee07a554df0e2ae215d5ed23a",
+      "review": {
+        "reviewer": "experiment-author/static-contract-review",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "feedback-correct.md"
+        ],
+        "status": "confirmed",
+        "method": "static-contract-review",
+        "rationale": "Sort by key, version and input position; last assignment chooses the required maximum. Output keys sorted; standard library only; input opened read-only."
+      }
+    },
+    {
+      "group": "holdout",
+      "role": "correct",
+      "source": "holdout-correct",
+      "implementation_digest": "67de4c42d2324de67a24b2cecbd80d513d5cd421435cec9cbb96b1ab3428041d",
+      "contract_digest": "2a148e92a37d07de83bbf85608a65d7ebd8b2acee07a554df0e2ae215d5ed23a",
+      "review": {
+        "reviewer": "experiment-author/static-contract-review",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "holdout-correct.md"
+        ],
+        "status": "confirmed",
+        "method": "static-contract-review",
+        "rationale": "Single pass replaces on >=, preserving last maximum; sorted keys; empty input yields []; input read-only; standard library only."
+      }
+    },
+    {
+      "group": "feedback",
+      "role": "invalid",
+      "source": "feedback-invalid",
+      "implementation_digest": "cd66bd2441a948822dbe357957bafe7b13c953afe9cc02ec8a9d4b23fda900a8",
+      "contract_digest": "2a148e92a37d07de83bbf85608a65d7ebd8b2acee07a554df0e2ae215d5ed23a",
+      "review": {
+        "reviewer": "experiment-author/static-contract-review",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_paths": [
+          "feedback-invalid.md"
+        ],
+        "counterexample": {
+          "argv": [
+            "python",
+            "/app/latest.py",
+            "/tmp/input.jsonl",
+            "/tmp/output.json"
+          ],
+          "stdin": "",
+          "input_jsonl": [
+            {
+              "key": "a",
+              "version": 2,
+              "value": "new"
+            },
+            {
+              "key": "a",
+              "version": 1,
+              "value": "last"
+            }
+          ],
+          "expected": [
+            {
+              "key": "a",
+              "version": 2,
+              "value": "new"
+            }
+          ],
+          "observed": [
+            {
+              "key": "a",
+              "version": 1,
+              "value": "last"
+            }
+          ]
+        },
+        "status": "confirmed",
+        "method": "static-contract-review",
+        "rationale": "Unconditionally keeps last row and discards a higher version."
+      }
+    },
+    {
+      "group": "holdout",
+      "role": "invalid",
+      "source": "holdout-invalid",
+      "implementation_digest": "ffe8a986f1b4f25affc83200125fb150d9f5591f65c687ef3577b5623435b95b",
+      "contract_digest": "2a148e92a37d07de83bbf85608a65d7ebd8b2acee07a554df0e2ae215d5ed23a",
+      "review": {
+        "reviewer": "experiment-author/static-contract-review",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_paths": [
+          "holdout-invalid.md"
+        ],
+        "counterexample": {
+          "argv": [
+            "python",
+            "/app/latest.py",
+            "/tmp/input.jsonl",
+            "/tmp/output.json"
+          ],
+          "stdin": "",
+          "input_jsonl": [
+            {
+              "key": "a",
+              "version": 2,
+              "value": "new"
+            },
+            {
+              "key": "a",
+              "version": 2,
+              "value": "last"
+            }
+          ],
+          "expected": [
+            {
+              "key": "a",
+              "version": 2,
+              "value": "last"
+            }
+          ],
+          "observed": [
+            {
+              "key": "a",
+              "version": 2,
+              "value": "new"
+            }
+          ]
+        },
+        "status": "confirmed",
+        "method": "static-contract-review",
+        "rationale": "Strict comparison keeps the first rather than last equal maximum version."
+      }
+    }
+  ]
+}

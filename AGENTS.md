@@ -22,8 +22,28 @@
 - **Accepted exports:** `artifacts/accepted/<task_id>/`, only after the defined acceptance checks; record the exact provenance and network mode.
 - **Human-readable conclusions:** `reports/`. Do not dump raw run output here.
 - **Engineering notes:** `docs/`; reusable utility commands: `scripts/`.
+- **Experiment reports:** `reports/<experiment_id>.md` or
+  `reports/<experiment_id>_<report_type>.md` when multiple reports exist.
+- **Human-readable conclusions:** `reports/`. Do not dump raw run output here.
 
 Never put generated tasks/tests/logs into `src/`, put production implementation into `experiments/`, or use one file as both a frozen fixture and mutable working output.
+
+### 2.1 Experiment naming and directory consistency
+
+- Every experiment must have one canonical `experiment_id`, using lowercase snake_case with an optional numeric prefix (e.g., `01_e2e_reliability`).
+- Each new experiment must create and use the following matching directory structure:
+  - `experiments/<experiment_id>/` — experiment scripts and configs.
+  - `runs/<experiment_id>/` — individual execution outputs, organized by `run_id`.
+  - `reports/<experiment_id>/` — human-readable experiment reports and analyses.
+- All three directories must use exactly the same `experiment_id`.
+- Create these directories automatically when initializing a new experiment. Reuse existing directories instead of creating duplicates.
+- Store each execution under `runs/<experiment_id>/<run_id>/`. Generate a unique `run_id` for every execution; never overwrite previous runs.
+- Within `reports/<experiment_id>/`, use descriptive report filenames such as `summary.md`, `analysis.md`, and `audit.md`. Multiple reports for the same experiment must remain in this directory.
+- Each report must identify its `experiment_id` and relevant `run_id` or run IDs in its metadata.
+- Before creating any experiment files, inspect existing experiment IDs and directory structure to avoid naming conflicts.
+- Do not create experiment-specific directories at the repository root.
+- Do not rename or move historical experiments, runs, or reports unless explicitly requested.
+- This convention applies to all future experiments, not only Step 1/2/3.
 
 ## 3. Keep Step 1/2/3 as experiments, not forks
 
@@ -48,6 +68,8 @@ Never put generated tasks/tests/logs into `src/`, put production implementation 
 - Keep baseline and held-out evaluation fixtures immutable during a run. Separate data used for feedback/repair from data used for final evaluation; a directory name alone is NOT a security boundary—enforce access in agent tools and permissions.
 - Preserve distinctions between `PASS`, assertion rejection, execution error, not run, and unresolved. Never relabel a skipped/null/error case as successful rejection.
 - A task is `Accepted` only if the native Controller and all required validation conditions really pass; a later frozen revalidation must be distinguished from an uninterrupted end-to-end run. Report public-network Harbor validation as such, not as strict no-network validation.
+- Each run and its reports must record the canonical
+  `experiment_id` and `run_id` for traceability.
 
 ## 6. Repair and responsibility boundaries
 

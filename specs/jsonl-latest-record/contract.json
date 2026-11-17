@@ -1,0 +1,36 @@
+{
+  "objective": "修复 latest.py，按 key 保留最新版本记录。",
+  "workspace": "/app",
+  "command": "python /app/latest.py <input.jsonl> <output.json>",
+  "input_spec": "UTF-8 JSONL；每行恰含 key、version、value。key 为非空字符串，version 为非负整数（不含布尔值），value 为字符串。最多 1000 行；允许空文件。不含空行、非法 JSON 或其他非法输入。输入输出为不同路径，父目录存在。",
+  "output_spec": "UTF-8 JSON 数组；每个 key 恰有一个对象，恰含 key、version、value，保留该 key 的最大 version；最大 version 重复时保留输入中最后出现者。按 key 的 Python 字符串升序排列；空输入输出 []。JSON 空白与转义形式不作要求。",
+  "deliverables": {
+    "artifact_paths": [
+      "/app/latest.py"
+    ],
+    "allowed_dependencies": "python-stdlib",
+    "allow_additional_files": false
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON 数组。"
+    },
+    {
+      "id": "R2",
+      "description": "按 key 选择最大整数版本；输入可乱序；同一最大版本选择最后出现的记录。"
+    },
+    {
+      "id": "R3",
+      "description": "结果按 key 排序且无重复；支持空输入、Unicode、零版本、空 value 及 1000 行。"
+    },
+    {
+      "id": "R4",
+      "description": "不修改输入文件；只交付 latest.py；运行仅依赖 Python 标准库。"
+    }
+  ],
+  "limits": {
+    "command_timeout_sec": 10,
+    "max_input_lines": 1000
+  }
+}
