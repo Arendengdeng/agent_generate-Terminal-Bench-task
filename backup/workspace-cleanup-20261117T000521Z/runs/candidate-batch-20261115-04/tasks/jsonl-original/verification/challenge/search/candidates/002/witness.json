@@ -1,0 +1,64 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。",
+  "rationale": "The Contract output_spec requires the output array to be ordered by service and then by level in Python string ascending order. The witness input contains one record for 'beta'/INFO and one for 'alpha'/ERROR; Python string ascending order gives alpha before beta, so the output document must be exactly [{\"service\": \"alpha\", \"level\": \"ERROR\", \"count\": 1, \"total_duration_ms\": 1}, {\"service\": \"beta\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 2}]. The candidate's ordering is reversed, so its first element is beta/INFO and its second is alpha/ERROR, violating R3's deterministic ascending ordering (frozen tests that assert sorted keys happen to produce input orders that are invariant to the reversal).",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"beta\", \"level\": \"INFO\", \"duration_ms\": 2}\n{\"service\": \"alpha\", \"level\": \"ERROR\", \"duration_ms\": 1}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [
+        0
+      ],
+      "value": {
+        "service": "alpha",
+        "level": "ERROR",
+        "count": 1,
+        "total_duration_ms": 1
+      }
+    },
+    {
+      "source": "json",
+      "path": [
+        1
+      ],
+      "value": {
+        "service": "beta",
+        "level": "INFO",
+        "count": 1,
+        "total_duration_ms": 2
+      }
+    },
+    {
+      "source": "json",
+      "path": [],
+      "value": [
+        {
+          "service": "alpha",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 1
+        },
+        {
+          "service": "beta",
+          "level": "INFO",
+          "count": 1,
+          "total_duration_ms": 2
+        }
+      ]
+    }
+  ]
+}

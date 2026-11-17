@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "Contract output_spec says the name is only trimmed at both ends ('姓名仅去掉首尾空白'), so internal whitespace inside a name is preserved verbatim. For the input row with CSV-quoted name \"Ada   Lovelace, Countess\" the expected output name is 'Ada   Lovelace, Countess' (internal spaces untouched, trim is a no-op), with the email trimmed and lowercased and the row appearing at its first-occurrence position. The delivered CLI collapses internal whitespace runs into single spaces, producing 'Ada Lovelace, Countess', which violates the stated name normalization rule; R2 requires handling whitespace per the Contract (trim only).",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Ada@Example.COM ,  Ada   Lovelace, Countess \nada@example.com,Ada Duplicate\nBob@Example.com,Bob  Jr\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

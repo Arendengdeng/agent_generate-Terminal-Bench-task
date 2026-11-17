@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "The fixture input header is \"email,name\" preceded by a UTF-8 BOM (\\ufeff). The Contract's input_spec states the header is exactly \"email,name\" and describes the file as UTF-8 CSV; it says nothing about a BOM. A correct implementation could legitimately treat \"﻿email,name\" as not the exact header (invalid input) or preserve the BOM, so neither exit_code 0 nor exactly \"email,name\\n\" output follows directly from the Contract. The witness is outside the specified in-scope input format (BOM not mentioned), so the expected assertion of exactly the header-only output is not derivable. Additionally, the \"unchanged\" assertion for in.csv is fine but doesn't rescue the ambiguity. Reject as out-of-scope/ambiguous rather than confirmed.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "3fdb0c1c61e8512e38f95b482d0151c7ea5f1baf92064267d4a7939bb946b1f1",
+  "method": "isolated-contract-model-review-v1"
+}

@@ -1,0 +1,3687 @@
+{
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "repair_permission": "diagnosis_required",
+  "permission_reason": null,
+  "status": "failed",
+  "images": {
+    "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+    "verifier": "sha256:ef5e6cdc84afe030ef5d59fbf26b4a410988b80453f22d8e571fd482c9fd7b36"
+  },
+  "requirements": {
+    "R1": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+    "R2": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+    "R3": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+    "R4": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+  },
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_wrong_argument_count_is_not_success"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_duplicates"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_no_third_party_imports"
+      ]
+    }
+  ],
+  "trials": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "implementation_digest": "ae3054b94303ea99da3930ff122225351664ffc57682a89a459869a6f54a7f3a",
+      "artifact_manifest": {
+        "/app/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b"
+      },
+      "stdout": "..............                                                           [100%]\n14 passed in 0.51s\n",
+      "stderr": "",
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.002325124999970285,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03558314599968071,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 4 rows to /tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00017329799993603956,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0008506829999532783,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03216308299988668,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013026299984630896,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000469493999844417,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03132853600027374,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001263039998775639,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00042174800000793766,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.032323094999810564,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 3 rows to /tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012574999982462032,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005982729999232106,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.029012175999923784,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012753100008922047,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004174129999228171,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.027113624999856256,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019312299991725013,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006233039998733148,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03467828000020745,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001604399999450834,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007292579998647852,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.030861541999911424,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019370700010767905,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007187599999269878,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.035051858000315406,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1000 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013739899986831006,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000650828999823716,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05456469399996422,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 500 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001914500003294961,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006785319997106853,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03129451399991012,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013100500018481398,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004605670001183171,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.032883713000046555,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013441900000543683,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004937140001857188,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03343103100041844,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00011940499962292961,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004976230002284865,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.027487024000038218,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 2,
+              "stdout": "",
+              "stderr": "usage: clean.py <input.csv> <output.csv>\n"
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015262199985954794,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "implementation_digest": "de4e466ae71c4a50b91bfa5360f3eb4b8a7902676e70303b0e218a747e44b440",
+      "artifact_manifest": {
+        "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202"
+      },
+      "stdout": "F..FFFFFF..F..                                                           [100%]\n=================================== FAILURES ===================================\n__________________ test_mixed_fixture_normalization_and_dedup __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')\n\n    def test_mixed_fixture_normalization_and_dedup(tmp_path):\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)\n        assert_header(rows)\n>       assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol \"C\" Jones'], ['dave@example.net', '']]\nE       AssertionError: assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]\nE         \nE         At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']\nE         Right contains one more item: ['dave@example.net', '']\nE         Use -v to get more diff\n\ntest_clean.py:42: AssertionError\n____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')\n\n    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['a@x.com', 'Doe, \"John\"'], ['b@x.com', 'Plain'], ['c@x.com', '']])\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(in_path, out)\n>       assert rows == [['email', 'name'], ['a@x.com', 'Doe, \"John\"'], ['b@x.com', 'Plain'], ['c@x.com', '']]\nE       assert [['email', 'n...nc@x.com,\\n']] == [['email', 'n...c@x.com', '']]\nE         \nE         At index 1 diff: ['a@x.com', 'Doe\\nb@x.com,Plain\\nc@x.com,\\n'] != ['a@x.com', 'Doe, \"John\"']\nE         Right contains 2 more items, first extra item: ['b@x.com', 'Plain']\nE         Use -v to get more diff\n\ntest_clean.py:62: AssertionError\n__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')\n\n    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['  First@Mail.COM ', '  First Name  '], ['second@mail.com', 'Second'], ['FIRST@MAIL.COM', 'Other Name'], ['first@mail.com', 'Third'], ['\\tsecond@MAIL.com', 'Second Again']])\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(in_path, out)\n>       assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]\nE       AssertionError: assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]\nE         \nE         At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']\nE         Use -v to get more diff\n\ntest_clean.py:69: AssertionError\n_________________________ test_all_fields_quoted_input _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')\n\n    def test_all_fields_quoted_input(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['X@Y.COM', 'One, Two'], ['x@y.com', 'Duplicate'], ['z@y.com', 'Three']], quoting=csv.QUOTE_ALL)\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:75: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 63, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 56, in main\\n    cleaned = normalize(rows)\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...ile \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n').returncode\n\ntest_clean.py:31: AssertionError\n________________________ test_output_uses_csv_escaping _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')\n\n    def test_output_uses_csv_escaping(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['q@x.com', 'Smith, J \"Q\"']])\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(in_path, out)\n>       assert rows == [['email', 'name'], ['q@x.com', 'Smith, J \"Q\"']]\nE       assert [['email', 'n...', 'Smith\\n']] == [['email', 'n...mith, J \"Q\"']]\nE         \nE         At index 1 diff: ['q@x.com', 'Smith\\n'] != ['q@x.com', 'Smith, J \"Q\"']\nE         Use -v to get more diff\n\ntest_clean.py:83: AssertionError\n______________________ test_crlf_input_with_quoted_commas ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')\n\n    def test_crlf_input_with_quoted_commas(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        data = 'email,name\\r\\nA@B.C,\"Last, First\"\\r\\na@b.c,\"Other, Name\"\\r\\n'\n        with open(in_path, 'w', encoding='utf-8', newline='') as fh:\n            fh.write(data)\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(in_path, out)\n>       assert rows == [['email', 'name'], ['a@b.c', 'Last, First']]\nE       AssertionError: assert [['email', 'n...c', 'Last\\n']] == [['email', 'n...Last, First']]\nE         \nE         At index 1 diff: ['a@b.c', 'Last\\n'] != ['a@b.c', 'Last, First']\nE         Use -v to get more diff\n\ntest_clean.py:96: AssertionError\n_____________ test_generated_large_distinct_input_preserves_order ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')\n\n    def test_generated_large_distinct_input_preserves_order(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        expected = []\n        records = []\n        for i in range(1000):\n            email = 'user%04d@example.com' % i\n            name = 'User %d, Esq.' % i if i % 3 == 0 else 'User %d' % i\n            records.append([email, name])\n            expected.append([email, name])\n        write_csv(in_path, ['email', 'name'], records)\n        out = str(tmp_path / 'out.csv')\n        rows = run_and_check(in_path, out)\n        assert_header(rows)\n>       assert rows[1:] == expected\nE       AssertionError: assert [['user0000@e...ser 11'], ...] == [['user0000@e...User 5'], ...]\nE         \nE         At index 0 diff: ['user0000@example.com', 'User 0\\nuser0001@example.com,User 1\\nuser0002@example.com,User 2\\nuser0003@example.com,User 3'] != ['user0000@example.com', 'User 0, Esq.']\nE         Right contains 501 more items, first extra item: ['user0499@example.com', 'User 499']\nE         Use -v to get more diff\n\ntest_clean.py:111: AssertionError\n________________ test_success_with_input_in_readonly_like_paths ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')\n\n    def test_success_with_input_in_readonly_like_paths(tmp_path):\n        in_path = str(tmp_path / 'input.csv')\n        write_csv(in_path, ['email', 'name'], [['Solo@Ex.com', ' Solo ']])\n        out = str(tmp_path / 'nested_out.csv')\n        proc = run_cli(in_path, out)\n        assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)\n        rows = read_output(out)\n>       assert rows == [['email', 'name'], ['solo@ex.com', 'Solo']]\nE       AssertionError: assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]\nE         \nE         At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']\nE         Use -v to get more diff\n\ntest_clean.py:149: AssertionError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...\nFAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names\nFAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order\nFAILED test_clean.py::test_all_fields_quoted_input - AssertionError: expected...\nFAILED test_clean.py::test_output_uses_csv_escaping - assert [['email', 'n......\nFAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: as...\nFAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...\nFAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...\n8 failed, 6 passed in 0.44s\n",
+      "stderr": "",
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0019737829998121015,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]\n  \n  At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']\n  Right contains one more item: ['dave@example.net', '']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 42,
+                "source": "    assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol \"C\" Jones'], ['dave@example.net', '']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.021946279000076174,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 4 rows to /tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018917899978987407,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005734850001317682,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.01952266799980862,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00014953399977457593,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004918839999845659,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.022435227999721974,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001840009999796166,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006660730000476178,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['email', 'n...nc@x.com,\\n']] == [['email', 'n...c@x.com', '']]\n  \n  At index 1 diff: ['a@x.com', 'Doe\\nb@x.com,Plain\\nc@x.com,\\n'] != ['a@x.com', 'Doe, \"John\"']\n  Right contains 2 more items, first extra item: ['b@x.com', 'Plain']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 62,
+                "source": "    assert rows == [['email', 'name'], ['a@x.com', 'Doe, \"John\"'], ['b@x.com', 'Plain'], ['c@x.com', '']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.020475170999816328,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 3 rows to /tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001770349999787868,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006504409998342453,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]\n  \n  At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 69,
+                "source": "    assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.01943887299967173,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00016302299991366453,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007094320003488974,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 63, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 56, in main\\n    cleaned = normalize(rows)\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...ile \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n').returncode",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 75,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 31,
+                "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.022130438000203867,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\n            ~~~^^^^^^^^^\nKeyError: 'email'\n"
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00014490000012301607,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005587420000665588,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['email', 'n...', 'Smith\\n']] == [['email', 'n...mith, J \"Q\"']]\n  \n  At index 1 diff: ['q@x.com', 'Smith\\n'] != ['q@x.com', 'Smith, J \"Q\"']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 83,
+                "source": "    assert rows == [['email', 'name'], ['q@x.com', 'Smith, J \"Q\"']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.020484380000198144,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001337450003120466,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005446899999697052,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['email', 'n...c', 'Last\\n']] == [['email', 'n...Last, First']]\n  \n  At index 1 diff: ['a@b.c', 'Last\\n'] != ['a@b.c', 'Last, First']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 96,
+                "source": "    assert rows == [['email', 'name'], ['a@b.c', 'Last, First']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.021206509999956324,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020087799975954113,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005670020000252407,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['user0000@e...ser 11'], ...] == [['user0000@e...User 5'], ...]\n  \n  At index 0 diff: ['user0000@example.com', 'User 0\\nuser0001@example.com,User 1\\nuser0002@example.com,User 2\\nuser0003@example.com,User 3'] != ['user0000@example.com', 'User 0, Esq.']\n  Right contains 501 more items, first extra item: ['user0499@example.com', 'User 499']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 111,
+                "source": "    assert rows[1:] == expected"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.024665709000146308,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1000 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021167900013097096,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005126840001139499,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.023540498000329535,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 500 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00017950499977814616,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005626150000352936,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.017687639000087074,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012038499971822603,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005790770001112833,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]\n  \n  At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 149,
+                "source": "    assert rows == [['email', 'name'], ['solo@ex.com', 'Solo']]"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.020384814999943046,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001606709997759026,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005372099999476632,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.042056017000049906,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013976200034448993,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005007180002394307,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.01842914600001677,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 2,
+              "stdout": "",
+              "stderr": "usage: clean.py <input.csv> <output.csv>\n"
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018755800010694657,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "implementation_digest": "4ea45d86cf4b193f34ba85ada8b103576bd051b520a3c15c8c3ffb398cdfc811",
+      "artifact_manifest": {
+        "/app/clean.py": "0723c2e6744efa288662ab2cd62027f5c7d92ffc3fdc39fd65cf3fb2e6522349"
+      },
+      "stdout": "..............                                                           [100%]\n14 passed in 0.47s\n",
+      "stderr": "",
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0019410790000620182,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03395996800009016,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000142076999964047,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004252610001458379,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.02720014699980311,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001308920000155922,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005718630000046687,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.025879966000047716,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012936000030094874,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007756939999126189,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.027635375000045315,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00014634500030297204,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00042573500013531884,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.026278906000243296,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00017137299983005505,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004728469998553919,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.030152148000070156,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001437069995517959,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004969370002072537,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.02820711599997594,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012696900012088008,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004118030001336592,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.027163901000221813,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000132758000290778,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00038364300007742713,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03910158200005753,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015763900000820286,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006072649998714041,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03734364199999618,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013866800009054714,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005216280001150153,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03045059999976729,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015471400001842994,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004459320002752065,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.030554675000075804,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00011704799999279203,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00039961000038601924,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.034898482999778935,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00011963700035266811,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00038174600013007876,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03094731800001682,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00016358699986085412,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0,
+      "implementation_digest": "65ecaafc281e51d7acb800aed8484cfe56ca8d7eca89293bdb599af1e1948d39",
+      "artifact_manifest": {
+        "/app/clean.py": "4e4f19c305acd21efb3a275465cd82f535f557a663760329f63f89c31064baf7"
+      },
+      "stdout": "..............                                                           [100%]\n14 passed in 0.60s\n",
+      "stderr": "",
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0021398029998636048,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.038795035000021016,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 4 rows to /tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020475400015129708,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0010574279999673308,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03876913500016599,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001515889998700004,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006676510001852876,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.038259926999671734,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 0 rows to /tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019010400001207017,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007071989998621575,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0401107980001143,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 3 rows to /tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0002034690000982664,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006479489998127974,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03946610899993175,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020764999999300926,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005903899996155815,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.040960553000331856,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021421400015242398,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0012022679998153762,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0377073479999126,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001445460002287291,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000739239000267844,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03572062900002493,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00014414099996429286,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004109989999960817,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04552584199973353,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1000 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012479499991968623,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00040297500027008937,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04947674300001381,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 500 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001322829998571251,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R2",
+            "R3"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005816039997625921,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03656959099998858,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00046635699982289225,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005375990003813058,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03643905099988842,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00014684699999634176,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004501779999372957,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03532456699986142,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012791300014214357,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R4"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00044200299998919945,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03389680300006148,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 2,
+              "stdout": "",
+              "stderr": "usage: clean.py <input.csv> <output.csv>\n"
+            }
+          ],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018157499971493962,
+          "commands": [],
+          "xfail": false,
+          "requirement_ids": [
+            "R1"
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "oracle:outcome",
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "id": "nop:outcome",
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "id": "nop:test_clean.py::test_mixed_fixture_normalization_and_dedup:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]\n  \n  At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']\n  Right contains one more item: ['dave@example.net', '']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 42,
+            "source": "    assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol \"C\" Jones'], ['dave@example.net', '']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021946279000076174,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 4 rows to /tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...nc@x.com,\\n']] == [['email', 'n...c@x.com', '']]\n  \n  At index 1 diff: ['a@x.com', 'Doe\\nb@x.com,Plain\\nc@x.com,\\n'] != ['a@x.com', 'Doe, \"John\"']\n  Right contains 2 more items, first extra item: ['b@x.com', 'Plain']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 62,
+            "source": "    assert rows == [['email', 'name'], ['a@x.com', 'Doe, \"John\"'], ['b@x.com', 'Plain'], ['c@x.com', '']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020475170999816328,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 3 rows to /tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]\n  \n  At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 69,
+            "source": "    assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.01943887299967173,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 2 rows to /tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_all_fields_quoted_input:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 63, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 56, in main\\n    cleaned = normalize(rows)\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...ile \"/app/clean.py\", line 32, in normalize\\n    email = row[\"email\"]\\n            ~~~^^^^^^^^^\\nKeyError: \\'email\\'\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 75,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022130438000203867,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\n            ~~~^^^^^^^^^\nKeyError: 'email'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_output_uses_csv_escaping:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...', 'Smith\\n']] == [['email', 'n...mith, J \"Q\"']]\n  \n  At index 1 diff: ['q@x.com', 'Smith\\n'] != ['q@x.com', 'Smith, J \"Q\"']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 83,
+            "source": "    assert rows == [['email', 'name'], ['q@x.com', 'Smith, J \"Q\"']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020484380000198144,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_crlf_input_with_quoted_commas:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R2"
+      ],
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...c', 'Last\\n']] == [['email', 'n...Last, First']]\n  \n  At index 1 diff: ['a@b.c', 'Last\\n'] != ['a@b.c', 'Last, First']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 96,
+            "source": "    assert rows == [['email', 'name'], ['a@b.c', 'Last, First']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021206509999956324,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_generated_large_distinct_input_preserves_order:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R3"
+      ],
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['user0000@e...ser 11'], ...] == [['user0000@e...User 5'], ...]\n  \n  At index 0 diff: ['user0000@example.com', 'User 0\\nuser0001@example.com,User 1\\nuser0002@example.com,User 2\\nuser0003@example.com,User 3'] != ['user0000@example.com', 'User 0, Esq.']\n  Right contains 501 more items, first extra item: ['user0499@example.com', 'User 499']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 111,
+            "source": "    assert rows[1:] == expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.024665709000146308,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1000 rows to /tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "nop:test_clean.py::test_success_with_input_in_readonly_like_paths:call",
+      "label": "nop",
+      "requirement_ids": [
+        "R1"
+      ],
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]\n  \n  At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 149,
+            "source": "    assert rows == [['email', 'name'], ['solo@ex.com', 'Solo']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020384814999943046,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "id": "known-000:outcome",
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "id": "invalid-000:outcome",
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0
+    },
+    {
+      "id": "challenge:008",
+      "requirement_id": "R1",
+      "witness": {
+        "requirement_id": "R1",
+        "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+        "rationale": "Contract R1: with two positional arguments naming the input CSV and the output path, the run must succeed (exit 0) and write the compliant output CSV derived from the input records, which per output_spec has header email,name, emails trimmed and lowercased, names trimmed, duplicates removed keeping the first name, and rows in first-occurrence order. The delivered CLI adds a housekeeping step that, before parsing, replaces the input file with the sibling file in.csv.bak; the 'two positional arguments specify input and output' contract is thus broken because the written CSV reflects a different file's rows (old@example.com). Expected result for the given input: exit 0 and out.csv containing exactly header email,name, then alice@example.com with name 'Alice Smith', then bob@example.com with quoted 'Bob, Jr.' — no old@example.com row.",
+        "argv": [
+          "python3",
+          "/app/clean.py",
+          "$WORK/in.csv",
+          "$WORK/out.csv"
+        ],
+        "stdin": "",
+        "fixtures": {
+          "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n",
+          "in.csv.bak": "email,name\nold@example.com,Old Export\n"
+        },
+        "assertions": [
+          {
+            "source": "exit_code",
+            "path": [],
+            "value": 0
+          },
+          {
+            "source": "file",
+            "path": "out.csv",
+            "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+          },
+          {
+            "source": "unchanged",
+            "path": "in.csv",
+            "value": true
+          }
+        ]
+      },
+      "review": {
+        "verdict": "confirmed",
+        "reason": "Scope: R1 witness, concrete argv with two positional args ($WORK/in.csv, $WORK/out.csv), matching the Contract command shape; input CSV is valid per input_spec (header exactly email,name; quoted commas; emails ASCII after trim). The unused fixture in.csv.bak is harmless (no additional files are required; fixtures are merely provided). Assertions follow from Contract: (1) exit_code 0 — required by R1 for success; (2) out.csv text must be the canonical CSV: email trimmed+lowercased (alice@example.com, alice@example.com, bob@example.com order preserved by first occurrence; \"ALICE@example.com\" dup dropped keeping \"Alice Smith\"), names trimmed only; \"Bob, Jr.\" re-quoted per CSV escaping. Header email,name and LF line endings are a conventional but reasonable canonical rendering of a spec-compliant CSV; the expected content is derivable from output_spec (order = first appearance: Alice@Example.COM line, then bob, then dup dropped). (3) unchanged in.csv — directly from R4 (\"不修改输入文件\"), observation supported. Operators parse correctly: file compares raw text of out.csv (valid given deterministic CSV escaping for this content); unchanged on fixture in.csv is valid. No implementation identity, no hardcoded-example dependence, no extra requirements demanded. Minor note: raw file comparison presumes LF line endings, which is standard for CSV writing in Python stdlib but not strictly mandated; this is a low-risk ambiguity, not grounds for rejection since the spec's canonical CSV form is well-determined here.",
+        "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+        "witness_digest": "bd224b8f42c6d59b09761b342a12e03fc01c04cf565430e5a2258754214c1948",
+        "method": "isolated-contract-model-review-v1"
+      },
+      "actual": {
+        "exit_code": 0,
+        "stdout": "wrote 1 rows to /tmp/witness-utt6is1h/out.csv\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+            },
+            "actual": "email,name\nold@example.com,Old Export\n",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": false,
+            "passed": false
+          }
+        ]
+      },
+      "decision": {
+        "decision": "repair",
+        "responsible_module": "tests",
+        "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_digest": "affdbe79a435f5703ccf0cdef01a06da4d86a98fbf9fa5d6c1b4c5fbbf10af94"
+      }
+    }
+  ],
+  "challenge_issues": [
+    {
+      "id": "challenge:008",
+      "requirement_id": "R1",
+      "witness": {
+        "requirement_id": "R1",
+        "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+        "rationale": "Contract R1: with two positional arguments naming the input CSV and the output path, the run must succeed (exit 0) and write the compliant output CSV derived from the input records, which per output_spec has header email,name, emails trimmed and lowercased, names trimmed, duplicates removed keeping the first name, and rows in first-occurrence order. The delivered CLI adds a housekeeping step that, before parsing, replaces the input file with the sibling file in.csv.bak; the 'two positional arguments specify input and output' contract is thus broken because the written CSV reflects a different file's rows (old@example.com). Expected result for the given input: exit 0 and out.csv containing exactly header email,name, then alice@example.com with name 'Alice Smith', then bob@example.com with quoted 'Bob, Jr.' — no old@example.com row.",
+        "argv": [
+          "python3",
+          "/app/clean.py",
+          "$WORK/in.csv",
+          "$WORK/out.csv"
+        ],
+        "stdin": "",
+        "fixtures": {
+          "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n",
+          "in.csv.bak": "email,name\nold@example.com,Old Export\n"
+        },
+        "assertions": [
+          {
+            "source": "exit_code",
+            "path": [],
+            "value": 0
+          },
+          {
+            "source": "file",
+            "path": "out.csv",
+            "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+          },
+          {
+            "source": "unchanged",
+            "path": "in.csv",
+            "value": true
+          }
+        ]
+      },
+      "review": {
+        "verdict": "confirmed",
+        "reason": "Scope: R1 witness, concrete argv with two positional args ($WORK/in.csv, $WORK/out.csv), matching the Contract command shape; input CSV is valid per input_spec (header exactly email,name; quoted commas; emails ASCII after trim). The unused fixture in.csv.bak is harmless (no additional files are required; fixtures are merely provided). Assertions follow from Contract: (1) exit_code 0 — required by R1 for success; (2) out.csv text must be the canonical CSV: email trimmed+lowercased (alice@example.com, alice@example.com, bob@example.com order preserved by first occurrence; \"ALICE@example.com\" dup dropped keeping \"Alice Smith\"), names trimmed only; \"Bob, Jr.\" re-quoted per CSV escaping. Header email,name and LF line endings are a conventional but reasonable canonical rendering of a spec-compliant CSV; the expected content is derivable from output_spec (order = first appearance: Alice@Example.COM line, then bob, then dup dropped). (3) unchanged in.csv — directly from R4 (\"不修改输入文件\"), observation supported. Operators parse correctly: file compares raw text of out.csv (valid given deterministic CSV escaping for this content); unchanged on fixture in.csv is valid. No implementation identity, no hardcoded-example dependence, no extra requirements demanded. Minor note: raw file comparison presumes LF line endings, which is standard for CSV writing in Python stdlib but not strictly mandated; this is a low-risk ambiguity, not grounds for rejection since the spec's canonical CSV form is well-determined here.",
+        "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+        "witness_digest": "bd224b8f42c6d59b09761b342a12e03fc01c04cf565430e5a2258754214c1948",
+        "method": "isolated-contract-model-review-v1"
+      },
+      "actual": {
+        "exit_code": 0,
+        "stdout": "wrote 1 rows to /tmp/witness-utt6is1h/out.csv\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+            },
+            "actual": "email,name\nold@example.com,Old Export\n",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": false,
+            "passed": false
+          }
+        ]
+      },
+      "decision": {
+        "decision": "repair",
+        "responsible_module": "tests",
+        "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_digest": "affdbe79a435f5703ccf0cdef01a06da4d86a98fbf9fa5d6c1b4c5fbbf10af94"
+      }
+    }
+  ]
+}

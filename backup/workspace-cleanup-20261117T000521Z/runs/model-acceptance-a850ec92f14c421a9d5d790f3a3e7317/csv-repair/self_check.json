@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "digest": "c161afbada0e29a0370706fc8f340885cdefded5ffd185af0e6fd0649818c680",
+  "manifest": {
+    "checks/probe.py": "7aef2ea8367f77322a31f386b9a182b2904b70fd519745d653057e28bceef712",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "d3b2eec5ad7812ba495e1b4ee3dc6a918c6ffbdc2fdc6c4a13f882b7103536ec",
+    "draft/instruction.md": "5ca5dbe92c3f80c90ce3688e08de9871017c87ddead1e239c3de5addcb09b218",
+    "draft/solution/clean.py": "6c5be9d12934ea231e9b6565ca3d3aeea885cec3da1b71ed29068fa71369c457",
+    "draft/solution/solve.sh": "ca1c4f91695e3a72749db251c82f4137c01c74898e7a62e4e488b60b454b5841"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "basic: expected exit code 0, got 1 (stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 68, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 57, in main\\n    rows = process(lines[1:])\\n           ^^^^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 33, in process\\n    cleaned.remove([email, name])\\nValueError: list.remove(x): x not in list\\n')"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "basic: expected exit code 0, got 1 (stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 68, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 57, in main\\n    rows = process(lines[1:])\\n           ^^^^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 33, in process\\n    cleaned.remove([email, name])\\nValueError: list.remove(x): x not in list\\n'); quoted: expected rows [['smith@example.com', 'Smith, Anna'], ['lee@example.com', 'Lee, \"Junior\"'], ['joy@example.com', 'Joy']], got [['smith@example.com', 'Smith\\n  smith@example.com  \"', 'Smith\\nlee@example.com\"', 'Lee\\njoy@example.com\"', 'Joy'], ['joy@example.com ', 'Joy Again']]; unicode_name: expected exit code 0, got 1 (stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 68, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 57, in main\\n    rows = process(lines[1:])\\n           ^^^^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 33, in process\\n    cleaned.remove([email, name])\\nValueError: list.remove(x): x not in list\\n'); roundtrip: expected rows [['q@example.com', 'Doe, John \"JD\"']], got [['q@example.com', 'Doe\\n']]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "other: expected exit code 0, got 1 (stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 68, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 57, in main\\n    rows = process(lines[1:])\\n           ^^^^^^^^^^^^^^^^^^\\n  File \"/app/clean.py\", line 33, in process\\n    cleaned.remove([email, name])\\nValueError: list.remove(x): x not in list\\n')"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "R4: expected exit code 0, got 1"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "d3b2eec5ad7812ba495e1b4ee3dc6a918c6ffbdc2fdc6c4a13f882b7103536ec"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "d3b2eec5ad7812ba495e1b4ee3dc6a918c6ffbdc2fdc6c4a13f882b7103536ec"
+    },
+    "unchanged": true
+  }
+}

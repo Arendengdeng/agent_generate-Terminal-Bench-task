@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "The witness hinges on a contested interpretation that the Contract does not settle. R2 says \"正确处理空白\" and the output_spec says names are trimmed of \"首尾空白\"; the witness asserts this means ASCII whitespace only, so a leading/trailing U+00A0 must be preserved and python's str.strip() (which also removes NBSP) is a violation. That is exactly the kind of ambiguity the Contract leaves open — \"空白\" is nowhere restricted to ASCII, and the ASCII-only restriction in input_spec applies to the *email* field, not the name. Also the fixture cannot even be reliably distinguished: JSON \"\\u00a0\" in the fixture is NBSP, but whether the implementation preserves it depends on this unsettled definition, not on any concrete Contract guarantee. Since the expected assertion \"name = '\\\\u00a0X\\\\u00a0'\" does not follow directly from the cited Requirement (it rests on an extra, unstated ASCII-whitespace-only rule), the witness is not confirmed. Additionally the contract's input_spec says fields may contain commas and standard CSV quoting applies; here the field is unquoted and contains NBSP, fine, but the core issue is the unspecified whitespace definition. Verdict: unconfirmed due to ambiguity in what \"空白\" means for names.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "768632ca1bf868347ea636aa3930fb101c09cf09a375f49b75621735abfd204b",
+  "method": "isolated-contract-model-review-v1"
+}

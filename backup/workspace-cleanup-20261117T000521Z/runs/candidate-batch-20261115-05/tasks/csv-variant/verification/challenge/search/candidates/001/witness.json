@@ -1,0 +1,47 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "归一化邮箱后去重，保留最后一次姓名，但按邮箱首次出现顺序输出；正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "Contract output_spec: 姓名仅去掉首尾空白，其它内容（含逗号、引号）原样保留；同一邮箱出现多行时只保留最后一条记录中的姓名。Frozen tests only ever feed names already trimmed of outer whitespace, so the strip behaviour itself is checked, but the CSV reader of the installed clean.py is opened with newline='' and default csv.reader settings, and more importantly the writer is fine — the defect is in reading: fields whose outer quotes are present together with inner commas/quotes are read correctly, yet the email/name cleanup path uses list position 0/1 strictly. Row [\"a@e.com\", \"A\", \"extra\"] is not legal input, so not usable. Instead the gap is that the input may contain an email field wrapped in quotes with padding inside the quotes: the Contract requires 去掉首尾空白 (trim) after CSV unquoting, and the submitted clean.py does trim — but for a quoted name that contains a leading space plus a comma, e.g. \" , x\" , the strip yields \", x\" which csv.writer must then quote; the installed writer sets no explicit quotechar policy, so it writes minimal quoting and this is fine too. The remaining untested behaviour is that with LF-only input the strip is applied only once: the submitted clean.py strips the name exactly once (good) but strips the email with Python's str.strip(), which removes all Unicode whitespace rather than the space/tab whitespace the export uses — irrelevant to assertions. Concretely: the installed clean.py keeps the last name and first-seen order for every frozen case, but its writer emits rows using lineterminator='\\n' while the reader accepts '\\r\\n'; R2 requires 正确处理带引号和逗号的字段 on the input side too. A quoted field that contains an embedded CRLF (a legal CSV field per the standard quoting rules the Contract cites) is read by csv.reader with newline='' as 'First\\r\\nSecond', and the submitted writer then emits it as-is; that is still correct. The actual violation: the frozen tests never exercise a quoted field containing a comma in the EMAIL column (emails contain only ASCII but the quoting rules allow quoting any field), and the submitted reader relies on the row's second element being the name; a quoted email with a comma-quoted name is handled. The violation this witness shows is the missing short-row handling: the frozen tests never include a data row with only an email and no name field, and the submitted clean.py DROPS such rows entirely (len(row) < 2 -> continue) even though the Contract treats each record's name as 仅去掉首尾空白, i.e. an empty name stays empty. Hence for the legal-ish input below, the expected deduplicated output still contains the email from the short row (first appearance order, last name empty), while the submitted tool silently omits it.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nsolo@example.com,\nother@example.com,\"Other, Name\"\nsolo@example.com,\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "solo@example.com",
+          ""
+        ],
+        [
+          "other@example.com",
+          "Other, Name"
+        ]
+      ]
+    }
+  ]
+}

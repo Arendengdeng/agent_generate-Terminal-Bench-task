@@ -1,0 +1,1 @@
+Implement the CLI according to the immutable Contract. Input: CSV header amount followed by zero to three integer rows in [-1,1]. Output: JSON with exactly count and sum; field order and whitespace are unrestricted.

@@ -1,0 +1,68 @@
+{
+  "id": "005",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R2",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/005/solution",
+  "solution_digest": "798f1895be80e60559756e8a6b3fc9f85239019e933541db81bc7abd2014260f",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/005/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-wmyp_wo0/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "json_file",
+          "path": [
+            "out.csv"
+          ],
+          "value": [
+            [
+              "email",
+              "name"
+            ],
+            [
+              "a@b.c",
+              "Solo, One"
+            ]
+          ]
+        },
+        "actual_error": "JSONDecodeError",
+        "passed": false
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0
+    }
+  ],
+  "reason": "No definite violation, or witness rejected a correct control."
+}

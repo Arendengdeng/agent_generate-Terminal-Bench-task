@@ -1,0 +1,112 @@
+{
+  "controls": [
+    {
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/feedback-correct",
+      "group": "feedback",
+      "role": "correct",
+      "implementation_digest": "92d545b6e1a6f0fe2ff9d3db95bd3970e3f3fe5e078d39fd238db7d35be2afd0",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "All 40 permitted inputs checked independently of evaluated tests and Oracle; 0 violations.",
+        "requirement_ids": [
+          "R1",
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/feedback-correct-review.json"
+        ]
+      }
+    },
+    {
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/holdout-correct",
+      "group": "holdout",
+      "role": "correct",
+      "implementation_digest": "cb4efbfdb5ebc0f647fb1c14eac2a850ba89259431f8f25839dfd14716f4e9c8",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "All 40 permitted inputs checked independently of evaluated tests and Oracle; 0 violations.",
+        "requirement_ids": [
+          "R1",
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/holdout-correct-review.json"
+        ]
+      }
+    },
+    {
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/feedback-invalid",
+      "group": "feedback",
+      "role": "invalid",
+      "implementation_digest": "b80d4781837fa03061c0ac92060ef84b3983348c3a7a2df0af9106aa51b352c3",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "All 40 permitted inputs checked independently of evaluated tests and Oracle; 39 violations.",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/feedback-invalid-review.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py"
+          ],
+          "stdin": "-1\n",
+          "expected": {
+            "count": 1,
+            "sum": -1
+          },
+          "observed": {
+            "count": 0,
+            "sum": -1
+          }
+        }
+      }
+    },
+    {
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/holdout-invalid",
+      "group": "holdout",
+      "role": "invalid",
+      "implementation_digest": "9dd86f562afd45e27b3d3f26f6783d09ce3115e4870e8062995404b0b031b512",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "All 40 permitted inputs checked independently of evaluated tests and Oracle; 25 violations.",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/reviews/holdout-invalid-review.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py"
+          ],
+          "stdin": "-1\n",
+          "expected": {
+            "count": 1,
+            "sum": -1
+          },
+          "observed": {
+            "count": 1,
+            "sum": 1
+          }
+        }
+      }
+    }
+  ]
+}

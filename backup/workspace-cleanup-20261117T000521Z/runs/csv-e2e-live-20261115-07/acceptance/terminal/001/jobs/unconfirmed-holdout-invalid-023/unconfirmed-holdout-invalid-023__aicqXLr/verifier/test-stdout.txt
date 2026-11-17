@@ -1,0 +1,1197 @@
+FFFFFFFFFFFF..FFFFFFFFF                                                  [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_mixed_fixture_normalizati0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaf337d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_mixed_fixture_normalizati0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+______________ test_header_only_input_produces_header_only_output ______________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_input_produce0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aae95850>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_header_only_input_produce0')
+
+    def test_header_only_input_produces_header_only_output(tmp_path):
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'header_only.csv')), out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_input_produce0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+__________________ test_header_only_without_trailing_newline ___________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_without_trail0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaedf490>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_header_only_without_trail0')
+
+    def test_header_only_without_trailing_newline(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        with open(in_path, 'w', encoding='utf-8', newline='') as fh:
+            fh.write('email,name')
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_without_trail0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_quoted_fields_with_commas0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aae95dd0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['a@x.com', 'Doe, "John"'], ['b@x.com', 'Plain'], ['c@x.com', '']])
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_quoted_fields_with_commas0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_whitespace_and_case_dedup0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaf1ecd0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['  First@Mail.COM ', '  First Name  '], ['second@mail.com', 'Second'], ['FIRST@MAIL.COM', 'Other Name'], ['first@mail.com', 'Third'], ['\tsecond@MAIL.com', 'Second Again']])
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_whitespace_and_case_dedup0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_all_fields_quoted_input0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25ab01bc10>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['X@Y.COM', 'One, Two'], ['x@y.com', 'Duplicate'], ['z@y.com', 'Three']], quoting=csv.QUOTE_ALL)
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_all_fields_quoted_input0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+________________________ test_output_uses_csv_escaping _________________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_output_uses_csv_escaping0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaf13950>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_output_uses_csv_escaping0')
+
+    def test_output_uses_csv_escaping(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['q@x.com', 'Smith, J "Q"']])
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_output_uses_csv_escaping0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_crlf_input_with_quoted_co0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aafca290>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, 'w', encoding='utf-8', newline='') as fh:
+            fh.write(data)
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_crlf_input_with_quoted_co0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_generated_large_distinct_0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaeca250>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        expected = []
+        records = []
+        for i in range(1000):
+            email = 'user%04d@example.com' % i
+            name = 'User %d, Esq.' % i if i % 3 == 0 else 'User %d' % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ['email', 'name'], records)
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_generated_large_distinct_0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+_______________________ test_generated_large_duplicates ________________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_generated_large_duplicate0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaca83d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_generated_large_duplicate0')
+
+    def test_generated_large_duplicates(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        records = []
+        expected = []
+        for i in range(1000):
+            idx = i % 500
+            email = 'user%03d@example.com' % idx
+            case_email = email.upper() if i % 2 else '  ' + email + '  '
+            name = 'Name %d' % i
+            records.append([case_email, name])
+            if i < 500:
+                expected.append([email, name])
+        write_csv(in_path, ['email', 'name'], records)
+        out = str(tmp_path / 'out.csv')
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_generated_large_duplicate0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+_______________________ test_input_file_is_not_modified ________________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_input_file_is_not_modifie0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aac9c5d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_input_file_is_not_modifie0')
+
+    def test_input_file_is_not_modified(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        content = 'email,name\nA@B.C,"Last, First"\na@b.c,Other\n'
+        with open(in_path, 'w', encoding='utf-8', newline='') as fh:
+            fh.write(content)
+        before = open(in_path, 'rb').read()
+        out = str(tmp_path / 'out.csv')
+>       run_and_check(in_path, out)
+
+test_clean.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean.py:32: in run_and_check
+    return read_output(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_input_file_is_not_modifie0/out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+________________ test_success_with_input_in_readonly_like_paths ________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_success_with_input_in_rea0/nested_out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25ab17f3d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_success_with_input_in_rea0')
+
+    def test_success_with_input_in_readonly_like_paths(tmp_path):
+        in_path = str(tmp_path / 'input.csv')
+        write_csv(in_path, ['email', 'name'], [['Solo@Ex.com', ' Solo ']])
+        out = str(tmp_path / 'nested_out.csv')
+        proc = run_cli(in_path, out)
+        assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)
+>       rows = read_output(out)
+               ^^^^^^^^^^^^^^^^
+
+test_clean.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_success_with_input_in_rea0/nested_out.csv'
+
+    def read_output(out_path):
+        try:
+            assert os.path.exists(out_path), 'output file was not created'
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as _iv_decode_error:
+>           raise AssertionError('Task output violates required UTF-8 encoding') from _iv_decode_error
+E           AssertionError: Task output violates required UTF-8 encoding
+
+test_clean.py:27: AssertionError
+_______________ test_sibling_backup_file_does_not_override_input _______________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_sibling_backup_file_does_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaf99bd0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_sibling_backup_file_does_0')
+
+    def test_sibling_backup_file_does_not_override_input(tmp_path):
+        """The rows written must come from the input path given on the CLI."""
+        work = str(tmp_path)
+        in_path = _write_text(
+            work,
+            'in.csv',
+            'email,name\n'
+            '  Alice@Example.COM  ,  Alice Smith  \n'
+            'bob@example.com,"Bob, Jr."\n'
+            'ALICE@example.com,Alice Duplicate\n',
+        )
+        expected_before = open(in_path, 'rb').read()
+        # A decoy sibling file that is not named on the command line.
+        _write_text(work, 'in.csv.bak', 'email,name\nold@example.com,Old Export\n')
+        out_path = os.path.join(work, 'out.csv')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_sibling_backup_file_does_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+_________ test_other_named_input_is_used_and_not_replaced_by_neighbour _________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_other_named_input_is_used0/out_a.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaca9710>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_other_named_input_is_used0')
+
+    def test_other_named_input_is_used_and_not_replaced_by_neighbour(tmp_path):
+        """Two different input files produce two different, self-consistent outputs."""
+        work = str(tmp_path)
+        first = _write_text(work, 'a.csv', 'email,name\nOne@Example.com, First\n')
+        second = _write_text(work, 'b.csv', 'email,name\nTwo@Example.com,Second\n')
+        _write_text(work, 'b.csv.bak', 'email,name\nbogus@example.com,Bogus\n')
+        out_a = os.path.join(work, 'out_a.csv')
+        out_b = os.path.join(work, 'out_b.csv')
+>       rows_a = _run_ok(first, out_a)
+                 ^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_other_named_input_is_used0/out_a.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+__________________ test_large_mixed_generated_input_reference __________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_large_mixed_generated_inp0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aacd0f90>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_large_mixed_generated_inp0')
+
+    def test_large_mixed_generated_input_reference(tmp_path):
+        """A 1000-record generated input checked against an independently computed result."""
+        work = str(tmp_path)
+        records = []
+        expected = []
+        seen = set()
+        for i in range(1000):
+            idx = (i * 37) % 700
+            raw_email = 'Person%03d@Example.COM' % idx
+            if i % 3 == 0:
+                raw_email = '  ' + raw_email + '\t'
+            if i % 4 == 0:
+                raw_email = raw_email.lower()
+            name = 'Person %d' % idx
+            if i % 5 == 0:
+                name = '  ' + name + ', Sr.  '
+                norm_name = 'Person %d, Sr.' % idx
+            else:
+                norm_name = name
+            records.append([raw_email, name])
+            norm_email = raw_email.strip().lower()
+            if norm_email not in seen:
+                seen.add(norm_email)
+                expected.append([norm_email, norm_name])
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
+        out_path = os.path.join(work, 'out.csv')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_large_mixed_generated_inp0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+___________ test_email_ascii_variants_are_preserved_apart_from_case ____________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_email_ascii_variants_are_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaed3090>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_email_ascii_variants_are_0')
+
+    def test_email_ascii_variants_are_preserved_apart_from_case(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['  Mixed.Case+Tag@EXAMPLE.org ', ' A '],
+                ['mixed.case+tag@example.org', 'Duplicate'],
+                ['MIXED.CASE+TAG@EXAMPLE.ORG', 'Duplicate 2'],
+                ['other@example.org', 'B,C'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_email_ascii_variants_are_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+______________________ test_header_only_variant_with_crlf ______________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_variant_with_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aad008d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_header_only_variant_with_0')
+
+    def test_header_only_variant_with_crlf(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_text(work, 'in.csv', 'email,name\r\n')
+        out_path = os.path.join(work, 'out.csv')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:158: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_header_only_variant_with_0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+_________________ test_names_with_embedded_newline_and_quotes __________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_names_with_embedded_newli0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aac9c8d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_names_with_embedded_newli0')
+
+    def test_names_with_embedded_newline_and_quotes(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['n@x.com', 'line1\nline2'],
+                ['m@x.com', 'say "hi", please'],
+                ['N@X.COM', 'dropped'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_names_with_embedded_newli0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+________________ test_output_can_be_reparsed_as_two_column_csv _________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_output_can_be_reparsed_as0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aafc8390>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_output_can_be_reparsed_as0')
+
+    def test_output_can_be_reparsed_as_two_column_csv(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [['a@x.com', 'Comma, Inside'], ['b@x.com', 'Quote "Q" Inside']],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        proc = _run(in_path, out_path)
+        assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)
+>       rows = _read_rows(out_path)
+               ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:194: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_output_can_be_reparsed_as0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+_____________________ test_single_record_and_dup_pair_only _____________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_single_record_and_dup_pai0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25ab02c890>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_single_record_and_dup_pai0')
+
+    def test_single_record_and_dup_pair_only(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [['Solo@Example.com', ' Only ']],
+        )
+        out_path = os.path.join(work, 'out.csv')
+>       assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:214: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_single_record_and_dup_pai0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+___________________ test_overwriting_an_existing_output_file ___________________
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_overwriting_an_existing_o0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+>               return list(csv.reader(fh))
+                       ^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <encodings.utf_8.IncrementalDecoder object at 0x7e25aaec75d0>
+input = b'\xff\xfe', final = False
+
+>   ???
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+<frozen codecs>:322: UnicodeDecodeError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_overwriting_an_existing_o0')
+
+    def test_overwriting_an_existing_output_file(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], [['k@x.com', 'K']])
+        out_path = _write_text(work, 'out.csv', 'email,name\nstale@example.com,Stale\nstale2@example.com,Stale2\n')
+>       rows = _run_ok(in_path, out_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean_extra.py:230: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_clean_extra.py:60: in _run_ok
+    return _read_rows(out_path)
+           ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_path = '/tmp/pytest-of-root/pytest-0/test_overwriting_an_existing_o0/out.csv'
+
+    def _read_rows(out_path):
+        assert os.path.exists(out_path), 'output file was not created'
+        try:
+            with open(out_path, 'r', encoding='utf-8', newline='') as fh:
+                return list(csv.reader(fh))
+        except UnicodeDecodeError as exc:
+>           raise AssertionError('output is not valid UTF-8') from exc
+E           AssertionError: output is not valid UTF-8
+
+test_clean_extra.py:52: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_header_only_input_produces_header_only_output - As...
+FAILED test_clean.py::test_header_only_without_trailing_newline - AssertionEr...
+FAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: Task out...
+FAILED test_clean.py::test_output_uses_csv_escaping - AssertionError: Task ou...
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: Ta...
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+FAILED test_clean.py::test_generated_large_duplicates - AssertionError: Task ...
+FAILED test_clean.py::test_input_file_is_not_modified - AssertionError: Task ...
+FAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...
+FAILED test_clean_extra.py::test_sibling_backup_file_does_not_override_input
+FAILED test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour
+FAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...
+FAILED test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case
+FAILED test_clean_extra.py::test_header_only_variant_with_crlf - AssertionErr...
+FAILED test_clean_extra.py::test_names_with_embedded_newline_and_quotes - Ass...
+FAILED test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv - A...
+FAILED test_clean_extra.py::test_single_record_and_dup_pair_only - AssertionE...
+FAILED test_clean_extra.py::test_overwriting_an_existing_output_file - Assert...
+21 failed, 2 passed in 1.29s

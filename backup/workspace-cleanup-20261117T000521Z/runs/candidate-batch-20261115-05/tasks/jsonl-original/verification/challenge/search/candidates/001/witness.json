@@ -1,0 +1,48 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "同时按服务与级别分组，准确累计条数和非负整数耗时，不丢失重复记录。",
+  "rationale": "R2 requires grouping by (service, level) simultaneously, with exact counts and exact sums of the non-negative integer duration_ms, never dropping duplicate records (the Contract output_spec defines count as the number of records of that combination - repeated records all counted - and total_duration_ms as the sum). For input lines (b,INFO,0), (a,ERROR,5), (a,INFO,2), (a,INFO,3), the Contract-mandated JSON array is [{'service':'a','level':'ERROR','count':1,'total_duration_ms':5}, {'service':'a','level':'INFO','count':2,'total_duration_ms':5}, {'service':'b','level':'INFO','count':1,'total_duration_ms':0}], where the two repeated (a,INFO) records must both be counted and their durations summed. Assertions check exit code 0 and that exact structure and content at the output path.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"b\", \"level\": \"INFO\", \"duration_ms\": 0}\n{\"service\": \"a\", \"level\": \"ERROR\", \"duration_ms\": 5}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 2}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 3}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "service": "a",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "a",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "b",
+          "level": "INFO",
+          "count": 1,
+          "total_duration_ms": 0
+        }
+      ]
+    }
+  ]
+}

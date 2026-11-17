@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "digest": "0699c6303562167617f066d717ccc044a4c63497d83145160c200cb9f6781c08",
+  "manifest": {
+    "checks/probe.py": "219567ce9d9df512b159bbc15763b2cace8e7eb177f65cf2e1d2c377071c537b",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "draft/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560",
+    "draft/solution/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b",
+    "draft/solution/solve.sh": "538306304ae4dfa116b71039e712ac3f29512813e5aca83d18d578572ef62194"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "output mismatch.\nexpected='email,name\\nalice@example.com,\"Doe, Jane\"\\nbob@example.com,\"Smith, Bob\"\\ncarol@example.com,\"O\\'Neil, \"\"CJ\"\"\"\\n'\nactual='email,name\\nalice@example.com,\"Doe\\nbob@example.com,\"  Smith\\ncarol@example.com,\"O\\'Neil\\n'"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "fixture quoted_comma: output mismatch.\nexpected='email,name\\nalice@example.com,\"Doe, Jane\"\\nbob@example.com,\"Smith, Bob\"\\ncarol@example.com,\"O\\'Neil, \"\"CJ\"\"\"\\n'\nactual='email,name\\nalice@example.com,\"Doe\\nbob@example.com,\"  Smith\\ncarol@example.com,\"O\\'Neil\\n'"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "second set content: 'email,name\\nzz@example.org,\"  Quoted\\naa@example.net,Plain\\n'"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202"
+    },
+    "unchanged": true
+  }
+}

@@ -1,0 +1,1078 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_summarize.py::test_r1_instruction_sample",
+    "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+    "test_summarize.py::test_r1_output_parses_as_utf8_json",
+    "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+    "test_summarize.py::test_r2_grouping_across_levels",
+    "test_summarize.py::test_r2_identical_duplicate_records_counted",
+    "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+    "test_summarize.py::test_r2_group_by_service_not_level",
+    "test_summarize.py::test_r2_zero_durations",
+    "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+    "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+    "test_summarize.py::test_r2_large_durations_exact",
+    "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+    "test_summarize.py::test_r3_only_present_groups",
+    "test_summarize.py::test_r3_empty_file_returns_empty_array",
+    "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+    "test_summarize.py::test_r3_repeat_runs_identical_output",
+    "test_summarize.py::test_r3_input_without_trailing_newline",
+    "test_summarize.py::test_r3_single_line_input",
+    "test_summarize.py::test_r4_input_file_unmodified",
+    "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+    "test_summarize.py::test_r4_runs_without_site_packages",
+    "test_summarize.py::test_r4_no_extra_deliverable_files_in_app"
+  ],
+  "results": [
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.004291395001928322,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.045957162998092826,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_instruction_sample",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002731060012592934,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007715220053796656,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.050840851006796584,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002823429967975244,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000733927998226136,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: '日本' != '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 141,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04928600599669153,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00026225100009469315,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.003350202001456637,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.060535224998602644,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002976629984914325,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00105512000300223,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04796844800148392,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00024739500076975673,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005632739994325675,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04679551900335355,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002136249968316406,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0010871370031964034,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.062038387994107325,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003023020035470836,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0011675370042212307,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05023999799595913,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017652800306677818,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009147980017587543,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.042334973004471976,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_zero_durations",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023617500119144097,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009690770020824857,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06093842200061772,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020814700110349804,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006664000029559247,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07125137699767947,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002631109964568168,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005884580023121089,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04781006000121124,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000250237004365772,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.001391247998981271,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06024831200193148,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001984490008908324,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006732120018568821,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06478745099593652,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_only_present_groups",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019206700380891562,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.001196720993903,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05683130599936703,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015864000306464732,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005772060030722059,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: '日本' != '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 333,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.058451791999686975,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00024895900423871353,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006262060051085427,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.10380995399464155,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0014922660047886893,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007221240011858754,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05247229799715569,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003073170009884052,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006440490033128299,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05458541400003014,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_single_line_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016063499788288027,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006745339996996336,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0515889970047283,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015623700164724141,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009789739997358993,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: '日本' != '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 434,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06529967499955092,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004317359998822212,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009225339963450097,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0413606419970165,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015514600090682507,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007821229955879971,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016963900270638987,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001631699997233227,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/summarize.py": "26e38120885bce6d29bc9be23bc83802cff2baecf084e0183aca38705d8ced9a"
+  },
+  "wall_sec": 1.679285
+}

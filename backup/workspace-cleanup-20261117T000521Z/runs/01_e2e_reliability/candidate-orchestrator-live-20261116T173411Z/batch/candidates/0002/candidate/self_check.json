@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "digest": "8e0a8a00bf2f63369f1035fc109e5644c0ed59a67dbeca71c8dcfe83adc2c42d",
+  "manifest": {
+    "checks/probe.py": "b11aec718f3a9dfe8a36f0a719edcd460b546445f73119952f9e150fe59089df",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "draft/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "draft/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84",
+    "draft/solution/clean.py": "e797eedefb28792ca4b5f50faced172f1d4862a0e053c5f6667839252f1cb87f",
+    "draft/solution/solve.sh": "2e97edd0fdd7cc9e80c922032a6f880c4832ee2cb4971129937b246932404470"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "R1 simple case: expected rows [['email', 'name'], ['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Doe, Bob'], ['carol@example.org', 'Carol \"CC\" Ng'], ['dave@example.com', 'Dave Park']], got [['email', 'name'], ['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['bob@example.com', ' Bob\"'], ['ALICE@example.com', 'Alice Chen (dup)'], ['carol@example.org', 'Carol \"CC\" Ng'], [' bob@EXAMPLE.com ', ' Bob Doe'], ['dave@example.com', '  Dave Park']] (raw='email,name\\nemail,name\\n  Alice@Example.com ,  Alice Chen\\nbob@example.com, Bob\"\\nALICE@example.com,Alice Chen (dup)\\ncarol@example.org,\"Carol \"\"CC\"\" Ng\"\\n bob@EXAMPLE.com , Bob Doe\\ndave@example.com,  Dave Park\\n')"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "R2 normalise/dedupe: expected rows [['email', 'name'], ['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Doe, Bob'], ['carol@example.org', 'Carol \"CC\" Ng'], ['dave@example.com', 'Dave Park']], got [['email', 'name'], ['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['bob@example.com', ' Bob\"'], ['ALICE@example.com', 'Alice Chen (dup)'], ['carol@example.org', 'Carol \"CC\" Ng'], [' bob@EXAMPLE.com ', ' Bob Doe'], ['dave@example.com', '  Dave Park']] (raw='email,name\\nemail,name\\n  Alice@Example.com ,  Alice Chen\\nbob@example.com, Bob\"\\nALICE@example.com,Alice Chen (dup)\\ncarol@example.org,\"Carol \"\"CC\"\" Ng\"\\n bob@EXAMPLE.com , Bob Doe\\ndave@example.com,  Dave Park\\n')"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "R3 header only: expected rows [['email', 'name']], got [['email', 'name'], ['email', 'name']] (raw='email,name\\nemail,name\\n')"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "R4: wrong output from other cwd"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+      "draft/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+      "draft/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc"
+    },
+    "unchanged": true
+  }
+}

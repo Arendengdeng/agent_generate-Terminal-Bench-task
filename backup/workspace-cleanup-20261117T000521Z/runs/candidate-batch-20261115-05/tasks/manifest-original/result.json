@@ -1,0 +1,87 @@
+{
+  "id": "manifest-original",
+  "family": "manifest",
+  "variant": "original",
+  "outcome": "unresolved",
+  "detail": "needs_review",
+  "failure_stage": "challenge",
+  "responsible_module": "unknown",
+  "candidate_generated": true,
+  "stages": {
+    "synthesis": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/candidate/synthesis.json",
+      "reused": true
+    },
+    "controls": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/controls/manifest.json",
+      "reused": true
+    },
+    "independent_test": {
+      "status": "passed",
+      "reason": "upstream_not_completed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/run_result.json"
+    },
+    "challenge": {
+      "status": "completed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/challenge-report.json",
+      "confirmed_violations": 2,
+      "already_rejected": 0,
+      "review_queue": [
+        {
+          "id": "000",
+          "status": "unconfirmed",
+          "reason": "The witness's rationale describes supposed implementation behavior (\"sorts by a normalized key and collapses/merges entries\"), but no implementation source is supplied, so the alleged defect cannot be derived from the Contract. The assertions themselves are consistent with the Contract (R1/R2/R3): 'sub/a b.txt' and 'sub/a_b.txt' are legal names, the relative POSIX paths are correct, size 11 matches \"hello world\", the SHA-256 a948904f... is the digest of \"hello world\", and the ordering of the two paths by Python string ascending ('a ' = space 0x20 < '_' = 0x5F) is correct. Exit code 0 with JSON generated at out.json is also within R1. However, confirming would require that the assertions in fact follow for the given fixture under the true implementation, and the only claimed failure rests on an unverified implementation claim not present in the Contract. Since the witness neither demonstrates an in-scope assertion that fails nor that the input/assertions are outside scope, the verdict must be unconfirmed due to unsupported/ambiguous evidence rather than demonstrated violation.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/search/candidates/000/witness.json"
+        },
+        {
+          "id": "003",
+          "status": "unconfirmed",
+          "reason": "The single assertion is about the produced manifest content, but the cited Requirement R4 is only: \"不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。\" That requirement covers (a) not modifying the input tree, (b) delivered modules under /app/src, and (c) stdlib-only dependencies. The assertion that out.json equals a specific sorted JSON array with exact paths, sizes, and SHA-256 digests does NOT follow directly from R4; it is the content obligation of R1/R2/R3 (and the output_spec). The witness explicitly frames the alleged defect as \"a file of the input tree is missing from the result,\" i.e., a completeness/содержание error — which is a violation of R2 (recursively list all regular files) / R3 (size/digest), not R4. The \"unchanged assertion\" portion would be derivable under R4, but the fixture provides no post-run byte-identity check on q/readme.md, q/load.txt, q/config.json — only the JSON output equality. So the sole supplied assertion is not justified by the quoted requirement. Additionally, the witness's narrative claims manifest.py \"silently drops files ending in 'd.txt'\"; that implementation detail is untrusted external text and cannot be confirmed here, and even if true it constitutes an R2/R3 failure, not R4. Because the concrete expected output does not follow from the cited Requirement and the cited Contract, the review is unconfirmed.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/search/candidates/003/witness.json"
+        }
+      ]
+    },
+    "repair": {
+      "status": "needs_review",
+      "attempts": 1,
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/challenge-report.json"
+    },
+    "reverification": {
+      "status": "not_run",
+      "reason": "upstream_not_completed"
+    }
+  },
+  "cost": {
+    "model_calls": 40,
+    "tool_calls": 47,
+    "token_usage": {
+      "prompt_tokens": 530825,
+      "completion_tokens": 15985,
+      "total_tokens": 546810
+    },
+    "wall_sec": 213.772,
+    "synthesis": {
+      "model_calls": 0,
+      "tool_calls": 0
+    },
+    "verification": {
+      "model_calls": 40,
+      "tool_calls": 47,
+      "token_usage": {
+        "prompt_tokens": 530825,
+        "completion_tokens": 15985,
+        "total_tokens": 546810
+      }
+    }
+  },
+  "repair_count": 1,
+  "reused_candidate_from": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/candidate",
+  "controller_decision": "error",
+  "native_stage": "challenge",
+  "error": {
+    "type": "CHALLENGE_INCOMPLETE",
+    "message": "repair_agent_failed"
+  }
+}

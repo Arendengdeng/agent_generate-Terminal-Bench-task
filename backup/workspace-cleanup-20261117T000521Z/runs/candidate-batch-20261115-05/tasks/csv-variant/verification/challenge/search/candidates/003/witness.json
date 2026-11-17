@@ -1,0 +1,28 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "Contract: 不修改输入文件。The installed clean.py must leave the input file byte-identical. When the input and output paths are hard links (or the same file reached twice), writing the output truncates and rewrites the very inode that holds the input, so the input file contents change. For the fixture below, the runner first links $WORK/out.csv to $WORK/in.csv (hard link), then runs the CLI; after a successful run the input file still must hold its original bytes, per Contract. The submitted clean.py opens the output path with 'w' and overwrites it, which it has no way to distinguish from an aliased input, so the input file gets rewritten (CSV with normalised newlines / re-serialised rows), and the input's newline layout of the quoted field is altered, violating 不修改输入文件.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\r\n\"b@e.com\",\"Bee, B\"\r\na@e.com, \"  Ann \"  \r\n",
+    "out.csv": "email,name\r\n\"b@e.com\",\"Bee, B\"\r\na@e.com, \"  Ann \"  \r\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

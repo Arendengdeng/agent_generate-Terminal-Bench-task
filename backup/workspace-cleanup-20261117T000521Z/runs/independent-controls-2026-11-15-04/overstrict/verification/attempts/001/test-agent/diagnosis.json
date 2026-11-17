@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every permitted n, double equals 2*n.",
+  "test_path": "tests/test_behavior.py",
+  "line": "14",
+  "evidence_id": "known-000:test_behavior.py::test_double:call",
+  "explanation": "The Contract output_spec says: \"JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.\" Line 14 asserts exact raw stdout string equality ('{\"value\": 3, \"double\": 6}\\n'), which requires a specific key order and separator whitespace. The known-000 implementation (which should pass, expected_reward 1) prints '{\"double\":6,\"value\":3}\\n' — semantically a JSON object with exactly value=3 and double=6, correct per the Contract, but it fails only because of field order and whitespace. The defect is in the test, not the implementation. The assertion should parse JSON and compare the object: json.loads(result.stdout) == {'value': 3, 'double': 6}. R2's intent (double equals 2*n) is preserved; the restriction on exact serialization is not in the Contract. In addition, R2 must be exercised for every permitted n; test_value's general loop covers R2 for n != 3 but the n=3 case is currently excluded; after the fix, R2 for n=3 is covered by test_double via parsed comparison. Also test_value's `if n != 3:` skip should be removed so R2 is asserted for all n in [0,10] as R2 requires.",
+  "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52"
+}

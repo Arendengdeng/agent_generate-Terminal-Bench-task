@@ -1,0 +1,35 @@
+.............F.                                                          [100%]
+=================================== FAILURES ===================================
+________________ test_script_works_with_only_stdlib_importable _________________
+
+    def test_script_works_with_only_stdlib_importable():
+        """Run isolated with site-packages disabled: no third-party dependency allowed."""
+        d = tempfile.mkdtemp(prefix="clean_iso_", dir="/tmp")
+        inp = os.path.join(d, "in.csv")
+        out = os.path.join(d, "out.csv")
+        with open(inp, "w", encoding="utf-8", newline="") as fh:
+            fh.write("email,name\n a@b.c ,N\n A@B.C ,M\n")
+        proc = subprocess.run(
+            [sys.executable, "-I", "-S", APP, inp, out],
+            cwd="/tmp",
+            capture_output=True,
+            text=True,
+            timeout=TIMEOUT,
+        )
+        assert proc.returncode == 0, (
+            "script failed with only the standard library importable; "
+            "stderr: %s" % proc.stderr
+        )
+        with open(out, "r", encoding="utf-8", newline="") as fh:
+            lines = fh.read().splitlines()
+        assert lines[0] == "email,name"
+>       assert lines[1:] == ["a@b.c,N"]
+E       assert ['"a@b.c","N"'] == ['a@b.c,N']
+E         
+E         At index 0 diff: '"a@b.c","N"' != 'a@b.c,N'
+E         Use -v to get more diff
+
+test_stdlib.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED test_stdlib.py::test_script_works_with_only_stdlib_importable - assert...
+1 failed, 14 passed in 0.55s

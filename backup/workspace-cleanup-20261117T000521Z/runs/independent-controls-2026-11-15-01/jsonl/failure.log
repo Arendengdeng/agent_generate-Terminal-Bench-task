@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/zyl/projects/step2-3/scripts/independent_controls/run_experiments.py", line 225, in main
+    scene = root / name; scene.mkdir()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/step2-3/scripts/independent_controls/run_experiments.py", line 182, in run_scene
+    assert before == (candidate.source / 'contract.json').read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'decision': 'error', 'expected': 'accept', 'error': None, 'diagnostics': [{'code': 'PIPELINE_ERROR', 'message': 'Pipeline failed or was cancelled.', 'details': {'stage': 'execution', 'status': 'error', 'error': None}, 'investigate_modules': []}, {'code': 'PANEL_EXECUTION_ERROR', 'message': 'Independent controls contain execution errors or timeouts.', 'details': None, 'investigate_modules': []}, {'code': 'BACKEND_INCONSISTENT', 'message': 'Docker and Harbor results are missing or disagree.', 'details': ['holdout-correct-000', 'holdout-correct-000:artifacts'], 'investigate_modules': []}, {'code': 'PANEL_NOT_VALIDATED', 'message': 'Not all confirmed controls have their required Harbor assertion outcome.', 'details': None, 'investigate_modules': []}]}

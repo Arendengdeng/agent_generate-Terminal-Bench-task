@@ -1,0 +1,91 @@
+{
+  "label": "holdout-invalid-000",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017114200454670936,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'-1\\n' == b'42\\n'\n  \n  At index 0 diff: b'-' != b'4'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'42\\n'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.025145535000774544,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "-1\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017474700143793598,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-f9e59b364a164acc9977d4f183e4a680/verification/final-docker/holdout-invalid-000/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "/solution/solve.sh": "b4b0997572cf1cd1e2bd6bdf028943c9dffcddc43963347a9fa86de989346102"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "ce08dda52537233b55034874fdd1652e3ed9f9a0758f66513d5d44e94fb82785"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "ce08dda52537233b55034874fdd1652e3ed9f9a0758f66513d5d44e94fb82785"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "6c0fbdcdeb13ea95e85ae23c4a8b7ff4d67b97374ee59fa30764e74dd13e550d",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_behavior.py": "340aaf0009bdb42a807d5dcbceb465613a6f81c94401a62e5b8392b977600852"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________________ test_output __________________________________\n\n    def test_output():\n        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == b'42\\n'\nE       AssertionError: assert b'-1\\n' == b'42\\n'\nE         \nE         At index 0 diff: b'-' != b'4'\nE         Use -v to get more diff\n\ntest_behavior.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_output - AssertionError: assert b'-1\\n' == b'42\\n'\n1 failed in 0.06s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_behavior.py::test_output"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+  "outcome": "fail",
+  "wall_sec": 5.426,
+  "attribution": "uncertain"
+}

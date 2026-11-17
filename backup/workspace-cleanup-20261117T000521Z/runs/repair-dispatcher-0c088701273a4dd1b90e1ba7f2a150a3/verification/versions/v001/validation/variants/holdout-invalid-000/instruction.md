@@ -1,0 +1,1 @@
+Fix clean.py according to the supplied Contract.

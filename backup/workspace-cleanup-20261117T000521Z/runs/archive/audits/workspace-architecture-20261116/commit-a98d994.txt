@@ -1,0 +1,38 @@
+commit a98d994050d6aea64bee7d8fc0b5ce52ea9d91a4
+Author:     Ardendengdeng <zs2320880467@gmail.com>
+AuthorDate: Sun Nov 15 00:59:44 2026 -0800
+Commit:     Ardendengdeng <zs2320880467@gmail.com>
+CommitDate: Sun Nov 15 00:59:44 2026 -0800
+
+    v2.3: 补充正确与错误实现的独立验证
+
+ .gitignore                                         |   8 +
+ README.md                                          |   4 +-
+ docs/guides/independent-controls.md                |  75 ++++++
+ .../2026-11-15-independent-controls-acceptance.md  | 138 ++++++++++
+ independent_verification/__main__.py               |   6 +-
+ independent_verification/agent.py                  |  28 +-
+ independent_verification/attribution.py            |   6 +
+ independent_verification/controller.py             |  42 ++-
+ independent_verification/docker_test_runner.py     |  73 +++--
+ independent_verification/exporter.py               |   8 +-
+ independent_verification/harbor.py                 |  73 ++++-
+ independent_verification/json_attribution.py       | 146 ++++++++++
+ independent_verification/panel.py                  | 287 ++++++++++++++++++++
+ independent_verification/pipeline.py               | 118 +++++++--
+ independent_verification/repair.py                 |  58 +++-
+ independent_verification/test_repair_workflow.py   |   8 +-
+ independent_verification/wrapper.py                |  39 +++
+ scripts/README.md                                  |   2 +
+ scripts/independent_controls/README.md             |  22 ++
+ scripts/independent_controls/build_report.py       |  90 +++++++
+ scripts/independent_controls/run_experiments.py    | 254 ++++++++++++++++++
+ .../test_agent_feedback_repair/run_acceptance.py   |   2 +-
+ tests/panel_helpers.py                             |  67 +++++
+ tests/test_controller.py                           |  15 +-
+ tests/test_independent_panel.py                    | 293 +++++++++++++++++++++
+ tests/test_independent_verification.py             |   7 +-
+ tests/test_json_attribution.py                     | 106 ++++++++
+ tests/test_repair_dispatcher.py                    |  16 +-
+ tests/test_test_agent_feedback_repair.py           |   7 +-
+ 29 files changed, 1895 insertions(+), 103 deletions(-)

@@ -1,0 +1,96 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_wrong_argument_count_is_not_success"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_duplicates"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_no_third_party_imports"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success"
+  ],
+  "manifest": {
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "test_clean.py": "dcb43b9c06908eabec9f94d1c3992e4bcbe9675a83d8c1fdaacf0c42077b23ea"
+  },
+  "digest": "72aac00828defd2aca44df441d361a946d8a6c5a7c61a713ba4ad2db7b1d931e",
+  "budget_used": {
+    "model_calls": 7,
+    "tool_calls": 10
+  },
+  "workflow_budget_used": {
+    "model_calls": 7,
+    "tool_calls": 10,
+    "token_usage": {
+      "prompt_tokens": 28869,
+      "completion_tokens": 3318,
+      "total_tokens": 32187
+    }
+  },
+  "cost": {
+    "wall_sec": 29.931,
+    "token_usage": {
+      "prompt_tokens": 28869,
+      "completion_tokens": 3318,
+      "total_tokens": 32187
+    }
+  }
+}

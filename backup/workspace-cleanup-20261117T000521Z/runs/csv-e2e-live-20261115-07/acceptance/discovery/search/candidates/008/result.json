@@ -1,0 +1,80 @@
+{
+  "id": "008",
+  "status": "confirmed",
+  "violation_status": "confirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/solution",
+  "solution_digest": "8984c4ac6399b3848f5128c4e864bc294547b6cbc28612b6727df174dce43093",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-utt6is1h/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+        },
+        "actual": "email,name\nold@example.com,Old Export\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": false,
+        "passed": false
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1
+    }
+  ],
+  "scoring_feedback": [
+    {
+      "repeat": 0,
+      "status": "completed",
+      "reward": 1,
+      "failures": []
+    },
+    {
+      "repeat": 1,
+      "status": "completed",
+      "reward": 1,
+      "failures": []
+    }
+  ],
+  "decision": {
+    "decision": "repair",
+    "responsible_module": "tests",
+    "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+    "requirement_ids": [
+      "R1"
+    ],
+    "evidence_digest": "affdbe79a435f5703ccf0cdef01a06da4d86a98fbf9fa5d6c1b4c5fbbf10af94"
+  },
+  "evidence_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/evidence.json"
+}

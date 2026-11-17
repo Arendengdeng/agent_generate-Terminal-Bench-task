@@ -1,0 +1,34 @@
+{
+  "status": "CONDITIONAL_PASS_PENDING_HUMAN_CONFIRMATION",
+  "scenarios_passed": 7,
+  "scenario_count": 7,
+  "live_model_verified": true,
+  "human_confirmation": {
+    "human_confirmed": false,
+    "reviewer": "Codex inspection; user confirmation pending",
+    "defect": "Fixed JSON byte-string comparison contradicts unrestricted JSON field order and whitespace."
+  },
+  "source_mismatches": [],
+  "comparison_rows": 68,
+  "current_runtime_source_mismatches": [],
+  "api_calls": 44,
+  "initial_failed_scenarios": [
+    {
+      "scenario": "oracle_error",
+      "result": "failed",
+      "error_type": "AssertionError",
+      "error": "{'status': 'error', 'stop_reason': 'repair_agent_failed', 'repairs': 2, 'max_repairs': 2, 'attempts': [{'index': 0, 'tests_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/initial-tests', 'tests_digest': 'fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d', 'execution_path': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/000/execution/execution.json', 'status': 'failed', 'repair_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent', 'attribution': 'test_defect', 'analysis': {'requirement_id': 'R2', 'contract_quote': 'For every permitted n, double equals 2*n.', 'test_path': 'tests/test_behavior.py', 'line': '14', 'evidence_id': 'oracle:test_behavior.py::test_double:call', 'explanation': 'Oracle returns a correct-looking JSON ({\"double\":6,\"value\":3} per known-000 for n=3), yet test_double failed against Oracle with stdout {\"value\": 3, \"double\": 3}. The test invokes \\'python3\\' and parses raw stdout directly, contradicting the Contract command \\'python /app/clean.py <n>\\' where output is a JSON object with key double; the current test\\'s execution/parsing does not reliably correspond to the Contract\\'s required output (whitespace/field order unrestricted, JSON object with exactly value and double). The test must run the Contract\\'s command, parse a JSON object, and verify both fields for every permitted n in [0,10], tolerating field order and extra whitespace.', 'parent_digest': 'fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d'}, 'changes_path': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/changes.patch'}, {'index': 1, 'tests_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent', 'tests_digest': '6dd"
+    }
+  ],
+  "final_recheck": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final",
+  "token_usage": {
+    "prompt_tokens": 272473,
+    "completion_tokens": 5788,
+    "total_tokens": 278261
+  },
+  "wall_sec": null,
+  "latest_process_wall_sec": 330.648,
+  "measured_component_wall_sec": 431.742,
+  "cost_limitations": "API token counts only when returned; no monetary-price estimate or CPU/peak-memory measurement.",
+  "limitation": "Only finite supplied controls and explicit injected scenarios; no claim of general test reliability."
+}

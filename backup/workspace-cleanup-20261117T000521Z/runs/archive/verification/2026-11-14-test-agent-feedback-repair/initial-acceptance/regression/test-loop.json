@@ -1,0 +1,118 @@
+{
+  "status": "needs_review",
+  "stop_reason": "repair_budget_exhausted",
+  "repairs": 1,
+  "max_repairs": 1,
+  "attempts": [
+    {
+      "index": 0,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/initial-tests",
+      "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/000/execution/execution.json",
+      "status": "failed",
+      "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+      "attribution": "test_defect",
+      "analysis": {
+        "requirement_id": "R2",
+        "contract_quote": "field order and whitespace are unrestricted.",
+        "test_path": "tests/test_behavior.py",
+        "line": "14",
+        "evidence_id": "known-000:test_behavior.py::test_double:call",
+        "explanation": "The raw JSON string assertion imposes a forbidden serialization constraint.",
+        "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+      },
+      "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/changes.patch"
+    },
+    {
+      "index": 1,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+      "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/execution/execution.json",
+      "status": "failed"
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "version": 0,
+      "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    }
+  ],
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 5
+  },
+  "cost": {
+    "wall_sec": 51.925,
+    "token_usage": null,
+    "executions": 8
+  }
+}

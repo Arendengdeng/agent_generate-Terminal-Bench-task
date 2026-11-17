@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "Ambiguity: the fixture writes to \"$WORK/out/target.csv\", but the output directory \"out\" is only created implicitly through a fixture entry (\"out/.keep\"). The Contract/observation semantics do not state that parent directories of fixture paths are created, nor does any Requirement obligate clean.py to create missing parent directories. Thus the exit_code assertion (0) and the file assertion depend on an unguaranteed precondition; a correct implementation that expects an existing output directory could fail, and the witness provides no guaranteed mechanism to create it. (The dedup/normalization expectations themselves are consistent with R1/R2, and the unchanged-input assertion follows from R4, but the directory-creation uncertainty makes the whole witness unconfirmed.)",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "d7cf770eefded9729ea9141d88084d4e02bbcb46e8dd7c1afb81e911f31116b3",
+  "method": "isolated-contract-model-review-v1"
+}

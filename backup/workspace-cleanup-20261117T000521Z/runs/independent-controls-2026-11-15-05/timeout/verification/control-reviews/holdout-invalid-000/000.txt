@@ -1,0 +1,50 @@
+{
+  "reviewer": "Codex Contract source inspection plus independent finite-domain checker",
+  "method": "contract-source-review-and-exhaustive-reference-check",
+  "cases": [
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "0"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 0,
+        "double": 0
+      },
+      "observed": "timeout after Contract limit 5s",
+      "exit_code": null,
+      "agrees": false
+    }
+  ],
+  "reference_basis": "Expected values computed directly from the public Contract before test execution.",
+  "source": "import time\ntime.sleep(10)\n",
+  "contract": {
+    "objective": "numeric public CLI behavior.",
+    "workspace": "/app",
+    "command": "python /app/clean.py <n>",
+    "input_spec": "Integer n in [0,10].",
+    "output_spec": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "Exit successfully and output a JSON object whose value equals n."
+      },
+      {
+        "id": "R2",
+        "description": "For every permitted n, double equals 2*n."
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 5
+    }
+  }
+}

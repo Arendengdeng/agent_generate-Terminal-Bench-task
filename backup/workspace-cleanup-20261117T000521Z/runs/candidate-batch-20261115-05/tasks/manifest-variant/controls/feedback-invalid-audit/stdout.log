@@ -1,0 +1,25 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________________ test_independent_control_audit ________________________
+
+    def test_independent_control_audit():
+        for data,expected in [({'a.txt': [], 'nested/a.txt': [0, 255], '中文 space.bin': [0, 255]}, [{'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}, {'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'paths': ['a.txt']}]), ({}, [])]:
+            with tempfile.TemporaryDirectory() as work:
+                t=Path(work)
+                source=t/'tree'; source.mkdir(); (source/'empty dir').mkdir(); target=t/'output.json'
+                for name,values in data.items():
+                    file=source/name; file.parent.mkdir(parents=True,exist_ok=True); file.write_bytes(bytes(values))
+                before={p.relative_to(source).as_posix():p.read_bytes() for p in source.rglob('*') if p.is_file()}
+                p=subprocess.run(['python3','/app/src/manifest.py',str(source),str(target)],capture_output=True,timeout=10)
+                assert p.returncode==0
+>               assert json.loads(target.read_text(encoding='utf-8'))==expected
+E               AssertionError: assert [{'size': 0, ... space.bin']}] == [{'size': 2, ...': ['a.txt']}]
+E                 
+E                 At index 0 diff: {'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000', 'paths': ['a.txt', 'nested/a.txt', '中文 space.bin']} != {'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}
+E                 Right contains one more item: {'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'paths': ['a.txt']}
+E                 Use -v to get more diff
+
+test_control_audit.py:14: AssertionError
+=========================== short test summary info ============================
+FAILED test_control_audit.py::test_independent_control_audit - AssertionError...
+1 failed in 0.07s

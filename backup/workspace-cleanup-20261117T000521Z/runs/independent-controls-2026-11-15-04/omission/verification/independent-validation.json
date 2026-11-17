@@ -1,0 +1,3837 @@
+{
+  "schema_version": 1,
+  "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+  "evidence_sufficient": true,
+  "panel_validated": true,
+  "backend_consistency": "consistent",
+  "backend_mismatches": [],
+  "execution_errors": false,
+  "suites": [
+    {
+      "backend": "docker",
+      "phase": "repair",
+      "version": 0,
+      "context": {
+        "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+        "implementations_digest": "113ff26f817b9379940ccde750ff2c180691e5a44c5613ea91c2c169ef2826d5",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+        },
+        "runtime": {
+          "base_url": "https://api.deepseek.com",
+          "model": "deepseek-flash",
+          "image": "python:3.11-slim",
+          "max_model_calls": 24,
+          "max_tool_calls": 100,
+          "command_timeout_sec": 30,
+          "api_timeout_sec": 90,
+          "max_file_bytes": 256000,
+          "max_total_bytes": 2000000,
+          "max_files": 100,
+          "max_output_bytes": 64000,
+          "max_response_bytes": 1000000,
+          "max_context_bytes": 4000000,
+          "max_completion_tokens": 6000,
+          "memory_mb": 256,
+          "cpus": 1.0,
+          "pids_limit": 64
+        }
+      },
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/execution.json",
+          "sha256": "4052ebbedc357ae7fcc9d3df56b134066368b8f271984d8761961317d3853e3a"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/contract.json",
+          "sha256": "7c9ed03e4fb85a707723c38a44869675451eff8f14b60029f3e982337b7345ae"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/synthesis.json",
+          "sha256": "a484d0aebf431d9f7cda68153c5580669ac8bf1ee6edad1bb0bed0d58d1673ea"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/app/clean.py",
+          "sha256": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/instruction.md",
+          "sha256": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/solution/solve.sh",
+          "sha256": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/initial-tests/tests.json",
+          "sha256": "083d04118101050e51b181ef16f2d6c6eb6511288633ce3d58eb6c98ed82d1e3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/initial-tests/tests/test_behavior.py",
+          "sha256": "2e8210363070edaf3f511b8bff6fabbe0b1039b66c0b09bd9e752af76edd4132"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/execution.json",
+      "execution_status": null,
+      "groups": [
+        {
+          "group": "feedback",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "feedback",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 0,
+          "missed": 1,
+          "scored_success_rate": 0.0,
+          "planned_confirmed_success_rate": 0.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "correct",
+          "planned": 0,
+          "confirmed": 0,
+          "unconfirmed": 0,
+          "confirmation_ratio": null,
+          "scored": 0,
+          "accepted": 0,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": null,
+          "planned_confirmed_success_rate": null,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {}
+        },
+        {
+          "group": "holdout",
+          "role": "invalid",
+          "planned": 0,
+          "confirmed": 0,
+          "unconfirmed": 0,
+          "confirmation_ratio": null,
+          "scored": 0,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 0,
+          "missed": 0,
+          "scored_success_rate": null,
+          "planned_confirmed_success_rate": null,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {}
+        }
+      ],
+      "controls": [
+        {
+          "id": "known-000",
+          "group": "feedback",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/known-000",
+          "implementation_digest": "b421fe09314c71fc298833b5c5fcd52385789d52ba239c8a80df4316159ba479",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/known-000/000.txt",
+              "sha256": "33d773a550c1d78bb21f966f7809b23c56494f3fb96abcb949ebd8b90331322d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "known-000",
+            "expected_reward": 1,
+            "status": "completed",
+            "reward": 1,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0003218080018996261,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.741061560001981,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":0,\"value\":0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":2,\"value\":1}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":4,\"value\":2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":8,\"value\":4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":10,\"value\":5}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":12,\"value\":6}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":14,\"value\":7}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":16,\"value\":8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":18,\"value\":9}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":20,\"value\":10}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00019874799909302965,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00020812900038436055,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.10099548600555863,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00035962000401923433,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/known-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "435651e6c925dd59bde32ce6e8364784e1d20da51cb9bf9a3364c8584c7a42ab"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "9d1480dec66c0a93eb41b2a47a87aa3a63b954761564968177ac56f050b32f11"
+            },
+            "stdout": "..                                                                       [100%]\n2 passed in 0.86s\n",
+            "stderr": "",
+            "pytest_exit_code": 0,
+            "outcome": "pass",
+            "wall_sec": 9.146,
+            "attribution": "uncertain"
+          }
+        },
+        {
+          "id": "invalid-000",
+          "group": "feedback",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/invalid-000",
+          "implementation_digest": "82eb749cfbededff6a0479abd2789ec17a1b074cf3d6083111f030f911783e00",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 3
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/invalid-000/000.txt",
+              "sha256": "bfd0d7cca96108dc41347a8f3c05fafca4840d91d097641e56ae9e921f37f988"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "invalid-000",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 1,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00017385100363753736,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.4772505789951538,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 0, \"double\": 0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 1, \"double\": 2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 2, \"double\": 4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 4, \"double\": 8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 5, \"double\": 10}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 6, \"double\": 12}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 7, \"double\": 14}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 8, \"double\": 16}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 9, \"double\": 18}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 10, \"double\": 20}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00014658500003861263,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 9.643099474487826e-05,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.05278156099666376,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0002694040013011545,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/invalid-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "0401dc67fff7f37dd55d8523be5b61e7b2a83d171fcc11e7ec2a4a7f983c46f1"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "f4bc471590551c0fef9d90efbf24c1c3c2698bced1239c1eff7798470ba40583"
+            },
+            "stdout": "..                                                                       [100%]\n2 passed in 0.54s\n",
+            "stderr": "",
+            "pytest_exit_code": 0,
+            "outcome": "pass",
+            "wall_sec": 7.945,
+            "attribution": "uncertain"
+          }
+        }
+      ],
+      "baseline": {
+        "oracle": "pass",
+        "nop": "fail"
+      },
+      "execution_counts": {
+        "pass": 3,
+        "fail": 1
+      },
+      "null_reward_count": 0,
+      "baseline_trials": {
+        "oracle": {
+          "label": "oracle",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0001359369998681359,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.46723860800557304,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 2, \"double\": 4}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 4, \"double\": 8}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 5, \"double\": 10}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 6, \"double\": 12}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 7, \"double\": 14}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 8, \"double\": 16}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 9, \"double\": 18}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 10, \"double\": 20}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00023391399736283347,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002712399946176447,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.05834754499664996,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00016034500004025176,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/oracle/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+            "/solution/solve.sh": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 0.54s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 6.653,
+          "attribution": "uncertain"
+        },
+        "nop": {
+          "label": "nop",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00019167300342814997,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 2}\n  Use -v to get more diff",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 9,
+                    "source": "            assert json.loads(p.stdout) == {'value': n, 'double': 2*n}"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.08682607600349002,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0003622939984779805,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00011721299961209297,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.04532217299856711,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00020479999511735514,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/000/execution/nop/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n__________________________________ test_value __________________________________\n\n    def test_value():\n        for n in range(11):\n            p = subprocess.run(['python3', '/app/clean.py', str(n)],capture_output=True,text=True,timeout=5)\n            assert p.returncode == 0\n            assert json.loads(p.stdout)['value'] == n\n            if n != 3:\n>               assert json.loads(p.stdout) == {'value': n, 'double': 2*n}\nE               AssertionError: assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\nE                 \nE                 Omitting 1 identical items, use -vv to show\nE                 Differing items:\nE                 {'double': 0} != {'double': 2}\nE                 Use -v to get more diff\n\ntest_behavior.py:9: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_value - AssertionError: assert {'value': 1, 'do...\n1 failed, 1 passed in 0.18s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 6.049,
+          "attribution": "uncertain"
+        }
+      }
+    },
+    {
+      "backend": "docker",
+      "phase": "repair",
+      "version": 1,
+      "context": {
+        "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+        "implementations_digest": "113ff26f817b9379940ccde750ff2c180691e5a44c5613ea91c2c169ef2826d5",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+        },
+        "runtime": {
+          "base_url": "https://api.deepseek.com",
+          "model": "deepseek-flash",
+          "image": "python:3.11-slim",
+          "max_model_calls": 24,
+          "max_tool_calls": 100,
+          "command_timeout_sec": 30,
+          "api_timeout_sec": 90,
+          "max_file_bytes": 256000,
+          "max_total_bytes": 2000000,
+          "max_files": 100,
+          "max_output_bytes": 64000,
+          "max_response_bytes": 1000000,
+          "max_context_bytes": 4000000,
+          "max_completion_tokens": 6000,
+          "memory_mb": 256,
+          "cpus": 1.0,
+          "pids_limit": 64
+        }
+      },
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/execution.json",
+          "sha256": "3e2961ea5cc6adadfe665dc6e510ead34294b2718d05a7f157558f9a5540b772"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/contract.json",
+          "sha256": "7c9ed03e4fb85a707723c38a44869675451eff8f14b60029f3e982337b7345ae"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/synthesis.json",
+          "sha256": "a484d0aebf431d9f7cda68153c5580669ac8bf1ee6edad1bb0bed0d58d1673ea"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/app/clean.py",
+          "sha256": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/instruction.md",
+          "sha256": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/solution/solve.sh",
+          "sha256": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests.json",
+          "sha256": "013b48b389bb3885ee57dcdc2185048b1a56eeb06c887d48f65982ca230d43a2"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests/test_behavior.py",
+          "sha256": "6366ac55801a870ad98b0a2fde2ac6a0d66499418f4dfcdc89d75b0421b8f8c3"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/execution.json",
+      "execution_status": null,
+      "groups": [
+        {
+          "group": "feedback",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "feedback",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 1,
+          "missed": 0,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "fail": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "correct",
+          "planned": 0,
+          "confirmed": 0,
+          "unconfirmed": 0,
+          "confirmation_ratio": null,
+          "scored": 0,
+          "accepted": 0,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": null,
+          "planned_confirmed_success_rate": null,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {}
+        },
+        {
+          "group": "holdout",
+          "role": "invalid",
+          "planned": 0,
+          "confirmed": 0,
+          "unconfirmed": 0,
+          "confirmation_ratio": null,
+          "scored": 0,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 0,
+          "missed": 0,
+          "scored_success_rate": null,
+          "planned_confirmed_success_rate": null,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {}
+        }
+      ],
+      "controls": [
+        {
+          "id": "known-000",
+          "group": "feedback",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/known-000",
+          "implementation_digest": "b421fe09314c71fc298833b5c5fcd52385789d52ba239c8a80df4316159ba479",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/known-000/000.txt",
+              "sha256": "33d773a550c1d78bb21f966f7809b23c56494f3fb96abcb949ebd8b90331322d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "known-000",
+            "expected_reward": 1,
+            "status": "completed",
+            "reward": 1,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00024896999821066856,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.5823280559998238,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":0,\"value\":0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":2,\"value\":1}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":4,\"value\":2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":8,\"value\":4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":10,\"value\":5}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":12,\"value\":6}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":14,\"value\":7}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":16,\"value\":8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":18,\"value\":9}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":20,\"value\":10}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00016349399811588228,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00018239700148114935,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.043053127999883145,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00022651200561085716,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/known-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "435651e6c925dd59bde32ce6e8364784e1d20da51cb9bf9a3364c8584c7a42ab"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "9d1480dec66c0a93eb41b2a47a87aa3a63b954761564968177ac56f050b32f11"
+            },
+            "stdout": "..                                                                       [100%]\n2 passed in 0.65s\n",
+            "stderr": "",
+            "pytest_exit_code": 0,
+            "outcome": "pass",
+            "wall_sec": 7.83,
+            "attribution": "uncertain"
+          }
+        },
+        {
+          "id": "invalid-000",
+          "group": "feedback",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/invalid-000",
+          "implementation_digest": "82eb749cfbededff6a0479abd2789ec17a1b074cf3d6083111f030f911783e00",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 3
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/invalid-000/000.txt",
+              "sha256": "bfd0d7cca96108dc41347a8f3c05fafca4840d91d097641e56ae9e921f37f988"
+            }
+          ],
+          "outcome": "fail",
+          "trial": {
+            "label": "invalid-000",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0003560660043149255,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.4778811299984227,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 0, \"double\": 0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 1, \"double\": 2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 2, \"double\": 4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 4, \"double\": 8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 5, \"double\": 10}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 6, \"double\": 12}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 7, \"double\": 14}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 8, \"double\": 16}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 9, \"double\": 18}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 10, \"double\": 20}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00024061599833657965,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0002546199975768104,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert {'value': 3, 'double': 3} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 3} != {'double': 6}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_behavior.py",
+                      "line": 14,
+                      "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.04051407000224572,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00021917399863013998,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/invalid-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "0401dc67fff7f37dd55d8523be5b61e7b2a83d171fcc11e7ec2a4a7f983c46f1"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "f4bc471590551c0fef9d90efbf24c1c3c2698bced1239c1eff7798470ba40583"
+            },
+            "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}\nE       AssertionError: assert {'value': 3, 'double': 3} == {'value': 3, 'double': 6}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {'double': 3} != {'double': 6}\nE         Use -v to get more diff\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...\n1 failed, 1 passed in 0.56s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "outcome": "fail",
+            "wall_sec": 7.459,
+            "attribution": "uncertain"
+          }
+        }
+      ],
+      "baseline": {
+        "oracle": "pass",
+        "nop": "fail"
+      },
+      "execution_counts": {
+        "pass": 2,
+        "fail": 2
+      },
+      "null_reward_count": 0,
+      "baseline_trials": {
+        "oracle": {
+          "label": "oracle",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002377519995206967,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.5626917460031109,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 2, \"double\": 4}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 4, \"double\": 8}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 5, \"double\": 10}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 6, \"double\": 12}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 7, \"double\": 14}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 8, \"double\": 16}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 9, \"double\": 18}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 10, \"double\": 20}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002247299998998642,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00019311100186314434,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.05997580700204708,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00021190100233070552,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/oracle/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+            "/solution/solve.sh": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 0.64s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 7.947,
+          "attribution": "uncertain"
+        },
+        "nop": {
+          "label": "nop",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002233260020148009,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 2}\n  Use -v to get more diff",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 9,
+                    "source": "            assert json.loads(p.stdout) == {'value': n, 'double': 2*n}"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.08972322799672838,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0004555199993774295,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0005039280003984459,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 6}\n  Use -v to get more diff",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 14,
+                    "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.06526174100144999,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00040743099816609174,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/execution/nop/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n__________________________________ test_value __________________________________\n\n    def test_value():\n        for n in range(11):\n            p = subprocess.run(['python3', '/app/clean.py', str(n)],capture_output=True,text=True,timeout=5)\n            assert p.returncode == 0\n            assert json.loads(p.stdout)['value'] == n\n            if n != 3:\n>               assert json.loads(p.stdout) == {'value': n, 'double': 2*n}\nE               AssertionError: assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\nE                 \nE                 Omitting 1 identical items, use -vv to show\nE                 Differing items:\nE                 {'double': 0} != {'double': 2}\nE                 Use -v to get more diff\n\ntest_behavior.py:9: AssertionError\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}\nE       AssertionError: assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {'double': 0} != {'double': 6}\nE         Use -v to get more diff\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_value - AssertionError: assert {'value': 1, 'do...\nFAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...\n2 failed in 0.23s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 7.306,
+          "attribution": "uncertain"
+        }
+      }
+    },
+    {
+      "backend": "docker",
+      "phase": "final",
+      "version": "frozen",
+      "context": {
+        "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+        "implementations_digest": "113ff26f817b9379940ccde750ff2c180691e5a44c5613ea91c2c169ef2826d5",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+        },
+        "runtime": {
+          "base_url": "https://api.deepseek.com",
+          "model": "deepseek-flash",
+          "image": "python:3.11-slim",
+          "max_model_calls": 24,
+          "max_tool_calls": 100,
+          "command_timeout_sec": 30,
+          "api_timeout_sec": 90,
+          "max_file_bytes": 256000,
+          "max_total_bytes": 2000000,
+          "max_files": 100,
+          "max_output_bytes": 64000,
+          "max_response_bytes": 1000000,
+          "max_context_bytes": 4000000,
+          "max_completion_tokens": 6000,
+          "memory_mb": 256,
+          "cpus": 1.0,
+          "pids_limit": 64
+        }
+      },
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/execution.json",
+          "sha256": "a28fc5280372cf3679c0f067a7e103d418630ce026297d95486d390392a30884"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/contract.json",
+          "sha256": "7c9ed03e4fb85a707723c38a44869675451eff8f14b60029f3e982337b7345ae"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/synthesis.json",
+          "sha256": "a484d0aebf431d9f7cda68153c5580669ac8bf1ee6edad1bb0bed0d58d1673ea"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/app/clean.py",
+          "sha256": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/instruction.md",
+          "sha256": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/solution/solve.sh",
+          "sha256": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests.json",
+          "sha256": "013b48b389bb3885ee57dcdc2185048b1a56eeb06c887d48f65982ca230d43a2"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests/test_behavior.py",
+          "sha256": "6366ac55801a870ad98b0a2fde2ac6a0d66499418f4dfcdc89d75b0421b8f8c3"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/execution.json",
+      "execution_status": "passed",
+      "groups": [
+        {
+          "group": "feedback",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "feedback",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 1,
+          "missed": 0,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "fail": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 1,
+          "missed": 0,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "fail": 1
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "known-000",
+          "group": "feedback",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/known-000",
+          "implementation_digest": "b421fe09314c71fc298833b5c5fcd52385789d52ba239c8a80df4316159ba479",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/known-000/000.txt",
+              "sha256": "33d773a550c1d78bb21f966f7809b23c56494f3fb96abcb949ebd8b90331322d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "known-000",
+            "expected_reward": 1,
+            "status": "completed",
+            "reward": 1,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00019846399663947523,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.5556674559993553,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":0,\"value\":0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":2,\"value\":1}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":4,\"value\":2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":8,\"value\":4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":10,\"value\":5}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":12,\"value\":6}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":14,\"value\":7}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":16,\"value\":8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":18,\"value\":9}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":20,\"value\":10}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0002039929968304932,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00022390600497601554,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.054631115002848674,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"double\":6,\"value\":3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00021360599930630997,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/known-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "435651e6c925dd59bde32ce6e8364784e1d20da51cb9bf9a3364c8584c7a42ab"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "9d1480dec66c0a93eb41b2a47a87aa3a63b954761564968177ac56f050b32f11"
+            },
+            "stdout": "..                                                                       [100%]\n2 passed in 0.63s\n",
+            "stderr": "",
+            "pytest_exit_code": 0,
+            "outcome": "pass",
+            "wall_sec": 8.018,
+            "attribution": "uncertain"
+          }
+        },
+        {
+          "id": "holdout-correct-000",
+          "group": "holdout",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/holdout-correct-000",
+          "implementation_digest": "a63f9b0c69b0451fc2f36b4a9b3c9e9ecaa2ddf5479f1ddaea7ed0928ffca527",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/holdout-correct-000/000.txt",
+              "sha256": "4bc39c8a93d53e89525745469031d1faf620a41782b6bbc60664ce1326aa1e3d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "holdout-correct-000",
+            "expected_reward": 1,
+            "status": "completed",
+            "reward": 1,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00017959100659936666,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.5254377250021207,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 0,\n  \"double\": 0\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 1,\n  \"double\": 2\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 2,\n  \"double\": 4\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 3,\n  \"double\": 6\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 4,\n  \"double\": 8\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 5,\n  \"double\": 10\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 6,\n  \"double\": 12\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 7,\n  \"double\": 14\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 8,\n  \"double\": 16\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 9,\n  \"double\": 18\n}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 10,\n  \"double\": 20\n}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00022077800531405956,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00020599699928425252,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.04180130000167992,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\n  \"value\": 3,\n  \"double\": 6\n}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0001986559946089983,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/holdout-correct-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "68ddab5229a2c4af0d30e9c90c80b6eeaa20661d01ca0d5646429fee0828bd2c"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "3a0beee3b00191f4f7b3cae0a80cea201f07be952914c33c98c97c7277212199"
+            },
+            "stdout": "..                                                                       [100%]\n2 passed in 0.58s\n",
+            "stderr": "",
+            "pytest_exit_code": 0,
+            "outcome": "pass",
+            "wall_sec": 7.922,
+            "attribution": "uncertain"
+          }
+        },
+        {
+          "id": "invalid-000",
+          "group": "feedback",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/invalid-000",
+          "implementation_digest": "82eb749cfbededff6a0479abd2789ec17a1b074cf3d6083111f030f911783e00",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 3
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/invalid-000/000.txt",
+              "sha256": "bfd0d7cca96108dc41347a8f3c05fafca4840d91d097641e56ae9e921f37f988"
+            }
+          ],
+          "outcome": "fail",
+          "trial": {
+            "label": "invalid-000",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00024259299971163273,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.5464935019990662,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 0, \"double\": 0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 1, \"double\": 2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 2, \"double\": 4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 4, \"double\": 8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 5, \"double\": 10}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 6, \"double\": 12}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 7, \"double\": 14}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 8, \"double\": 16}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 9, \"double\": 18}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 10, \"double\": 20}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0002238550005131401,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00016004700592020527,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert {'value': 3, 'double': 3} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 3} != {'double': 6}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_behavior.py",
+                      "line": 14,
+                      "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.05290409000008367,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 3}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00018061199807561934,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/invalid-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "0401dc67fff7f37dd55d8523be5b61e7b2a83d171fcc11e7ec2a4a7f983c46f1"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "f4bc471590551c0fef9d90efbf24c1c3c2698bced1239c1eff7798470ba40583"
+            },
+            "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}\nE       AssertionError: assert {'value': 3, 'double': 3} == {'value': 3, 'double': 6}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {'double': 3} != {'double': 6}\nE         Use -v to get more diff\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...\n1 failed, 1 passed in 0.65s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "outcome": "fail",
+            "wall_sec": 7.574,
+            "attribution": "uncertain"
+          }
+        },
+        {
+          "id": "holdout-invalid-000",
+          "group": "holdout",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/holdout-invalid-000",
+          "implementation_digest": "b278ac22bb4e86b916eee09c36b2e38ead32bee46d3242f276263715c941380b",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 7
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/holdout-invalid-000/000.txt",
+              "sha256": "6f60f22b3994b21b94efd0249a189eab3aaac1ebc96747d47c8d551d881d66a1"
+            }
+          ],
+          "outcome": "fail",
+          "trial": {
+            "label": "holdout-invalid-000",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00017789700359571725,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "call",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.4413351659968612,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 0, \"double\": 0}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 1, \"double\": 2}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 2, \"double\": 4}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 7}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 4, \"double\": 8}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 5, \"double\": 10}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 6, \"double\": 12}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 7, \"double\": 14}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 8, \"double\": 16}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 9, \"double\": 18}\n",
+                    "stderr": ""
+                  },
+                  {
+                    "nodeid": "test_behavior.py::test_value",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 10, \"double\": 20}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_value",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00023689599765930325,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 9.016200056066737e-05,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert {'value': 3, 'double': 7} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 7} != {'double': 6}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_behavior.py",
+                      "line": 14,
+                      "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.03952258999925107,
+                "commands": [
+                  {
+                    "nodeid": "test_behavior.py::test_double",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "{\"value\": 3, \"double\": 7}\n",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_behavior.py::test_double",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0001504280007793568,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/holdout-invalid-000/execution.json",
+            "implementation_manifest": {
+              "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+              "/solution/solve.sh": "7dfab9df6cb2b5a28efa6764ac9a0a373deaa762488065bcc7f5643a2636d9df"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "3dc670fcf581075189857d5e5e0a2f001c77fb2660338b865295bf691dc5d483"
+            },
+            "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}\nE       AssertionError: assert {'value': 3, 'double': 7} == {'value': 3, 'double': 6}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {'double': 7} != {'double': 6}\nE         Use -v to get more diff\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...\n1 failed, 1 passed in 0.52s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "outcome": "fail",
+            "wall_sec": 6.665,
+            "attribution": "uncertain"
+          }
+        }
+      ],
+      "baseline": {
+        "oracle": "pass",
+        "nop": "fail"
+      },
+      "execution_counts": {
+        "pass": 3,
+        "fail": 3
+      },
+      "null_reward_count": 0,
+      "baseline_trials": {
+        "oracle": {
+          "label": "oracle",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.001203765998070594,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.6953681189988856,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 2, \"double\": 4}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 4, \"double\": 8}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 5, \"double\": 10}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 6, \"double\": 12}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 7, \"double\": 14}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 8, \"double\": 16}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 9, \"double\": 18}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 10, \"double\": 20}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00015348899614764377,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.000165872996149119,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.04937672900268808,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 6}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0001727940034470521,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/oracle/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+            "/solution/solve.sh": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 0.77s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 7.318,
+          "attribution": "uncertain"
+        },
+        "nop": {
+          "label": "nop",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00013534900062950328,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 2}\n  Use -v to get more diff",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 9,
+                    "source": "            assert json.loads(p.stdout) == {'value': n, 'double': 2*n}"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0752069579975796,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 0, \"double\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_value",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 1, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_value",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0003082950061070733,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00016932300059124827,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 6}\n  Use -v to get more diff",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 14,
+                    "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.04293970199796604,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_double",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"value\": 3, \"double\": 0}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_double",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.000203575000341516,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/final-docker/nop/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n__________________________________ test_value __________________________________\n\n    def test_value():\n        for n in range(11):\n            p = subprocess.run(['python3', '/app/clean.py', str(n)],capture_output=True,text=True,timeout=5)\n            assert p.returncode == 0\n            assert json.loads(p.stdout)['value'] == n\n            if n != 3:\n>               assert json.loads(p.stdout) == {'value': n, 'double': 2*n}\nE               AssertionError: assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\nE                 \nE                 Omitting 1 identical items, use -vv to show\nE                 Differing items:\nE                 {'double': 0} != {'double': 2}\nE                 Use -v to get more diff\n\ntest_behavior.py:9: AssertionError\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}\nE       AssertionError: assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {'double': 0} != {'double': 6}\nE         Use -v to get more diff\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_value - AssertionError: assert {'value': 1, 'do...\nFAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...\n2 failed in 0.17s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 6.766,
+          "attribution": "uncertain"
+        }
+      }
+    },
+    {
+      "backend": "harbor",
+      "phase": "final",
+      "version": "frozen",
+      "context": {
+        "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+        "implementations_digest": "113ff26f817b9379940ccde750ff2c180691e5a44c5613ea91c2c169ef2826d5",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task_base": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier_dockerfile": "FROM python:3.11-slim\nRUN pip install --no-cache-dir pytest==9.2.0\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1\nRUN mkdir -p /tests /logs/verifier /app\nCOPY . /tests/\nWORKDIR /tests\n",
+          "trials": {
+            "oracle": {
+              "status": "unavailable"
+            },
+            "nop": {
+              "status": "unavailable"
+            },
+            "known-000": {
+              "status": "unavailable"
+            },
+            "holdout-correct-000": {
+              "status": "unavailable"
+            },
+            "invalid-000": {
+              "status": "unavailable"
+            },
+            "holdout-invalid-000": {
+              "status": "unavailable"
+            }
+          }
+        },
+        "runtime": {
+          "task_toml": "schema_version = \"1.3\"\nartifacts = [\"/app/clean.py\"]\n[agent]\ntimeout_sec = 300\n[verifier]\ntimeout_sec = 120\nenvironment_mode = \"separate\"\n[verifier.environment]\nnetwork_mode = \"public\"\nbuild_timeout_sec = 600\ncpus = 1\nmemory_mb = 512\n[environment]\nnetwork_mode = \"public\"\nbuild_timeout_sec = 600\ncpus = 1\nmemory_mb = 512\n",
+          "harbor_version": "0.25.0"
+        }
+      },
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/harbor-trials.json",
+          "sha256": "8db413039d4e98db26cfc1004e5b77408780380a5109ee8be73f20b470544ab5"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/instruction.md",
+          "sha256": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/task.toml",
+          "sha256": "f9d5ae8255b6ad9a1b2f8aa8a0ea1ce5dea9782cb2fe2ba985d64108106680f8"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/solution/solve.sh",
+          "sha256": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/tests/test_behavior.py",
+          "sha256": "6366ac55801a870ad98b0a2fde2ac6a0d66499418f4dfcdc89d75b0421b8f8c3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/tests/Dockerfile",
+          "sha256": "2cb8640e91e0739723936447b5a56f05fd8d40839e17f7f3901f4f44fc599479"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/tests/expected.json",
+          "sha256": "c6f09fe4cd4498deb93869cd52ceb87e2d9a4d58557ecb6f9b63fc99efc3871d"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/tests/test.sh",
+          "sha256": "74cae9c5a293f7364e347311bff130e9208b622ea9731e075dbc9b82507989ee"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/tests/run_tests.py",
+          "sha256": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/export/task/environment/app/clean.py",
+          "sha256": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/oracle/task__jmDxQGA/result.json",
+          "sha256": "2828ea94a66da478c0a9adfda1c769ce6a08d36d3e3d9fbc9cdd75cab638fc73"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/oracle/task__jmDxQGA/verifier/execution.json",
+          "sha256": "dcbf7c954c4ab89b12080f48025508cb14a9a06d2d35de0df77ac70246412db6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/oracle.stdout.log",
+          "sha256": "081cf821e85ffb54a450cc06e49a73aba5208a5a020442a4bbeb3944bb511558"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/nop/task__S3NqBHL/result.json",
+          "sha256": "f879a21659d550f3d74927a934a58f2206488b41b1faaffe8796c74250b5c8af"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/nop/task__S3NqBHL/verifier/execution.json",
+          "sha256": "b7da314d306bd9bb1548877d8b8cc3dda5be30085ab66a0a3e9e5b37a56b04c4"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/nop.stdout.log",
+          "sha256": "778a7456481b8fc991bb9a58d9884e0c62c98af2f37645a1aa53a0d3bafe1eaa"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/known-000/known-000__SJksixo/result.json",
+          "sha256": "e02a5d57f5181a4dc71a212be5f2d4f4c76c6125e2d174156b42eb9104cb83f6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/known-000/known-000__SJksixo/verifier/execution.json",
+          "sha256": "78b754912dd7408370eb6326cef727f329c0c0dd9bfc7e096b50ade9f6ad041b"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/known-000.stdout.log",
+          "sha256": "c83eb766bdde80bc5b0520ca655f0bf888f3bc060997def7c2dd685eeb651759"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-correct-000/holdout-correct-000__qaoXgjW/result.json",
+          "sha256": "47be26eab4d5dfc6c06acd92a899af007df9f71133e3b4ca36a40494e3552fe5"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-correct-000/holdout-correct-000__qaoXgjW/verifier/execution.json",
+          "sha256": "af03bcd708a38e78d57e16aaf23cd155492ba8fbe6086b1f23549b3912159155"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/holdout-correct-000.stdout.log",
+          "sha256": "70e45d4c8b374d63c12d878b4739b9f0b467f03588ae1a1a6a14f1989bbe6653"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/invalid-000/invalid-000__k9cSzz9/result.json",
+          "sha256": "116e194c79dca7bf4c226748b200d85358cdfe6d424e90ea23b4c235238e50c9"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/invalid-000/invalid-000__k9cSzz9/verifier/execution.json",
+          "sha256": "64f370fa689d3761c0cd71574ddc316337306f13206a147afed46391ce376789"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/invalid-000.stdout.log",
+          "sha256": "44ee549feb007d2877ac9089919c88886f7673623bf101e51239170eb16d33c3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-invalid-000/holdout-invalid-000__MWJvnMQ/result.json",
+          "sha256": "7ecba6e72bf20e44d8e1e32f0d0d24212ed513759dbcb39de90f59b6bb7227a8"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-invalid-000/holdout-invalid-000__MWJvnMQ/verifier/execution.json",
+          "sha256": "e26d8da14d8be7e22b01c4d0626ff10de2ac86d6d5b097bc0e8fee07eca3730c"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/holdout-invalid-000.stdout.log",
+          "sha256": "835a1d2d1f4b1994826d1c7cbb9196bc7f1fa1a4067ea09c2c8929dc0aeaf2f9"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/contract.json",
+          "sha256": "7c9ed03e4fb85a707723c38a44869675451eff8f14b60029f3e982337b7345ae"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/synthesis.json",
+          "sha256": "a484d0aebf431d9f7cda68153c5580669ac8bf1ee6edad1bb0bed0d58d1673ea"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/environment/app/clean.py",
+          "sha256": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/instruction.md",
+          "sha256": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/candidate/draft/solution/solve.sh",
+          "sha256": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests.json",
+          "sha256": "013b48b389bb3885ee57dcdc2185048b1a56eeb06c887d48f65982ca230d43a2"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/attempts/001/test-agent/tests/test_behavior.py",
+          "sha256": "6366ac55801a870ad98b0a2fde2ac6a0d66499418f4dfcdc89d75b0421b8f8c3"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/harbor-trials.json",
+      "execution_status": null,
+      "groups": [
+        {
+          "group": "feedback",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "feedback",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 1,
+          "missed": 0,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "fail": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "correct",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": 1,
+          "false_rejected": 0,
+          "rejected": null,
+          "missed": null,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "pass": 1
+          }
+        },
+        {
+          "group": "holdout",
+          "role": "invalid",
+          "planned": 1,
+          "confirmed": 1,
+          "unconfirmed": 0,
+          "confirmation_ratio": 1.0,
+          "scored": 1,
+          "accepted": null,
+          "false_rejected": null,
+          "rejected": 1,
+          "missed": 0,
+          "scored_success_rate": 1.0,
+          "planned_confirmed_success_rate": 1.0,
+          "error": 0,
+          "timeout": 0,
+          "not_run": 0,
+          "all_planned_outcomes": {
+            "fail": 1
+          }
+        }
+      ],
+      "controls": [
+        {
+          "id": "known-000",
+          "group": "feedback",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/known-000",
+          "implementation_digest": "b421fe09314c71fc298833b5c5fcd52385789d52ba239c8a80df4316159ba479",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/known-000/000.txt",
+              "sha256": "33d773a550c1d78bb21f966f7809b23c56494f3fb96abcb949ebd8b90331322d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "known-000",
+            "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-correct",
+            "confirmation": "confirmed",
+            "status": "completed",
+            "reward": 1,
+            "process_exit_code": 0,
+            "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/known-000/known-000__SJksixo",
+            "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/known-000/known-000__SJksixo/result.json",
+            "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/known-000/known-000__SJksixo/verifier/execution.json",
+            "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/known-000.stdout.log",
+            "error": null,
+            "artifact_manifest": {
+              "/app/clean.py": "9d1480dec66c0a93eb41b2a47a87aa3a63b954761564968177ac56f050b32f11"
+            },
+            "wall_sec": 44.481,
+            "images": {
+              "status": "unavailable"
+            }
+          }
+        },
+        {
+          "id": "holdout-correct-000",
+          "group": "holdout",
+          "role": "correct",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-correct",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/holdout-correct-000",
+          "implementation_digest": "a63f9b0c69b0451fc2f36b4a9b3c9e9ecaa2ddf5479f1ddaea7ed0928ffca527",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 0 violations.",
+            "requirement_ids": [
+              "R1",
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-correct-review.json"
+            ]
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/holdout-correct-000/000.txt",
+              "sha256": "4bc39c8a93d53e89525745469031d1faf620a41782b6bbc60664ce1326aa1e3d"
+            }
+          ],
+          "outcome": "pass",
+          "trial": {
+            "label": "holdout-correct-000",
+            "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-correct",
+            "confirmation": "confirmed",
+            "status": "completed",
+            "reward": 1,
+            "process_exit_code": 0,
+            "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-correct-000/holdout-correct-000__qaoXgjW",
+            "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-correct-000/holdout-correct-000__qaoXgjW/result.json",
+            "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-correct-000/holdout-correct-000__qaoXgjW/verifier/execution.json",
+            "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/holdout-correct-000.stdout.log",
+            "error": null,
+            "artifact_manifest": {
+              "/app/clean.py": "3a0beee3b00191f4f7b3cae0a80cea201f07be952914c33c98c97c7277212199"
+            },
+            "wall_sec": 42.28,
+            "images": {
+              "status": "unavailable"
+            }
+          }
+        },
+        {
+          "id": "invalid-000",
+          "group": "feedback",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/invalid-000",
+          "implementation_digest": "82eb749cfbededff6a0479abd2789ec17a1b074cf3d6083111f030f911783e00",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 3
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/invalid-000/000.txt",
+              "sha256": "bfd0d7cca96108dc41347a8f3c05fafca4840d91d097641e56ae9e921f37f988"
+            }
+          ],
+          "outcome": "fail",
+          "trial": {
+            "label": "invalid-000",
+            "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/feedback-invalid",
+            "confirmation": "confirmed",
+            "status": "completed",
+            "reward": 0,
+            "process_exit_code": 0,
+            "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/invalid-000/invalid-000__k9cSzz9",
+            "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/invalid-000/invalid-000__k9cSzz9/result.json",
+            "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/invalid-000/invalid-000__k9cSzz9/verifier/execution.json",
+            "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/invalid-000.stdout.log",
+            "error": null,
+            "artifact_manifest": {
+              "/app/clean.py": "f4bc471590551c0fef9d90efbf24c1c3c2698bced1239c1eff7798470ba40583"
+            },
+            "wall_sec": 42.579,
+            "images": {
+              "status": "unavailable"
+            }
+          }
+        },
+        {
+          "id": "holdout-invalid-000",
+          "group": "holdout",
+          "role": "invalid",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-invalid",
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/controls/holdout-invalid-000",
+          "implementation_digest": "b278ac22bb4e86b916eee09c36b2e38ead32bee46d3242f276263715c941380b",
+          "contract_digest": "a1b2804a7cfa665c8bd384b2262acb376cd90e6ea3f0a4d83a6aec2fb17efec0",
+          "confirmation": "confirmed",
+          "confirmation_reasons": [],
+          "review": {
+            "status": "confirmed",
+            "reviewer": "Codex Contract source inspection",
+            "method": "contract-source-review-and-exhaustive-reference-check",
+            "rationale": "Checked 11 inputs independently of evaluated tests and Oracle; 1 violations.",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence_paths": [
+              "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-invalid-review.json"
+            ],
+            "counterexample": {
+              "argv": [
+                "python3",
+                "/app/clean.py",
+                "3"
+              ],
+              "stdin": "",
+              "expected": {
+                "value": 3,
+                "double": 6
+              },
+              "observed": {
+                "value": 3,
+                "double": 7
+              }
+            }
+          },
+          "review_evidence": [
+            {
+              "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/control-reviews/holdout-invalid-000/000.txt",
+              "sha256": "6f60f22b3994b21b94efd0249a189eab3aaac1ebc96747d47c8d551d881d66a1"
+            }
+          ],
+          "outcome": "fail",
+          "trial": {
+            "label": "holdout-invalid-000",
+            "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/reviews/holdout-invalid",
+            "confirmation": "confirmed",
+            "status": "completed",
+            "reward": 0,
+            "process_exit_code": 0,
+            "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-invalid-000/holdout-invalid-000__MWJvnMQ",
+            "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-invalid-000/holdout-invalid-000__MWJvnMQ/result.json",
+            "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/holdout-invalid-000/holdout-invalid-000__MWJvnMQ/verifier/execution.json",
+            "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/holdout-invalid-000.stdout.log",
+            "error": null,
+            "artifact_manifest": {
+              "/app/clean.py": "3dc670fcf581075189857d5e5e0a2f001c77fb2660338b865295bf691dc5d483"
+            },
+            "wall_sec": 50.715,
+            "images": {
+              "status": "unavailable"
+            }
+          }
+        }
+      ],
+      "baseline": {
+        "oracle": "pass",
+        "nop": "fail"
+      },
+      "execution_counts": {
+        "pass": 3,
+        "fail": 3
+      },
+      "null_reward_count": 0,
+      "baseline_trials": {
+        "oracle": {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/oracle/task__jmDxQGA",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/oracle/task__jmDxQGA/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/oracle/task__jmDxQGA/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/oracle.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+          },
+          "wall_sec": 45.775,
+          "images": {
+            "status": "unavailable"
+          }
+        },
+        "nop": {
+          "label": "nop",
+          "status": "completed",
+          "reward": 0,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/nop/task__S3NqBHL",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/nop/task__S3NqBHL/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/jobs/nop/task__S3NqBHL/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/omission/verification/nop.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+          },
+          "wall_sec": 42.375,
+          "images": {
+            "status": "unavailable"
+          }
+        }
+      }
+    }
+  ],
+  "limitation": "Finite Contract-reviewed controls; not proof of general test sufficiency."
+}

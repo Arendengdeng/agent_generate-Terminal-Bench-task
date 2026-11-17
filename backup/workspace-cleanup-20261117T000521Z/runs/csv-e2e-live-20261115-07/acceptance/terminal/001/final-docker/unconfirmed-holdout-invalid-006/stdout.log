@@ -1,0 +1,272 @@
+F...FF.F.F....F.FF.F.F.                                                  [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)
+        assert_header(rows)
+>       assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol "C" Jones'], ['dave@example.net', '']]
+E       assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 2 diff: ['alice@example.com', 'Alice Duplicate'] != ['carol@example.org', 'Carol "C" Jones']
+E         Left contains 2 more items, first extra item: ['bob@example.com', 'Bob Again']
+E         Use -v to get more diff
+
+test_clean.py:42: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['  First@Mail.COM ', '  First Name  '], ['second@mail.com', 'Second'], ['FIRST@MAIL.COM', 'Other Name'], ['first@mail.com', 'Third'], ['\tsecond@MAIL.com', 'Second Again']])
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+>       assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]
+E       AssertionError: assert [['email', 'n...econd Again']] == [['email', 'n...m', 'Second']]
+E         
+E         Left contains 3 more items, first extra item: ['first@mail.com', 'Other Name']
+E         Use -v to get more diff
+
+test_clean.py:69: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['X@Y.COM', 'One, Two'], ['x@y.com', 'Duplicate'], ['z@y.com', 'Three']], quoting=csv.QUOTE_ALL)
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+>       assert rows == [['email', 'name'], ['x@y.com', 'One, Two'], ['z@y.com', 'Three']]
+E       AssertionError: assert [['email', 'n...om', 'Three']] == [['email', 'n...om', 'Three']]
+E         
+E         At index 2 diff: ['x@y.com', 'Duplicate'] != ['z@y.com', 'Three']
+E         Left contains one more item: ['z@y.com', 'Three']
+E         Use -v to get more diff
+
+test_clean.py:76: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, 'w', encoding='utf-8', newline='') as fh:
+            fh.write(data)
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+>       assert rows == [['email', 'name'], ['a@b.c', 'Last, First']]
+E       AssertionError: assert [['email', 'n...Other, Name']] == [['email', 'n...Last, First']]
+E         
+E         Left contains one more item: ['a@b.c', 'Other, Name']
+E         Use -v to get more diff
+
+test_clean.py:96: AssertionError
+_______________________ test_generated_large_duplicates ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0')
+
+    def test_generated_large_duplicates(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        records = []
+        expected = []
+        for i in range(1000):
+            idx = i % 500
+            email = 'user%03d@example.com' % idx
+            case_email = email.upper() if i % 2 else '  ' + email + '  '
+            name = 'Name %d' % i
+            records.append([case_email, name])
+            if i < 500:
+                expected.append([email, name])
+        write_csv(in_path, ['email', 'name'], records)
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['user000@ex...Name 5'], ...] == [['user000@ex...Name 5'], ...]
+E         
+E         Left contains 500 more items, first extra item: ['user000@example.com', 'Name 500']
+E         Use -v to get more diff
+
+test_clean.py:129: AssertionError
+_______________ test_sibling_backup_file_does_not_override_input _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0')
+
+    def test_sibling_backup_file_does_not_override_input(tmp_path):
+        """The rows written must come from the input path given on the CLI."""
+        work = str(tmp_path)
+        in_path = _write_text(
+            work,
+            'in.csv',
+            'email,name\n'
+            '  Alice@Example.COM  ,  Alice Smith  \n'
+            'bob@example.com,"Bob, Jr."\n'
+            'ALICE@example.com,Alice Duplicate\n',
+        )
+        expected_before = open(in_path, 'rb').read()
+        # A decoy sibling file that is not named on the command line.
+        _write_text(work, 'in.csv.bak', 'email,name\nold@example.com,Old Export\n')
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['alice@example.com', 'Alice Smith'],
+            ['bob@example.com', 'Bob, Jr.'],
+        ], 'output did not reflect the CLI input records: %r' % (rows,)
+E       AssertionError: output did not reflect the CLI input records: [['email', 'name'], ['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['alice@example.com', 'Alice Duplicate']]
+E       assert [['email', 'n...e Duplicate']] == [['email', 'n..., 'Bob, Jr.']]
+E         
+E         Left contains one more item: ['alice@example.com', 'Alice Duplicate']
+E         Use -v to get more diff
+
+test_clean_extra.py:79: AssertionError
+__________________ test_large_mixed_generated_input_reference __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0')
+
+    def test_large_mixed_generated_input_reference(tmp_path):
+        """A 1000-record generated input checked against an independently computed result."""
+        work = str(tmp_path)
+        records = []
+        expected = []
+        seen = set()
+        for i in range(1000):
+            idx = (i * 37) % 700
+            raw_email = 'Person%03d@Example.COM' % idx
+            if i % 3 == 0:
+                raw_email = '  ' + raw_email + '\t'
+            if i % 4 == 0:
+                raw_email = raw_email.lower()
+            name = 'Person %d' % idx
+            if i % 5 == 0:
+                name = '  ' + name + ', Sr.  '
+                norm_name = 'Person %d, Sr.' % idx
+            else:
+                norm_name = name
+            records.append([raw_email, name])
+            norm_email = raw_email.strip().lower()
+            if norm_email not in seen:
+                seen.add(norm_email)
+                expected.append([norm_email, norm_name])
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+        assert rows[0] == ['email', 'name']
+>       assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'
+E       AssertionError: normalization/dedup/order mismatch on generated input
+E       assert [['person000@...5, Sr.'], ...] == [['person000@...5, Sr.'], ...]
+E         
+E         Left contains 300 more items, first extra item: ['person000@example.com', 'Person 0, Sr.']
+E         Use -v to get more diff
+
+test_clean_extra.py:129: AssertionError
+___________ test_email_ascii_variants_are_preserved_apart_from_case ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0')
+
+    def test_email_ascii_variants_are_preserved_apart_from_case(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['  Mixed.Case+Tag@EXAMPLE.org ', ' A '],
+                ['mixed.case+tag@example.org', 'Duplicate'],
+                ['MIXED.CASE+TAG@EXAMPLE.ORG', 'Duplicate 2'],
+                ['other@example.org', 'B,C'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['mixed.case+tag@example.org', 'A'],
+            ['other@example.org', 'B,C'],
+        ], rows
+E       AssertionError: [['email', 'name'], ['mixed.case+tag@example.org', 'A'], ['mixed.case+tag@example.org', 'Duplicate'], ['mixed.case+tag@example.org', 'Duplicate 2'], ['other@example.org', 'B,C']]
+E       assert [['email', 'n....org', 'B,C']] == [['email', 'n....org', 'B,C']]
+E         
+E         At index 2 diff: ['mixed.case+tag@example.org', 'Duplicate'] != ['other@example.org', 'B,C']
+E         Left contains 2 more items, first extra item: ['mixed.case+tag@example.org', 'Duplicate 2']
+E         Use -v to get more diff
+
+test_clean_extra.py:147: AssertionError
+_________________ test_names_with_embedded_newline_and_quotes __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0')
+
+    def test_names_with_embedded_newline_and_quotes(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['n@x.com', 'line1\nline2'],
+                ['m@x.com', 'say "hi", please'],
+                ['N@X.COM', 'dropped'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['n@x.com', 'line1\nline2'],
+            ['m@x.com', 'say "hi", please'],
+        ], rows
+E       AssertionError: [['email', 'name'], ['n@x.com', 'line1
+E         line2'], ['m@x.com', 'say "hi", please'], ['n@x.com', 'dropped']]
+E       assert [['email', 'n...', 'dropped']] == [['email', 'n...hi", please']]
+E         
+E         Left contains one more item: ['n@x.com', 'dropped']
+E         Use -v to get more diff
+
+test_clean_extra.py:176: AssertionError
+_____________________ test_single_record_and_dup_pair_only _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0')
+
+    def test_single_record_and_dup_pair_only(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [['Solo@Example.com', ' Only ']],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]
+    
+        pair = _write_rows(
+            work,
+            'pair.csv',
+            ['email', 'name'],
+            [['p@x.com', 'Kept'], ['P@X.COM', 'Dropped']],
+        )
+        pair_out = os.path.join(work, 'pair_out.csv')
+>       assert _run_ok(pair, pair_out) == [['email', 'name'], ['p@x.com', 'Kept']]
+E       AssertionError: assert [['email', 'n...', 'Dropped']] == [['email', 'n...com', 'Kept']]
+E         
+E         Left contains one more item: ['p@x.com', 'Dropped']
+E         Use -v to get more diff
+
+test_clean_extra.py:223: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - assert [['...
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: assert [...
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: as...
+FAILED test_clean.py::test_generated_large_duplicates - AssertionError: asser...
+FAILED test_clean_extra.py::test_sibling_backup_file_does_not_override_input
+FAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...
+FAILED test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case
+FAILED test_clean_extra.py::test_names_with_embedded_newline_and_quotes - Ass...
+FAILED test_clean_extra.py::test_single_record_and_dup_pair_only - AssertionE...
+10 failed, 13 passed in 1.17s

@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "Contract output_spec requires a UTF-8 CSV whose header is `email,name` and whose fields use standard CSV escaping rules; the canonical form produced by csv.writer terminates every record with a line separator. For a single canonical record after cleaning (duplicate emails collapsing to one), the expected output file text is exactly \"email,name\\nalice@example.com\\n\" for input \"email,name\\n alice@example.com ,Alice\\nALICE@example.com,Alice\\n\". The submitted clean.py drops the final record terminator whenever the input had more than one data row but the cleaned output has only one row, so the written CSV is not properly terminated — it is not the canonical CSV the Contract requires, even though exit code is 0.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n alice@example.com ,Alice\nALICE@example.com,Alice\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nalice@example.com\n"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+........F.......F......                                                  [100%]
+=================================== FAILURES ===================================
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        expected = []
+        records = []
+        for i in range(1000):
+            email = 'user%04d@example.com' % i
+            name = 'User %d, Esq.' % i if i % 3 == 0 else 'User %d' % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ['email', 'name'], records)
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['user0000@e...User 5'], ...] == [['user0000@e...User 5'], ...]
+E         
+E         Right contains 500 more items, first extra item: ['user0500@example.com', 'User 500']
+E         Use -v to get more diff
+
+test_clean.py:111: AssertionError
+__________________ test_large_mixed_generated_input_reference __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_large_mixed_generated_inp0')
+
+    def test_large_mixed_generated_input_reference(tmp_path):
+        """A 1000-record generated input checked against an independently computed result."""
+        work = str(tmp_path)
+        records = []
+        expected = []
+        seen = set()
+        for i in range(1000):
+            idx = (i * 37) % 700
+            raw_email = 'Person%03d@Example.COM' % idx
+            if i % 3 == 0:
+                raw_email = '  ' + raw_email + '\t'
+            if i % 4 == 0:
+                raw_email = raw_email.lower()
+            name = 'Person %d' % idx
+            if i % 5 == 0:
+                name = '  ' + name + ', Sr.  '
+                norm_name = 'Person %d, Sr.' % idx
+            else:
+                norm_name = name
+            records.append([raw_email, name])
+            norm_email = raw_email.strip().lower()
+            if norm_email not in seen:
+                seen.add(norm_email)
+                expected.append([norm_email, norm_name])
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+        assert rows[0] == ['email', 'name']
+>       assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'
+E       AssertionError: normalization/dedup/order mismatch on generated input
+E       assert [['person000@...5, Sr.'], ...] == [['person000@...5, Sr.'], ...]
+E         
+E         Right contains 200 more items, first extra item: ['person300@example.com', 'Person 300, Sr.']
+E         Use -v to get more diff
+
+test_clean_extra.py:129: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+FAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...
+2 failed, 21 passed in 1.15s

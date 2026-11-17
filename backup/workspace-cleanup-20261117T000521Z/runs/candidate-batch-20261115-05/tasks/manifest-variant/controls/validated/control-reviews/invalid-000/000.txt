@@ -1,0 +1,202 @@
+{
+  "contract": {
+    "objective": "修复目录摘要 CLI，递归按文件内容分组并输出各组路径、字节数和 SHA-256。",
+    "workspace": "/app",
+    "command": "python /app/src/manifest.py <input_dir> <output.json>",
+    "input_spec": "input_dir 是存在的目录，包含至多 100 个普通文件以及任意空目录，嵌套深度最多 8。文件可为空或为二进制，每个文件至多 1 MiB；名称是合法 Unicode，不含换行。无符号链接或特殊文件。output.json 位于输入目录外。",
+    "output_spec": "UTF-8 JSON 数组，每个不同 SHA-256 摘要对应一个对象，恰含 size、sha256、paths。size 为该组文件内容字节数，sha256 为 64 位小写十六进制 SHA-256；paths 包含该摘要所有普通文件相对 input_dir 的 POSIX 路径，按 Python 字符串升序排列。各对象按 sha256 升序排列；忽略目录，空目录输出 []。本任务按 SHA-256 相等定义同组。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/src"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": true
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+      },
+      {
+        "id": "R2",
+        "description": "递归遍历全部普通文件，按 SHA-256 分组，保留全部相对路径，包括嵌套同名、空格和 Unicode 文件名。"
+      },
+      {
+        "id": "R3",
+        "description": "按实际二进制内容计算字节数和 SHA-256；空文件和非 UTF-8 内容正确；组内路径与组间摘要分别升序，空目录输出 []。"
+      },
+      {
+        "id": "R4",
+        "description": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_files": 100,
+      "max_depth": 8,
+      "max_file_bytes": 1048576
+    }
+  },
+  "source": "import hashlib,json,sys\nfrom pathlib import Path\nroot=Path(sys.argv[1]); result=[]\nfor file in root.rglob('*'):\n    if file.is_file():\n        content=file.read_bytes()\n        result.append(dict(path=file.relative_to(root).as_posix(),size=len(content),sha256='0'*64))\nresult.sort(key=lambda r:r['path'])\ngroups={}\nfor row in result:\n    key=row['sha256']\n    if key not in groups: groups[key]=dict(size=row['size'],sha256=key,paths=[])\n    groups[key]['paths'].append(row['path'])\nresult=[groups[key] for key in sorted(groups)]\nwith open(sys.argv[2],'w',encoding='utf-8') as f: json.dump(result,f,ensure_ascii=False)\n",
+  "review": {
+    "status": "confirmed",
+    "reviewer": "Codex authored source review and independent Docker behavior audit",
+    "method": "contract-source-review-and-finite-behavior-audit",
+    "rationale": "CSV retention policy / JSONL count / manifest digest is deliberately wrong.",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/feedback-invalid-review.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/test_control_audit.py",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/feedback-invalid-audit/execution.json"
+    ],
+    "counterexample": {
+      "argv": [
+        "python3",
+        "/app/src/manifest.py",
+        "$WORK/tree",
+        "$WORK/output.json"
+      ],
+      "stdin": "",
+      "expected": [
+        {
+          "size": 2,
+          "sha256": "06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8",
+          "paths": [
+            "nested/a.txt",
+            "中文 space.bin"
+          ]
+        },
+        {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "paths": [
+            "a.txt"
+          ]
+        }
+      ],
+      "observed": {
+        "label": "invalid-control",
+        "expected_reward": 0,
+        "status": "completed",
+        "reward": 0,
+        "error": null,
+        "reports": [
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "setup",
+            "outcome": "passed",
+            "task_assertion": false,
+            "exception": null,
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.00011001299935742281,
+            "commands": [],
+            "xfail": false
+          },
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "call",
+            "outcome": "failed",
+            "task_assertion": true,
+            "exception": {
+              "type": "AssertionError",
+              "message": "assert [{'size': 0, ... space.bin']}] == [{'size': 2, ...': ['a.txt']}]\n  \n  At index 0 diff: {'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000', 'paths': ['a.txt', 'nested/a.txt', '中文 space.bin']} != {'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}\n  Right contains one more item: {'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'paths': ['a.txt']}\n  Use -v to get more diff",
+              "test_traceback": [
+                {
+                  "path": "test_control_audit.py",
+                  "line": 14,
+                  "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+                }
+              ]
+            },
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.04180399400047463,
+            "commands": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "status": "completed",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            ],
+            "xfail": false
+          },
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "teardown",
+            "outcome": "passed",
+            "task_assertion": false,
+            "exception": null,
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.0001443760002075578,
+            "commands": [],
+            "xfail": false
+          }
+        ],
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/feedback-invalid-audit/execution.json",
+        "implementation_manifest": {
+          "/app/data/README.txt": "ddc1cebd71b21c0f586d7154c9223e03864fa793031246a24a60beaee1148f2a",
+          "/app/data/sample/名字 带空格.txt": "2ed18965886676eca457cfd0cccf012b6a70c65065bfa438f7ad203b9b5ec063",
+          "/app/data/sample/notes/readme.txt": "ef425ec96caf3d79b288aac22ef5ca0097393213d09be9bd947df1758334fe64",
+          "/app/data/sample/deep/readme.txt": "ef425ec96caf3d79b288aac22ef5ca0097393213d09be9bd947df1758334fe64",
+          "/app/data/sample/deep/nested/blank.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/app/data/sample/deep/nested/copy two.txt": "2ed18965886676eca457cfd0cccf012b6a70c65065bfa438f7ad203b9b5ec063",
+          "/app/src/groups.py": "68e7f29b4481247126de3936708a19fc5700b47fbcd68665e1b07d732d1c2971",
+          "/app/src/manifest.py": "cd2cf970351b3e7405c63b9f90b51efcefae73c121590c3957460b7f5ae59c07",
+          "/app/src/digest.py": "5259f4d1791b3db4664f4b72c5a75b1ac1811cf641b2d6855debbf2e91d4e857",
+          "/app/src/walker.py": "e128ab091cc63abccad53a55f1032188daf0f65eb57150e11744c286fa011f6c",
+          "/solution/solve.sh": "7ebceb159abf797e4ce137eb34e003066cda0460d4ce9367308dc1479962edd7"
+        },
+        "artifact_manifest": {
+          "/app/src/digest.py": "5259f4d1791b3db4664f4b72c5a75b1ac1811cf641b2d6855debbf2e91d4e857",
+          "/app/src/groups.py": "68e7f29b4481247126de3936708a19fc5700b47fbcd68665e1b07d732d1c2971",
+          "/app/src/manifest.py": "a1b4838cc335e2d715bfdaddce97ecc614e89c3cfad7b83bab952e38992ea285",
+          "/app/src/walker.py": "e128ab091cc63abccad53a55f1032188daf0f65eb57150e11744c286fa011f6c"
+        },
+        "received_artifact_manifest": {
+          "/app/src/digest.py": "5259f4d1791b3db4664f4b72c5a75b1ac1811cf641b2d6855debbf2e91d4e857",
+          "/app/src/groups.py": "68e7f29b4481247126de3936708a19fc5700b47fbcd68665e1b07d732d1c2971",
+          "/app/src/manifest.py": "a1b4838cc335e2d715bfdaddce97ecc614e89c3cfad7b83bab952e38992ea285",
+          "/app/src/walker.py": "e128ab091cc63abccad53a55f1032188daf0f65eb57150e11744c286fa011f6c"
+        },
+        "verifier_files_manifest": {
+          "expected.json": "f94d6f6b65a31c57896fc5a43ec8a1ec279ca023bd87bdccce6a220abab24669",
+          "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+          "test_control_audit.py": "7a15f5572d05e4ccad488d7f6c3f65b3292c29dc01d9c53558c4547ec08cb054"
+        },
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [({'a.txt': [], 'nested/a.txt': [0, 255], '中文 space.bin': [0, 255]}, [{'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}, {'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'paths': ['a.txt']}]), ({}, [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'tree'; source.mkdir(); (source/'empty dir').mkdir(); target=t/'output.json'\n                for name,values in data.items():\n                    file=source/name; file.parent.mkdir(parents=True,exist_ok=True); file.write_bytes(bytes(values))\n                before={p.relative_to(source).as_posix():p.read_bytes() for p in source.rglob('*') if p.is_file()}\n                p=subprocess.run(['python3','/app/src/manifest.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n>               assert json.loads(target.read_text(encoding='utf-8'))==expected\nE               AssertionError: assert [{'size': 0, ... space.bin']}] == [{'size': 2, ...': ['a.txt']}]\nE                 \nE                 At index 0 diff: {'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000', 'paths': ['a.txt', 'nested/a.txt', '中文 space.bin']} != {'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}\nE                 Right contains one more item: {'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'paths': ['a.txt']}\nE                 Use -v to get more diff\n\ntest_control_audit.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - AssertionError...\n1 failed in 0.07s\n",
+        "stderr": "",
+        "pytest_exit_code": 1,
+        "nodeids": [
+          "test_control_audit.py::test_independent_control_audit"
+        ],
+        "verifier_exit_code": 0,
+        "tests_digest": "dc955a88e7958e440678e3a18fc582853ae652635a69988986693621b07abd44",
+        "outcome": "fail",
+        "wall_sec": 4.799,
+        "attribution": "uncertain"
+      },
+      "fixtures": {
+        "a.txt": [],
+        "nested/a.txt": [
+          0,
+          255
+        ],
+        "中文 space.bin": [
+          0,
+          255
+        ]
+      },
+      "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+    }
+  },
+  "limitation": "Finite probe plus source review; not exhaustive verification."
+}

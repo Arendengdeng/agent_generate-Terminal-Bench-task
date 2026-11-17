@@ -1,0 +1,111 @@
+{
+  "decision": "needs_review",
+  "action": "investigate",
+  "reason_code": "TEST_LOOP_NEEDS_REVIEW",
+  "reasons": [
+    "Test repair stopped without passing the Docker gate."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [
+    "tests",
+    "solution",
+    "environment",
+    "contract"
+  ],
+  "diagnostics": [
+    {
+      "code": "TEST_LOOP_NEEDS_REVIEW",
+      "message": "Test repair stopped without passing the Docker gate.",
+      "details": {
+        "status": "needs_review",
+        "stop_reason": "Contract is outside supported literal-stdout proof rules",
+        "repairs": 0,
+        "max_repairs": 2,
+        "attempts": [
+          {
+            "index": 0,
+            "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/test-agent",
+            "tests_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/attempts/000/execution/execution.json",
+            "status": "failed"
+          }
+        ],
+        "comparison_matrix": [
+          {
+            "version": 0,
+            "tests_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+            "implementation": "oracle",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 1,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+            "implementation": "nop",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+            "implementation": "known-000",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 1,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+            "implementation": "invalid-000",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          }
+        ],
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/test-agent",
+        "budget_used": {
+          "model_calls": 29,
+          "tool_calls": 33,
+          "token_usage": {
+            "prompt_tokens": 584549,
+            "completion_tokens": 10436,
+            "total_tokens": 594985
+          }
+        },
+        "cost": {
+          "wall_sec": 94.123,
+          "token_usage": {
+            "prompt_tokens": 584549,
+            "completion_tokens": 10436,
+            "total_tokens": 594985
+          },
+          "executions": 4
+        }
+      },
+      "investigate_modules": [
+        "tests",
+        "solution",
+        "environment",
+        "contract"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/verification/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

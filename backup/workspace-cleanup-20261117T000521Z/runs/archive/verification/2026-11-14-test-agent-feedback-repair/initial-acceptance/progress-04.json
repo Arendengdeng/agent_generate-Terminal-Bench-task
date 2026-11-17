@@ -1,0 +1,71 @@
+{
+  "scenarios": [
+    {
+      "scenario": "syntax",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "api_calls": 4,
+      "cost": {
+        "wall_sec": 15.064,
+        "token_usage": {
+          "prompt_tokens": 11730,
+          "completion_tokens": 950,
+          "total_tokens": 12680
+        }
+      },
+      "evidence": "syntax-agent/collections",
+      "execution": "execution/execution.json"
+    },
+    {
+      "scenario": "overstrict",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "evidence": "verification/run_result.json",
+      "cost": {
+        "wall_sec": 182.005,
+        "model_calls": 8,
+        "tool_calls": 11,
+        "token_usage": {
+          "prompt_tokens": 56736,
+          "completion_tokens": 873,
+          "total_tokens": 57609
+        }
+      },
+      "repairs": 1,
+      "api_calls": 8
+    },
+    {
+      "scenario": "omission",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "evidence": "test-loop.json",
+      "cost": {
+        "wall_sec": 65.067,
+        "token_usage": {
+          "prompt_tokens": 62143,
+          "completion_tokens": 1700,
+          "total_tokens": 63843
+        },
+        "executions": 8
+      },
+      "repairs": 1,
+      "api_calls": 10
+    },
+    {
+      "scenario": "oracle_error",
+      "result": "failed",
+      "error_type": "AssertionError",
+      "error": "{'status': 'error', 'stop_reason': 'repair_agent_failed', 'repairs': 2, 'max_repairs': 2, 'attempts': [{'index': 0, 'tests_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/initial-tests', 'tests_digest': 'fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d', 'execution_path': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/000/execution/execution.json', 'status': 'failed', 'repair_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent', 'attribution': 'test_defect', 'analysis': {'requirement_id': 'R2', 'contract_quote': 'For every permitted n, double equals 2*n.', 'test_path': 'tests/test_behavior.py', 'line': '14', 'evidence_id': 'oracle:test_behavior.py::test_double:call', 'explanation': 'Oracle returns a correct-looking JSON ({\"double\":6,\"value\":3} per known-000 for n=3), yet test_double failed against Oracle with stdout {\"value\": 3, \"double\": 3}. The test invokes \\'python3\\' and parses raw stdout directly, contradicting the Contract command \\'python /app/clean.py <n>\\' where output is a JSON object with key double; the current test\\'s execution/parsing does not reliably correspond to the Contract\\'s required output (whitespace/field order unrestricted, JSON object with exactly value and double). The test must run the Contract\\'s command, parse a JSON object, and verify both fields for every permitted n in [0,10], tolerating field order and extra whitespace.', 'parent_digest': 'fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d'}, 'changes_path': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/changes.patch'}, {'index': 1, 'tests_output': '/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent', 'tests_digest': '6dd"
+    }
+  ],
+  "wall_sec": 150.651,
+  "execution_scenarios_passed": false,
+  "human_signoff": false,
+  "limitation": "Finite fixture acceptance; not a test-reliability experiment."
+}

@@ -1,0 +1,48 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________________ test_contract_witness _____________________________
+
+    def test_contract_witness():
+        with tempfile.TemporaryDirectory(prefix='witness-') as directory:
+            root = pathlib.Path(directory)
+            for name, content in SPEC['fixtures'].items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content)
+            proc = subprocess.run([a.replace('$WORK', directory) for a in SPEC['argv']],
+                                  input=SPEC['stdin'], capture_output=True, text=True, timeout=TIMEOUT)
+            observed = {'exit_code': proc.returncode, 'stdout': proc.stdout, 'stderr': proc.stderr}
+            checks = []
+            for assertion in SPEC['assertions']:
+                source, path = assertion['source'], assertion['path']
+                try:
+                    if source == 'json':
+                        actual = json.loads(proc.stdout)
+                        for key in path:
+                            actual = actual[key]
+                    elif source in ('file', 'unchanged'):
+                        target = root / path
+                        if not target.resolve().is_relative_to(root.resolve()):
+                            raise ValueError('output escaped fixture directory')
+                        actual = target.read_text()
+                        if source == 'unchanged':
+                            actual = actual == SPEC['fixtures'][path]
+                    else:
+                        actual = observed[source]
+                    checks.append({'assertion': assertion, 'actual': actual,
+                                   'passed': type(actual) is type(assertion['value']) and actual == assertion['value']})
+                except (ValueError, KeyError, IndexError, TypeError, OSError) as exc:
+                    checks.append({'assertion': assertion, 'actual_error': type(exc).__name__, 'passed': False})
+            observed['checks'] = checks
+            print('WITNESS_OBSERVATION=' + json.dumps(observed))
+>           assert all(c['passed'] for c in checks), 'Contract behavior witness failed'
+E           AssertionError: Contract behavior witness failed
+E           assert False
+E            +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x74a5b48b82b0>)
+
+test_contract_witness.py:40: AssertionError
+----------------------------- Captured stdout call -----------------------------
+WITNESS_OBSERVATION={"exit_code": 0, "stdout": "", "stderr": "", "checks": [{"assertion": {"source": "exit_code", "path": [], "value": 0}, "actual": 0, "passed": true}, {"assertion": {"source": "json", "path": [], "value": [{"service": "svc", "level": "INFO", "count": 2, "total_duration_ms": 12}]}, "actual_error": "JSONDecodeError", "passed": false}, {"assertion": {"source": "unchanged", "path": "in.jsonl", "value": true}, "actual": true, "passed": true}]}
+=========================== short test summary info ============================
+FAILED test_contract_witness.py::test_contract_witness - AssertionError: Cont...
+1 failed in 0.08s

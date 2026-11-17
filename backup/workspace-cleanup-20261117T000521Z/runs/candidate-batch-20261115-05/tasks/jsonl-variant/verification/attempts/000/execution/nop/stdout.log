@@ -1,0 +1,441 @@
+FFFFF..FFFFFFFFFF                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_sample_exit_code_and_structure ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_sample_exit_code_and_stru0')
+
+    def test_sample_exit_code_and_structure(tmp_path):
+        records = [
+            {"service": "beta", "level": "INFO", "duration_ms": 5},
+            {"service": "alpha", "level": "ERROR", "duration_ms": 7},
+            {"service": "beta", "level": "ERROR", "duration_ms": 9},
+            {"service": "beta", "level": "INFO", "duration_ms": 9},
+        ]
+        inp = tmp_path / "sample.jsonl"
+        out = tmp_path / "sample.json"
+        write_jsonl(str(inp), records)
+        proc = run_cli(str(inp), str(out))
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        assert os.path.isfile(str(out))
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert_valid_structure(data, records)
+
+test_summarize.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'alpha', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 7, ...}, {'service': 'beta', 'level': 'INFO',...unt': 2, 'total_duration_ms': 14, ...}, {'service': 'beta', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 9, ...}]
+records = [{'service': 'beta', 'level': 'INFO', 'duration_ms': 5}, {'service': 'alpha', 'level': 'ERROR', 'duration_ms': 7}, {'service': 'beta', 'level': 'ERROR', 'duration_ms': 9}, {'service': 'beta', 'level': 'INFO', 'duration_ms': 9}]
+
+    def assert_valid_structure(data, records):
+        assert isinstance(data, list), "report must be a JSON array"
+        services = sorted({record["service"] for record in records})
+>       assert [obj["service"] for obj in data] == services, (
+            "report services mismatch: %r vs %r" % ([o.get("service") for o in data], services)
+        )
+E       AssertionError: report services mismatch: ['alpha', 'beta', 'beta'] vs ['alpha', 'beta']
+E       assert ['alpha', 'beta', 'beta'] == ['alpha', 'beta']
+E         
+E         Left contains one more item: 'beta'
+E         Use -v to get more diff
+
+test_summarize.py:68: AssertionError
+___________________________ test_sample_values_exact ___________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_sample_values_exact0')
+
+    def test_sample_values_exact(tmp_path):
+        records = [
+            {"service": "beta", "level": "INFO", "duration_ms": 5},
+            {"service": "alpha", "level": "ERROR", "duration_ms": 7},
+            {"service": "beta", "level": "ERROR", "duration_ms": 9},
+            {"service": "beta", "level": "INFO", "duration_ms": 9},
+        ]
+        inp = tmp_path / "sample.jsonl"
+        out = tmp_path / "sample.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert data == [
+            {"service": "alpha", "count": 1, "total_duration_ms": 7, "max_duration_ms": 7},
+            {"service": "beta", "count": 3, "total_duration_ms": 23, "max_duration_ms": 9},
+        ]
+E       AssertionError: assert [{'service': ..._ms': 9, ...}] == [{'service': ...ation_ms': 9}]
+E         
+E         At index 0 diff: {'service': 'alpha', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7} != {'service': 'alpha', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7}
+E         Left contains one more item: {'service': 'beta', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 9, ...}
+E         Use -v to get more diff
+
+test_summarize.py:110: AssertionError
+__________________ test_groups_only_by_service_across_levels ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_groups_only_by_service_ac0')
+
+    def test_groups_only_by_service_across_levels(tmp_path):
+        records = [
+            {"service": "svc", "level": "INFO", "duration_ms": 1},
+            {"service": "svc", "level": "WARN", "duration_ms": 10},
+            {"service": "svc", "level": "ERROR", "duration_ms": 100},
+            {"service": "svc", "level": "INFO", "duration_ms": 2},
+            {"service": "other", "level": "INFO", "duration_ms": 0},
+        ]
+        inp = tmp_path / "levels.jsonl"
+        out = tmp_path / "levels.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert_valid_structure(data, records)
+
+test_summarize.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'other', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, ...}, {'service': 'svc', 'level': 'INFO', '...nt': 1, 'total_duration_ms': 10, ...}, {'service': 'svc', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 100, ...}]
+records = [{'service': 'svc', 'level': 'INFO', 'duration_ms': 1}, {'service': 'svc', 'level': 'WARN', 'duration_ms': 10}, {'serv...: 100}, {'service': 'svc', 'level': 'INFO', 'duration_ms': 2}, {'service': 'other', 'level': 'INFO', 'duration_ms': 0}]
+
+    def assert_valid_structure(data, records):
+        assert isinstance(data, list), "report must be a JSON array"
+        services = sorted({record["service"] for record in records})
+>       assert [obj["service"] for obj in data] == services, (
+            "report services mismatch: %r vs %r" % ([o.get("service") for o in data], services)
+        )
+E       AssertionError: report services mismatch: ['other', 'svc', 'svc', 'svc'] vs ['other', 'svc']
+E       assert ['other', 'svc', 'svc', 'svc'] == ['other', 'svc']
+E         
+E         Left contains 2 more items, first extra item: 'svc'
+E         Use -v to get more diff
+
+test_summarize.py:68: AssertionError
+_______________________ test_duplicate_records_not_lost ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_duplicate_records_not_los0')
+
+    def test_duplicate_records_not_lost(tmp_path):
+        rec = {"service": "dup", "level": "INFO", "duration_ms": 4}
+        records = [dict(rec) for _ in range(7)] + [
+            {"service": "dup", "level": "INFO", "duration_ms": 6},
+            {"service": "dup", "level": "INFO", "duration_ms": 4},
+        ]
+        inp = tmp_path / "dups.jsonl"
+        out = tmp_path / "dups.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert data == [{"service": "dup", "count": 9, "total_duration_ms": 38,
+                         "max_duration_ms": 6}]
+E       AssertionError: assert [{'service': ...ms': 38, ...}] == [{'service': ...ation_ms': 6}]
+E         
+E         At index 0 diff: {'service': 'dup', 'level': 'INFO', 'count': 9, 'total_duration_ms': 38, 'max_duration_ms': 6} != {'service': 'dup', 'count': 9, 'total_duration_ms': 38, 'max_duration_ms': 6}
+E         Use -v to get more diff
+
+test_summarize.py:145: AssertionError
+_____________________ test_max_across_levels_not_per_level _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_max_across_levels_not_per0')
+
+    def test_max_across_levels_not_per_level(tmp_path):
+        records = [
+            {"service": "m", "level": "INFO", "duration_ms": 50},
+            {"service": "m", "level": "ERROR", "duration_ms": 1},
+            {"service": "m", "level": "WARN", "duration_ms": 50},
+            {"service": "n", "level": "INFO", "duration_ms": 0},
+            {"service": "n", "level": "INFO", "duration_ms": 0},
+        ]
+        inp = tmp_path / "max.jsonl"
+        out = tmp_path / "max.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert_valid_structure(data, records)
+
+test_summarize.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'm', 'level': 'INFO', 'count': 1, 'total_duration_ms': 50, ...}, {'service': 'm', 'level': 'ERROR', 'coun... 'count': 1, 'total_duration_ms': 50, ...}, {'service': 'n', 'level': 'INFO', 'count': 2, 'total_duration_ms': 0, ...}]
+records = [{'service': 'm', 'level': 'INFO', 'duration_ms': 50}, {'service': 'm', 'level': 'ERROR', 'duration_ms': 1}, {'service...ion_ms': 50}, {'service': 'n', 'level': 'INFO', 'duration_ms': 0}, {'service': 'n', 'level': 'INFO', 'duration_ms': 0}]
+
+    def assert_valid_structure(data, records):
+        assert isinstance(data, list), "report must be a JSON array"
+        services = sorted({record["service"] for record in records})
+>       assert [obj["service"] for obj in data] == services, (
+            "report services mismatch: %r vs %r" % ([o.get("service") for o in data], services)
+        )
+E       AssertionError: report services mismatch: ['m', 'm', 'm', 'n'] vs ['m', 'n']
+E       assert ['m', 'm', 'm', 'n'] == ['m', 'n']
+E         
+E         At index 1 diff: 'm' != 'n'
+E         Left contains 2 more items, first extra item: 'm'
+E         Use -v to get more diff
+
+test_summarize.py:68: AssertionError
+______________________ test_ordering_python_string_sorted ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_ordering_python_string_so0')
+
+    def test_ordering_python_string_sorted(tmp_path):
+        names = ["zeta", "Alpha", "alpha", "beta", "Zeta", "a", "A", "10", "2", "_u"]
+        records = [
+            {"service": name, "level": "INFO", "duration_ms": i}
+            for i, name in enumerate(names)
+        ]
+        inp = tmp_path / "order.jsonl"
+        out = tmp_path / "order.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert_valid_structure(data, records)
+
+test_summarize.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': '10', 'level': 'INFO', 'count': 1, 'total_duration_ms': 7, ...}, {'service': '2', 'level': 'INFO', 'count...nt': 1, 'total_duration_ms': 4, ...}, {'service': '_u', 'level': 'INFO', 'count': 1, 'total_duration_ms': 9, ...}, ...]
+records = [{'service': 'zeta', 'level': 'INFO', 'duration_ms': 0}, {'service': 'Alpha', 'level': 'INFO', 'duration_ms': 1}, {'se...: 3}, {'service': 'Zeta', 'level': 'INFO', 'duration_ms': 4}, {'service': 'a', 'level': 'INFO', 'duration_ms': 5}, ...]
+
+    def assert_valid_structure(data, records):
+        assert isinstance(data, list), "report must be a JSON array"
+        services = sorted({record["service"] for record in records})
+        assert [obj["service"] for obj in data] == services, (
+            "report services mismatch: %r vs %r" % ([o.get("service") for o in data], services)
+        )
+        for obj in data:
+            assert isinstance(obj, dict)
+>           assert set(obj.keys()) == FIELDS, "unexpected fields: %r" % (sorted(obj.keys()),)
+E           AssertionError: unexpected fields: ['count', 'level', 'max_duration_ms', 'service', 'total_duration_ms']
+E           assert {'count', 'le..._duration_ms'} == {'count', 'ma..._duration_ms'}
+E             
+E             Extra items in the left set:
+E             'level'
+E             Use -v to get more diff
+
+test_summarize.py:73: AssertionError
+______________________ test_unicode_service_names_sorted _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_unicode_service_names_sor0')
+
+    def test_unicode_service_names_sorted(tmp_path):
+        names = ["服务-乙", "服务-甲", "service", "Ñandú", "日本語", "ASCII", "é", "Z", "😀"]
+        records = []
+        for name in names:
+            records.append({"service": name, "level": "WARN", "duration_ms": 3})
+            records.append({"service": name, "level": "INFO", "duration_ms": 11})
+        records.append({"service": "服务-甲", "level": "ERROR", "duration_ms": 30})
+        inp = tmp_path / "unicode.jsonl"
+        out = tmp_path / "unicode.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert_valid_structure(data, records)
+
+test_summarize.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'ASCII', 'level': 'WARN', 'count': 1, 'total_duration_ms': 3, ...}, {'service': 'ASCII', 'level': 'INFO',..., 'total_duration_ms': 3, ...}, {'service': 'service', 'level': 'INFO', 'count': 1, 'total_duration_ms': 11, ...}, ...]
+records = [{'service': '服务-乙', 'level': 'WARN', 'duration_ms': 3}, {'service': '服务-乙', 'level': 'INFO', 'duration_ms': 11}, {'se...rvice': 'service', 'level': 'WARN', 'duration_ms': 3}, {'service': 'service', 'level': 'INFO', 'duration_ms': 11}, ...]
+
+    def assert_valid_structure(data, records):
+        assert isinstance(data, list), "report must be a JSON array"
+        services = sorted({record["service"] for record in records})
+>       assert [obj["service"] for obj in data] == services, (
+            "report services mismatch: %r vs %r" % ([o.get("service") for o in data], services)
+        )
+E       AssertionError: report services mismatch: ['ASCII', 'ASCII', 'Z', 'Z', 'service', 'service', 'Ñandú', 'Ñandú', 'é', 'é', '日本語', '日本語', '服务-乙', '服务-乙', '服务-甲', '服务-甲', '服务-甲', '😀', '😀'] vs ['ASCII', 'Z', 'service', 'Ñandú', 'é', '日本語', '服务-乙', '服务-甲', '😀']
+E       assert ['ASCII', 'AS...service', ...] == ['ASCII', 'Z'...', '日本語', ...]
+E         
+E         At index 1 diff: 'ASCII' != 'Z'
+E         Left contains 10 more items, first extra item: 'é'
+E         Use -v to get more diff
+
+test_summarize.py:68: AssertionError
+__________________ test_unicode_output_encoded_utf8_readable ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_unicode_output_encoded_ut0')
+
+    def test_unicode_output_encoded_utf8_readable(tmp_path):
+        records = [{"service": "服务-乙", "level": "INFO", "duration_ms": 1}]
+        inp = tmp_path / "u8.jsonl"
+        out = tmp_path / "u8.json"
+        write_jsonl(str(inp), records)
+        proc = run_cli(str(inp), str(out))
+        assert proc.returncode == 0
+        raw = out.read_bytes()
+        raw.decode("utf-8")
+        data = json.loads(raw.decode("utf-8"))
+>       assert data == [{"service": "服务-乙", "count": 1,
+                         "total_duration_ms": 1, "max_duration_ms": 1}]
+E       AssertionError: assert [{'service': ..._ms': 1, ...}] == [{'service': ...ation_ms': 1}]
+E         
+E         At index 0 diff: {'service': '服务-乙', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': '服务-乙', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}
+E         Use -v to get more diff
+
+test_summarize.py:236: AssertionError
+_________________________ test_input_file_not_modified _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_not_modified0')
+
+    def test_input_file_not_modified(tmp_path):
+        records = [
+            {"service": "b", "level": "ERROR", "duration_ms": 5},
+            {"service": "a", "level": "INFO", "duration_ms": 1},
+            {"service": "b", "level": "WARN", "duration_ms": 2},
+        ]
+        inp = tmp_path / "keep.jsonl"
+        out = tmp_path / "keep.json"
+        write_jsonl(str(inp), records)
+        before_bytes = inp.read_bytes()
+        before_stat = os.stat(str(inp))
+        data = load_report(str(inp), str(out))
+>       assert data == expected_report(records)
+E       AssertionError: assert [{'service': ..._ms': 2, ...}] == [{'service': ...ation_ms': 5}]
+E         
+E         At index 0 diff: {'service': 'a', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'a', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}
+E         Left contains one more item: {'service': 'b', 'level': 'WARN', 'count': 1, 'total_duration_ms': 2, ...}
+E         Use -v to get more diff
+
+test_summarize.py:252: AssertionError
+_____________________ test_input_without_trailing_newline ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_without_trailing_ne0')
+
+    def test_input_without_trailing_newline(tmp_path):
+        inp = tmp_path / "nonl.jsonl"
+        out = tmp_path / "nonl.json"
+        lines = [
+            {"service": "x", "level": "INFO", "duration_ms": 2},
+            {"service": "y", "level": "INFO", "duration_ms": 3},
+        ]
+        text = "\n".join(json.dumps(line) for line in lines)
+        inp.write_text(text, encoding="utf-8")
+        data = load_report(str(inp), str(out))
+>       assert data == [
+            {"service": "x", "count": 1, "total_duration_ms": 2, "max_duration_ms": 2},
+            {"service": "y", "count": 1, "total_duration_ms": 3, "max_duration_ms": 3},
+        ]
+E       AssertionError: assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 3}]
+E         
+E         At index 0 diff: {'service': 'x', 'level': 'INFO', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2} != {'service': 'x', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2}
+E         Use -v to get more diff
+
+test_summarize.py:269: AssertionError
+________________________ test_single_line_zero_duration ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_single_line_zero_duration0')
+
+    def test_single_line_zero_duration(tmp_path):
+        records = [{"service": "solo", "level": "INFO", "duration_ms": 0}]
+        inp = tmp_path / "solo.jsonl"
+        out = tmp_path / "solo.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert data == [{"service": "solo", "count": 1, "total_duration_ms": 0,
+                         "max_duration_ms": 0}]
+E       AssertionError: assert [{'service': ..._ms': 0, ...}] == [{'service': ...ation_ms': 0}]
+E         
+E         At index 0 diff: {'service': 'solo', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0} != {'service': 'solo', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0}
+E         Use -v to get more diff
+
+test_summarize.py:281: AssertionError
+_________________________ test_large_input_1000_lines __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_lines0')
+
+    def test_large_input_1000_lines(tmp_path):
+        records = []
+        for i in range(1000):
+            service = "svc-%02d" % (i % 37)
+            level = ("INFO", "WARN", "ERROR")[i % 3]
+            records.append({"service": service, "level": level, "duration_ms": i})
+        inp = tmp_path / "big.jsonl"
+        out = tmp_path / "big.json"
+        write_jsonl(str(inp), records)
+        proc = run_cli(str(inp), str(out))
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert data == expected_report(records)
+E       AssertionError: assert [{'service': ...71, ...}, ...] == [{'service': ...s': 967}, ...]
+E         
+E         At index 0 diff: {'service': 'svc-00', 'level': 'INFO', 'count': 10, 'total_duration_ms': 4995, 'max_duration_ms': 999} != {'service': 'svc-00', 'count': 28, 'total_duration_ms': 13986, 'max_duration_ms': 999}
+E         Left contains 74 more items, first extra item: {'service': 'svc-12', 'level': 'WARN', 'count': 9, 'total_duration_ms': 4437, ...}
+E         Use -v to get more diff
+
+test_summarize.py:297: AssertionError
+__________________________ test_extra_fields_ignored ___________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_extra_fields_ignored0')
+
+    def test_extra_fields_ignored(tmp_path):
+        records = [
+            {"service": "e1", "level": "INFO", "duration_ms": 4, "note": "x", "host": "h1"},
+            {"service": "e1", "level": "ERROR", "duration_ms": 6},
+        ]
+        inp = tmp_path / "extra.jsonl"
+        out = tmp_path / "extra.json"
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert data == [{"service": "e1", "count": 2, "total_duration_ms": 10,
+                         "max_duration_ms": 6}]
+E       AssertionError: assert [{'service': ..._ms': 6, ...}] == [{'service': ...ation_ms': 6}]
+E         
+E         At index 0 diff: {'service': 'e1', 'level': 'INFO', 'count': 1, 'total_duration_ms': 4, 'max_duration_ms': 4} != {'service': 'e1', 'count': 2, 'total_duration_ms': 10, 'max_duration_ms': 6}
+E         Left contains one more item: {'service': 'e1', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 6, ...}
+E         Use -v to get more diff
+
+test_summarize.py:310: AssertionError
+_______ test_output_path_relative_to_cwd_not_required_but_absolute_works _______
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_path_relative_to_c0')
+
+    def test_output_path_relative_to_cwd_not_required_but_absolute_works(tmp_path):
+        records = [
+            {"service": "p", "level": "INFO", "duration_ms": 1},
+            {"service": "q", "level": "INFO", "duration_ms": 2},
+        ]
+        inp = tmp_path / "paths.jsonl"
+        out = tmp_path / "nested" / "paths.json"
+        out.parent.mkdir()
+        write_jsonl(str(inp), records)
+        data = load_report(str(inp), str(out))
+>       assert data == expected_report(records)
+E       AssertionError: assert [{'service': ..._ms': 2, ...}] == [{'service': ...ation_ms': 2}]
+E         
+E         At index 0 diff: {'service': 'p', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'p', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}
+E         Use -v to get more diff
+
+test_summarize.py:324: AssertionError
+________________________ test_runtime_uses_only_stdlib _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_runtime_uses_only_stdlib0')
+
+    def test_runtime_uses_only_stdlib(tmp_path):
+        records = [{"service": "lib", "level": "INFO", "duration_ms": 1}]
+        inp = tmp_path / "lib.jsonl"
+        out = tmp_path / "lib.json"
+        write_jsonl(str(inp), records)
+        env = dict(os.environ)
+        env["PYTHONPATH"] = ""
+        proc = subprocess.run(
+            [sys.executable, "-S", SCRIPT, str(inp), str(out)],
+            cwd=APP_DIR,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=TIMEOUT,
+            env=env,
+        )
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert data == [{"service": "lib", "count": 1, "total_duration_ms": 1,
+                         "max_duration_ms": 1}]
+E       AssertionError: assert [{'service': ..._ms': 1, ...}] == [{'service': ...ation_ms': 1}]
+E         
+E         At index 0 diff: {'service': 'lib', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'lib', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}
+E         Use -v to get more diff
+
+test_summarize.py:344: AssertionError
+=========================== short test summary info ============================
+FAILED test_summarize.py::test_sample_exit_code_and_structure - AssertionErro...
+FAILED test_summarize.py::test_sample_values_exact - AssertionError: assert [...
+FAILED test_summarize.py::test_groups_only_by_service_across_levels - Asserti...
+FAILED test_summarize.py::test_duplicate_records_not_lost - AssertionError: a...
+FAILED test_summarize.py::test_max_across_levels_not_per_level - AssertionErr...
+FAILED test_summarize.py::test_ordering_python_string_sorted - AssertionError...
+FAILED test_summarize.py::test_unicode_service_names_sorted - AssertionError:...
+FAILED test_summarize.py::test_unicode_output_encoded_utf8_readable - Asserti...
+FAILED test_summarize.py::test_input_file_not_modified - AssertionError: asse...
+FAILED test_summarize.py::test_input_without_trailing_newline - AssertionErro...
+FAILED test_summarize.py::test_single_line_zero_duration - AssertionError: as...
+FAILED test_summarize.py::test_large_input_1000_lines - AssertionError: asser...
+FAILED test_summarize.py::test_extra_fields_ignored - AssertionError: assert ...
+FAILED test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works
+FAILED test_summarize.py::test_runtime_uses_only_stdlib - AssertionError: ass...
+15 failed, 2 passed in 0.78s

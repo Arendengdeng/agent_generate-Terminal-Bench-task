@@ -1,0 +1,69 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_value"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_behavior.py::test_double"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "64e1f89965df91572ca475260a39a94810e1239155850e09afe7746826a9d3e8",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+  },
+  "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "For every permitted n, double equals 2*n.",
+    "test_path": "tests/test_behavior.py",
+    "line": "14",
+    "evidence_id": "known-000:test_behavior.py::test_double:call",
+    "explanation": "The Contract output_spec states output is \"JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.\" The test at line 14 asserts byte-exact stdout equality with '{\"value\": 3, \"double\": 6}\\n', which enforces a particular serialization (key order and spacing) rather than the required JSON content. known-000 emitted '{\"double\":6,\"value\":3}\\n' for n=3, which is semantically exactly {'value': 3, 'double': 6} and satisfies R2, yet the test failed. This is an over-strict serialization assertion contradicting the Contract's free field order/whitespace. The assertion must be replaced by parsing stdout with json.loads and comparing to {'value': 3, 'double': 6}, preserving all other tests and files. This does not weaken the requirement: the value of double is still checked exactly (invalid-000's double=3 still fails), and R1's checks remain unchanged.",
+    "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_behavior.py::test_value",
+    "test_behavior.py::test_double"
+  ],
+  "manifest": {
+    "test_behavior.py": "6366ac55801a870ad98b0a2fde2ac6a0d66499418f4dfcdc89d75b0421b8f8c3"
+  },
+  "digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+  "budget_used": {
+    "model_calls": 9,
+    "tool_calls": 10
+  },
+  "workflow_budget_used": {
+    "model_calls": 14,
+    "tool_calls": 17,
+    "token_usage": {
+      "prompt_tokens": 97468,
+      "completion_tokens": 1321,
+      "total_tokens": 98789
+    }
+  },
+  "cost": {
+    "wall_sec": 22.163,
+    "token_usage": {
+      "prompt_tokens": 97468,
+      "completion_tokens": 1321,
+      "total_tokens": 98789
+    }
+  }
+}

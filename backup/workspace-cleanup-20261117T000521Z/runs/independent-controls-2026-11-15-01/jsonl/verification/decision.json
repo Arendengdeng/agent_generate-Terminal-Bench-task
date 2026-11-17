@@ -1,0 +1,70 @@
+{
+  "decision": "error",
+  "action": "investigate",
+  "reason_code": "PIPELINE_ERROR",
+  "reasons": [
+    "Pipeline failed or was cancelled.",
+    "Independent controls contain execution errors or timeouts.",
+    "Docker and Harbor results are missing or disagree.",
+    "Not all confirmed controls have their required Harbor assertion outcome."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "PIPELINE_ERROR",
+      "message": "Pipeline failed or was cancelled.",
+      "details": {
+        "stage": "execution",
+        "status": "error",
+        "error": null
+      },
+      "investigate_modules": []
+    },
+    {
+      "code": "PANEL_EXECUTION_ERROR",
+      "message": "Independent controls contain execution errors or timeouts.",
+      "details": null,
+      "investigate_modules": []
+    },
+    {
+      "code": "BACKEND_INCONSISTENT",
+      "message": "Docker and Harbor results are missing or disagree.",
+      "details": [
+        "holdout-correct-000",
+        "holdout-correct-000:artifacts"
+      ],
+      "investigate_modules": []
+    },
+    {
+      "code": "PANEL_NOT_VALIDATED",
+      "message": "Not all confirmed controls have their required Harbor assertion outcome.",
+      "details": null,
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/run_result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/static_check.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/preflight.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/export/package.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/export/export.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/independent-validation.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/validation-inputs.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/control-panel.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/oracle/task__gdhgrxo/result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/oracle/task__gdhgrxo/verifier/execution.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/oracle.stdout.log",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/nop/task__L3J8vRZ/result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/nop/task__L3J8vRZ/verifier/execution.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/nop.stdout.log",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/known-000/known-000__HUXajDK/result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/known-000/known-000__HUXajDK/verifier/execution.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/known-000.stdout.log",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/invalid-000/invalid-000__fL5wAGU/result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/jobs/invalid-000/invalid-000__fL5wAGU/verifier/execution.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/invalid-000.stdout.log"
+  ],
+  "task_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-01/jsonl/verification/export/task",
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

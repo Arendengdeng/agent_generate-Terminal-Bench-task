@@ -1,0 +1,82 @@
+{
+  "status": "candidate_generated",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "OpenAICompatibleClient",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 90,
+    "max_tool_calls": 300,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 120,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 300000,
+    "max_completion_tokens": 8000,
+    "max_diagnosis_calls": 2,
+    "max_diagnosis_context_bytes": 24576,
+    "max_diagnosis_completion_tokens": 2000,
+    "consistency_rules": [],
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": null,
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "status_label": "候选已生成",
+  "model_calls": 12,
+  "tool_calls": 14,
+  "digest": "8e0a8a00bf2f63369f1035fc109e5644c0ed59a67dbeca71c8dcfe83adc2c42d",
+  "manifest": {
+    "checks/probe.py": "b11aec718f3a9dfe8a36f0a719edcd460b546445f73119952f9e150fe59089df",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "draft/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "draft/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84",
+    "draft/solution/clean.py": "e797eedefb28792ca4b5f50faced172f1d4862a0e053c5f6667839252f1cb87f",
+    "draft/solution/solve.sh": "2e97edd0fdd7cc9e80c922032a6f880c4832ee2cb4971129937b246932404470"
+  },
+  "instruction_path": "draft/instruction.md",
+  "environment_dir": "draft/environment",
+  "dockerfile_path": "draft/environment/Dockerfile",
+  "solution_dir": "draft/solution",
+  "solution_entrypoint": "draft/solution/solve.sh",
+  "self_check_path": "self_check.json",
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 12,
+      "limit": 90
+    },
+    "tool_calls": {
+      "used": 14,
+      "limit": 300
+    },
+    "files": {
+      "used": 7,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 14979,
+      "limit": 2000000
+    },
+    "elapsed_sec": 52.41
+  },
+  "workflow_budget_used": {
+    "model_calls": 27,
+    "tool_calls": 31,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 168529,
+      "completion_tokens": 15539,
+      "total_tokens": 184068
+    }
+  }
+}

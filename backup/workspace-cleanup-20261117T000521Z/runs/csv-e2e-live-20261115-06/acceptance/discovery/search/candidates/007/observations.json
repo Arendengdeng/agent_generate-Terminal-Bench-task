@@ -1,0 +1,131 @@
+[
+  {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-r_d5_4ot/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": false,
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "in.csv",
+          "value": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\na@b.c,\"Last, First\"\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-0b2u6due/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "in.csv",
+          "value": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+        },
+        "actual": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n",
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\na@b.c,\"Last, First\"\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "in.csv",
+          "value": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+        },
+        "actual": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n",
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\na@b.c,\"Last, First\"\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": true
+      }
+    ]
+  }
+]

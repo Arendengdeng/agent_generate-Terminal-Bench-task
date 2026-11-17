@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "R3 后半句要求「不同合法输入均满足规范」，output_spec 要求输出「使用 CSV 转义规则」。构造一份合法输入：三条记录，含带逗号/双引号的姓名、大小写与空白不同的重复邮箱、以及首尾空白姓名。规范实现应输出表头加上按首次出现顺序去重后的两行，并按标准 CSV 转义写出姓名（内嵌双引号翻倍）。本实现若某处偏离规范（例如未正确转义或去重键错误），此断言即失败；该断言的值完全由 Contract 的 output_spec 推导，不依赖样例。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nX@Y.COM,\"One, Two\"\nx@y.com,Duplicate\nz@y.com,\"  Last, \"\"Z\"\"  \"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nx@y.com,\"One, Two\"\nz@y.com,\"Last, \"\"Z\"\"\"\n"
+    }
+  ]
+}

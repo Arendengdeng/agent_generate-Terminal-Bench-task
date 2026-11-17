@@ -1,0 +1,123 @@
+FFFF.....F.                                                              [100%]
+=================================== FAILURES ===================================
+______________________ test_quoted_commas_and_duplicates _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_commas_and_duplica0')
+
+    def test_quoted_commas_and_duplicates(tmp_path):
+        rows = run_and_read(tmp_path, fixture="quoted_input.csv")
+>       assert rows == [
+            ["email", "name"],
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.com", 'Carol "CJ" Jones'],
+            ["dave@example.com", ""],
+        ]
+E       AssertionError: assert [['email', 'n...ple.com', '']] == [['email', 'n...ple.com', '']]
+E         
+E         At index 1 diff: ['alice@example.com', ' Alice Smith '] != ['alice@example.com', 'Alice Smith']
+E         Right contains one more item: ['dave@example.com', '']
+E         Use -v to get more diff
+
+test_clean.py:48: AssertionError
+____________________ test_order_preserved_first_occurrence _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_order_preserved_first_occ0')
+
+    def test_order_preserved_first_occurrence(tmp_path):
+        rows = run_and_read(tmp_path, fixture="order_input.csv")
+>       assert rows == [
+            ["email", "name"],
+            ["z@example.com", "Zed"],
+            ["a@example.com", "Ay"],
+            ["m@example.com", "M"],
+        ]
+E       AssertionError: assert [['email', 'n...le.com', 'M']] == [['email', 'n...le.com', 'M']]
+E         
+E         At index 1 diff: ['z@example.com', '  Zed'] != ['z@example.com', 'Zed']
+E         Use -v to get more diff
+
+test_clean.py:59: AssertionError
+________________________ test_whitespace_only_trimming _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_only_trimming0')
+
+    def test_whitespace_only_trimming(tmp_path):
+        rows = run_and_read(tmp_path, fixture="whitespace_input.csv")
+>       assert rows == [
+            ["email", "name"],
+            ["u1@example.com", "spaced name"],
+            ["u2@example.com", "plain"],
+        ]
+E       AssertionError: assert [['email', 'n...om', 'plain']] == [['email', 'n...om', 'plain']]
+E         
+E         At index 1 diff: ['u1@example.com', '   spaced name   '] != ['u1@example.com', 'spaced name']
+E         Use -v to get more diff
+
+test_clean.py:69: AssertionError
+______________________ test_inline_case_and_comma_fields _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_inline_case_and_comma_fie0')
+
+    def test_inline_case_and_comma_fields(tmp_path):
+        text = (
+            "email,name\n"
+            '"  One@Example.com  ","  One, First "\n'
+            '"two@example.com","Two"\n'
+            'ONE@example.com,One Later\n'
+            '"two@EXAMPLE.com","  Two, Second"\n'
+            '"three@example.com","Three"\n'
+        )
+        rows = run_and_read(tmp_path, text)
+>       assert rows == [
+            ["email", "name"],
+            ["one@example.com", "One, First"],
+            ["two@example.com", "Two"],
+            ["three@example.com", "Three"],
+        ]
+E       assert [['email', 'n...om', 'Three']] == [['email', 'n...om', 'Three']]
+E         
+E         At index 1 diff: ['  one@example.com  ', '  One\ntwo@example.com"', 'Two'] != ['one@example.com', 'One, First']
+E         Use -v to get more diff
+
+test_clean.py:86: AssertionError
+_________________ test_output_is_utf8_csv_and_input_untouched __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_is_utf8_csv_and_in0')
+
+    def test_output_is_utf8_csv_and_input_untouched(tmp_path):
+        src = os.path.join(str(tmp_path), "input.csv")
+        content = "email,name\n  A@B.com ,  Åsa, Name \nA@B.COM,Other\n"
+        with open(src, "w", encoding="utf-8", newline="") as fh:
+            fh.write(content)
+        with open(src, "rb") as fh:
+            before = fh.read()
+        out = os.path.join(str(tmp_path), "out.csv")
+        proc = run_clean(src, out)
+        assert proc.returncode == 0, "exit code %r, stderr=%r" % (proc.returncode, proc.stderr)
+        with open(src, "rb") as fh:
+            after = fh.read()
+        assert before == after, "input file was modified"
+        with open(out, "rb") as fh:
+            raw = fh.read()
+        decoded = raw.decode("utf-8")
+        assert decoded
+        with open(out, "r", encoding="utf-8", newline="") as fh:
+            rows = list(csv.reader(fh))
+>       assert rows == [
+            ["email", "name"],
+            ["a@b.com", "Åsa, Name"],
+        ]
+E       AssertionError: assert [['email', 'n...om', '  Åsa']] == [['email', 'n... 'Åsa, Name']]
+E         
+E         At index 1 diff: ['a@b.com', '  Åsa'] != ['a@b.com', 'Åsa, Name']
+E         Use -v to get more diff
+
+test_clean.py:155: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_quoted_commas_and_duplicates - AssertionError: ass...
+FAILED test_clean.py::test_order_preserved_first_occurrence - AssertionError:...
+FAILED test_clean.py::test_whitespace_only_trimming - AssertionError: assert ...
+FAILED test_clean.py::test_inline_case_and_comma_fields - assert [['email', '...
+FAILED test_clean.py::test_output_is_utf8_csv_and_input_untouched - Assertion...
+5 failed, 6 passed in 0.30s

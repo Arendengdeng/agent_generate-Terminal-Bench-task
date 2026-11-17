@@ -1,0 +1,1035 @@
+{
+  "label": "nop",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_manifest.py::test_exit_and_output_created",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000682877995132003,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_exit_and_output_created",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_e91t0ptd/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 127,
+            "source": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07157459899462992,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_exit_and_output_created",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_exit_and_output_created",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006546180011355318,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_output_outside_input_dir",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0010693040021578781,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_output_outside_input_dir",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [] == [{'path': 'x/...3bb23adc8b7'}]\n  \n  Right contains one more item: {'path': 'x/y.txt', 'size': 4, 'sha256': '3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 141,
+            "source": "    assert entries == expected_entries(spec)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07155965400306741,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_output_outside_input_dir",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_output_outside_input_dir",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005526499953703023,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_directory",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.003935303000616841,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_directory",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.061542242001451086,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_empty_directory",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_directory",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00043310200271662325,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_only_empty_nested_dirs",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00037352200160967186,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_only_empty_nested_dirs",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06969371099694399,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_only_empty_nested_dirs",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_only_empty_nested_dirs",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005890969987376593,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_nested_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004165479986113496,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_nested_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_5z01aluc/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 166,
+            "source": "    _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06044696000026306,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_nested_paths",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_nested_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008884019989636727,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_same_name_in_different_dirs",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004075999968335964,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_same_name_in_different_dirs",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_wh9nbwh4/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 177,
+            "source": "    _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05634619299962651,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_same_name_in_different_dirs",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_same_name_in_different_dirs",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0018523370017646812,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_spaces_and_unicode_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00030899199919076636,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_spaces_and_unicode_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_0x9eduad/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 189,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06711160599661525,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_spaces_and_unicode_names",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_spaces_and_unicode_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0013135469998815097,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003821619975497015,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_file",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_dqbyzu42/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 197,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06150878400512738,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_empty_file",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_empty_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004686680040322244,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_binary_and_non_utf8_content",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00036231299600331113,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_binary_and_non_utf8_content",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_g2tlzznd/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 207,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05665999699704116,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_binary_and_non_utf8_content",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_binary_and_non_utf8_content",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005775030003860593,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_sha256_lowercase_hex_len",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00045285300438990816,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_sha256_lowercase_hex_len",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_82g0l23m/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 219,
+            "source": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05676213699916843,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_sha256_lowercase_hex_len",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_sha256_lowercase_hex_len",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004676320022554137,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stable_sorting_mixed",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003442050001467578,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stable_sorting_mixed",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_m_4p53e6/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 239,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.054064551994088106,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_stable_sorting_mixed",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stable_sorting_mixed",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004653729993151501,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_size_one_mib",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00024843100254656747,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_size_one_mib",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\n             ^^^^^^^^^\\n  File \"<frozen codecs>\", line 322, in decode\\nUnicodeDecodeError: \\'utf-8\\' codec can\\'t decode byte 0x94 in position 4: invalid start byte\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_esh8_l4h/input', '/tmp/ma... line 322, in decode\\nUnicodeDecodeError: \\'utf-8\\' codec can\\'t decode byte 0x94 in position 4: invalid start byte\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 247,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.20444821400451474,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_size_one_mib",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\n             ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x94 in position 4: invalid start byte\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_size_one_mib",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0011800349966506474,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_many_files_sorted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00043067699880339205,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_many_files_sorted",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_yqk_y_g8/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 256,
+            "source": "    entries = _build_and_check(workdir, spec)"
+          },
+          {
+            "path": "test_manifest.py",
+            "line": 109,
+            "source": "    assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.08909463600139134,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_many_files_sorted",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_many_files_sorted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00371640500088688,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_input_tree_unmodified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042689799738582224,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_input_tree_unmodified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_y32_0ds9/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 275,
+            "source": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07654817299771821,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_input_tree_unmodified",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_input_tree_unmodified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006762089979019947,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_no_output_written_inside_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00033416400401620194,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_no_output_written_inside_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_52ypab0r/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 287,
+            "source": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07738005799910752,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_no_output_written_inside_input",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_no_output_written_inside_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006272940008784644,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_all_deliverable_modules_in_src",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002123360027326271,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_all_deliverable_modules_in_src",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019741299911402166,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_all_deliverable_modules_in_src",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012406699534039944,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_runs_from_other_cwd",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002691280024009757,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_runs_from_other_cwd",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [] == [{'path': 'x/...0b11148b0fa'}]\n  \n  Right contains one more item: {'path': 'x/y.txt', 'size': 1, 'sha256': 'a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 309,
+            "source": "    assert entries == expected_entries({\"x/y.txt\": b\"y\"})"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07381720800185576,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_runs_from_other_cwd",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_runs_from_other_cwd",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0018573120032669976,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stdlib_only_import",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007766909984638914,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stdlib_only_import",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '-S', '/app/src/manifest.py', '/tmp/manifest_test_63k2c7pm/input', '/...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_manifest.py",
+            "line": 327,
+            "source": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07850840399623848,
+      "commands": [
+        {
+          "nodeid": "test_manifest.py::test_stdlib_only_import",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n              ^^^^^^^^^^^^^^^\n[private application frame omitted]\nTypeError: Strings must be encoded before hashing\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_manifest.py::test_stdlib_only_import",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006383299987646751,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/attempts/000/execution/nop/execution.json",
+  "implementation_manifest": {
+    "/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371",
+    "/app/sample/release/Überblick.md": "a1f4b3b4c74dfd93dcbda1e88506d7b70335997456cffcb4ddff4c1532d015cc",
+    "/app/sample/release/readme.md": "f7b8f6b4939711c973888537901df445c2bf4f38866e5646274c7484ba9f9cbb",
+    "/app/sample/release/patch notes.txt": "2bde51b7e799e9604b6ab436ccfaaca102b109446b91551c2bc226c09e4f693a",
+    "/app/sample/release/README.txt": "b67d0928909b90767a3be258e96348c4d1391efb998202ca82bf45d886f391a6",
+    "/app/sample/release/notes.txt": "a3a60d91a8c8a8cc8e6cf6b65959d2894b5c8c86bc7fbeb13fce7b731cc03ea5",
+    "/app/sample/release/assets/fonts/readme.md": "0abbd0c0884225cc0e5b417a8123a196e2ed9317b7003daf0e4679ad1d779817"
+  },
+  "artifact_manifest": {
+    "/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "received_artifact_manifest": {
+    "/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "97abc04819dca71a9cd4f964c430851d8313e0d3c6c3b1e5f9f8abb776d78d76",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_manifest.py": "a6a85798a07849de67354241382f7261c7c0d52a3c4149ac5bfcfc17c964eb02"
+  },
+  "stdout": "FF..FFFFFFFFFFF.FF                                                       [100%]\n=================================== FAILURES ===================================\n_________________________ test_exit_and_output_created _________________________\n\nworkdir = '/tmp/manifest_test_e91t0ptd'\n\n    def test_exit_and_output_created(workdir):\n        spec = {\"a.txt\": b\"hello\"}\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        write_bytes(input_dir, \"a.txt\", b\"hello\")\n        out = os.path.join(workdir, \"out.json\")\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\nE       AssertionError: stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_e91t0ptd/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:127: AssertionError\n________________________ test_output_outside_input_dir _________________________\n\nworkdir = '/tmp/manifest_test_bipjiyrd'\n\n    def test_output_outside_input_dir(workdir):\n        spec = {\"x/y.txt\": b\"data\"}\n        input_dir = os.path.join(workdir, \"deep\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest.json\")\n        proc = run_manifest(input_dir, out)\n        assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\n        entries = load_manifest(out)\n>       assert entries == expected_entries(spec)\nE       AssertionError: assert [] == [{'path': 'x/...3bb23adc8b7'}]\nE         \nE         Right contains one more item: {'path': 'x/y.txt', 'size': 4, 'sha256': '3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7'}\nE         Use -v to get more diff\n\ntest_manifest.py:141: AssertionError\n______________________________ test_nested_paths _______________________________\n\nworkdir = '/tmp/manifest_test_5z01aluc'\n\n    def test_nested_paths(workdir):\n        spec = {\n            \"top.txt\": b\"top\",\n            \"a/inner.txt\": b\"inner\",\n            \"a/b/c/d/e/leaf.txt\": b\"leaf\",\n            \"a/b/deep.bin\": b\"\\x00\\x01\\x02\",\n        }\n>       _build_and_check(workdir, spec)\n\ntest_manifest.py:166: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_5z01aluc'\nspec = {'top.txt': b'top', 'a/inner.txt': b'inner', 'a/b/c/d/e/leaf.txt': b'leaf', 'a/b/deep.bin': b'\\x00\\x01\\x02'}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_5z01aluc/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n_______________________ test_same_name_in_different_dirs _______________________\n\nworkdir = '/tmp/manifest_test_wh9nbwh4'\n\n    def test_same_name_in_different_dirs(workdir):\n        spec = {\n            \"readme.md\": b\"root readme\",\n            \"assets/readme.md\": b\"assets readme\",\n            \"assets/fonts/readme.md\": b\"fonts readme\",\n            \"readme.txt\": b\"txt readme\",\n            \"README.txt\": b\"upper readme\",\n        }\n>       _build_and_check(workdir, spec)\n\ntest_manifest.py:177: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_wh9nbwh4'\nspec = {'readme.md': b'root readme', 'assets/readme.md': b'assets readme', 'assets/fonts/readme.md': b'fonts readme', 'readme.txt': b'txt readme', ...}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_wh9nbwh4/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n________________________ test_spaces_and_unicode_names _________________________\n\nworkdir = '/tmp/manifest_test_0x9eduad'\n\n    def test_spaces_and_unicode_names(workdir):\n        spec = {\n            \"patch notes.txt\": b\"notes with space\",\n            \"dir with space/inner file.dat\": b\"inner\",\n            \"\\u00dcberblick.md\": \"unicode content ä\".encode(\"utf-8\"),\n            \"deeper/\\u4e2d\\u6587\\u76ee\\u5f55/\\u6587\\u4ef6 \\u540d.txt\": b\"chinese\",\n            \"emoji\\U0001F600.txt\": b\"emoji name\",\n            \"quote\\\"name.txt\": b\"quote\",\n        }\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:189: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_0x9eduad'\nspec = {'patch notes.txt': b'notes with space', 'dir with space/inner file.dat': b'inner', 'Überblick.md': b'unicode content \\xc3\\xa4', 'deeper/中文目录/文件 名.txt': b'chinese', ...}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_0x9eduad/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n_______________________________ test_empty_file ________________________________\n\nworkdir = '/tmp/manifest_test_dqbyzu42'\n\n    def test_empty_file(workdir):\n        spec = {\"empty.bin\": b\"\", \"dir/also_empty.txt\": b\"\"}\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:197: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_dqbyzu42'\nspec = {'empty.bin': b'', 'dir/also_empty.txt': b''}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_dqbyzu42/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n_______________________ test_binary_and_non_utf8_content _______________________\n\nworkdir = '/tmp/manifest_test_g2tlzznd'\n\n    def test_binary_and_non_utf8_content(workdir):\n        data = bytes(range(256)) + b\"\\xff\\xfe\\x80\\x81\\x00\\x00\"\n        spec = {\"binary.dat\": data, \"lf.txt\": b\"line1\\nline2\\n\"}\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:207: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_g2tlzznd'\nspec = {'binary.dat': b'\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1...\\xf0\\xf1\\xf2\\xf3\\xf4\\xf5\\xf6\\xf7\\xf8\\xf9\\xfa\\xfb\\xfc\\xfd\\xfe\\xff\\xff\\xfe\\x80\\x81\\x00\\x00', 'lf.txt': b'line1\\nline2\\n'}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_g2tlzznd/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n________________________ test_sha256_lowercase_hex_len _________________________\n\nworkdir = '/tmp/manifest_test_82g0l23m'\n\n    def test_sha256_lowercase_hex_len(workdir):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        write_bytes(input_dir, \"f.txt\", b\"abc\")\n        out = os.path.join(workdir, \"out.json\")\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\nE       AssertionError: stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_82g0l23m/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:219: AssertionError\n__________________________ test_stable_sorting_mixed ___________________________\n\nworkdir = '/tmp/manifest_test_m_4p53e6'\n\n    def test_stable_sorting_mixed(workdir):\n        spec = {\n            \"b.txt\": b\"b\",\n            \"a/z.txt\": b\"z\",\n            \"a.txt\": b\"a\",\n            \"B.txt\": b\"B\",\n            \"a-a.txt\": b\"dash\",\n            \"\\u00e9.txt\": \"eacute\".encode(\"utf-8\"),\n            \"a/b.txt\": b\"ab\",\n        }\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:239: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_m_4p53e6'\nspec = {'b.txt': b'b', 'a/z.txt': b'z', 'a.txt': b'a', 'B.txt': b'B', ...}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_m_4p53e6/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n______________________________ test_size_one_mib _______________________________\n\nworkdir = '/tmp/manifest_test_esh8_l4h'\n\n    def test_size_one_mib(workdir):\n        data = bytes((i * 37) & 0xFF for i in range(1048576))\n        spec = {\"big.bin\": data}\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:247: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_esh8_l4h'\nspec = {'big.bin': b'\\x00%Jo\\x94\\xb9\\xde\\x03(Mr\\x97\\xbc\\xe1\\x06+Pu\\x9a\\xbf\\xe4\\t.Sx\\x9d\\xc2\\xe7\\x0c1V{\\xa0\\xc5\\xea\\x0f4Y~\\xa3...82\\xa7\\xcc\\xf1\\x16;`\\x85\\xaa\\xcf\\xf4\\x19>c\\x88\\xad\\xd2\\xf7\\x1cAf\\x8b\\xb0\\xd5\\xfa\\x1fDi\\x8e\\xb3\\xd8\\xfd\"Gl\\x91\\xb6\\xdb'}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\n             ^^^^^^^^^\\n  File \"<frozen codecs>\", line 322, in decode\\nUnicodeDecodeError: \\'utf-8\\' codec can\\'t decode byte 0x94 in position 4: invalid start byte\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_esh8_l4h/input', '/tmp/ma... line 322, in decode\\nUnicodeDecodeError: \\'utf-8\\' codec can\\'t decode byte 0x94 in position 4: invalid start byte\\n').returncode\n\ntest_manifest.py:109: AssertionError\n____________________________ test_many_files_sorted ____________________________\n\nworkdir = '/tmp/manifest_test_yqk_y_g8'\n\n    def test_many_files_sorted(workdir):\n        spec = {}\n        for i in range(100):\n            spec[\"f%03d.txt\" % i] = (\"file-%d\" % i).encode()\n>       entries = _build_and_check(workdir, spec)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_manifest.py:256: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nworkdir = '/tmp/manifest_test_yqk_y_g8'\nspec = {'f000.txt': b'file-0', 'f001.txt': b'file-1', 'f002.txt': b'file-2', 'f003.txt': b'file-3', ...}\n\n    def _build_and_check(workdir, spec):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        out = os.path.join(workdir, \"manifest_out.json\")\n        before = snapshot(input_dir)\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"CLI failed: rc=%s stderr=%r\" % (\n            proc.returncode,\n            proc.stderr,\n        )\nE       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_yqk_y_g8/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:109: AssertionError\n__________________________ test_input_tree_unmodified __________________________\n\nworkdir = '/tmp/manifest_test_y32_0ds9'\n\n    def test_input_tree_unmodified(workdir):\n        spec = {\n            \"keep.txt\": b\"keep\",\n            \"sub/deeper/keep.bin\": b\"\\x00\\xff\\x01\",\n            \"\\u00dcberblick.md\": b\"u\",\n        }\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        for rel, data in spec.items():\n            write_bytes(input_dir, rel, data)\n        os.makedirs(os.path.join(input_dir, \"empty_dir\", \"nested\"))\n        before = snapshot(input_dir)\n        out = os.path.join(workdir, \"output.json\")\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\nE       AssertionError: stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_y32_0ds9/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:275: AssertionError\n_____________________ test_no_output_written_inside_input ______________________\n\nworkdir = '/tmp/manifest_test_52ypab0r'\n\n    def test_no_output_written_inside_input(workdir):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        write_bytes(input_dir, \"a.txt\", b\"a\")\n        before = snapshot(input_dir)\n        out = os.path.join(workdir, \"out.json\")\n        proc = run_manifest(input_dir, out)\n>       assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\nE       AssertionError: stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_52ypab0r/input', '/tmp/ma...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:287: AssertionError\n___________________________ test_runs_from_other_cwd ___________________________\n\nworkdir = '/tmp/manifest_test_uty8nc8g'\n\n    def test_runs_from_other_cwd(workdir):\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        write_bytes(input_dir, \"x/y.txt\", b\"y\")\n        out = os.path.join(workdir, \"out.json\")\n        proc = subprocess.run(\n            [sys.executable, MANIFEST, input_dir, out],\n            cwd=workdir,\n            capture_output=True,\n            timeout=TIMEOUT,\n        )\n        assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\n        entries = load_manifest(out)\n>       assert entries == expected_entries({\"x/y.txt\": b\"y\"})\nE       AssertionError: assert [] == [{'path': 'x/...0b11148b0fa'}]\nE         \nE         Right contains one more item: {'path': 'x/y.txt', 'size': 1, 'sha256': 'a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa'}\nE         Use -v to get more diff\n\ntest_manifest.py:309: AssertionError\n___________________________ test_stdlib_only_import ____________________________\n\nworkdir = '/tmp/manifest_test_63k2c7pm'\n\n    def test_stdlib_only_import(workdir):\n        \"\"\"Run with site packages disabled to demonstrate stdlib-only operation.\"\"\"\n        input_dir = os.path.join(workdir, \"input\")\n        os.makedirs(input_dir)\n        write_bytes(input_dir, \"a.txt\", b\"abc\")\n        out = os.path.join(workdir, \"out.json\")\n        env = dict(os.environ)\n        env[\"PYTHONNOUSERSITE\"] = \"1\"\n        proc = subprocess.run(\n            [sys.executable, \"-S\", MANIFEST, input_dir, out],\n            cwd=\"/\",\n            capture_output=True,\n            timeout=TIMEOUT,\n            env=env,\n        )\n>       assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\nE       AssertionError: stderr=b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 43, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 31, in main\\n    \"sha256\": digest_of(full),\\n              ^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '-S', '/app/src/manifest.py', '/tmp/manifest_test_63k2c7pm/input', '/...src/manifest.py\", line 15, in digest_of\\n    h.update(fh.read())\\nTypeError: Strings must be encoded before hashing\\n').returncode\n\ntest_manifest.py:327: AssertionError\n=========================== short test summary info ============================\nFAILED test_manifest.py::test_exit_and_output_created - AssertionError: stder...\nFAILED test_manifest.py::test_output_outside_input_dir - AssertionError: asse...\nFAILED test_manifest.py::test_nested_paths - AssertionError: CLI failed: rc=1...\nFAILED test_manifest.py::test_same_name_in_different_dirs - AssertionError: C...\nFAILED test_manifest.py::test_spaces_and_unicode_names - AssertionError: CLI ...\nFAILED test_manifest.py::test_empty_file - AssertionError: CLI failed: rc=1 s...\nFAILED test_manifest.py::test_binary_and_non_utf8_content - AssertionError: C...\nFAILED test_manifest.py::test_sha256_lowercase_hex_len - AssertionError: stde...\nFAILED test_manifest.py::test_stable_sorting_mixed - AssertionError: CLI fail...\nFAILED test_manifest.py::test_size_one_mib - AssertionError: CLI failed: rc=1...\nFAILED test_manifest.py::test_many_files_sorted - AssertionError: CLI failed:...\nFAILED test_manifest.py::test_input_tree_unmodified - AssertionError: stderr=...\nFAILED test_manifest.py::test_no_output_written_inside_input - AssertionError...\nFAILED test_manifest.py::test_runs_from_other_cwd - AssertionError: assert []...\nFAILED test_manifest.py::test_stdlib_only_import - AssertionError: stderr=b'T...\n15 failed, 3 passed in 1.71s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_manifest.py::test_exit_and_output_created",
+    "test_manifest.py::test_output_outside_input_dir",
+    "test_manifest.py::test_empty_directory",
+    "test_manifest.py::test_only_empty_nested_dirs",
+    "test_manifest.py::test_nested_paths",
+    "test_manifest.py::test_same_name_in_different_dirs",
+    "test_manifest.py::test_spaces_and_unicode_names",
+    "test_manifest.py::test_empty_file",
+    "test_manifest.py::test_binary_and_non_utf8_content",
+    "test_manifest.py::test_sha256_lowercase_hex_len",
+    "test_manifest.py::test_stable_sorting_mixed",
+    "test_manifest.py::test_size_one_mib",
+    "test_manifest.py::test_many_files_sorted",
+    "test_manifest.py::test_input_tree_unmodified",
+    "test_manifest.py::test_no_output_written_inside_input",
+    "test_manifest.py::test_all_deliverable_modules_in_src",
+    "test_manifest.py::test_runs_from_other_cwd",
+    "test_manifest.py::test_stdlib_only_import"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5",
+  "outcome": "fail",
+  "wall_sec": 16.926,
+  "attribution": "uncertain"
+}

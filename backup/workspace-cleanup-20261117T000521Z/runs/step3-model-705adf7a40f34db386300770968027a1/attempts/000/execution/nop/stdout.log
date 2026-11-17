@@ -1,0 +1,182 @@
+.F....FF.FF.F...F                                                        [100%]
+=================================== FAILURES ===================================
+______________ CleanTestCase.test_email_lowercase_and_whitespace _______________
+
+self = <test_clean.CleanTestCase testMethod=test_email_lowercase_and_whitespace>
+
+    def test_email_lowercase_and_whitespace(self):
+        rows, _ = self.clean_and_parse(
+            "email,name\n  Foo@BAR.COM  ,  Bob  \n"
+        )
+>       self.assertEqual(rows[1:], [["foo@bar.com", "Bob"]])
+E       AssertionError: Lists differ: [['foo@bar.com', '  Bob  ']] != [['foo@bar.com', 'Bob']]
+E       
+E       First differing element 0:
+E       ['foo@bar.com', '  Bob  ']
+E       ['foo@bar.com', 'Bob']
+E       
+E       - [['foo@bar.com', '  Bob  ']]
+E       ?                   --   --
+E       
+E       + [['foo@bar.com', 'Bob']]
+
+test_clean.py:93: AssertionError
+____________ CleanTestCase.test_name_internal_whitespace_preserved _____________
+
+self = <test_clean.CleanTestCase testMethod=test_name_internal_whitespace_preserved>
+
+    def test_name_internal_whitespace_preserved(self):
+        input_text = "email,name\nn@z.com,  Mary  Jane  \n"
+        rows, _ = self.clean_and_parse(input_text)
+>       self.assertEqual(rows[1:], [["n@z.com", "Mary  Jane"]])
+E       AssertionError: Lists differ: [['n@z.com', '  Mary  Jane  ']] != [['n@z.com', 'Mary  Jane']]
+E       
+E       First differing element 0:
+E       ['n@z.com', '  Mary  Jane  ']
+E       ['n@z.com', 'Mary  Jane']
+E       
+E       - [['n@z.com', '  Mary  Jane  ']]
+E       ?               --          --
+E       
+E       + [['n@z.com', 'Mary  Jane']]
+
+test_clean.py:144: AssertionError
+____________ CleanTestCase.test_output_escaping_when_name_has_comma ____________
+
+self = <test_clean.CleanTestCase testMethod=test_output_escaping_when_name_has_comma>
+
+    def test_output_escaping_when_name_has_comma(self):
+        input_text = 'email,name\n"a@b.com","Last, First"\n'
+        rows, raw = self.clean_and_parse(input_text)
+        # round-trip check: parsing must yield the same field
+>       self.assertEqual(rows[1:], [["a@b.com", "Last, First"]])
+E       AssertionError: Lists differ: [['a@b.com', 'Last\n']] != [['a@b.com', 'Last, First']]
+E       
+E       First differing element 0:
+E       ['a@b.com', 'Last\n']
+E       ['a@b.com', 'Last, First']
+E       
+E       - [['a@b.com', 'Last\n']]
+E       ?                   ^^
+E       
+E       + [['a@b.com', 'Last, First']]
+E       ?                   ^^^^^^^
+
+test_clean.py:150: AssertionError
+____________ CleanTestCase.test_quoted_comma_dedup_preserves_first _____________
+
+self = <test_clean.CleanTestCase testMethod=test_quoted_comma_dedup_preserves_first>
+
+    def test_quoted_comma_dedup_preserves_first(self):
+        input_text = (
+            "email,name\n"
+            '"Z@Y.com","Doe, Jane"\n'
+            '"z@y.com","Other, Name"\n'
+        )
+        rows, _ = self.clean_and_parse(input_text)
+>       self.assertEqual(rows, [["email", "name"], ["z@y.com", "Doe, Jane"]])
+E       AssertionError: Lists differ: [['email', 'name'], ['z@y.com', 'Doe\n']] != [['email', 'name'], ['z@y.com', 'Doe, Jane']]
+E       
+E       First differing element 1:
+E       ['z@y.com', 'Doe\n']
+E       ['z@y.com', 'Doe, Jane']
+E       
+E       - [['email', 'name'], ['z@y.com', 'Doe\n']]
+E       ?                                     ^
+E       
+E       + [['email', 'name'], ['z@y.com', 'Doe, Jane']]
+E       ?                                     ^^^^ +
+
+test_clean.py:128: AssertionError
+____________________ CleanTestCase.test_quoted_comma_field _____________________
+
+self = <test_clean.CleanTestCase testMethod=test_quoted_comma_field>
+
+    def test_quoted_comma_field(self):
+        input_text = 'email,name\n"x@y.com","Smith, John"\n'
+        rows, _ = self.clean_and_parse(input_text)
+>       self.assertEqual(rows[1:], [["x@y.com", "Smith, John"]])
+E       AssertionError: Lists differ: [['x@y.com', 'Smith\n']] != [['x@y.com', 'Smith, John']]
+E       
+E       First differing element 0:
+E       ['x@y.com', 'Smith\n']
+E       ['x@y.com', 'Smith, John']
+E       
+E       - [['x@y.com', 'Smith\n']]
+E       ?                    ^
+E       
+E       + [['x@y.com', 'Smith, John']]
+E       ?                    ^^^^^
+
+test_clean.py:119: AssertionError
+_______________ CleanTestCase.test_quoted_email_with_whitespace ________________
+
+self = <test_clean.CleanTestCase testMethod=test_quoted_email_with_whitespace>
+
+    def test_quoted_email_with_whitespace(self):
+        input_text = 'email,name\n"  MiX@Ex.COM  ",Ann\n'
+        rows, _ = self.clean_and_parse(input_text)
+>       self.assertEqual(rows[1:], [["mix@ex.com", "Ann"]])
+E       AssertionError: Lists differ: [['  mix@ex.com  ', 'Ann']] != [['mix@ex.com', 'Ann']]
+E       
+E       First differing element 0:
+E       ['  mix@ex.com  ', 'Ann']
+E       ['mix@ex.com', 'Ann']
+E       
+E       - [['  mix@ex.com  ', 'Ann']]
+E       ?    --          --
+E       
+E       + [['mix@ex.com', 'Ann']]
+
+test_clean.py:139: AssertionError
+________________ CleanTestCase.test_varied_input_not_hardcoded _________________
+
+self = <test_clean.CleanTestCase testMethod=test_varied_input_not_hardcoded>
+
+    def test_varied_input_not_hardcoded(self):
+        input_text = (
+            "email,name\n"
+            "One@One.org, One \n"
+            "two@two.org,\"Two, Jr.\"\n"
+            "ONE@ONE.ORG,Other\n"
+            "three@three.org,Three\n"
+        )
+        rows, _ = self.clean_and_parse(input_text)
+>       self.assertEqual(
+            rows,
+            [
+                ["email", "name"],
+                ["one@one.org", "One"],
+                ["two@two.org", "Two, Jr."],
+                ["three@three.org", "Three"],
+            ],
+        )
+E       AssertionError: Lists differ: [['em[27 chars]g', ' One '], ['two@two.org', 'Two\nthree@three.org,Three\n']] != [['em[27 chars]g', 'One'], ['two@two.org', 'Two, Jr.'], ['thr[19 chars]ee']]
+E       
+E       First differing element 1:
+E       ['one@one.org', ' One ']
+E       ['one@one.org', 'One']
+E       
+E       Second list contains 1 additional elements.
+E       First extra element 3:
+E       ['three@three.org', 'Three']
+E       
+E         [['email', 'name'],
+E       -  ['one@one.org', ' One '],
+E       ?                   -   -
+E       
+E       +  ['one@one.org', 'One'],
+E       -  ['two@two.org', 'Two\nthree@three.org,Three\n']]
+E       +  ['two@two.org', 'Two, Jr.'],
+E       +  ['three@three.org', 'Three']]
+
+test_clean.py:186: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::CleanTestCase::test_email_lowercase_and_whitespace - As...
+FAILED test_clean.py::CleanTestCase::test_name_internal_whitespace_preserved
+FAILED test_clean.py::CleanTestCase::test_output_escaping_when_name_has_comma
+FAILED test_clean.py::CleanTestCase::test_quoted_comma_dedup_preserves_first
+FAILED test_clean.py::CleanTestCase::test_quoted_comma_field - AssertionError...
+FAILED test_clean.py::CleanTestCase::test_quoted_email_with_whitespace - Asse...
+FAILED test_clean.py::CleanTestCase::test_varied_input_not_hardcoded - Assert...
+7 failed, 10 passed in 0.55s

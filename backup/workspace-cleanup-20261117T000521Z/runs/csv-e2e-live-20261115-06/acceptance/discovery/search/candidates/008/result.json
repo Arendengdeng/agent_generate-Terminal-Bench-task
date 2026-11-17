@@ -1,0 +1,57 @@
+{
+  "id": "008",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/008/solution",
+  "solution_digest": "60159a0cf00ae8d0b864397d93eb0aeb22616c297241f94afbead0ef9b080e6c",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/008/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 2 rows to /tmp/witness-v2jfg6je/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\na@b.c,\"He said \"\"hi\"\", ok\"\nz@y.com,A\tB\n"
+        },
+        "actual": "email,name\na@b.c,\"He said \"\"hi\"\", ok\"\nz@y.com,A\tB\n",
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1
+    }
+  ],
+  "reason": "No definite violation, or witness rejected a correct control."
+}

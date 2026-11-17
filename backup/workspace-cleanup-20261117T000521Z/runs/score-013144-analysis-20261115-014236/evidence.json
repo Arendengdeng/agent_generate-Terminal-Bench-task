@@ -1,0 +1,4897 @@
+[
+  {
+    "implementation": "collapse_name",
+    "classification": "false_acceptance",
+    "why": "姓名内部空白被折叠，违反仅 strip 的 R2",
+    "coverage_gap": "现有姓名只有单个内部空格，没有连续空格或内部制表符。",
+    "static_contract_counterexample": "name=\" A  B \" 应保留为 \"A  B\"，该实现变为 \"A B\"。",
+    "relevant_node": {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "assertions": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ]
+    },
+    "all_call_results": [
+      {
+        "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.041974806001235265,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05054233100236161,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04545341100310907,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.047839109000051394,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.049781641995650716,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_all_fields_quoted_input",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04005505399982212,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_all_fields_quoted_input",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.035927222001191694,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05067110700474586,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.040972774993861094,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_duplicates",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04429094799706945,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_duplicates",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_input_file_is_not_modified",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04246477300330298,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_input_file_is_not_modified",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04337403300451115,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_no_third_party_imports",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.044316752995655406,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_no_third_party_imports",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "BAD:\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.038210849997994956,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+            "status": "completed",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+          }
+        ],
+        "xfail": false
+      }
+    ],
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    },
+    "original_log": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/collapse_name/stdout.log"
+  },
+  {
+    "implementation": "ascii_names_only",
+    "classification": "false_acceptance",
+    "why": "删除姓名非 ASCII 字符，违反 UTF-8 姓名保持语义",
+    "coverage_gap": "姓名样本均为 ASCII，没有覆盖中文或其他非 ASCII 字符。",
+    "static_contract_counterexample": "name=\"张三\" 应保留，该实现变为空字符串。",
+    "relevant_node": {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "assertions": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ]
+    },
+    "all_call_results": [
+      {
+        "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.039848530999734066,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03798696000012569,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03982533100497676,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03810307399544399,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03761551900242921,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_all_fields_quoted_input",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03517318500234978,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_all_fields_quoted_input",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04267316000186838,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.038685199004248716,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04796722999890335,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_duplicates",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04576702900521923,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_duplicates",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_input_file_is_not_modified",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.048496818002604414,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_input_file_is_not_modified",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.049586893001105636,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_no_third_party_imports",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.06913880399952177,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_no_third_party_imports",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "BAD:\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04956200500600971,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+            "status": "completed",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+          }
+        ],
+        "xfail": false
+      }
+    ],
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    },
+    "original_log": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/ascii_names_only/stdout.log"
+  },
+  {
+    "implementation": "strict_email",
+    "classification": "false_acceptance",
+    "why": "额外要求邮箱包含 @，删除 Contract 允许的 ASCII 非地址字段",
+    "coverage_gap": "所有邮箱样本均含 @，未覆盖非空 ASCII 非地址值。",
+    "static_contract_counterexample": "email=\"TOKEN\" 应输出 \"token\"，该实现丢弃该行。",
+    "relevant_node": {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "assertions": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ]
+    },
+    "all_call_results": [
+      {
+        "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04110913800104754,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.042693793002399616,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0460374940012116,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05998704200464999,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0641307539990521,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_all_fields_quoted_input",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04307817399967462,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_all_fields_quoted_input",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03912433999357745,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.040126908003003336,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04710768600489246,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_duplicates",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.048336277999624144,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_duplicates",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_input_file_is_not_modified",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0590247090003686,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_input_file_is_not_modified",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.057770967003307305,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_no_third_party_imports",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05803337099496275,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_no_third_party_imports",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "BAD:\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.052056205000553746,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+            "status": "completed",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+          }
+        ],
+        "xfail": false
+      }
+    ],
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    },
+    "original_log": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/strict_email/stdout.log"
+  },
+  {
+    "implementation": "sort_output",
+    "classification": "false_acceptance",
+    "why": "按邮箱排序，违反 R2 首次出现顺序",
+    "coverage_gap": "不同邮箱的首次出现顺序恰好已排序；1000 条记录使用递增编号，无法区分稳定保序与排序。",
+    "static_contract_counterexample": "输入 z@x 后 a@x 应保持 z@x,a@x；该实现输出 a@x,z@x。",
+    "relevant_node": {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "assertions": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ]
+    },
+    "all_call_results": [
+      {
+        "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04427584999939427,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.044817381000029854,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.040309828997123986,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03905425900302362,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03999138899962418,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_all_fields_quoted_input",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04285603899916168,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_all_fields_quoted_input",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.041108432997134514,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04334221300086938,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05168600199976936,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_duplicates",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04270855100185145,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_duplicates",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_input_file_is_not_modified",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.035669215001689736,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_input_file_is_not_modified",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03899003400147194,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_no_third_party_imports",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03724798499752069,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_no_third_party_imports",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "BAD:\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.048033954997663386,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+            "status": "completed",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+          }
+        ],
+        "xfail": false
+      }
+    ],
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    },
+    "original_log": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/sort_output/stdout.log"
+  },
+  {
+    "implementation": "strip_email_zero",
+    "classification": "false_acceptance",
+    "why": "额外删除邮箱前导 0，违反仅 strip/lower 的 R2",
+    "coverage_gap": "所有测试邮箱没有前导 0。",
+    "static_contract_counterexample": "email=\"0A@X\" 应输出 \"0a@x\"，该实现输出 \"a@x\"。",
+    "relevant_node": {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "assertions": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ]
+    },
+    "all_call_results": [
+      {
+        "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04877455700625433,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.059463129997311626,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03785489599977154,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.042467122002562974,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04170470499957446,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_all_fields_quoted_input",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04848288799985312,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_all_fields_quoted_input",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0457964430024731,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.047935460999724455,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05232069899648195,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_generated_large_duplicates",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.06322341800114373,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_generated_large_duplicates",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_input_file_is_not_modified",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04228128799877595,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_input_file_is_not_modified",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.03913945700332988,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_no_third_party_imports",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04063960199709982,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_no_third_party_imports",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "BAD:\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.04623970299871871,
+        "commands": [
+          {
+            "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+            "status": "completed",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+          }
+        ],
+        "xfail": false
+      }
+    ],
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    },
+    "original_log": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/strip_email_zero/stdout.log"
+  },
+  {
+    "implementation": "mutate_input",
+    "classification": "execution_error",
+    "final_trial": {
+      "label": "mutate_input",
+      "expected_reward": 0,
+      "status": "infrastructure_error",
+      "reward": null,
+      "error": {
+        "type": "SandboxError",
+        "message": "Verifier files changed during execution"
+      },
+      "reports": [],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/mutate_input/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+        "/solution/clean.py": "1c616860d42b0d798978cad77afb9bfe66036643b24e203334e60b10603b488f",
+        "/solution/solve.sh": "afd154681569e8d770d8baa9756115053138a0ccba85250ca411026e2b921c21"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "1c616860d42b0d798978cad77afb9bfe66036643b24e203334e60b10603b488f"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "1c616860d42b0d798978cad77afb9bfe66036643b24e203334e60b10603b488f"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "39aaf6b6c40a4eee0d69385c9e4b88df08a4ac7ac96f78327b461405acf38588",
+        "fixtures/header_only.csv": "3b4271d3bef8ab6d33810f36bab9cae62cdb9a84ecb700507ddbd01ae7482626",
+        "fixtures/mixed.csv": "73b0a44fb4bb7e2d0741981d2f3b2cf540ad27751ef5cfaf01d84edf625b7fe4",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_clean.py": "dcb43b9c06908eabec9f94d1c3992e4bcbe9675a83d8c1fdaacf0c42077b23ea"
+      },
+      "outcome": "error",
+      "wall_sec": 6.497,
+      "attribution": "execution_error"
+    },
+    "raw_pytest": {
+      "status": "completed",
+      "pytest_exit_code": 1,
+      "reward": 0,
+      "error": null,
+      "nodeids": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates",
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_no_third_party_imports",
+        "test_clean.py::test_wrong_argument_count_is_not_success"
+      ],
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.003241799997340422,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04877589199895738,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019527500262483954,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007362599935731851,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.044762992998585105,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00026419400091981515,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0010024479997809976,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05863986400072463,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0002988210035255179,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006234659958863631,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03929571499611484,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001841080011217855,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006295800048974343,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04316845900029875,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020007700368296355,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0008236729991040193,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.044608166004763916,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0004555529958452098,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006501360039692372,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0535375089966692,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020970499463146552,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0009504530025878921,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05291175199818099,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00022029200044926256,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006893059980939142,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05296481900586514,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00016915000014705583,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005766440008301288,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.054410286000347696,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013683299766853452,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006074370030546561,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "input file was modified\nassert b'email,name\\...b.c,Other\\n\\n' == b'email,name\\...a@b.c,Other\\n'\n  \n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 209,
+                "source": "    assert after == before, \"input file was modified\""
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.06639212400477845,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020213000243529677,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005166169939911924,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04319439000391867,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001429089970770292,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005711999983759597,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.03936052799690515,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001830649998737499,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005690879988833331,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04227781199733727,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0002642699982970953,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "artifact_manifest": {
+        "/app/clean.py": "1c616860d42b0d798978cad77afb9bfe66036643b24e203334e60b10603b488f"
+      },
+      "wall_sec": 0.914832
+    },
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    }
+  },
+  {
+    "implementation": "invalid_utf8_output",
+    "classification": "execution_error",
+    "final_trial": {
+      "label": "invalid_utf8_output",
+      "expected_reward": 0,
+      "status": "error",
+      "reward": null,
+      "error": [
+        "verifier exception: test_clean.py::test_mixed_fixture_normalization_and_dedup (call)",
+        "verifier exception: test_clean.py::test_header_only_input_produces_header_only_output (call)",
+        "verifier exception: test_clean.py::test_header_only_without_trailing_newline (call)",
+        "verifier exception: test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names (call)",
+        "verifier exception: test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order (call)",
+        "verifier exception: test_clean.py::test_all_fields_quoted_input (call)",
+        "verifier exception: test_clean.py::test_output_uses_csv_escaping (call)",
+        "verifier exception: test_clean.py::test_crlf_input_with_quoted_commas (call)",
+        "verifier exception: test_clean.py::test_generated_large_distinct_input_preserves_order (call)",
+        "verifier exception: test_clean.py::test_generated_large_duplicates (call)",
+        "verifier exception: test_clean.py::test_input_file_is_not_modified (call)",
+        "verifier exception: test_clean.py::test_success_with_input_in_readonly_like_paths (call)",
+        "pytest exit code and phase reports disagree",
+        "verifier exception: test_clean.py::test_mixed_fixture_normalization_and_dedup (call)",
+        "verifier exception: test_clean.py::test_header_only_input_produces_header_only_output (call)",
+        "verifier exception: test_clean.py::test_header_only_without_trailing_newline (call)",
+        "verifier exception: test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names (call)",
+        "verifier exception: test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order (call)",
+        "verifier exception: test_clean.py::test_all_fields_quoted_input (call)",
+        "verifier exception: test_clean.py::test_output_uses_csv_escaping (call)",
+        "verifier exception: test_clean.py::test_crlf_input_with_quoted_commas (call)",
+        "verifier exception: test_clean.py::test_generated_large_distinct_input_preserves_order (call)",
+        "verifier exception: test_clean.py::test_generated_large_duplicates (call)",
+        "verifier exception: test_clean.py::test_input_file_is_not_modified (call)",
+        "verifier exception: test_clean.py::test_success_with_input_in_readonly_like_paths (call)",
+        "pytest exit code and phase reports disagree"
+      ],
+      "reports": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.002852079996955581,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 53,
+                "source": "    rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.043863655999302864,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019621500541688874,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005974059968139045,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 65,
+                "source": "    rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05046708299778402,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000211590995604638,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0008187769999494776,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 74,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.040466366001055576,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00042191200191155076,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000658528006169945,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 90,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04358594999939669,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00024122800095938146,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007486410031560808,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 113,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04472878499655053,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015576900477753952,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005541560021811165,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 134,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05655868299800204,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019276500097475946,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007105719996616244,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 146,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04735551999328891,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00023052700271364301,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005923019998590462,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 161,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05364861300040502,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020443899848032743,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000684396996803116,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 176,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05280644799495349,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00041938999493140727,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.001446761001716368,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 195,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.053337593002652284,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021413200011011213,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007274480012711138,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 207,
+                "source": "    run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.042525467004452366,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018679600179893896,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000938832999963779,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 219,
+                "source": "    rows = read_output(out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05671719500242034,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021415400260593742,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005351880026864819,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.038604442997893784,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015141000039875507,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006070769959478639,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04265851200034376,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020694800332421437,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/invalid_utf8_output/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+        "/solution/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc",
+        "/solution/solve.sh": "999b2539fe86bd2758bddbec168f25ab9f3bb02c8b89c1868e87c77013807bb0"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "39aaf6b6c40a4eee0d69385c9e4b88df08a4ac7ac96f78327b461405acf38588",
+        "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+        "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_clean.py": "dcb43b9c06908eabec9f94d1c3992e4bcbe9675a83d8c1fdaacf0c42077b23ea"
+      },
+      "stdout": "FFFFFFFFFFFF..                                                           [100%]\n=================================== FAILURES ===================================\n__________________ test_mixed_fixture_normalization_and_dedup __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')\n\n    def test_mixed_fixture_normalization_and_dedup(tmp_path):\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:53: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58585f90>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n______________ test_header_only_input_produces_header_only_output ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0')\n\n    def test_header_only_input_produces_header_only_output(tmp_path):\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:65: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b584ab8d0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n__________________ test_header_only_without_trailing_newline ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0')\n\n    def test_header_only_without_trailing_newline(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(\"email,name\")\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5841ef90>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')\n\n    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"a@x.com\", 'Doe, \"John\"'],\n                [\"b@x.com\", \"Plain\"],\n                [\"c@x.com\", \"\"],\n            ],\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:90: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58587c50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')\n\n    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"  First@Mail.COM \", \"  First Name  \"],\n                [\"second@mail.com\", \"Second\"],\n                [\"FIRST@MAIL.COM\", \"Other Name\"],\n                [\"first@mail.com\", \"Third\"],\n                [\"\\tsecond@MAIL.com\", \"Second Again\"],\n            ],\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:113: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5845cad0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_________________________ test_all_fields_quoted_input _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')\n\n    def test_all_fields_quoted_input(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"X@Y.COM\", \"One, Two\"],\n                [\"x@y.com\", \"Duplicate\"],\n                [\"z@y.com\", \"Three\"],\n            ],\n            quoting=csv.QUOTE_ALL,\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:134: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5842a490>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n________________________ test_output_uses_csv_escaping _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')\n\n    def test_output_uses_csv_escaping(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(in_path, [\"email\", \"name\"], [[\"q@x.com\", 'Smith, J \"Q\"']])\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:146: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b585507d0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n______________________ test_crlf_input_with_quoted_commas ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')\n\n    def test_crlf_input_with_quoted_commas(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        data = 'email,name\\r\\nA@B.C,\"Last, First\"\\r\\na@b.c,\"Other, Name\"\\r\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(data)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:161: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58468210>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_____________ test_generated_large_distinct_input_preserves_order ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')\n\n    def test_generated_large_distinct_input_preserves_order(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        expected = []\n        records = []\n        for i in range(1000):\n            email = \"user%04d@example.com\" % i\n            name = \"User %d, Esq.\" % i if i % 3 == 0 else \"User %d\" % i\n            records.append([email, name])\n            expected.append([email, name])\n        write_csv(in_path, [\"email\", \"name\"], records)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:176: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58465b50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_______________________ test_generated_large_duplicates ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0')\n\n    def test_generated_large_duplicates(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        records = []\n        expected = []\n        for i in range(1000):\n            idx = i % 500\n            email = \"user%03d@example.com\" % idx\n            case_email = email.upper() if i % 2 else \"  \" + email + \"  \"\n            name = \"Name %d\" % i\n            records.append([case_email, name])\n            if i < 500:\n                expected.append([email, name])\n        write_csv(in_path, [\"email\", \"name\"], records)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:195: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58512990>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_______________________ test_input_file_is_not_modified ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0')\n\n    def test_input_file_is_not_modified(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        content = 'email,name\\nA@B.C,\"Last, First\"\\na@b.c,Other\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(content)\n        before = open(in_path, \"rb\").read()\n        out = str(tmp_path / \"out.csv\")\n>       run_and_check(in_path, out)\n\ntest_clean.py:207: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b584fac50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n________________ test_success_with_input_in_readonly_like_paths ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')\n\n    def test_success_with_input_in_readonly_like_paths(tmp_path):\n        # Ensures run only needs the two positional params and stdlib.\n        in_path = str(tmp_path / \"input.csv\")\n        write_csv(in_path, [\"email\", \"name\"], [[\"Solo@Ex.com\", \" Solo \"]])\n        out = str(tmp_path / \"nested_out.csv\")\n        proc = run_cli(in_path, out)\n        assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\n>       rows = read_output(out)\n               ^^^^^^^^^^^^^^^^\n\ntest_clean.py:219: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58264790>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - UnicodeDec...\nFAILED test_clean.py::test_header_only_input_produces_header_only_output - Un...\nFAILED test_clean.py::test_header_only_without_trailing_newline - UnicodeDeco...\nFAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names\nFAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order\nFAILED test_clean.py::test_all_fields_quoted_input - UnicodeDecodeError: 'utf...\nFAILED test_clean.py::test_output_uses_csv_escaping - UnicodeDecodeError: 'ut...\nFAILED test_clean.py::test_crlf_input_with_quoted_commas - UnicodeDecodeError...\nFAILED test_clean.py::test_generated_large_distinct_input_preserves_order - U...\nFAILED test_clean.py::test_generated_large_duplicates - UnicodeDecodeError: '...\nFAILED test_clean.py::test_input_file_is_not_modified - UnicodeDecodeError: '...\nFAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Unicod...\n12 failed, 2 passed in 0.88s\n",
+      "stderr": "",
+      "pytest_exit_code": 1,
+      "nodeids": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates",
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_no_third_party_imports",
+        "test_clean.py::test_wrong_argument_count_is_not_success"
+      ],
+      "verifier_exit_code": 2,
+      "tests_digest": "72aac00828defd2aca44df441d361a946d8a6c5a7c61a713ba4ad2db7b1d931e",
+      "outcome": "error",
+      "wall_sec": 17.765,
+      "attribution": "uncertain"
+    },
+    "raw_pytest": {
+      "status": "error",
+      "pytest_exit_code": 1,
+      "reward": null,
+      "error": [
+        "verifier exception: test_clean.py::test_mixed_fixture_normalization_and_dedup (call)",
+        "verifier exception: test_clean.py::test_header_only_input_produces_header_only_output (call)",
+        "verifier exception: test_clean.py::test_header_only_without_trailing_newline (call)",
+        "verifier exception: test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names (call)",
+        "verifier exception: test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order (call)",
+        "verifier exception: test_clean.py::test_all_fields_quoted_input (call)",
+        "verifier exception: test_clean.py::test_output_uses_csv_escaping (call)",
+        "verifier exception: test_clean.py::test_crlf_input_with_quoted_commas (call)",
+        "verifier exception: test_clean.py::test_generated_large_distinct_input_preserves_order (call)",
+        "verifier exception: test_clean.py::test_generated_large_duplicates (call)",
+        "verifier exception: test_clean.py::test_input_file_is_not_modified (call)",
+        "verifier exception: test_clean.py::test_success_with_input_in_readonly_like_paths (call)",
+        "pytest exit code and phase reports disagree"
+      ],
+      "nodeids": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates",
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_no_third_party_imports",
+        "test_clean.py::test_wrong_argument_count_is_not_success"
+      ],
+      "results": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.002852079996955581,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 53,
+                "source": "    rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.043863655999302864,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019621500541688874,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005974059968139045,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 65,
+                "source": "    rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05046708299778402,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000211590995604638,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0008187769999494776,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 74,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.040466366001055576,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00042191200191155076,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000658528006169945,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 90,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04358594999939669,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00024122800095938146,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007486410031560808,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 113,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04472878499655053,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015576900477753952,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005541560021811165,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 134,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05655868299800204,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_all_fields_quoted_input",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00019276500097475946,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007105719996616244,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 146,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04735551999328891,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00023052700271364301,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005923019998590462,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 161,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05364861300040502,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020443899848032743,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000684396996803116,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 176,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05280644799495349,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00041938999493140727,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.001446761001716368,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 195,
+                "source": "    rows = run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.053337593002652284,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_generated_large_duplicates",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021413200011011213,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0007274480012711138,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 207,
+                "source": "    run_and_check(in_path, out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 43,
+                "source": "    return read_output(out_path)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.042525467004452366,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_input_file_is_not_modified",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018679600179893896,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.000938832999963779,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": false,
+          "exception": {
+            "type": "UnicodeDecodeError",
+            "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 219,
+                "source": "    rows = read_output(out)"
+              },
+              {
+                "path": "test_clean.py",
+                "line": 35,
+                "source": "        return list(csv.reader(fh))"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.05671719500242034,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00021415400260593742,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0005351880026864819,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.038604442997893784,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_no_third_party_imports",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "BAD:\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015141000039875507,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0006070769959478639,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.04265851200034376,
+          "commands": [
+            {
+              "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+              "status": "completed",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020694800332421437,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "artifact_manifest": {
+        "/app/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc"
+      },
+      "wall_sec": 1.041702
+    },
+    "all_assertions": {
+      "test_clean.py::run_cli": [],
+      "test_clean.py::write_csv": [],
+      "test_clean.py::read_output": [
+        {
+          "line": 33,
+          "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+        }
+      ],
+      "test_clean.py::run_and_check": [
+        {
+          "line": 40,
+          "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+        }
+      ],
+      "test_clean.py::assert_header": [
+        {
+          "line": 47,
+          "assertion": "    assert rows, \"output is empty; expected header row\""
+        },
+        {
+          "line": 48,
+          "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+        }
+      ],
+      "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+        {
+          "line": 55,
+          "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_header_only_input_produces_header_only_output": [
+        {
+          "line": 66,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_header_only_without_trailing_newline": [
+        {
+          "line": 75,
+          "assertion": "    assert rows == [[\"email\", \"name\"]]"
+        }
+      ],
+      "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+        {
+          "line": 91,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+        {
+          "line": 114,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_all_fields_quoted_input": [
+        {
+          "line": 135,
+          "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+        }
+      ],
+      "test_clean.py::test_output_uses_csv_escaping": [
+        {
+          "line": 147,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+        },
+        {
+          "line": 152,
+          "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_crlf_input_with_quoted_commas": [
+        {
+          "line": 162,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+        }
+      ],
+      "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+        {
+          "line": 178,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_generated_large_duplicates": [
+        {
+          "line": 197,
+          "assertion": "    assert rows[1:] == expected"
+        }
+      ],
+      "test_clean.py::test_input_file_is_not_modified": [
+        {
+          "line": 209,
+          "assertion": "    assert after == before, \"input file was modified\""
+        }
+      ],
+      "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+        {
+          "line": 218,
+          "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+        },
+        {
+          "line": 220,
+          "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+        }
+      ],
+      "test_clean.py::test_no_third_party_imports": [
+        {
+          "line": 249,
+          "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+        },
+        {
+          "line": 251,
+          "assertion": "    assert \"BAD:\" in text"
+        },
+        {
+          "line": 252,
+          "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+        }
+      ],
+      "test_clean.py::test_wrong_argument_count_is_not_success": [
+        {
+          "line": 263,
+          "assertion": "    assert proc.returncode != 0"
+        }
+      ]
+    }
+  }
+]

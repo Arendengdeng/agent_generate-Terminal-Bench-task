@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "Contract command is `python /app/clean.py <input.csv> <output.csv>`; with exactly two positional arguments a valid input yields exit code 0 and a spec-conforming UTF-8 CSV output with header `email,name`, emails stripped+lowercased, names stripped, stable dedup by normalized email keeping first name. Here the input has three records: a duplicate (case/whitespace variant) of the first email, so the output must contain the first two records in order with normalized emails.",
+  "argv": [
+    "python",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Zed@Example.COM ,  Zed  \nzed@example.com,Zed Dup\namy@example.org,\"Amy, A.\"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nzed@example.com,Zed\namy@example.org,\"Amy, A.\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

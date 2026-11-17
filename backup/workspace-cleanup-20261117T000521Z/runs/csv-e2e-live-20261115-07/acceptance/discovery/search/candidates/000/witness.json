@@ -1,0 +1,47 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "Contract R1 requires that on success the exit code is 0 AND a compliant CSV is written. The delivered CLI is defective in writing the output: when the output path's parent directory does not exist (a perfectly ordinary invocation with two positional args), open() raises FileNotFoundError, the exception is unhandled, and the process exits non-zero (exit code 1) without producing the output file. A correct implementation must accept the output path positionally and report success (exit 0) with a well-formed CSV at that path (e.g. by creating the missing parent directory), as required by R1's '成功时退出码为 0，并写出规范 CSV'.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/newdir/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "newdir/out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "alice@example.com",
+          "Alice Smith"
+        ],
+        [
+          "bob@example.com",
+          "Bob, Jr."
+        ]
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

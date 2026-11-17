@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/zyl/projects/agent_generate Terminal Bench task/scripts/challenge_agent/run_acceptance.py", line 305, in main
+    freeze_baseline(candidate, root / 'baseline-tests', config)
+  File "/home/zyl/projects/agent_generate Terminal Bench task/scripts/challenge_agent/run_acceptance.py", line 115, in freeze_baseline
+    sandbox.prepare()
+  File "/home/zyl/projects/agent_generate Terminal Bench task/independent_verification/sandbox.py", line 28, in prepare
+    self.backend.prepare()
+  File "/home/zyl/projects/agent_generate Terminal Bench task/synthesis_agent/sandbox.py", line 172, in prepare
+    server = self._checked(self._docker(["info", "--format", "{{.OSType}}"])).stdout.strip()
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/agent_generate Terminal Bench task/synthesis_agent/sandbox.py", line 161, in _docker
+    return run_bounded([self.executable, *args],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/agent_generate Terminal Bench task/synthesis_agent/sandbox.py", line 65, in run_bounded
+    process.wait(timeout=timeout)
+  File "/usr/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2047, in _wait
+    time.sleep(delay)
+KeyboardInterrupt

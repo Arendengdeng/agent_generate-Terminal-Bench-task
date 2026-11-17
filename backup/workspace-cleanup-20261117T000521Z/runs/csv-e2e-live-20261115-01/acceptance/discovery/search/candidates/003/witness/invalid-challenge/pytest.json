@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "results": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00027223600045545027,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x7bd2a8f8c2b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 40,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\n\"}, \"actual\": \"email,name\\n\", \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": false, \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.04183831399859628,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\n\"}, \"actual\": \"email,name\\n\", \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": false, \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.0001699920030659996,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "b6ddd3b42dd79c9998e8c9cfa6dbb20bf9eee3f561b6c7ad7ae6e31990cfd5e5"
+  },
+  "wall_sec": 0.247385
+}

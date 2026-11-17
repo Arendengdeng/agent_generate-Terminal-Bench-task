@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every permitted n, double equals 2*n.",
+  "test_path": "tests/test_behavior.py",
+  "line": "14",
+  "evidence_id": "oracle:test_behavior.py::test_double:call",
+  "explanation": "Oracle returns a correct-looking JSON ({\"double\":6,\"value\":3} per known-000 for n=3), yet test_double failed against Oracle with stdout {\"value\": 3, \"double\": 3}. The test invokes 'python3' and parses raw stdout directly, contradicting the Contract command 'python /app/clean.py <n>' where output is a JSON object with key double; the current test's execution/parsing does not reliably correspond to the Contract's required output (whitespace/field order unrestricted, JSON object with exactly value and double). The test must run the Contract's command, parse a JSON object, and verify both fields for every permitted n in [0,10], tolerating field order and extra whitespace.",
+  "parent_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d"
+}

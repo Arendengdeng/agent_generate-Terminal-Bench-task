@@ -1,0 +1,41 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。",
+  "rationale": "input_spec permits names containing spaces (and forbids only newline), and output_spec requires path to be the relative POSIX path with size and sha256 of the actual bytes. A file named 'a b.txt' nested as 'sub/a b.txt' must therefore appear exactly once as 'sub/a b.txt'. The submitted implementation, when a path component contains internal whitespace, sorts by a normalized key and (for such inputs) collapses/merges entries, so the generated JSON is not the specified JSON, violating R1 (success must generate the specified JSON).",
+  "argv": [
+    "python3",
+    "/app/src/manifest.py",
+    "$WORK/input",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "input/sub/a b.txt": "hello world",
+    "input/sub/a_b.txt": "hello world"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "path": "sub/a b.txt",
+          "size": 11,
+          "sha256": "a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447"
+        },
+        {
+          "path": "sub/a_b.txt",
+          "size": 11,
+          "sha256": "a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447"
+        }
+      ]
+    }
+  ]
+}

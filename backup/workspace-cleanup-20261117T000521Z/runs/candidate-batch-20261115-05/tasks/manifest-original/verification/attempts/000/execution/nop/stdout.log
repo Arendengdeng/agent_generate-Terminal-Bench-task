@@ -1,0 +1,447 @@
+FF..FFFFFFFFFFF.FF                                                       [100%]
+=================================== FAILURES ===================================
+_________________________ test_exit_and_output_created _________________________
+
+workdir = '/tmp/manifest_test_e3b5w5d8'
+
+    def test_exit_and_output_created(workdir):
+        spec = {"a.txt": b"hello"}
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        write_bytes(input_dir, "a.txt", b"hello")
+        out = os.path.join(workdir, "out.json")
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+E       AssertionError: stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_e3b5w5d8/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:127: AssertionError
+________________________ test_output_outside_input_dir _________________________
+
+workdir = '/tmp/manifest_test__5kg6qgs'
+
+    def test_output_outside_input_dir(workdir):
+        spec = {"x/y.txt": b"data"}
+        input_dir = os.path.join(workdir, "deep")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest.json")
+        proc = run_manifest(input_dir, out)
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        entries = load_manifest(out)
+>       assert entries == expected_entries(spec)
+E       AssertionError: assert [] == [{'path': 'x/...3bb23adc8b7'}]
+E         
+E         Right contains one more item: {'path': 'x/y.txt', 'size': 4, 'sha256': '3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7'}
+E         Use -v to get more diff
+
+test_manifest.py:141: AssertionError
+______________________________ test_nested_paths _______________________________
+
+workdir = '/tmp/manifest_test__421jsb7'
+
+    def test_nested_paths(workdir):
+        spec = {
+            "top.txt": b"top",
+            "a/inner.txt": b"inner",
+            "a/b/c/d/e/leaf.txt": b"leaf",
+            "a/b/deep.bin": b"\x00\x01\x02",
+        }
+>       _build_and_check(workdir, spec)
+
+test_manifest.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test__421jsb7'
+spec = {'top.txt': b'top', 'a/inner.txt': b'inner', 'a/b/c/d/e/leaf.txt': b'leaf', 'a/b/deep.bin': b'\x00\x01\x02'}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test__421jsb7/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+_______________________ test_same_name_in_different_dirs _______________________
+
+workdir = '/tmp/manifest_test_jjn5n8k4'
+
+    def test_same_name_in_different_dirs(workdir):
+        spec = {
+            "readme.md": b"root readme",
+            "assets/readme.md": b"assets readme",
+            "assets/fonts/readme.md": b"fonts readme",
+            "readme.txt": b"txt readme",
+            "README.txt": b"upper readme",
+        }
+>       _build_and_check(workdir, spec)
+
+test_manifest.py:177: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_jjn5n8k4'
+spec = {'readme.md': b'root readme', 'assets/readme.md': b'assets readme', 'assets/fonts/readme.md': b'fonts readme', 'readme.txt': b'txt readme', ...}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_jjn5n8k4/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+________________________ test_spaces_and_unicode_names _________________________
+
+workdir = '/tmp/manifest_test_d64zrwa4'
+
+    def test_spaces_and_unicode_names(workdir):
+        spec = {
+            "patch notes.txt": b"notes with space",
+            "dir with space/inner file.dat": b"inner",
+            "\u00dcberblick.md": "unicode content ä".encode("utf-8"),
+            "deeper/\u4e2d\u6587\u76ee\u5f55/\u6587\u4ef6 \u540d.txt": b"chinese",
+            "emoji\U0001F600.txt": b"emoji name",
+            "quote\"name.txt": b"quote",
+        }
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_d64zrwa4'
+spec = {'patch notes.txt': b'notes with space', 'dir with space/inner file.dat': b'inner', 'Überblick.md': b'unicode content \xc3\xa4', 'deeper/中文目录/文件 名.txt': b'chinese', ...}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_d64zrwa4/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+_______________________________ test_empty_file ________________________________
+
+workdir = '/tmp/manifest_test_3ck6t6aa'
+
+    def test_empty_file(workdir):
+        spec = {"empty.bin": b"", "dir/also_empty.txt": b""}
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_3ck6t6aa'
+spec = {'empty.bin': b'', 'dir/also_empty.txt': b''}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_3ck6t6aa/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+_______________________ test_binary_and_non_utf8_content _______________________
+
+workdir = '/tmp/manifest_test_noj27toc'
+
+    def test_binary_and_non_utf8_content(workdir):
+        data = bytes(range(256)) + b"\xff\xfe\x80\x81\x00\x00"
+        spec = {"binary.dat": data, "lf.txt": b"line1\nline2\n"}
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_noj27toc'
+spec = {'binary.dat': b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1...\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff\xff\xfe\x80\x81\x00\x00', 'lf.txt': b'line1\nline2\n'}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_noj27toc/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+________________________ test_sha256_lowercase_hex_len _________________________
+
+workdir = '/tmp/manifest_test_6nuipl7d'
+
+    def test_sha256_lowercase_hex_len(workdir):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        write_bytes(input_dir, "f.txt", b"abc")
+        out = os.path.join(workdir, "out.json")
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+E       AssertionError: stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_6nuipl7d/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:219: AssertionError
+__________________________ test_stable_sorting_mixed ___________________________
+
+workdir = '/tmp/manifest_test_s5ghw224'
+
+    def test_stable_sorting_mixed(workdir):
+        spec = {
+            "b.txt": b"b",
+            "a/z.txt": b"z",
+            "a.txt": b"a",
+            "B.txt": b"B",
+            "a-a.txt": b"dash",
+            "\u00e9.txt": "eacute".encode("utf-8"),
+            "a/b.txt": b"ab",
+        }
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:239: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_s5ghw224'
+spec = {'b.txt': b'b', 'a/z.txt': b'z', 'a.txt': b'a', 'B.txt': b'B', ...}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_s5ghw224/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+______________________________ test_size_one_mib _______________________________
+
+workdir = '/tmp/manifest_test_1tct1djh'
+
+    def test_size_one_mib(workdir):
+        data = bytes((i * 37) & 0xFF for i in range(1048576))
+        spec = {"big.bin": data}
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:247: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_1tct1djh'
+spec = {'big.bin': b'\x00%Jo\x94\xb9\xde\x03(Mr\x97\xbc\xe1\x06+Pu\x9a\xbf\xe4\t.Sx\x9d\xc2\xe7\x0c1V{\xa0\xc5\xea\x0f4Y~\xa3...82\xa7\xcc\xf1\x16;`\x85\xaa\xcf\xf4\x19>c\x88\xad\xd2\xf7\x1cAf\x8b\xb0\xd5\xfa\x1fDi\x8e\xb3\xd8\xfd"Gl\x91\xb6\xdb'}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\n             ^^^^^^^^^\n  File "<frozen codecs>", line 322, in decode\nUnicodeDecodeError: \'utf-8\' codec can\'t decode byte 0x94 in position 4: invalid start byte\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_1tct1djh/input', '/tmp/ma... line 322, in decode\nUnicodeDecodeError: \'utf-8\' codec can\'t decode byte 0x94 in position 4: invalid start byte\n').returncode
+
+test_manifest.py:109: AssertionError
+____________________________ test_many_files_sorted ____________________________
+
+workdir = '/tmp/manifest_test_wsrk_732'
+
+    def test_many_files_sorted(workdir):
+        spec = {}
+        for i in range(100):
+            spec["f%03d.txt" % i] = ("file-%d" % i).encode()
+>       entries = _build_and_check(workdir, spec)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_manifest.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+workdir = '/tmp/manifest_test_wsrk_732'
+spec = {'f000.txt': b'file-0', 'f001.txt': b'file-1', 'f002.txt': b'file-2', 'f003.txt': b'file-3', ...}
+
+    def _build_and_check(workdir, spec):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        out = os.path.join(workdir, "manifest_out.json")
+        before = snapshot(input_dir)
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "CLI failed: rc=%s stderr=%r" % (
+            proc.returncode,
+            proc.stderr,
+        )
+E       AssertionError: CLI failed: rc=1 stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_wsrk_732/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:109: AssertionError
+__________________________ test_input_tree_unmodified __________________________
+
+workdir = '/tmp/manifest_test_8lu5zpn3'
+
+    def test_input_tree_unmodified(workdir):
+        spec = {
+            "keep.txt": b"keep",
+            "sub/deeper/keep.bin": b"\x00\xff\x01",
+            "\u00dcberblick.md": b"u",
+        }
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        for rel, data in spec.items():
+            write_bytes(input_dir, rel, data)
+        os.makedirs(os.path.join(input_dir, "empty_dir", "nested"))
+        before = snapshot(input_dir)
+        out = os.path.join(workdir, "output.json")
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+E       AssertionError: stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_8lu5zpn3/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:275: AssertionError
+_____________________ test_no_output_written_inside_input ______________________
+
+workdir = '/tmp/manifest_test_w910otr3'
+
+    def test_no_output_written_inside_input(workdir):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        write_bytes(input_dir, "a.txt", b"a")
+        before = snapshot(input_dir)
+        out = os.path.join(workdir, "out.json")
+        proc = run_manifest(input_dir, out)
+>       assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+E       AssertionError: stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/src/manifest.py', '/tmp/manifest_test_w910otr3/input', '/tmp/ma...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:287: AssertionError
+___________________________ test_runs_from_other_cwd ___________________________
+
+workdir = '/tmp/manifest_test_phl21wro'
+
+    def test_runs_from_other_cwd(workdir):
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        write_bytes(input_dir, "x/y.txt", b"y")
+        out = os.path.join(workdir, "out.json")
+        proc = subprocess.run(
+            [sys.executable, MANIFEST, input_dir, out],
+            cwd=workdir,
+            capture_output=True,
+            timeout=TIMEOUT,
+        )
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        entries = load_manifest(out)
+>       assert entries == expected_entries({"x/y.txt": b"y"})
+E       AssertionError: assert [] == [{'path': 'x/...0b11148b0fa'}]
+E         
+E         Right contains one more item: {'path': 'x/y.txt', 'size': 1, 'sha256': 'a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa'}
+E         Use -v to get more diff
+
+test_manifest.py:309: AssertionError
+___________________________ test_stdlib_only_import ____________________________
+
+workdir = '/tmp/manifest_test_wms2ae0x'
+
+    def test_stdlib_only_import(workdir):
+        """Run with site packages disabled to demonstrate stdlib-only operation."""
+        input_dir = os.path.join(workdir, "input")
+        os.makedirs(input_dir)
+        write_bytes(input_dir, "a.txt", b"abc")
+        out = os.path.join(workdir, "out.json")
+        env = dict(os.environ)
+        env["PYTHONNOUSERSITE"] = "1"
+        proc = subprocess.run(
+            [sys.executable, "-S", MANIFEST, input_dir, out],
+            cwd="/",
+            capture_output=True,
+            timeout=TIMEOUT,
+            env=env,
+        )
+>       assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+E       AssertionError: stderr=b'Traceback (most recent call last):\n  File "/app/src/manifest.py", line 43, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 31, in main\n    "sha256": digest_of(full),\n              ^^^^^^^^^^^^^^^\n  File "/app/src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '-S', '/app/src/manifest.py', '/tmp/manifest_test_wms2ae0x/input', '/...src/manifest.py", line 15, in digest_of\n    h.update(fh.read())\nTypeError: Strings must be encoded before hashing\n').returncode
+
+test_manifest.py:327: AssertionError
+=========================== short test summary info ============================
+FAILED test_manifest.py::test_exit_and_output_created - AssertionError: stder...
+FAILED test_manifest.py::test_output_outside_input_dir - AssertionError: asse...
+FAILED test_manifest.py::test_nested_paths - AssertionError: CLI failed: rc=1...
+FAILED test_manifest.py::test_same_name_in_different_dirs - AssertionError: C...
+FAILED test_manifest.py::test_spaces_and_unicode_names - AssertionError: CLI ...
+FAILED test_manifest.py::test_empty_file - AssertionError: CLI failed: rc=1 s...
+FAILED test_manifest.py::test_binary_and_non_utf8_content - AssertionError: C...
+FAILED test_manifest.py::test_sha256_lowercase_hex_len - AssertionError: stde...
+FAILED test_manifest.py::test_stable_sorting_mixed - AssertionError: CLI fail...
+FAILED test_manifest.py::test_size_one_mib - AssertionError: CLI failed: rc=1...
+FAILED test_manifest.py::test_many_files_sorted - AssertionError: CLI failed:...
+FAILED test_manifest.py::test_input_tree_unmodified - AssertionError: stderr=...
+FAILED test_manifest.py::test_no_output_written_inside_input - AssertionError...
+FAILED test_manifest.py::test_runs_from_other_cwd - AssertionError: assert []...
+FAILED test_manifest.py::test_stdlib_only_import - AssertionError: stderr=b'T...
+15 failed, 3 passed in 0.98s

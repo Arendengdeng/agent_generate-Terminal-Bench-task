@@ -1,0 +1,1093 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success",
+    "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+    "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+    "test_clean_extra.py::test_large_mixed_generated_input_reference",
+    "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+    "test_clean_extra.py::test_header_only_variant_with_crlf",
+    "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+    "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+    "test_clean_extra.py::test_single_record_and_dup_pair_only",
+    "test_clean_extra.py::test_overwriting_an_existing_output_file"
+  ],
+  "results": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.002269451999836747,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03428364399997008,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002017729998442519,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008224449998124328,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [] == [['email', 'name']]\n  \n  Right contains one more item: ['email', 'name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 47,
+            "source": "    assert rows == [['email', 'name']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03664287699984925,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001646260002416966,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004560349998428137,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [] == [['email', 'name']]\n  \n  Right contains one more item: ['email', 'name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 55,
+            "source": "    assert rows == [['email', 'name']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04085526900007608,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023812900008124416,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007019680001576489,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.036679712000022846,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013614399995276472,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042934499970215256,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03356592599993746,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001318429999628279,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007144580004023737,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03733166699976209,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002493840001989156,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005685159999302414,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03799503900017953,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001476530001127685,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000508941000134655,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03706158799968762,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023592199977429118,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006783759999962058,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04108822600028361,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001578250003149151,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005198730000302021,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.041097841000009794,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012542600006781868,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007336890002989094,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03843452299997807,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020662099996116012,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005835669999214588,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03734577700015507,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012308799978200113,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006535170000461221,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0383926029999202,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017307799998889095,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006681019999632554,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03715049499987799,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013206600033299765,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000680763000218576,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03487992300006226,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001281690001633251,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007447419998243276,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07260260400016705,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001249399997504952,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005465829999593552,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04091030200015666,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001305679998040432,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004221899998810841,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04292180099992038,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012844200000472483,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005322100000739738,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[]\nassert [] == [['email', 'name']]\n  \n  Right contains one more item: ['email', 'name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 159,
+            "source": "    assert rows == [['email', 'name']], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03924006599982022,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016241999992416822,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006479090002358134,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03605969799991726,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000147805000324297,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004297599998608348,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04676944700031527,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001690590001999226,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007122220004021074,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.09660950399984358,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001272519998565258,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000520905000030325,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03681233699990116,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021366400005717878,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "cbab45a022cce95116e6c0f14925dbb1ccee0d2adc288bbd109a9269a292d672"
+  },
+  "wall_sec": 1.216262
+}

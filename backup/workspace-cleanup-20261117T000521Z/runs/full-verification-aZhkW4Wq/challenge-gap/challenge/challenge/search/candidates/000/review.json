@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Scope: input n=1000000 is an integer in the closed range [0,1000000], so it is in scope for R1 (and the derived double value for R2). Command `python /app/clean.py <n>` matches the contract command with n=1000000. Assertions follow directly: R1 requires exit 0 and JSON value == n, giving exit_code 0 and value 1000000; R2 requires double == 2*n, giving 2000000. The output_spec's \"exactly value and double\" fields is consistent with asserting those two keys, and field order/whitespace are unrestricted so no extra formatting constraint is imposed. The three assertions are concrete and fully determined by the cited requirement; no implementation identity or out-of-contract requirement is introduced. Note: the rationale's speculation about what the submitted solution does is untrusted and irrelevant to the verdict; the contract-level derivation alone supports the witness.",
+  "contract_digest": "cf9f58179c1993ce380c906febc68c1996beca1da7dcd2a904d28714f2a1524e",
+  "witness_digest": "9151a6dc0fc296559aade966a85551bad8ee469bdc622ec3081dfb045bd1dc4c",
+  "method": "isolated-contract-model-review-v1"
+}

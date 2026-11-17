@@ -1,0 +1,65 @@
+{
+  "scenarios": [
+    {
+      "scenario": "syntax",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "api_calls": 4,
+      "cost": {
+        "wall_sec": 15.064,
+        "token_usage": {
+          "prompt_tokens": 11730,
+          "completion_tokens": 950,
+          "total_tokens": 12680
+        }
+      },
+      "evidence": "syntax-agent/collections",
+      "execution": "execution/execution.json"
+    },
+    {
+      "scenario": "overstrict",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "evidence": "verification/run_result.json",
+      "cost": {
+        "wall_sec": 182.005,
+        "model_calls": 8,
+        "tool_calls": 11,
+        "token_usage": {
+          "prompt_tokens": 56736,
+          "completion_tokens": 873,
+          "total_tokens": 57609
+        }
+      },
+      "repairs": 1,
+      "api_calls": 8
+    },
+    {
+      "scenario": "omission",
+      "contract_unchanged": true,
+      "real_execution": true,
+      "real_model": true,
+      "result": "passed",
+      "evidence": "test-loop.json",
+      "cost": {
+        "wall_sec": 65.067,
+        "token_usage": {
+          "prompt_tokens": 62143,
+          "completion_tokens": 1700,
+          "total_tokens": 63843
+        },
+        "executions": 8
+      },
+      "repairs": 1,
+      "api_calls": 10
+    }
+  ],
+  "wall_sec": 71.782,
+  "execution_scenarios_passed": true,
+  "human_signoff": false,
+  "limitation": "Finite fixture acceptance; not a test-reliability experiment."
+}

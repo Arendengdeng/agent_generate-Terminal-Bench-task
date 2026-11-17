@@ -1,0 +1,530 @@
+{
+  "contract_digest": "cf9f58179c1993ce380c906febc68c1996beca1da7dcd2a904d28714f2a1524e",
+  "witness": {
+    "requirement_id": "R2",
+    "contract_quote": "For every integer n in [0,1000000], the JSON double field equals 2*n.",
+    "rationale": "R2 requires the JSON double field to equal 2*n for every in-range n, including the boundary n=1000000. The frozen suite only checks n=3, so a boundary defect at the range endpoint is uncaught. The candidate correctly reports value=1000000 (satisfying R1) but emits double=2000002 instead of 2000000 at n=1000000, violating R2.",
+    "argv": [
+      "python3",
+      "/app/clean.py",
+      "1000000"
+    ],
+    "stdin": "",
+    "fixtures": {},
+    "assertions": [
+      {
+        "source": "exit_code",
+        "path": [],
+        "value": 0
+      },
+      {
+        "source": "json",
+        "path": [
+          "value"
+        ],
+        "value": 1000000
+      },
+      {
+        "source": "json",
+        "path": [
+          "double"
+        ],
+        "value": 2000000
+      }
+    ]
+  },
+  "review": {
+    "verdict": "confirmed",
+    "reason": "The input n=1000000 is an integer within the specified range [0,1000000] (inclusive boundary), so it is in scope. Every assertion follows directly: R1 requires exit 0 with value=n, giving exit_code 0 and value 1000000; R2 requires double=2*n=2000000. The assertions check exactly these fields and values. The claimed defect (emitting 2000002) would indeed violate R2 at this in-range boundary input, so the witness establishes a concrete R2 violation. Note: output_spec allows extra whitespace/field order but the JSON source is checked by path, which is consistent. No ambiguity or extra requirements introduced.",
+    "contract_digest": "cf9f58179c1993ce380c906febc68c1996beca1da7dcd2a904d28714f2a1524e",
+    "witness_digest": "6409217289664171dc5037f231e214aaede87102eace0e6a8da4bdc4c6368a62",
+    "method": "isolated-contract-model-review-v1"
+  },
+  "witness_trials": [
+    {
+      "label": "invalid-challenge",
+      "expected_reward": 0,
+      "status": "completed",
+      "reward": 0,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00012275399785721675,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x76bebebec2b0>)",
+            "test_traceback": [
+              {
+                "path": "test_contract_witness.py",
+                "line": 40,
+                "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+              }
+            ]
+          },
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"value\\\": 1000000, \\\"double\\\": 2000002}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000002, \"passed\": false}]}\n",
+          "stderr": "",
+          "duration_sec": 0.0343368250032654,
+          "commands": [
+            {
+              "nodeid": "test_contract_witness.py::test_contract_witness",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "{\"value\": 1000000, \"double\": 2000002}\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"value\\\": 1000000, \\\"double\\\": 2000002}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000002, \"passed\": false}]}\n",
+          "stderr": "",
+          "duration_sec": 0.00016010599938454106,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/recheck-LHMs3xXA/challenge-gap/challenge/challenge/search/candidates/001/witness/invalid-challenge/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "/solution/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8",
+        "/solution/solve.sh": "5770fe35906444a31ff522eb9fbdd6a5bf011daefda2b1f57dbe9c2620f5e118"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_contract_witness.py": "b6fdf8f96bcfed36b33926d9e57132925bc27ab9e53f5ff938de19d73613cf0c"
+      },
+      "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________________________ test_contract_witness _____________________________\n\n    def test_contract_witness():\n        with tempfile.TemporaryDirectory(prefix='witness-') as directory:\n            root = pathlib.Path(directory)\n            for name, content in SPEC['fixtures'].items():\n                path = root / name\n                path.parent.mkdir(parents=True, exist_ok=True)\n                path.write_text(content)\n            proc = subprocess.run([a.replace('$WORK', directory) for a in SPEC['argv']],\n                                  input=SPEC['stdin'], capture_output=True, text=True, timeout=TIMEOUT)\n            observed = {'exit_code': proc.returncode, 'stdout': proc.stdout, 'stderr': proc.stderr}\n            checks = []\n            for assertion in SPEC['assertions']:\n                source, path = assertion['source'], assertion['path']\n                try:\n                    if source == 'json':\n                        actual = json.loads(proc.stdout)\n                        for key in path:\n                            actual = actual[key]\n                    elif source in ('file', 'unchanged'):\n                        target = root / path\n                        if not target.resolve().is_relative_to(root.resolve()):\n                            raise ValueError('output escaped fixture directory')\n                        actual = target.read_text()\n                        if source == 'unchanged':\n                            actual = actual == SPEC['fixtures'][path]\n                    else:\n                        actual = observed[source]\n                    checks.append({'assertion': assertion, 'actual': actual,\n                                   'passed': type(actual) is type(assertion['value']) and actual == assertion['value']})\n                except (ValueError, KeyError, IndexError, TypeError, OSError) as exc:\n                    checks.append({'assertion': assertion, 'actual_error': type(exc).__name__, 'passed': False})\n            observed['checks'] = checks\n            print('WITNESS_OBSERVATION=' + json.dumps(observed))\n>           assert all(c['passed'] for c in checks), 'Contract behavior witness failed'\nE           AssertionError: Contract behavior witness failed\nE           assert False\nE            +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x76bebebec2b0>)\n\ntest_contract_witness.py:40: AssertionError\n----------------------------- Captured stdout call -----------------------------\nWITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"value\\\": 1000000, \\\"double\\\": 2000002}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000002, \"passed\": false}]}\n=========================== short test summary info ============================\nFAILED test_contract_witness.py::test_contract_witness - AssertionError: Cont...\n1 failed in 0.07s\n",
+      "stderr": "",
+      "pytest_exit_code": 1,
+      "nodeids": [
+        "test_contract_witness.py::test_contract_witness"
+      ],
+      "verifier_exit_code": 0,
+      "tests_digest": "b360faf9c307036d103045a66fcebfe7ea417d919d216fe2c33a3660fdc2d60a",
+      "outcome": "fail",
+      "wall_sec": 5.356,
+      "attribution": "uncertain"
+    },
+    {
+      "label": "oracle",
+      "expected_reward": 1,
+      "status": "completed",
+      "reward": 1,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013939699420006946,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"value\\\": 1000000, \\\"double\\\": 2000000}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000000, \"passed\": true}]}\n",
+          "stderr": "",
+          "duration_sec": 0.035653220002132,
+          "commands": [
+            {
+              "nodeid": "test_contract_witness.py::test_contract_witness",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "{\"value\": 1000000, \"double\": 2000000}\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"value\\\": 1000000, \\\"double\\\": 2000000}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000000, \"passed\": true}]}\n",
+          "stderr": "",
+          "duration_sec": 0.0001479380007367581,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/recheck-LHMs3xXA/challenge-gap/challenge/challenge/search/candidates/001/witness/oracle/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "/solution/solve.sh": "944502e883af4b89b6a4c9963f9005af9ae50ad277a5a10c0ba271fb90bd56d1"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "6981d7c39907a5fefbbe7ef4f5c1bdd73ab7071fc561177dae16983578a2dded"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_contract_witness.py": "b6fdf8f96bcfed36b33926d9e57132925bc27ab9e53f5ff938de19d73613cf0c"
+      },
+      "stdout": ".                                                                        [100%]\n1 passed in 0.04s\n",
+      "stderr": "",
+      "pytest_exit_code": 0,
+      "nodeids": [
+        "test_contract_witness.py::test_contract_witness"
+      ],
+      "verifier_exit_code": 0,
+      "tests_digest": "b360faf9c307036d103045a66fcebfe7ea417d919d216fe2c33a3660fdc2d60a",
+      "outcome": "pass",
+      "wall_sec": 5.343,
+      "attribution": "uncertain"
+    },
+    {
+      "label": "known-000",
+      "expected_reward": 1,
+      "status": "completed",
+      "reward": 1,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00011693499982357025,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"double\\\":2000000,\\\"value\\\":1000000}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000000, \"passed\": true}]}\n",
+          "stderr": "",
+          "duration_sec": 0.035406736002187245,
+          "commands": [
+            {
+              "nodeid": "test_contract_witness.py::test_contract_witness",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "{\"double\":2000000,\"value\":1000000}\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"{\\\"double\\\":2000000,\\\"value\\\":1000000}\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"value\"], \"value\": 1000000}, \"actual\": 1000000, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [\"double\"], \"value\": 2000000}, \"actual\": 2000000, \"passed\": true}]}\n",
+          "stderr": "",
+          "duration_sec": 0.0001463289954699576,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/recheck-LHMs3xXA/challenge-gap/challenge/challenge/search/candidates/001/witness/known-000/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "/solution/solve.sh": "2659f67eb77c6364e1575b07ea9cbe1ba749fac38f1ba5025e3a956f8abae1fe"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "063c8131af6e66bfd88ad9f18eeab754c86b6bfa81b369f52d50584a3a627332"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "063c8131af6e66bfd88ad9f18eeab754c86b6bfa81b369f52d50584a3a627332"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_contract_witness.py": "b6fdf8f96bcfed36b33926d9e57132925bc27ab9e53f5ff938de19d73613cf0c"
+      },
+      "stdout": ".                                                                        [100%]\n1 passed in 0.04s\n",
+      "stderr": "",
+      "pytest_exit_code": 0,
+      "nodeids": [
+        "test_contract_witness.py::test_contract_witness"
+      ],
+      "verifier_exit_code": 0,
+      "tests_digest": "b360faf9c307036d103045a66fcebfe7ea417d919d216fe2c33a3660fdc2d60a",
+      "outcome": "pass",
+      "wall_sec": 5.45,
+      "attribution": "uncertain"
+    }
+  ],
+  "scoring_trials": [
+    {
+      "label": "invalid-challenge",
+      "expected_reward": 0,
+      "status": "completed",
+      "reward": 1,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00016349899669876322,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.037571357999695465,
+          "commands": [
+            {
+              "nodeid": "test_baseline.py::test_baseline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "{\"value\": 3, \"double\": 6}\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00016614599735476077,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/recheck-LHMs3xXA/challenge-gap/challenge/challenge/search/candidates/001/scoring-0/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "/solution/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8",
+        "/solution/solve.sh": "5770fe35906444a31ff522eb9fbdd6a5bf011daefda2b1f57dbe9c2620f5e118"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "32e6e843fa76734e2963fca8bff679148ada1944317af6a30046887fdaae3fbc",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_baseline.py": "61261c7541b2955b21c53c7b3161e8b5be49fcd956363b3e8b08250351f8092d"
+      },
+      "stdout": ".                                                                        [100%]\n1 passed in 0.04s\n",
+      "stderr": "",
+      "pytest_exit_code": 0,
+      "nodeids": [
+        "test_baseline.py::test_baseline"
+      ],
+      "verifier_exit_code": 0,
+      "tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+      "outcome": "pass",
+      "wall_sec": 16.124,
+      "attribution": "uncertain"
+    },
+    {
+      "label": "invalid-challenge",
+      "expected_reward": 0,
+      "status": "completed",
+      "reward": 1,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001578800001880154,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.035187386005418375,
+          "commands": [
+            {
+              "nodeid": "test_baseline.py::test_baseline",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "{\"value\": 3, \"double\": 6}\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_baseline.py::test_baseline",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00015085899940459058,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/recheck-LHMs3xXA/challenge-gap/challenge/challenge/search/candidates/001/scoring-1/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "/solution/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8",
+        "/solution/solve.sh": "5770fe35906444a31ff522eb9fbdd6a5bf011daefda2b1f57dbe9c2620f5e118"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "received_artifact_manifest": {
+        "/app/clean.py": "ad2ac3b06dde92569eef7b68d16680f7e45ab6018479b31ed15fefcab0aa04b8"
+      },
+      "verifier_files_manifest": {
+        "expected.json": "32e6e843fa76734e2963fca8bff679148ada1944317af6a30046887fdaae3fbc",
+        "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+        "test_baseline.py": "61261c7541b2955b21c53c7b3161e8b5be49fcd956363b3e8b08250351f8092d"
+      },
+      "stdout": ".                                                                        [100%]\n1 passed in 0.04s\n",
+      "stderr": "",
+      "pytest_exit_code": 0,
+      "nodeids": [
+        "test_baseline.py::test_baseline"
+      ],
+      "verifier_exit_code": 0,
+      "tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+      "outcome": "pass",
+      "wall_sec": 5.374,
+      "attribution": "uncertain"
+    }
+  ],
+  "audits": [
+    {
+      "status": "passed",
+      "trial_digest": "72679ad3f8daf3cf34b1f76db53d6ef508cc257a1d593340f24b2276a83bdeb0",
+      "checks": [
+        "frozen_suite",
+        "implementation",
+        "collection",
+        "pytest_phases",
+        "score_parser",
+        "artifact_transfer"
+      ]
+    },
+    {
+      "status": "passed",
+      "trial_digest": "6ccb166579087c182b47d7ac761cb764d21b9adbea94875789374ef7fdbd1937",
+      "checks": [
+        "frozen_suite",
+        "implementation",
+        "collection",
+        "pytest_phases",
+        "score_parser",
+        "artifact_transfer"
+      ]
+    },
+    {
+      "status": "passed",
+      "trial_digest": "e63a32815bee01ec3c46aa7019d4f6196fb135ad983f9969c257c9bda5ca8830",
+      "checks": [
+        "frozen_suite",
+        "implementation",
+        "collection",
+        "pytest_phases",
+        "score_parser",
+        "artifact_transfer"
+      ]
+    },
+    {
+      "status": "passed",
+      "trial_digest": "20c0e999e86f7e39aafa6ed4fdbc9d598874e1a70c4ee2f452e82bc11f9f5581",
+      "checks": [
+        "frozen_suite",
+        "implementation",
+        "collection",
+        "pytest_phases",
+        "score_parser",
+        "artifact_transfer"
+      ]
+    },
+    {
+      "status": "passed",
+      "trial_digest": "77c0af3a62616946c18d61883e14744fa079aa4dd82fdd8d7231aee4fec9d9c6",
+      "checks": [
+        "frozen_suite",
+        "implementation",
+        "collection",
+        "pytest_phases",
+        "score_parser",
+        "artifact_transfer"
+      ]
+    }
+  ],
+  "tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+  "input_manifest": {
+    "inputs/contract.json": "491a8d9c65fe7d8e57857f820ad3377a1ec4035800b090bf4aa1dc497866854a",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "db2f9cfb46c561fef62cb869bf9a30d73b8b6c528f29a80d863ece801e8b7c8c"
+  },
+  "solution_digest": "17970dc8e325ecee0562cee9c02827bba0b7c43cf8ac83f8e78df13240323e81"
+}

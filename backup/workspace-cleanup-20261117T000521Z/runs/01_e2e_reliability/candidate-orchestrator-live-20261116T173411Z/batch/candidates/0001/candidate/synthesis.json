@@ -1,0 +1,85 @@
+{
+  "status": "error",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "OpenAICompatibleClient",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 90,
+    "max_tool_calls": 300,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 120,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 300000,
+    "max_completion_tokens": 8000,
+    "max_diagnosis_calls": 2,
+    "max_diagnosis_context_bytes": 24576,
+    "max_diagnosis_completion_tokens": 2000,
+    "consistency_rules": [],
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": {
+    "type": "SynthesisError",
+    "message": "3 consecutive self-check failures: requires initial failure and all repaired requirements passing"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "failure_category": "self_check_failure",
+  "failure_reason": "3 consecutive self-check failures: requires initial failure and all repaired requirements passing",
+  "failed_stage": "self_check",
+  "failure_evidence": [
+    "trace.jsonl",
+    "self_check.json"
+  ],
+  "model_calls": 15,
+  "tool_calls": 17,
+  "digest": "fdf45bf52c287ef3c19d26e63878ae811e981d9ee2085d03c37827d881536f2a",
+  "manifest": {
+    "checks/probe.py": "073b1c2cd40671255ba91d7f81d18b282fe6371d4c741f092052fb30120d404a",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "a49415b4bffc709b48a8327a4fd12e2420b72c7f9916871057baa46c1fd6b050",
+    "draft/environment/app/samples/customers_sample.csv": "ea1a9aa6ec14e94708e55a674074869be0f1bc539b4cacfd0f84c31cbeaf1235",
+    "draft/instruction.md": "8626b6a932dddd5710b6d7b0f090b4f8c730bef4075187e1ef4374035aa1a465",
+    "draft/solution/clean.py": "e632a81a0739e84eae6fa37f5b1397305c187bdfd562347b88ce2c6bae838a0b",
+    "draft/solution/solve.sh": "0fc61b0ca01158cc27ade20fa76018fa40139dffcfbe7e98b2d8158d1cacd3f4"
+  },
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 15,
+      "limit": 90
+    },
+    "tool_calls": {
+      "used": 17,
+      "limit": 300
+    },
+    "files": {
+      "used": 7,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 15255,
+      "limit": 2000000
+    },
+    "elapsed_sec": 79.513
+  },
+  "workflow_budget_used": {
+    "model_calls": 15,
+    "tool_calls": 17,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 111026,
+      "completion_tokens": 8952,
+      "total_tokens": 119978
+    }
+  }
+}

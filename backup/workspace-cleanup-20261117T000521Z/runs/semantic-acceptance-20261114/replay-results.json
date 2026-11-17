@@ -1,0 +1,5783 @@
+[
+  {
+    "label": "overstrict/old/oracle",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001094920007744804,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.03372011500141525,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.00013372799912758637,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.483599933446385e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.03117542900145054,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.00011536300007719547,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.252956
+  },
+  {
+    "label": "overstrict/old/nop",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012512299872469157,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.03065969599992968,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00011585999891394749,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.090800110949203e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert '{\"value\": 3, \"double\": 0}\\n' == '{\"value\": 3, \"double\": 6}\\n'\n  \n  - {\"value\": 3, \"double\": 6}\n  ?                        ^\n  + {\"value\": 3, \"double\": 0}\n  ?                        ^",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 14,
+              "source": "    assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.034024610999040306,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00018045199976768345,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.22199
+  },
+  {
+    "label": "overstrict/old/known_correct",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0002816159994836198,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.029147193001335836,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.00020133799989707768,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.003800030564889e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert '{\"double\":6,\"value\":3}\\n' == '{\"value\": 3, \"double\": 6}\\n'\n  \n  - {\"value\": 3, \"double\": 6}\n  + {\"double\":6,\"value\":3}",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 14,
+              "source": "    assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+            }
+          ]
+        },
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.0322759769987897,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.00014612999984819908,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.203788
+  },
+  {
+    "label": "overstrict/old/known_invalid",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011119500049971975,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.03490308999971603,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.00012223799967614468,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.08120003057411e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert '{\"value\": 3, \"double\": 3}\\n' == '{\"value\": 3, \"double\": 6}\\n'\n  \n  - {\"value\": 3, \"double\": 6}\n  ?                        ^\n  + {\"value\": 3, \"double\": 3}\n  ?                        ^",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 14,
+              "source": "    assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.032523222998861456,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.0001450949985155603,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.229098
+  },
+  {
+    "label": "overstrict/new/oracle",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0002877180013456382,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3499358230001235,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012698200043814722,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.114199954434298e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3573030120005569,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001398919994244352,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.842229
+  },
+  {
+    "label": "overstrict/new/nop",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011184299910382833,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3291389980004169,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012366300143185072,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.962200106703676e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "(1, {'value': 1, 'double': 0})\nassert 0 == (2 * 1)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 38,
+              "source": "        assert data['double'] == 2 * n, (n, data)"
+            }
+          ]
+        },
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.05843375299991749,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013977300113765523,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.535015
+  },
+  {
+    "label": "overstrict/new/known_correct",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00018799400095304009,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.33629409199966176,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013900299927627202,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013690200103155803,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.33405122899966955,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00016151399904629216,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.806533
+  },
+  {
+    "label": "overstrict/new/known_invalid",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001214339990838198,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.35085206300027494,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00020392700025695376,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.384200009459164e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "(1, {'value': 1, 'double': 1})\nassert 1 == (2 * 1)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 38,
+              "source": "        assert data['double'] == 2 * n, (n, data)"
+            }
+          ]
+        },
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.06282140999974217,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001654049992794171,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.580871
+  },
+  {
+    "label": "overstrict/new/numeric_float",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013520799984689802,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.34455635999984224,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 2.0, \"value\": 1.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 4.0, \"value\": 2.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 8.0, \"value\": 4.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 10.0, \"value\": 5.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 12.0, \"value\": 6.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 14.0, \"value\": 7.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 16.0, \"value\": 8.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 18.0, \"value\": 9.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0002476999998179963,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00010119199941982515,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.33819294099885155,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 2.0, \"value\": 1.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 4.0, \"value\": 2.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 8.0, \"value\": 4.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 10.0, \"value\": 5.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 12.0, \"value\": 6.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 14.0, \"value\": 7.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 16.0, \"value\": 8.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 18.0, \"value\": 9.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011831799929495901,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.825875
+  },
+  {
+    "label": "overstrict/new/pretty_json",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00016263500037894119,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.36250682400168444,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013512100122170523,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.101599971472751e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3663421399996878,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001085580006474629,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.878912
+  },
+  {
+    "label": "omission/old/oracle",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011594500028877519,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.0321134619989607,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.00011989499944320414,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.181400153262075e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.03040666900051292,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.00011249700037296861,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.216187
+  },
+  {
+    "label": "omission/old/nop",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00021759099945484195,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.032538496001507156,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00017994600057136267,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011248099872318562,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.03261781699984567,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00011457900109235197,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.193207
+  },
+  {
+    "label": "omission/old/known_correct",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012442900151654612,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.03329026899882592,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.0001712810008029919,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012572400009958073,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.03545978399961314,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.00011423800060583744,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.189297
+  },
+  {
+    "label": "omission/old/known_invalid",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001339089994871756,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.03303332299947215,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.00012141899969719816,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.353300083603244e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.032253009998385096,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.000143311999636353,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.232575
+  },
+  {
+    "label": "omission/new/oracle",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001535380015411647,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3594771909993142,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001367249988106778,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.927499922923744e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.3460697699993034,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.00012690599942288827,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.946900041133631e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.3408321620008792,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.00012054099897795822,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.132000013778452e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.35116007900069235,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 10}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 12}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 14}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 16}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 18}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 2}\n{\"value\": 2, \"double\": 4}\n{\"value\": 3, \"double\": 6}\n{\"value\": 4, \"double\": 8}\n{\"value\": 5, \"double\": 10}\n{\"value\": 6, \"double\": 12}\n{\"value\": 7, \"double\": 14}\n{\"value\": 8, \"double\": 16}\n{\"value\": 9, \"double\": 18}\n{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.00011330199959047604,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.498800005123485e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.03135650799958967,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 6}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 6}\n",
+        "stderr": "",
+        "duration_sec": 0.00011369399908289779,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.29060011508409e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.031977953998648445,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00011278700003458653,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.058700066409074e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.036170248000416905,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 20}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 10, \"double\": 20}\n",
+        "stderr": "",
+        "duration_sec": 0.00027154300005349796,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.651114
+  },
+  {
+    "label": "omission/new/nop",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001552479989186395,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.36493759600125486,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012626599891518708,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.421700113103725e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n{\"value\": 2, \"double\": 0}\n{\"value\": 3, \"double\": 0}\n{\"value\": 4, \"double\": 0}\n{\"value\": 5, \"double\": 0}\n{\"value\": 6, \"double\": 0}\n{\"value\": 7, \"double\": 0}\n{\"value\": 8, \"double\": 0}\n{\"value\": 9, \"double\": 0}\n{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.3341573369998514,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n{\"value\": 2, \"double\": 0}\n{\"value\": 3, \"double\": 0}\n{\"value\": 4, \"double\": 0}\n{\"value\": 5, \"double\": 0}\n{\"value\": 6, \"double\": 0}\n{\"value\": 7, \"double\": 0}\n{\"value\": 8, \"double\": 0}\n{\"value\": 9, \"double\": 0}\n{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00014055999963602517,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00010405000102764461,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n{\"value\": 2, \"double\": 0}\n{\"value\": 3, \"double\": 0}\n{\"value\": 4, \"double\": 0}\n{\"value\": 5, \"double\": 0}\n{\"value\": 6, \"double\": 0}\n{\"value\": 7, \"double\": 0}\n{\"value\": 8, \"double\": 0}\n{\"value\": 9, \"double\": 0}\n{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.338935338999363,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n{\"value\": 2, \"double\": 0}\n{\"value\": 3, \"double\": 0}\n{\"value\": 4, \"double\": 0}\n{\"value\": 5, \"double\": 0}\n{\"value\": 6, \"double\": 0}\n{\"value\": 7, \"double\": 0}\n{\"value\": 8, \"double\": 0}\n{\"value\": 9, \"double\": 0}\n{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00010947899863822386,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.081999865476973e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "double mismatch for n=1: 0\nassert 0 == (2 * 1)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 61,
+              "source": "        assert obj['double'] == 2 * n, ("
+            }
+          ]
+        },
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.06110298900057387,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00019948299996030983,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.481699999014381e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert 0 == 6",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 70,
+              "source": "    assert obj['double'] == 6"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.02968985799998336,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.0001212759998452384,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.121400085452478e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.029508317000363604,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.0001838409989431966,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.441300112986937e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert {'value': 10, 'double': 0} == {'value': 10, 'double': 20}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 20}\n  Use -v to get more diff",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 81,
+              "source": "    assert obj == {'value': 10, 'double': 20}"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.030951306000133627,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 10, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00011776400060625747,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.362021
+  },
+  {
+    "label": "omission/new/known_correct",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001124440004787175,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.33499005799967563,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00014526899940392468,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.89320001786109e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.3154017649994785,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.00011963500037381891,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.739699867670424e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.32698041799994826,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.00032452199957333505,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011898900083906483,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.32843505600067147,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":2,\"value\":1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":4,\"value\":2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":8,\"value\":4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":10,\"value\":5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":12,\"value\":6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":14,\"value\":7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":16,\"value\":8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":18,\"value\":9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n{\"double\":2,\"value\":1}\n{\"double\":4,\"value\":2}\n{\"double\":6,\"value\":3}\n{\"double\":8,\"value\":4}\n{\"double\":10,\"value\":5}\n{\"double\":12,\"value\":6}\n{\"double\":14,\"value\":7}\n{\"double\":16,\"value\":8}\n{\"double\":18,\"value\":9}\n{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.00011243900007684715,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.426199954352342e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.032197485999859055,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":6,\"value\":3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":6,\"value\":3}\n",
+        "stderr": "",
+        "duration_sec": 0.000210991000130889,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001746930010995129,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n",
+        "stderr": "",
+        "duration_sec": 0.03273293799975363,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":0,\"value\":0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":0,\"value\":0}\n",
+        "stderr": "",
+        "duration_sec": 0.00011812000047939364,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.861800077080261e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.033230495999305276,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\":20,\"value\":10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\":20,\"value\":10}\n",
+        "stderr": "",
+        "duration_sec": 0.00012166800115664955,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.539566
+  },
+  {
+    "label": "omission/new/known_invalid",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00017442000171286054,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3416284089998953,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00013103399942338,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.469999920635018e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n{\"value\": 2, \"double\": 2}\n{\"value\": 3, \"double\": 3}\n{\"value\": 4, \"double\": 4}\n{\"value\": 5, \"double\": 5}\n{\"value\": 6, \"double\": 6}\n{\"value\": 7, \"double\": 7}\n{\"value\": 8, \"double\": 8}\n{\"value\": 9, \"double\": 9}\n{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.3707721650007443,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n{\"value\": 2, \"double\": 2}\n{\"value\": 3, \"double\": 3}\n{\"value\": 4, \"double\": 4}\n{\"value\": 5, \"double\": 5}\n{\"value\": 6, \"double\": 6}\n{\"value\": 7, \"double\": 7}\n{\"value\": 8, \"double\": 8}\n{\"value\": 9, \"double\": 9}\n{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.00020904899974993896,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 9.286200111091603e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n{\"value\": 2, \"double\": 2}\n{\"value\": 3, \"double\": 3}\n{\"value\": 4, \"double\": 4}\n{\"value\": 5, \"double\": 5}\n{\"value\": 6, \"double\": 6}\n{\"value\": 7, \"double\": 7}\n{\"value\": 8, \"double\": 8}\n{\"value\": 9, \"double\": 9}\n{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.37330026299969177,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 2, \"double\": 2}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 4, \"double\": 4}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 5, \"double\": 5}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 6, \"double\": 6}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 7, \"double\": 7}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 8, \"double\": 8}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 9, \"double\": 9}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n{\"value\": 2, \"double\": 2}\n{\"value\": 3, \"double\": 3}\n{\"value\": 4, \"double\": 4}\n{\"value\": 5, \"double\": 5}\n{\"value\": 6, \"double\": 6}\n{\"value\": 7, \"double\": 7}\n{\"value\": 8, \"double\": 8}\n{\"value\": 9, \"double\": 9}\n{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.00011164500028826296,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.080199975462165e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "double mismatch for n=1: 1\nassert 1 == (2 * 1)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 61,
+              "source": "        assert obj['double'] == 2 * n, ("
+            }
+          ]
+        },
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n",
+        "stderr": "",
+        "duration_sec": 0.058395957999891834,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 1, \"double\": 1}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n{\"value\": 1, \"double\": 1}\n",
+        "stderr": "",
+        "duration_sec": 0.0001598130002093967,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.182499939517584e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert 3 == 6",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 70,
+              "source": "    assert obj['double'] == 6"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.031807671999558806,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.00012342100126261357,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00016242499987129122,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.03026715099986177,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 0, \"double\": 0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 0, \"double\": 0}\n",
+        "stderr": "",
+        "duration_sec": 0.00012247799895703793,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.096399869828019e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert {'value': 10, 'double': 10} == {'value': 10, 'double': 20}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 10} != {'double': 20}\n  Use -v to get more diff",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 81,
+              "source": "    assert obj == {'value': 10, 'double': 20}"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.031011703998956364,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 10, \"double\": 10}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 10, \"double\": 10}\n",
+        "stderr": "",
+        "duration_sec": 0.00013245699847175274,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.44114
+  },
+  {
+    "label": "omission/new/numeric_float",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012982699990971014,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3588407909992384,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 2.0, \"value\": 1.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 4.0, \"value\": 2.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 8.0, \"value\": 4.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 10.0, \"value\": 5.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 12.0, \"value\": 6.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 14.0, \"value\": 7.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 16.0, \"value\": 8.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 18.0, \"value\": 9.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00019440199866949115,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00015992400039976928,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n{\"double\": 2.0, \"value\": 1.0}\n{\"double\": 4.0, \"value\": 2.0}\n{\"double\": 6.0, \"value\": 3.0}\n{\"double\": 8.0, \"value\": 4.0}\n{\"double\": 10.0, \"value\": 5.0}\n{\"double\": 12.0, \"value\": 6.0}\n{\"double\": 14.0, \"value\": 7.0}\n{\"double\": 16.0, \"value\": 8.0}\n{\"double\": 18.0, \"value\": 9.0}\n{\"double\": 20.0, \"value\": 10.0}\n",
+        "stderr": "",
+        "duration_sec": 0.34760034899954917,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 2.0, \"value\": 1.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 4.0, \"value\": 2.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 8.0, \"value\": 4.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 10.0, \"value\": 5.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 12.0, \"value\": 6.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 14.0, \"value\": 7.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 16.0, \"value\": 8.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 18.0, \"value\": 9.0}\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n{\"double\": 2.0, \"value\": 1.0}\n{\"double\": 4.0, \"value\": 2.0}\n{\"double\": 6.0, \"value\": 3.0}\n{\"double\": 8.0, \"value\": 4.0}\n{\"double\": 10.0, \"value\": 5.0}\n{\"double\": 12.0, \"value\": 6.0}\n{\"double\": 14.0, \"value\": 7.0}\n{\"double\": 16.0, \"value\": 8.0}\n{\"double\": 18.0, \"value\": 9.0}\n{\"double\": 20.0, \"value\": 10.0}\n",
+        "stderr": "",
+        "duration_sec": 0.00012340600005700253,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 8.066099871939514e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert (False)\n +  where False = isinstance(0.0, int)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 55,
+              "source": "        assert isinstance(obj['value'], int) and not isinstance(obj['value'], bool)"
+            }
+          ]
+        },
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.03681882300043071,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.00014283900054579135,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.52870000724215e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert (False)\n +  where False = isinstance(0.0, int)",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 64,
+              "source": "        assert isinstance(obj['double'], int) and not isinstance(obj['double'], bool)"
+            }
+          ]
+        },
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.03830901199944492,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.00014175700016494375,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012070299999322742,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+        "stderr": "",
+        "duration_sec": 0.03728220999983023,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 6.0, \"value\": 3.0}\n",
+        "stderr": "",
+        "duration_sec": 0.0001146100003097672,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.50740000512451e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.03601600500041968,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 0.0, \"value\": 0.0}\n",
+        "stderr": "",
+        "duration_sec": 0.00014940900109650102,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011897200056409929,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+        "stderr": "",
+        "duration_sec": 0.03374614999847836,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"double\": 20.0, \"value\": 10.0}\n",
+        "stderr": "",
+        "duration_sec": 0.00016142300046340097,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.062943
+  },
+  {
+    "label": "omission/new/pretty_json",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 0,
+    "reward": 1,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+      "test_behavior.py::test_output_is_json_object_with_exact_keys",
+      "test_behavior.py::test_value_equals_n",
+      "test_behavior.py::test_double_equals_twice_n",
+      "test_behavior.py::test_probe_n_three",
+      "test_behavior.py::test_boundary_zero",
+      "test_behavior.py::test_boundary_ten"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.0001446410005883081,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.3452993480004807,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00024026900064200163,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011486400035209954,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.3376578769984917,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00014455499876930844,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00011144099880766589,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.3534711280008196,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_value_equals_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value_equals_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00015381000048364513,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.679800000914838e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.3295393080006761,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n",
+            "stderr": ""
+          },
+          {
+            "nodeid": "test_behavior.py::test_double_equals_twice_n",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double_equals_twice_n",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n \n{\n    \"double\": 2,\n    \"value\": 1\n} \n\n \n{\n    \"double\": 4,\n    \"value\": 2\n} \n\n \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n \n{\n    \"double\": 8,\n    \"value\": 4\n} \n\n \n{\n    \"double\": 10,\n    \"value\": 5\n} \n\n \n{\n    \"double\": 12,\n    \"value\": 6\n} \n\n \n{\n    \"double\": 14,\n    \"value\": 7\n} \n\n \n{\n    \"double\": 16,\n    \"value\": 8\n} \n\n \n{\n    \"double\": 18,\n    \"value\": 9\n} \n\n \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00014062999980524182,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.830800132069271e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.02990939100163814,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_probe_n_three",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_probe_n_three",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 6,\n    \"value\": 3\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00011692499901982956,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 7.198700041044503e-05,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.030157627999869874,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_zero",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_zero",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 0,\n    \"value\": 0\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00014034699961484876,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00012479600081860553,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.02968816000065999,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_boundary_ten",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_boundary_ten",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": " \n{\n    \"double\": 20,\n    \"value\": 10\n} \n\n",
+        "stderr": "",
+        "duration_sec": 0.00012173700088169426,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 1.590864
+  },
+  {
+    "label": "oracle_error/unchanged_tests/wrong_oracle",
+    "process_exit": 0,
+    "status": "completed",
+    "pytest_exit_code": 1,
+    "reward": 0,
+    "error": null,
+    "nodeids": [
+      "test_behavior.py::test_value",
+      "test_behavior.py::test_double"
+    ],
+    "results": [
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00023531899933004752,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "call",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.03365393999956723,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_value",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_value",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.00019741100004466716,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "setup",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "",
+        "stderr": "",
+        "duration_sec": 0.00010423200001241639,
+        "commands": [],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "call",
+        "outcome": "failed",
+        "task_assertion": true,
+        "exception": {
+          "type": "AssertionError",
+          "message": "assert 3 == 6",
+          "test_traceback": [
+            {
+              "path": "test_behavior.py",
+              "line": 14,
+              "source": "    assert json.loads(run(3).stdout)['double'] == 6"
+            }
+          ]
+        },
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.0351188849999744,
+        "commands": [
+          {
+            "nodeid": "test_behavior.py::test_double",
+            "status": "completed",
+            "returncode": 0,
+            "stdout": "{\"value\": 3, \"double\": 3}\n",
+            "stderr": ""
+          }
+        ],
+        "xfail": false
+      },
+      {
+        "nodeid": "test_behavior.py::test_double",
+        "when": "teardown",
+        "outcome": "passed",
+        "task_assertion": false,
+        "exception": null,
+        "stdout": "{\"value\": 3, \"double\": 3}\n",
+        "stderr": "",
+        "duration_sec": 0.0001351389983028639,
+        "commands": [],
+        "xfail": false
+      }
+    ],
+    "wall_sec": 0.240215
+  }
+]

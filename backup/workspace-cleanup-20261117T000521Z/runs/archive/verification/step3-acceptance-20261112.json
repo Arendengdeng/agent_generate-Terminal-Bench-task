@@ -1,0 +1,36 @@
+{
+  "status": "incomplete",
+  "end_to_end_validated": false,
+  "candidate": "runs/acceptance-csv-01",
+  "harbor_version": "0.25.0",
+  "test_generation": {
+    "status": "tests_generated",
+    "tests": 15,
+    "mapped_requirements": 4,
+    "model_calls": 11,
+    "tool_calls": 13,
+    "evidence": "runs/step3-live-01/test-agent/tests.json"
+  },
+  "harbor_lint": {
+    "status": "completed",
+    "findings": 0,
+    "evidence": "runs/step3-live-export-01/export/export.json"
+  },
+  "execution": {
+    "oracle": "not_run",
+    "nop": "not_run",
+    "reward": null,
+    "evidence": "runs/step3-live-run-01/run_result.json"
+  },
+  "blocker": {
+    "type": "HARBOR_NETWORK_UNSUPPORTED",
+    "kernel": "6.6.87.2-microsoft-standard-WSL2",
+    "detail": "Harbor no-network capability probe failed; daemon kernel config lacks CONFIG_NFT_FIB_INET. Network isolation was not relaxed.",
+    "evidence": "runs/step3-live-run-01/preflight.json"
+  },
+  "prior_harbor_attempt": "runs/step3-harbor-160dbbb7893146d6846cbf7c74945cf9/verification/run_result.json",
+  "review_notes": [
+    "Generated test_stdlib.py compares raw CSV lines, potentially rejecting valid quoted CSV output. Generated tests remain frozen; semantic acceptance is pending."
+  ],
+  "step2_real_model_acceptance": "separate_pending_task"
+}

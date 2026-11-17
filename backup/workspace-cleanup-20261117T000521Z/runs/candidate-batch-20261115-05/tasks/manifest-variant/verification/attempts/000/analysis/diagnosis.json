@@ -1,0 +1,9 @@
+{
+  "explanation": "test_r1_sample_directory hard-requires the initial sample tree at /app/data/sample and fails with pytest.fail when it is absent (message \"/app/data/sample sample directory is missing\"). The sample tree is initial sample data, not a Contract deliverable: the Contract's input_spec only requires that input_dir is an existing directory and the instruction mentions the sample merely to observe current output; the final Verifier receives only the /app/src deliverables and \"does not inherit initial sample data\". The test must instead build its own fixture tree (mirroring the documented sample structure: notes/readme.txt and deep/readme.txt sharing content, deep/nested/copy two.txt and 名字 带空格.txt sharing content, deep/nested/blank.bin empty, plus empty directories) under tmp_path and assert exit 0, output JSON present, and manifest equality with a manifest computed via hashlib from those fixture bytes (three groups: the shared text, the other shared content, the empty file), including sorted paths. That preserves the R1 assertions (exit 0, JSON written to the requested path, correct grouping) without depending on undeclared sample data.",
+  "evidence_id": "oracle:test_manifest_cli.py::test_r1_sample_directory:call",
+  "contract_quote": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。",
+  "line": "174",
+  "requirement_id": "R1",
+  "test_path": "tests/test_manifest_cli.py",
+  "parent_digest": "6f44c4c96335a7540f5cef01c2420825af87ba2da2e5d1ed951aed2cf646148d"
+}

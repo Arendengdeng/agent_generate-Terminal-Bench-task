@@ -1,0 +1,38 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "输入夹具是合法的 UTF-8 CSV（表头恰为 email,name，字段使用标准引号规则）。第一条记录 b@x.com 的姓名是带引号的空字符串，占位了一个'首次出现'；第二条记录 B@X.COM（同一归一化邮箱 b@x.com）带有姓名 'Late Bob'。Contract 规定按归一化邮箱去重并保留首次记录的姓名，因此合法输出只有一行 b@x.com 且姓名为空字符串（即 csv 解析后 ['b@x.com','']）；任何去重后出现的 'Late Bob' 都说明实现把空姓名当成了缺失并错误地去重失败。当前实现把姓名空串写入后，csv 模块读回为一行、内容为 ['b@x.com','']；但实现使用 csv.reader 解析，对 'email,name\\nb@x.com,\"\"\\nB@X.COM,Late Bob\\n' 这个输入仍能正确处理（空串非 None），因此断言输出文件解析后的第二行为 ['b@x.com',''] 且总行数为 2，用来检验实现在'首次记录的姓名为空字符串'时的稳定去重行为。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nb@x.com,\"\"\nB@X.COM,Late Bob\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "b@x.com",
+          ""
+        ]
+      ]
+    }
+  ]
+}

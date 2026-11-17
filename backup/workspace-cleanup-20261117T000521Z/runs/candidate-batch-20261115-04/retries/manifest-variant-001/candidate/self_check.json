@@ -1,0 +1,83 @@
+{
+  "status": "error",
+  "digest": "6c15fcd90d322b1e5f9698ad2aa6944a56334c8be7a72dfc45507552387eb8bc",
+  "manifest": {
+    "checks/probe.py": "213ff7ec66e65ec37cecf2382ae07f7b6e38f2cb22c775e56dd31a9618bb3385",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/src/manifest.py": "705ddcb962307030c62aa5b118baae4ae20bfd6623d5bf7374c3d5c0ceb8d2b1",
+    "draft/instruction.md": "8dd016de22b30b879791646d00863d6819c929007ea3e232b29fa1c6133806cc",
+    "draft/solution/manifest.py": "22724810e1b6b552fd5f4beda9de0d1ecc39be525e38ff3003a3317490ecb237",
+    "draft/solution/scanner.py": "d5a90ca392ce3b76f90fe13c662c3f90a13320c4c801ac48ce5c40bc83c282c2",
+    "draft/solution/solve.sh": "123083e4d61696e44876d49b297e151cda7327c1d4099624777ce77c5b99c58c"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "nested: manifest mismatch\nexpected=[{\"paths\": [\"unicode/dup.txt\", \"unicode/数据 文件.txt\"], \"sha256\": \"3828eeee974aa7486e7acc258e5c73a0115e168444d6688deb8d5d1306d1f57d\", \"size\": 14}, {\"paths\": [\"binary/other.bin\"], \"sha256\": \"630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd\", \"size\": 32}, {\"paths\": [\"binary/blob.bin\", \"binary/blob2.bin\"], \"sha256\": \"9ee3bc64ad7aacb41ee4cbaa52e5cffaad9e1db6d548556a8e38bb394a855c6f\", \"size\": 7}, {\"paths\": [\"nested/alpha_again.dat\", \"top.txt\"], \"sha256\": \"b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060\", \"size\": 6}, {\"paths\": [\"spaced name/with space.txt\", \"spaced name/with space.txt.bak\"], \"sha256\": \"df9366ecf858656e8dba29c9b21309149d3eb8fa6259e99ba74394a152048bb7\", \"size\": 6}, {\"paths\": [\"empty/deep/leaf.bin\", \"nested/empty.dat\"], \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"size\": 0}, {\"paths\": [\"nested/deep/beta copy.bin\", \"nested/deep/beta.txt\"], \"sha256\": \"f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad\", \"size\": 5}]\nactual=[{\"paths\": [\"top.txt\"], \"sha256\": \"b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060\", \"size\": 6}]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "large: manifest mismatch\nexpected=[{\"paths\": [\"big/one.bin\", \"big/other/two.bin\"], \"sha256\": \"1d7368ef6f59e0c704a978b815288f1e464037959645bbfd79348d330269480d\", \"size\": 1048576}, {\"paths\": [\"big/small.bin\"], \"sha256\": \"89f4ff56a25dd1db06a4ce6033603775d705fb96f30f8693733fef602a1ca532\", \"size\": 1000}]\nactual=[]"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/src/manifest.py",
+    "/app/src/scanner.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "error": "repaired probe modified the app",
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/src/manifest.py": "705ddcb962307030c62aa5b118baae4ae20bfd6623d5bf7374c3d5c0ceb8d2b1"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/src/manifest.py": "705ddcb962307030c62aa5b118baae4ae20bfd6623d5bf7374c3d5c0ceb8d2b1"
+    },
+    "unchanged": true
+  }
+}

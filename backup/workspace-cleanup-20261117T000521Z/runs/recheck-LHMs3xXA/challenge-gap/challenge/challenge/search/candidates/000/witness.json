@@ -1,0 +1,33 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "For every integer n in [0,1000000], exit 0 and output JSON with value equal to n.",
+  "rationale": "R1 requires that for every integer argument n in the contract range, the program exits 0 and the JSON 'value' field equals n. The frozen suite only exercises n=3, so a defect at any other in-range n (e.g. n=1000000, the range endpoint) is uncaught. The candidate is correct at n=3 but off-by-one at the upper boundary, so its output value is 1000001 while R1 demands 1000000.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "1000000"
+  ],
+  "stdin": "",
+  "fixtures": {},
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [
+        "value"
+      ],
+      "value": 1000000
+    },
+    {
+      "source": "json",
+      "path": [
+        "double"
+      ],
+      "value": 2000000
+    }
+  ]
+}

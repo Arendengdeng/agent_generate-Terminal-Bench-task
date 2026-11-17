@@ -1,0 +1,57 @@
+{
+  "id": "007",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R4",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/007/solution",
+  "solution_digest": "0559e4f07f92d4e1c3831e8ddd2c632926dc1a9fb1158c769ce0f5e40b129377",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/007/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/app/clean.py\", line 18, in <module>\n    [chr(c) for c in range(0x110000) if chr(c).isspace()]\nTypeError: unsupported operand type(s) for -: 'list' and 'set'\n",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 1,
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+        },
+        "actual_error": "FileNotFoundError",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0
+    }
+  ],
+  "reason": "No definite violation, or witness rejected a correct control."
+}

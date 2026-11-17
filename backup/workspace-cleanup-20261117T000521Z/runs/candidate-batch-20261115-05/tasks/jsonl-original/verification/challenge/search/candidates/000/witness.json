@@ -1,0 +1,81 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "接受输入和输出路径，正常退出并产生符合结构的 JSON。",
+  "rationale": "Contract deliverables declare artifact_paths [\"/app/summarize.py\"], allow_additional_files=false, and the command is `python /app/summarize.py <input.jsonl> <output.json>`. R1 requires that the tool accepts an input and an output path, exits normally and produces structurally valid JSON. The witness invokes the contract command form on a fresh input file with a distinct output path (including a relative-key JSON file assertion) and checks exit 0, a structurally exact JSON array ordered by service then level, and that the input file is untouched. If the installed CLI deviates from the deliverable/command contract, or produces output outside the contract structure, this witness exposes it.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"b\", \"level\": \"INFO\", \"duration_ms\": 0}\n{\"service\": \"a\", \"level\": \"ERROR\", \"duration_ms\": 5}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 2}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 3}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "stdout",
+      "path": [],
+      "value": ""
+    },
+    {
+      "source": "stderr",
+      "path": [],
+      "value": ""
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "service": "a",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "a",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "b",
+          "level": "INFO",
+          "count": 1,
+          "total_duration_ms": 0
+        }
+      ]
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json",
+        1,
+        "count"
+      ],
+      "value": 2
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json",
+        2,
+        "total_duration_ms"
+      ],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.jsonl",
+      "value": true
+    }
+  ]
+}

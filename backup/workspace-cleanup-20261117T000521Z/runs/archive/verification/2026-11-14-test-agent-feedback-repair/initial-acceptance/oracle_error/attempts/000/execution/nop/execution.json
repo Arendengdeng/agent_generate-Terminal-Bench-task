@@ -1,0 +1,120 @@
+{
+  "label": "nop",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001085680014512036,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "{\"value\": 3, \"double\": 0}\n",
+      "stderr": "",
+      "duration_sec": 0.03225251000003482,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 3, \"double\": 0}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "{\"value\": 3, \"double\": 0}\n",
+      "stderr": "",
+      "duration_sec": 0.00011653200090222526,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00011024499872291926,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert 0 == 6",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 14,
+            "source": "    assert json.loads(run(3).stdout)['double'] == 6"
+          }
+        ]
+      },
+      "stdout": "{\"value\": 3, \"double\": 0}\n",
+      "stderr": "",
+      "duration_sec": 0.03352918100063107,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_double",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 3, \"double\": 0}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "{\"value\": 3, \"double\": 0}\n",
+      "stderr": "",
+      "duration_sec": 0.00017510699944978114,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/000/execution/nop/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+  },
+  "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n_________________________________ test_double __________________________________\n\n    def test_double():\n>       assert json.loads(run(3).stdout)['double'] == 6\nE       assert 0 == 6\n\ntest_behavior.py:14: AssertionError\n----------------------------- Captured stdout call -----------------------------\n{\"value\": 3, \"double\": 0}\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_double - assert 0 == 6\n1 failed, 1 passed in 0.09s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "outcome": "fail",
+  "wall_sec": 3.999,
+  "attribution": "uncertain"
+}

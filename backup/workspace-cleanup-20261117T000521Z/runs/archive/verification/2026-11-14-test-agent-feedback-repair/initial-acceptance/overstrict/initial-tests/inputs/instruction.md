@@ -1,0 +1,1 @@
+Implement python /app/clean.py <n> for integer n in [0,10]. Output a JSON object with exactly value=n and double=2*n, exit 0. JSON field order and whitespace are unrestricted.

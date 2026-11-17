@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "digest": "8a56b64546bedb4e6ad4db6fbcf17682989bb3c2f12cf65c41a153932a31b908",
+  "manifest": {
+    "checks/probe.py": "b6a2f90c3145b026e3ac3f5035440682d376e381dc8c52db6e52417a8a635c34",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7",
+    "draft/instruction.md": "dfc3789f49200be2aed8204f8f499ec7190c97625c383e3a028210be7d969260",
+    "draft/solution/solve.sh": "a4dcb3da198438f8040ee5bf887784ddaeb045f8d3b94346bd550eb22ea0a174"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "got [{'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0}, {'service': 'api', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0}, {'service': 'web', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}] expected [{'service': 'api', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 5}, {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 10}, {'service': 'web', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}]"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "got [{'service': 'api', 'level': 'INFO', 'count': 4, 'total_duration_ms': 0}, {'service': 'api', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 0}, {'service': 'api', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}, {'service': 'web', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0}] expected [{'service': 'api', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 14}, {'service': 'api', 'level': 'INFO', 'count': 4, 'total_duration_ms': 124}, {'service': 'api', 'level': 'WARN', 'count': 1, 'total_duration_ms': 3}, {'service': 'web', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0}]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "got [{'service': '订单服务', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}, {'service': 'web', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0}, {'service': 'web', 'level': 'INFO', 'count': 2, 'total_duration_ms': 0}, {'service': 'web', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}, {'service': '订单服务', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0}, {'service': 'auth', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0}, {'service': 'api', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}, {'service': 'auth', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0}] expected [{'service': 'api', 'level': 'WARN', 'count': 1, 'total_duration_ms': 6}, {'service': 'auth', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 8}, {'service': 'auth', 'level': 'INFO', 'count': 1, 'total_duration_ms': 11}, {'service': 'web', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 1}, {'service': 'web', 'level': 'INFO', 'count': 2, 'total_duration_ms': 7}, {'service': 'web', 'level': 'WARN', 'count': 1, 'total_duration_ms': 3}, {'service': '订单服务', 'level': 'INFO', 'count': 1, 'total_duration_ms': 9}, {'service': '订单服务', 'level': 'WARN', 'count': 1, 'total_duration_ms': 4}]"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "got [{'service': 'svc-0', 'level': 'INFO', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-1', 'level': 'WARN', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-2', 'level': 'ERROR', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-3', 'level': 'INFO', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-4', 'level': 'WARN', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-5', 'level': 'ERROR', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-6', 'level': 'INFO', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-0', 'level': 'WARN', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-1', 'level': 'ERROR', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-2', 'level': 'INFO', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-3', 'level': 'WARN', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-4', 'level': 'ERROR', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-5', 'level': 'INFO', 'count': 48, 'total_duration_ms': 0}, {'service': 'svc-6', 'level': 'WARN', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-0', 'level': 'ERROR', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-1', 'level': 'INFO', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-2', 'level': 'WARN', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-3', 'level': 'ERROR', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-4', 'level': 'INFO', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-5', 'level': 'WARN', 'count': 47, 'total_duration_ms': 0}, {'service': 'svc-6', 'level': 'ERROR', 'count': 47, 'total_duration_ms': 0}] expected [{'service': 'svc-0', 'level': 'ERROR', 'count': 47, 'total_duration_ms': 23359}, {'service': 'svc-0', 'level': 'INFO', 'count': 48, 'total_duration_ms': 23688}, {'service': 'svc-0', 'level': 'WARN', 'count': 48, 'total_duration_ms': 24024}, {'service': 'svc-1', 'level': 'ERROR', 'count': 48, 'total_duration_ms': 24072}, {'service': 'svc-1', 'level': 'INFO', 'count': 47, 'total_du"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/summarize.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7"
+    },
+    "unchanged": true
+  }
+}

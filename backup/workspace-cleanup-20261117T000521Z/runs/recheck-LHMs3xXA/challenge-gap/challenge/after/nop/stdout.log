@@ -1,0 +1,19 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________________________ test_baseline _________________________________
+
+    def test_baseline():
+        p = subprocess.run(['python3','/app/clean.py','3'],capture_output=True,text=True,timeout=5)
+        assert p.returncode == 0
+>       assert json.loads(p.stdout) == {'value':3,'double':6}
+E       AssertionError: assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'double': 0} != {'double': 6}
+E         Use -v to get more diff
+
+test_baseline.py:6: AssertionError
+=========================== short test summary info ============================
+FAILED test_baseline.py::test_baseline - AssertionError: assert {'value': 3, ...
+1 failed in 0.06s

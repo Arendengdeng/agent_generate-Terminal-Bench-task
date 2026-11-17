@@ -1,0 +1,3907 @@
+{
+  "panel": {
+    "schema_version": 1,
+    "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+    "controls": [
+      {
+        "id": "known-000",
+        "group": "feedback",
+        "role": "correct",
+        "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-correct",
+        "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/controls/known-000",
+        "implementation_digest": "d41eb8e389b528a7b6e218dca6bc8a4ad54b1b816e376ec72d28f417b8718ac9",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "confirmation": "confirmed",
+        "confirmation_reasons": [],
+        "review": {
+          "status": "confirmed",
+          "reviewer": "Codex Contract source inspection",
+          "method": "contract-source-review-and-exhaustive-reference-check",
+          "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 0 violations.",
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-correct-review.json"
+          ]
+        },
+        "review_evidence": [
+          {
+            "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/control-reviews/known-000/000.txt",
+            "sha256": "52338b9bec0bdc782cc07974f6cf61aab105913443b4dacf7fbe7abdd24b0a17"
+          }
+        ]
+      },
+      {
+        "id": "holdout-correct-000",
+        "group": "holdout",
+        "role": "correct",
+        "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-correct",
+        "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/controls/holdout-correct-000",
+        "implementation_digest": "31aaa24308533264397d5330aed0c5db54c2d02ff5fad1a3d7348614af8e866d",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "confirmation": "confirmed",
+        "confirmation_reasons": [],
+        "review": {
+          "status": "confirmed",
+          "reviewer": "Codex Contract source inspection",
+          "method": "contract-source-review-and-exhaustive-reference-check",
+          "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 0 violations.",
+          "requirement_ids": [
+            "R1",
+            "R2"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-correct-review.json"
+          ]
+        },
+        "review_evidence": [
+          {
+            "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/control-reviews/holdout-correct-000/000.txt",
+            "sha256": "2decdae520589a4aaf27bc83c70ac748c04586aef4e11294c23b130cae5d33b9"
+          }
+        ]
+      },
+      {
+        "id": "invalid-000",
+        "group": "feedback",
+        "role": "invalid",
+        "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-invalid",
+        "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/controls/invalid-000",
+        "implementation_digest": "c0264eecc938a4d278c7812903f4c4be8eb18ce3314ca88229489bcf09d6d73d",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "confirmation": "confirmed",
+        "confirmation_reasons": [],
+        "review": {
+          "status": "confirmed",
+          "reviewer": "Codex Contract source inspection",
+          "method": "contract-source-review-and-exhaustive-reference-check",
+          "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 39 violations.",
+          "requirement_ids": [
+            "R1"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-invalid-review.json"
+          ],
+          "counterexample": {
+            "argv": [
+              "python3",
+              "/app/clean.py"
+            ],
+            "stdin": "amount\n-1\n",
+            "expected": {
+              "count": 1,
+              "sum": -1
+            },
+            "observed": {
+              "count": 0,
+              "sum": -1
+            }
+          }
+        },
+        "review_evidence": [
+          {
+            "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/control-reviews/invalid-000/000.txt",
+            "sha256": "aabfd12a40b46a4903b677a2e915ba24ec6dcfdb602ac50909f9d691874f6bdf"
+          }
+        ]
+      },
+      {
+        "id": "holdout-invalid-000",
+        "group": "holdout",
+        "role": "invalid",
+        "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-invalid",
+        "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/controls/holdout-invalid-000",
+        "implementation_digest": "3d221dcc52f38b5e8bac19beae1cab68784f6c833380ed821a5b933e8dad5d88",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "confirmation": "confirmed",
+        "confirmation_reasons": [],
+        "review": {
+          "status": "confirmed",
+          "reviewer": "Codex Contract source inspection",
+          "method": "contract-source-review-and-exhaustive-reference-check",
+          "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 25 violations.",
+          "requirement_ids": [
+            "R2"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-invalid-review.json"
+          ],
+          "counterexample": {
+            "argv": [
+              "python3",
+              "/app/clean.py"
+            ],
+            "stdin": "amount\n-1\n",
+            "expected": {
+              "count": 1,
+              "sum": -1
+            },
+            "observed": {
+              "count": 1,
+              "sum": 1
+            }
+          }
+        },
+        "review_evidence": [
+          {
+            "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/control-reviews/holdout-invalid-000/000.txt",
+            "sha256": "04508089a70dd8cd9457b39c8fa1124f61fe899c479de9fc3a97103b3abed540"
+          }
+        ]
+      }
+    ]
+  },
+  "sessions": [
+    {
+      "backend": "docker",
+      "phase": "final",
+      "version": "frozen",
+      "context": {
+        "tests_digest": "c7f5a5f7fb5414495d4a9ecc0ac745c8a0adabbe2d9b09d234b059bf6daa1d79",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "implementations_digest": "772cd08a63f0794a85c239153a3cde8a3d387eaead5f0b6c4162369fa7c13be1",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+        },
+        "runtime": {
+          "base_url": "https://api.deepseek.com",
+          "model": "deepseek-flash",
+          "image": "python:3.11-slim",
+          "max_model_calls": 24,
+          "max_tool_calls": 100,
+          "command_timeout_sec": 30,
+          "api_timeout_sec": 90,
+          "max_file_bytes": 256000,
+          "max_total_bytes": 2000000,
+          "max_files": 100,
+          "max_output_bytes": 64000,
+          "max_response_bytes": 1000000,
+          "max_context_bytes": 4000000,
+          "max_completion_tokens": 6000,
+          "memory_mb": 256,
+          "cpus": 1.0,
+          "pids_limit": 64
+        }
+      },
+      "trials": [
+        {
+          "label": "oracle",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0001886710015241988,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.7542440649995115,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00021173099958105013,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00017327499517705292,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.664237258999492,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.000130134001665283,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/oracle/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698",
+            "/solution/solve.sh": "4712aca250bd760ec69c0a5f2afdcf2ecec827da52a5d60dae4161d86006c9e1"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "b85e3525e0ce108b26af0ff6782e3d4905b07b024cf8f5f4314554539a95b5a8"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 3.43s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 8.839,
+          "attribution": "uncertain"
+        },
+        {
+          "label": "nop",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002003519985009916,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.798983135005983,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 999}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00023856700136093423,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0003008519997820258,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert 999 == 0",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 17,
+                    "source": "        assert run(c)['sum'] == c['expected']['sum']"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.059931021998636425,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 999}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002127659972757101,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/nop/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+          },
+          "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n___________________________________ test_sum ___________________________________\n\n    def test_sum():\n        for c in CASES:\n>           assert run(c)['sum'] == c['expected']['sum']\nE           assert 999 == 0\n\ntest_behavior.py:17: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_sum - assert 999 == 0\n1 failed, 1 passed in 1.91s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 7.365,
+          "attribution": "uncertain"
+        },
+        {
+          "label": "known-000",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00020510200556600466,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.6697779610040016,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-3,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":3,\"count\":3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00014063299749977887,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 8.91900053829886e-05,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.6475664140016306,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-3,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":-1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":0,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":1,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":2,\"count\":3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"sum\":3,\"count\":3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0002470089966664091,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/known-000/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698",
+            "/solution/solve.sh": "20d91c8e7ea4e4de86bb110f8d65de7ec9ae34578e5dc433c0dfb15c197356c7"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "875a73447c656eb9ce427ea0661c348db5f11cab583cb28fddb45ceb95e237c9"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 3.33s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 20.336,
+          "attribution": "uncertain"
+        },
+        {
+          "label": "holdout-correct-000",
+          "expected_reward": 1,
+          "status": "completed",
+          "reward": 1,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00017411099543096498,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.759646974998759,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 0,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -3\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 3\n}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0003108180026174523,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.000214897001569625,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.7019867199996952,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 0,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 1,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 2,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -3\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": -1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 0\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 1\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 2\n}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\n  \"count\": 3,\n  \"sum\": 3\n}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00015860999701544642,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/holdout-correct-000/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698",
+            "/solution/solve.sh": "be480776512ebd292a71db251aff193edfd1f1215d1cfe021b1fde86e5a040f0"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "fe1c69d61c4423b857ec9d9bf8eeb7ba497abb2e44f2e452be9fa197baf15a52"
+          },
+          "stdout": "..                                                                       [100%]\n2 passed in 3.48s\n",
+          "stderr": "",
+          "pytest_exit_code": 0,
+          "outcome": "pass",
+          "wall_sec": 9.902,
+          "attribution": "uncertain"
+        },
+        {
+          "label": "invalid-000",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00012404700100887567,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert 0 == 1",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 13,
+                    "source": "        assert run(c)['count'] == c['expected']['count']"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.06674113999906695,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0001649369951337576,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0003620689967647195,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.7279146279979614,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": -1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00015431299834745005,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/invalid-000/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698",
+            "/solution/solve.sh": "f0bd362e14486dc8bc6eeaba98f8cda6a36cfc432ac30ef14875c6b79994d52d"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "c4deeeb207d6dc9ee02b8d52b476969a2db71d9209d91b478acc6e368a294c25"
+          },
+          "stdout": "F.                                                                       [100%]\n=================================== FAILURES ===================================\n__________________________________ test_count __________________________________\n\n    def test_count():\n        for c in CASES:\n>           assert run(c)['count'] == c['expected']['count']\nE           assert 0 == 1\n\ntest_behavior.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_count - assert 0 == 1\n1 failed, 1 passed in 1.83s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 18.914,
+          "attribution": "uncertain"
+        },
+        {
+          "label": "holdout-invalid-000",
+          "expected_reward": 0,
+          "status": "completed",
+          "reward": 0,
+          "error": null,
+          "reports": [
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.0004096890043001622,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "call",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 1.6081984280026518,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 2, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 1}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 2}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_count",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 3, \"sum\": 3}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_count",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00020912999752908945,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "setup",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00014177899720380083,
+              "commands": [],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "call",
+              "outcome": "failed",
+              "task_assertion": true,
+              "exception": {
+                "type": "AssertionError",
+                "message": "assert 1 == -1",
+                "test_traceback": [
+                  {
+                    "path": "test_behavior.py",
+                    "line": 17,
+                    "source": "        assert run(c)['sum'] == c['expected']['sum']"
+                  }
+                ]
+              },
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.07704439100052696,
+              "commands": [
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 0, \"sum\": 0}\n",
+                  "stderr": ""
+                },
+                {
+                  "nodeid": "test_behavior.py::test_sum",
+                  "status": "completed",
+                  "returncode": 0,
+                  "stdout": "{\"count\": 1, \"sum\": 1}\n",
+                  "stderr": ""
+                }
+              ],
+              "xfail": false
+            },
+            {
+              "nodeid": "test_behavior.py::test_sum",
+              "when": "teardown",
+              "outcome": "passed",
+              "task_assertion": false,
+              "exception": null,
+              "stdout": "",
+              "stderr": "",
+              "duration_sec": 0.00017405599646735936,
+              "commands": [],
+              "xfail": false
+            }
+          ],
+          "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/holdout-invalid-000/execution.json",
+          "implementation_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698",
+            "/solution/solve.sh": "382109de55b85ed864ade3d0fb924679fc48d908589313dd794f4d2358c56815"
+          },
+          "artifact_manifest": {
+            "/app/clean.py": "25ba4dc4399202362610f80eeb6b38ce3dd0839e5e403e136eae62d9d3b296f0"
+          },
+          "stdout": ".F                                                                       [100%]\n=================================== FAILURES ===================================\n___________________________________ test_sum ___________________________________\n\n    def test_sum():\n        for c in CASES:\n>           assert run(c)['sum'] == c['expected']['sum']\nE           assert 1 == -1\n\ntest_behavior.py:17: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_sum - assert 1 == -1\n1 failed, 1 passed in 1.73s\n",
+          "stderr": "",
+          "pytest_exit_code": 1,
+          "outcome": "fail",
+          "wall_sec": 7.374,
+          "attribution": "uncertain"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/execution.json",
+          "sha256": "c3199cb9fcbc5782bf274bbf0e404981849a997a3f8d4a49c66aa9d082c3f5ab"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/contract.json",
+          "sha256": "8da2336e62bc7594be77ccd6276be3224e0d2660d9c8e79a999b08750ffb66a6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/synthesis.json",
+          "sha256": "df023c2b32b40333092f9f17637c59a6b9a6a391a1a27d91c1ff5c875d84cd6b"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/environment/app/clean.py",
+          "sha256": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/instruction.md",
+          "sha256": "04bf256ab2b35459ac5923f1911180dd422b1e67bffc16b1dbaf75a11e03de08"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/solution/solve.sh",
+          "sha256": "4712aca250bd760ec69c0a5f2afdcf2ecec827da52a5d60dae4161d86006c9e1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/initial-tests/tests.json",
+          "sha256": "e8f9cfcd69440dd453f8d57e5ac8795574794c67fe54a94af3d14d977667159f"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/initial-tests/tests/test_behavior.py",
+          "sha256": "1115fa90a39ba0e2d4575c99ab02789aa19d1822fb1b93c299fc7898ffe475ac"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/final-docker/execution.json",
+      "execution_status": "passed"
+    },
+    {
+      "backend": "harbor",
+      "phase": "final",
+      "version": "frozen",
+      "context": {
+        "tests_digest": "c7f5a5f7fb5414495d4a9ecc0ac745c8a0adabbe2d9b09d234b059bf6daa1d79",
+        "wrapper_digest": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+        "artifact_policy_digest": "6b794e7fc96931805bc2bebac499e96f218cf23d8906925c7f2fd75a13061299",
+        "contract_digest": "2392452308dfb13d5978dbae468cf0a3f56e18571e6fafc9eb23672f1279ab26",
+        "implementations_digest": "772cd08a63f0794a85c239153a3cde8a3d387eaead5f0b6c4162369fa7c13be1",
+        "task_image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+        "images": {
+          "task_base": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+          "verifier_dockerfile": "FROM python:3.11-slim\nRUN pip install --no-cache-dir pytest==9.2.0\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1\nRUN mkdir -p /tests /logs/verifier /app\nCOPY . /tests/\nWORKDIR /tests\n",
+          "trials": {
+            "oracle": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:a6dec031972693301bf3584942e092bd82f80b0fcf8d03e64623e4c010229c12",
+                  "reference": "task__fseprtw__env-main",
+                  "container": "task__fseprtw__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:092cdc18284cf574953deac5062eacf19c61038ed60604422f6b18690993f448",
+                  "reference": "task__fseprtw__verifier__trial-main",
+                  "container": "task__fseprtw__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            },
+            "nop": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:82cb9d80b1b84fc079dc5b9f0c7bc766cfea0b4eeac1b0b70c52559eba962aa3",
+                  "reference": "task__jrcfbzw__env-main",
+                  "container": "task__jrcfbzw__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:d9ed9ba8c1970f13b17819c6eb9c335fc0183ab7802b75a8095c6cdd8f2a0da8",
+                  "reference": "task__jrcfbzw__verifier__trial-main",
+                  "container": "task__jrcfbzw__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            },
+            "known-000": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:f9cd9546c3bcc9ce8ddcc2ba877166e2e74ecc95cc94998324b6bcf418c76f99",
+                  "reference": "known-000__ql62n9k__env-main",
+                  "container": "known-000__ql62n9k__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:a43974df946d1d9d4693b6b594c49e89f87e616a48c4abb3059be59887de2c2e",
+                  "reference": "known-000__ql62n9k__verifier__trial-main",
+                  "container": "known-000__ql62n9k__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            },
+            "holdout-correct-000": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:a9821b575f7f4d155b0222a59c9e636b36812f9faf2edf7a9040b50eaffaacc6",
+                  "reference": "holdout-correct-000__3t3jytd__env-main",
+                  "container": "holdout-correct-000__3t3jytd__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:abcf00f4c5e1158962e9ed9b2213a68dc9259a540b76688f6d8eb9d1fb6df716",
+                  "reference": "holdout-correct-000__3t3jytd__verifier__trial-main",
+                  "container": "holdout-correct-000__3t3jytd__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            },
+            "invalid-000": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:4db91a5f5ac7c235b967981baff845acf42ef57e1ffb841821f93a7f2d0afe1c",
+                  "reference": "invalid-000__rvnfxrx__env-main",
+                  "container": "invalid-000__rvnfxrx__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:8e69cc2506bc28d4b9745f1bf7fbe923f071759f76d7c00e6e1ff153385b33c8",
+                  "reference": "invalid-000__rvnfxrx__verifier__trial-main",
+                  "container": "invalid-000__rvnfxrx__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            },
+            "holdout-invalid-000": {
+              "status": "recorded",
+              "roles": {
+                "task": {
+                  "id": "sha256:c072863ea5bd1d10fbb0213deeb8d78eab4bcfc5982d1b356b0747dabe6c91d8",
+                  "reference": "holdout-invalid-000__gnxdpls__env-main",
+                  "container": "holdout-invalid-000__gnxdpls__env-main-1"
+                },
+                "verifier": {
+                  "id": "sha256:f98aad1795769ef2576a3bcd31dabcfd243a1d8abf9ba4c0f9c8cf7b52e14d84",
+                  "reference": "holdout-invalid-000__gnxdpls__verifier__trial-main",
+                  "container": "holdout-invalid-000__gnxdpls__verifier__trial-main-1"
+                }
+              },
+              "observation_errors": []
+            }
+          }
+        },
+        "runtime": {
+          "task_toml": "schema_version = \"1.3\"\nartifacts = [\"/app/clean.py\"]\n[agent]\ntimeout_sec = 300\n[verifier]\ntimeout_sec = 120\nenvironment_mode = \"separate\"\n[verifier.environment]\nnetwork_mode = \"public\"\nbuild_timeout_sec = 600\ncpus = 1\nmemory_mb = 512\n[environment]\nnetwork_mode = \"public\"\nbuild_timeout_sec = 600\ncpus = 1\nmemory_mb = 512\n",
+          "harbor_version": "0.25.0"
+        }
+      },
+      "trials": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/oracle/task__FsEPRtw",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/oracle/task__FsEPRtw/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/oracle/task__FsEPRtw/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/oracle.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "b85e3525e0ce108b26af0ff6782e3d4905b07b024cf8f5f4314554539a95b5a8"
+          },
+          "wall_sec": 43.686,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:a6dec031972693301bf3584942e092bd82f80b0fcf8d03e64623e4c010229c12",
+                "reference": "task__fseprtw__env-main",
+                "container": "task__fseprtw__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:092cdc18284cf574953deac5062eacf19c61038ed60604422f6b18690993f448",
+                "reference": "task__fseprtw__verifier__trial-main",
+                "container": "task__fseprtw__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/oracle-images.json"
+        },
+        {
+          "label": "nop",
+          "status": "completed",
+          "reward": 0,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/nop/task__jrcFbZw",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/nop/task__jrcFbZw/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/nop/task__jrcFbZw/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/nop.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+          },
+          "wall_sec": 43.323,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:82cb9d80b1b84fc079dc5b9f0c7bc766cfea0b4eeac1b0b70c52559eba962aa3",
+                "reference": "task__jrcfbzw__env-main",
+                "container": "task__jrcfbzw__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:d9ed9ba8c1970f13b17819c6eb9c335fc0183ab7802b75a8095c6cdd8f2a0da8",
+                "reference": "task__jrcfbzw__verifier__trial-main",
+                "container": "task__jrcfbzw__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/nop-images.json"
+        },
+        {
+          "label": "known-000",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-correct",
+          "confirmation": "confirmed",
+          "status": "completed",
+          "reward": 1,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/known-000/known-000__QL62N9K",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/known-000/known-000__QL62N9K/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/known-000/known-000__QL62N9K/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/known-000.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "875a73447c656eb9ce427ea0661c348db5f11cab583cb28fddb45ceb95e237c9"
+          },
+          "wall_sec": 40.482,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:f9cd9546c3bcc9ce8ddcc2ba877166e2e74ecc95cc94998324b6bcf418c76f99",
+                "reference": "known-000__ql62n9k__env-main",
+                "container": "known-000__ql62n9k__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:a43974df946d1d9d4693b6b594c49e89f87e616a48c4abb3059be59887de2c2e",
+                "reference": "known-000__ql62n9k__verifier__trial-main",
+                "container": "known-000__ql62n9k__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/known-000-images.json"
+        },
+        {
+          "label": "holdout-correct-000",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-correct",
+          "confirmation": "confirmed",
+          "status": "completed",
+          "reward": 1,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-correct-000/holdout-correct-000__3T3JYtD",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-correct-000/holdout-correct-000__3T3JYtD/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-correct-000/holdout-correct-000__3T3JYtD/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-correct-000.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "fe1c69d61c4423b857ec9d9bf8eeb7ba497abb2e44f2e452be9fa197baf15a52"
+          },
+          "wall_sec": 40.904,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:a9821b575f7f4d155b0222a59c9e636b36812f9faf2edf7a9040b50eaffaacc6",
+                "reference": "holdout-correct-000__3t3jytd__env-main",
+                "container": "holdout-correct-000__3t3jytd__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:abcf00f4c5e1158962e9ed9b2213a68dc9259a540b76688f6d8eb9d1fb6df716",
+                "reference": "holdout-correct-000__3t3jytd__verifier__trial-main",
+                "container": "holdout-correct-000__3t3jytd__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-correct-000-images.json"
+        },
+        {
+          "label": "invalid-000",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/feedback-invalid",
+          "confirmation": "confirmed",
+          "status": "completed",
+          "reward": 0,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/invalid-000/invalid-000__RvnfXRX",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/invalid-000/invalid-000__RvnfXRX/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/invalid-000/invalid-000__RvnfXRX/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/invalid-000.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "c4deeeb207d6dc9ee02b8d52b476969a2db71d9209d91b478acc6e368a294c25"
+          },
+          "wall_sec": 38.181,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:4db91a5f5ac7c235b967981baff845acf42ef57e1ffb841821f93a7f2d0afe1c",
+                "reference": "invalid-000__rvnfxrx__env-main",
+                "container": "invalid-000__rvnfxrx__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:8e69cc2506bc28d4b9745f1bf7fbe923f071759f76d7c00e6e1ff153385b33c8",
+                "reference": "invalid-000__rvnfxrx__verifier__trial-main",
+                "container": "invalid-000__rvnfxrx__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/invalid-000-images.json"
+        },
+        {
+          "label": "holdout-invalid-000",
+          "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/reviews/holdout-invalid",
+          "confirmation": "confirmed",
+          "status": "completed",
+          "reward": 0,
+          "process_exit_code": 0,
+          "trial_dir": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-invalid-000/holdout-invalid-000__gnXdPLS",
+          "result_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-invalid-000/holdout-invalid-000__gnXdPLS/result.json",
+          "verifier_report_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-invalid-000/holdout-invalid-000__gnXdPLS/verifier/execution.json",
+          "log_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-invalid-000.stdout.log",
+          "error": null,
+          "artifact_manifest": {
+            "/app/clean.py": "25ba4dc4399202362610f80eeb6b38ce3dd0839e5e403e136eae62d9d3b296f0"
+          },
+          "wall_sec": 36.221,
+          "images": {
+            "status": "recorded",
+            "roles": {
+              "task": {
+                "id": "sha256:c072863ea5bd1d10fbb0213deeb8d78eab4bcfc5982d1b356b0747dabe6c91d8",
+                "reference": "holdout-invalid-000__gnxdpls__env-main",
+                "container": "holdout-invalid-000__gnxdpls__env-main-1"
+              },
+              "verifier": {
+                "id": "sha256:f98aad1795769ef2576a3bcd31dabcfd243a1d8abf9ba4c0f9c8cf7b52e14d84",
+                "reference": "holdout-invalid-000__gnxdpls__verifier__trial-main",
+                "container": "holdout-invalid-000__gnxdpls__verifier__trial-main-1"
+              }
+            },
+            "observation_errors": []
+          },
+          "images_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-invalid-000-images.json"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/harbor-trials.json",
+          "sha256": "4de8e14fda967fa44d4b9e26512dd9cd40b9d2a97742de5165ef74b242059218"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/instruction.md",
+          "sha256": "04bf256ab2b35459ac5923f1911180dd422b1e67bffc16b1dbaf75a11e03de08"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/task.toml",
+          "sha256": "f9d5ae8255b6ad9a1b2f8aa8a0ea1ce5dea9782cb2fe2ba985d64108106680f8"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/solution/solve.sh",
+          "sha256": "4712aca250bd760ec69c0a5f2afdcf2ecec827da52a5d60dae4161d86006c9e1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/tests/test_behavior.py",
+          "sha256": "1115fa90a39ba0e2d4575c99ab02789aa19d1822fb1b93c299fc7898ffe475ac"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/tests/Dockerfile",
+          "sha256": "2cb8640e91e0739723936447b5a56f05fd8d40839e17f7f3901f4f44fc599479"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/tests/expected.json",
+          "sha256": "e979c946f35137221f3ea0356792571319e24284a9b606957426b5813ac5e3d6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/tests/test.sh",
+          "sha256": "74cae9c5a293f7364e347311bff130e9208b622ea9731e075dbc9b82507989ee"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/tests/run_tests.py",
+          "sha256": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/export/task/environment/app/clean.py",
+          "sha256": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/oracle/task__FsEPRtw/result.json",
+          "sha256": "eaae49425ae7269a5b82a1f1304d049fd6034bd246c78889f4f181e5cec99fc1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/oracle/task__FsEPRtw/verifier/execution.json",
+          "sha256": "17a3d04f3e15deaa9f0e73bca0716836c31c8cb91ab44e9eaf279e69df0d3766"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/oracle.stdout.log",
+          "sha256": "b85baefc71070f9c378e905e1bc08c544b0be39f43db321b521f060aecf17314"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/oracle-images.json",
+          "sha256": "c0af730d71c60cc28939813d6dc354cd5606198534b145e6fdb67cc9e7865300"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/nop/task__jrcFbZw/result.json",
+          "sha256": "8c3fd4b603971893d1c4fe7189d52bac84e5b785970b7d33e515bc2b83425bf8"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/nop/task__jrcFbZw/verifier/execution.json",
+          "sha256": "00f664d0d37a45897bee537e1d02e3ebd9fbc81b0bb63d20c1ab1ba6f6a32c25"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/nop.stdout.log",
+          "sha256": "d914a8531c4526fa1df712bfedc86283693eebb58334c6c46cb79f55b9560802"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/nop-images.json",
+          "sha256": "d0b7e79d9ed6fb5d31f881a626aaf92b73050858fd13d8e048214df27f4b3f1d"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/known-000/known-000__QL62N9K/result.json",
+          "sha256": "36fa0168c2c0869f4ba361b933efa057dfcc258f42901d633e9f22f0262e0258"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/known-000/known-000__QL62N9K/verifier/execution.json",
+          "sha256": "97ad3059b3e366a728eb36699b1c4766b9d4e1311b86012c6ea9bc217b49c069"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/known-000.stdout.log",
+          "sha256": "7b8fa24fa29c1857546851f3362673909dff891e2421a1149088549a51705ba9"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/known-000-images.json",
+          "sha256": "19abbe5a6f52eae2bc1b55b95676cad30da15023695a5a6609fcb449ca656d07"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-correct-000/holdout-correct-000__3T3JYtD/result.json",
+          "sha256": "17b50df94b66ef031b56b3813ca74aeaaf152fc47187035b1af267b94f60e8f5"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-correct-000/holdout-correct-000__3T3JYtD/verifier/execution.json",
+          "sha256": "8c191bca063f795ee9b7326884ae849f48cc0fe1a7a150a5d67b5dca72af2e62"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-correct-000.stdout.log",
+          "sha256": "02a900adcf102d8cdb176fcfc5101b5a14863793869df99b90d857e8c976e50d"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-correct-000-images.json",
+          "sha256": "83ca2ff87feffdf43ff32626944afcb09b64751dabd310fca89c431526d0fc24"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/invalid-000/invalid-000__RvnfXRX/result.json",
+          "sha256": "3b067d876f3bd479183e625221acd62948872fcf02a1f1bdab92d787cafc3a71"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/invalid-000/invalid-000__RvnfXRX/verifier/execution.json",
+          "sha256": "881588fdf9b6a681d7cc18d372f2deff315203065e23ce32ff8cf6873953db6f"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/invalid-000.stdout.log",
+          "sha256": "90fde3d0c93358e9836a1c662cbd7cc0fdd0d250651c7fbefac19311d1eb9386"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/invalid-000-images.json",
+          "sha256": "1e912b49b99259fec315d826c8c6fe401a5652bb21aee37c8ab9e0f11250ddd6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-invalid-000/holdout-invalid-000__gnXdPLS/result.json",
+          "sha256": "814ba616b002cdfb75325237a5c49647f82363255f6c0d7352587cdf51cbaee7"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/jobs/holdout-invalid-000/holdout-invalid-000__gnXdPLS/verifier/execution.json",
+          "sha256": "829815402e031a3c0f11b6d4ce4691d8319097e5f4ad9f01dc629aa4c038d840"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-invalid-000.stdout.log",
+          "sha256": "9baed32cf893fc7eb4a963f6750845349ed8f3ebf8bbfe1f06f2912cd2b2533e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/holdout-invalid-000-images.json",
+          "sha256": "5484354fcba433b54e64c1736978681e36452cd7011f4e7472d321a3cf5d0cf7"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/contract.json",
+          "sha256": "8da2336e62bc7594be77ccd6276be3224e0d2660d9c8e79a999b08750ffb66a6"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/synthesis.json",
+          "sha256": "df023c2b32b40333092f9f17637c59a6b9a6a391a1a27d91c1ff5c875d84cd6b"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/checks/probe.py",
+          "sha256": "00c9485610b1f820d9717cd68b0abd4071b691cf35c991a83b8fa90894f2b41e"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/environment/Dockerfile",
+          "sha256": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/environment/app/clean.py",
+          "sha256": "000e03348fb345a1fc4ec77b048963fe7c96cb470aaa95509fedd5819b977698"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/instruction.md",
+          "sha256": "04bf256ab2b35459ac5923f1911180dd422b1e67bffc16b1dbaf75a11e03de08"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/candidate/draft/solution/solve.sh",
+          "sha256": "4712aca250bd760ec69c0a5f2afdcf2ecec827da52a5d60dae4161d86006c9e1"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/initial-tests/tests.json",
+          "sha256": "e8f9cfcd69440dd453f8d57e5ac8795574794c67fe54a94af3d14d977667159f"
+        },
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/initial-tests/tests/test_behavior.py",
+          "sha256": "1115fa90a39ba0e2d4575c99ab02789aa19d1822fb1b93c299fc7898ffe475ac"
+        }
+      ],
+      "trials_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/csv/verification/harbor-trials.json",
+      "execution_status": null
+    }
+  ]
+}

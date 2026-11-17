@@ -1,0 +1,104 @@
+..FF....FF.F...                                                          [100%]
+=================================== FAILURES ===================================
+_____________________ test_normalization_dedup_and_quoting _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_normalization_dedup_and_q0')
+
+    def test_normalization_dedup_and_quoting(tmp_path):
+        rows = run_and_check(os.path.join(FIXTURES, "basic.csv"), tmp_path)
+>       assert rows == [
+            ["alice@example.com", "Alice Chen"],
+            ["bob@example.com", "Bob Li"],
+            ["carol@example.com", "Carol, Jr."],
+            ["dave@example.com", "Dave, Sr."],
+        ]
+E       AssertionError: assert [['alice@exam... 'Dave, Sr.']] == [['alice@exam... 'Dave, Sr.']]
+E         
+E         At index 0 diff: ['alice@example.com', 'Alicia Chen'] != ['alice@example.com', 'Alice Chen']
+E         Use -v to get more diff
+
+test_clean.py:74: AssertionError
+______________ test_quoted_fields_with_commas_and_escaped_quotes _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_and_escaped_quotes(tmp_path):
+        rows = run_and_check(os.path.join(FIXTURES, "quoting.csv"), tmp_path)
+>       assert rows == [
+            ['quo"ted@example.com', 'Ann "Q" Lee'],
+            ["comma@example.com", "Doe, John, III"],
+            ["leading@example.com", "Spaced Name"],
+            ["plain@example.com", "Plain Name"],
+            ["quoted@example.com", 'Back"slash \\ name'],
+        ]
+E       assert [['quo"ted@ex...ash \\ name']] == [['quo"ted@ex...ash \\ name']]
+E         
+E         At index 1 diff: ['comma@example.com', 'Other Comma'] != ['comma@example.com', 'Doe, John, III']
+E         Use -v to get more diff
+
+test_clean.py:84: AssertionError
+________________ test_duplicate_only_input_yields_single_record ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_duplicate_only_input_yiel0')
+
+    def test_duplicate_only_input_yields_single_record(tmp_path):
+        src = write_input(
+            tmp_path,
+            "email,name\n"
+            "A@x.com,First\n"
+            " a@X.COM ,Second\n"
+            "  A@x.com,Third\n",
+        )
+        rows = run_and_check(src, tmp_path)
+>       assert rows == [["a@x.com", "First"]]
+E       AssertionError: assert [['a@x.com', 'Third']] == [['a@x.com', 'First']]
+E         
+E         At index 0 diff: ['a@x.com', 'Third'] != ['a@x.com', 'First']
+E         Use -v to get more diff
+
+test_clean.py:137: AssertionError
+_________________ test_internal_whitespace_and_case_preserved __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_internal_whitespace_and_c0')
+
+    def test_internal_whitespace_and_case_preserved(tmp_path):
+        src = write_input(
+            tmp_path,
+            'email,name\n"a@example.com","  John   von Neumann  "\n'
+            '"A@example.com","john von neumann"\n',
+        )
+        rows = run_and_check(src, tmp_path)
+>       assert rows == [["a@example.com", "John   von Neumann"]]
+E       AssertionError: assert [['a@example....von neumann']] == [['a@example....von Neumann']]
+E         
+E         At index 0 diff: ['a@example.com', 'john von neumann'] != ['a@example.com', 'John   von Neumann']
+E         Use -v to get more diff
+
+test_clean.py:147: AssertionError
+____________________ test_large_input_with_many_duplicates _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_with_many_dup0')
+
+    def test_large_input_with_many_duplicates(tmp_path):
+        lines = ["email,name"]
+        for i in range(500):
+            lines.append("dup%d@example.com,First %d" % (i, i))
+        for i in range(500):
+            lines.append(" DUP%d@EXAMPLE.com ,Second %d" % (i, i))
+        src = write_input(tmp_path, "\n".join(lines) + "\n")
+        rows = run_and_check(src, tmp_path)
+        assert len(rows) == 500
+>       assert rows[0] == ["dup0@example.com", "First 0"]
+E       AssertionError: assert ['dup0@exampl...', 'Second 0'] == ['dup0@exampl...m', 'First 0']
+E         
+E         At index 1 diff: 'Second 0' != 'First 0'
+E         Use -v to get more diff
+
+test_clean.py:170: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_normalization_dedup_and_quoting - AssertionError: ...
+FAILED test_clean.py::test_quoted_fields_with_commas_and_escaped_quotes - ass...
+FAILED test_clean.py::test_duplicate_only_input_yields_single_record - Assert...
+FAILED test_clean.py::test_internal_whitespace_and_case_preserved - Assertion...
+FAILED test_clean.py::test_large_input_with_many_duplicates - AssertionError:...
+5 failed, 10 passed in 0.57s

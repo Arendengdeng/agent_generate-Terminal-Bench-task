@@ -1,0 +1,102 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_summarize.py::test_sample_exit_code_and_structure",
+        "test_summarize.py::test_sample_values_exact",
+        "test_summarize.py::test_empty_input_output_file_is_valid_json",
+        "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+        "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_summarize.py::test_groups_only_by_service_across_levels",
+        "test_summarize.py::test_duplicate_records_not_lost",
+        "test_summarize.py::test_max_across_levels_not_per_level",
+        "test_summarize.py::test_extra_fields_ignored",
+        "test_summarize.py::test_single_line_zero_duration",
+        "test_summarize.py::test_large_input_1000_lines"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_summarize.py::test_ordering_python_string_sorted",
+        "test_summarize.py::test_unicode_service_names_sorted",
+        "test_summarize.py::test_empty_input_outputs_empty_array",
+        "test_summarize.py::test_empty_input_output_file_is_valid_json",
+        "test_summarize.py::test_input_without_trailing_newline",
+        "test_summarize.py::test_large_input_1000_lines",
+        "test_summarize.py::test_sample_values_exact"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_summarize.py::test_input_file_not_modified",
+        "test_summarize.py::test_runtime_uses_only_stdlib",
+        "test_summarize.py::test_groups_only_by_service_across_levels"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "7e602d1478571d873f2e55d447dd6848409cba86c7610306b92dc29e5e42bea4",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309",
+    "inputs/instruction.md": "c71965129aa88a1f40aece23527dcee93c7f0c76229949e51b4a8ab72f814d0e"
+  },
+  "nodeids": [
+    "test_summarize.py::test_sample_exit_code_and_structure",
+    "test_summarize.py::test_sample_values_exact",
+    "test_summarize.py::test_groups_only_by_service_across_levels",
+    "test_summarize.py::test_duplicate_records_not_lost",
+    "test_summarize.py::test_max_across_levels_not_per_level",
+    "test_summarize.py::test_empty_input_outputs_empty_array",
+    "test_summarize.py::test_empty_input_output_file_is_valid_json",
+    "test_summarize.py::test_ordering_python_string_sorted",
+    "test_summarize.py::test_unicode_service_names_sorted",
+    "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+    "test_summarize.py::test_input_file_not_modified",
+    "test_summarize.py::test_input_without_trailing_newline",
+    "test_summarize.py::test_single_line_zero_duration",
+    "test_summarize.py::test_large_input_1000_lines",
+    "test_summarize.py::test_extra_fields_ignored",
+    "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+    "test_summarize.py::test_runtime_uses_only_stdlib"
+  ],
+  "manifest": {
+    "test_summarize.py": "b8666091dc594a50e18d5c97e5d6df364ecd52b6e591c1bba20f49c7dd7514b3"
+  },
+  "digest": "5a402e7695d5d68f3c7ddaceb06642fc09cfac4fcb2e546944dd66e2cc7d6765",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 6
+  },
+  "workflow_budget_used": {
+    "model_calls": 5,
+    "tool_calls": 6,
+    "token_usage": {
+      "prompt_tokens": 25145,
+      "completion_tokens": 4361,
+      "total_tokens": 29506
+    }
+  },
+  "cost": {
+    "wall_sec": 22.95,
+    "token_usage": {
+      "prompt_tokens": 25145,
+      "completion_tokens": 4361,
+      "total_tokens": 29506
+    }
+  }
+}

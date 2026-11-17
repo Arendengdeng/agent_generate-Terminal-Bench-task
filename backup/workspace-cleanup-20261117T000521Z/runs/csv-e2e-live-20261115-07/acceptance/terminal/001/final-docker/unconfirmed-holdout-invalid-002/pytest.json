@@ -1,0 +1,1136 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success",
+    "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+    "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+    "test_clean_extra.py::test_large_mixed_generated_input_reference",
+    "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+    "test_clean_extra.py::test_header_only_variant_with_crlf",
+    "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+    "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+    "test_clean_extra.py::test_single_record_and_dup_pair_only",
+    "test_clean_extra.py::test_overwriting_an_existing_output_file"
+  ],
+  "results": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0022541079997608904,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]\n  \n  At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 42,
+            "source": "    assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol \"C\" Jones'], ['dave@example.net', '']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03945142999964446,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017346599997836165,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006928029997652629,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.035618965000139724,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014333700028146268,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007875769997554016,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03592524299983779,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001626920002308907,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006656179998572043,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040394872999968356,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001585960003467335,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006125989998508885,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]\n  \n  At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 69,
+            "source": "    assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03687940800000433,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00029529499988711905,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006262670003707171,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03778602999955183,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018187700015914743,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006244549999792071,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03528479799979323,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001616910003576777,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00047082399987630197,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.037093309000283625,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001594280001881998,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006087940000725212,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04608377600015956,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015653399987058947,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00040552900009060977,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04045157400014432,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001283569999941392,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008797969999250199,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03830386500021632,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012396100009937072,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005770230000052834,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]\n  \n  At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 149,
+            "source": "    assert rows == [['email', 'name'], ['solo@ex.com', 'Solo']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03686541099978058,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017776200002117548,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00040704000002733665,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03340553199996066,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018984799999088864,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000604688000294118,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04140218400016238,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000150045999816939,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005774430001110886,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output did not reflect the CLI input records: [['email', 'name'], ['alice@example.com', '  Alice Smith  '], ['bob@example.com', 'Bob, Jr.']]\nassert [['email', 'n..., 'Bob, Jr.']] == [['email', 'n..., 'Bob, Jr.']]\n  \n  At index 1 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 79,
+            "source": "    assert rows == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03854060200001186,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001853439998740214,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004477219999898807,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['one@example.com', ' First']]\nassert [['email', 'n...m', ' First']] == [['email', 'n...om', 'First']]\n  \n  At index 1 diff: ['one@example.com', ' First'] != ['one@example.com', 'First']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 97,
+            "source": "    assert rows_a == [['email', 'name'], ['one@example.com', 'First']], rows_a"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07796751300020333,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001961889997801336,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005425479998848459,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "normalization/dedup/order mismatch on generated input\nassert [['person000@... Sr.  '], ...] == [['person000@...5, Sr.'], ...]\n  \n  At index 0 diff: ['person000@example.com', '  Person 0, Sr.  '] != ['person000@example.com', 'Person 0, Sr.']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 129,
+            "source": "    assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040201010999680875,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021310099964466644,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004964299996572663,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['mixed.case+tag@example.org', ' A '], ['other@example.org', 'B,C']]\nassert [['email', 'n....org', 'B,C']] == [['email', 'n....org', 'B,C']]\n  \n  At index 1 diff: ['mixed.case+tag@example.org', ' A '] != ['mixed.case+tag@example.org', 'A']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 147,
+            "source": "    assert rows == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03910496900016369,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023232100011227885,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007969489997776691,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03617547200019544,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017474800006311852,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006375329999173118,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03657065000015791,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001275710001209518,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006248589997994713,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.035394225000345614,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017035100017892546,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00041473700002825353,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...m', ' Only ']] == [['email', 'n...com', 'Only']]\n  \n  At index 1 diff: ['solo@example.com', ' Only '] != ['solo@example.com', 'Only']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 214,
+            "source": "    assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.043777608000254986,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001869029997578764,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00044029499986208975,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03973956600020756,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00028171900021334295,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "117dbd8234a27f688cf2d9cd8db616af46ba5791e598e2623ca3dac5e915afb5"
+  },
+  "wall_sec": 1.215977
+}

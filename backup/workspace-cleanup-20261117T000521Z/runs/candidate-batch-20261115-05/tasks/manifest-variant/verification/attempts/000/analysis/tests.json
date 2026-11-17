@@ -1,0 +1,61 @@
+{
+  "status": "diagnosed",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "e37b3397269b5fee866dc527e8bfd797568b0d932636cffbf06e818bcf9ed334",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/data/README.txt": "ddc1cebd71b21c0f586d7154c9223e03864fa793031246a24a60beaee1148f2a",
+    "inputs/environment/app/data/sample/deep/nested/blank.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inputs/environment/app/data/sample/deep/nested/copy two.txt": "2ed18965886676eca457cfd0cccf012b6a70c65065bfa438f7ad203b9b5ec063",
+    "inputs/environment/app/data/sample/deep/readme.txt": "ef425ec96caf3d79b288aac22ef5ca0097393213d09be9bd947df1758334fe64",
+    "inputs/environment/app/data/sample/notes/readme.txt": "ef425ec96caf3d79b288aac22ef5ca0097393213d09be9bd947df1758334fe64",
+    "inputs/environment/app/data/sample/名字 带空格.txt": "2ed18965886676eca457cfd0cccf012b6a70c65065bfa438f7ad203b9b5ec063",
+    "inputs/environment/app/src/digest.py": "5259f4d1791b3db4664f4b72c5a75b1ac1811cf641b2d6855debbf2e91d4e857",
+    "inputs/environment/app/src/groups.py": "68e7f29b4481247126de3936708a19fc5700b47fbcd68665e1b07d732d1c2971",
+    "inputs/environment/app/src/manifest.py": "cd2cf970351b3e7405c63b9f90b51efcefae73c121590c3957460b7f5ae59c07",
+    "inputs/environment/app/src/walker.py": "e128ab091cc63abccad53a55f1032188daf0f65eb57150e11744c286fa011f6c",
+    "inputs/instruction.md": "d2a0ecd2cac7a8c4cd5d4dd1bc066f49cc2432d00ab1ba3f7296f684e4a68883"
+  },
+  "parent_digest": "6f44c4c96335a7540f5cef01c2420825af87ba2da2e5d1ed951aed2cf646148d",
+  "diagnosis": {
+    "explanation": "test_r1_sample_directory hard-requires the initial sample tree at /app/data/sample and fails with pytest.fail when it is absent (message \"/app/data/sample sample directory is missing\"). The sample tree is initial sample data, not a Contract deliverable: the Contract's input_spec only requires that input_dir is an existing directory and the instruction mentions the sample merely to observe current output; the final Verifier receives only the /app/src deliverables and \"does not inherit initial sample data\". The test must instead build its own fixture tree (mirroring the documented sample structure: notes/readme.txt and deep/readme.txt sharing content, deep/nested/copy two.txt and 名字 带空格.txt sharing content, deep/nested/blank.bin empty, plus empty directories) under tmp_path and assert exit 0, output JSON present, and manifest equality with a manifest computed via hashlib from those fixture bytes (three groups: the shared text, the other shared content, the empty file), including sorted paths. That preserves the R1 assertions (exit 0, JSON written to the requested path, correct grouping) without depending on undeclared sample data.",
+    "evidence_id": "oracle:test_manifest_cli.py::test_r1_sample_directory:call",
+    "contract_quote": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。",
+    "line": "174",
+    "requirement_id": "R1",
+    "test_path": "tests/test_manifest_cli.py",
+    "parent_digest": "6f44c4c96335a7540f5cef01c2420825af87ba2da2e5d1ed951aed2cf646148d"
+  },
+  "attribution": "test_defect",
+  "manifest": {
+    "test_manifest_cli.py": "62d2c5d3789a88e19dd9125db6b1bb6156fb2262ea2e360ba2dac8aaa736ec56"
+  },
+  "digest": "6f44c4c96335a7540f5cef01c2420825af87ba2da2e5d1ed951aed2cf646148d",
+  "budget_used": {
+    "model_calls": 8,
+    "tool_calls": 10
+  },
+  "workflow_budget_used": {
+    "model_calls": 15,
+    "tool_calls": 23,
+    "token_usage": {
+      "prompt_tokens": 167511,
+      "completion_tokens": 6883,
+      "total_tokens": 174394
+    }
+  },
+  "cost": {
+    "wall_sec": 15.086,
+    "token_usage": {
+      "prompt_tokens": 167511,
+      "completion_tokens": 6883,
+      "total_tokens": 174394
+    }
+  }
+}

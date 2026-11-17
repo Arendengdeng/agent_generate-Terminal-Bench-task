@@ -1,0 +1,1378 @@
+{
+  "label": "unconfirmed-holdout-invalid-020",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.002210080000168091,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/task-input-lcowmhmo/mixed.csv', '/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03694728099981148,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017322100029559806,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00045564199990622,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/task-input-5phyury8/header_only.csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 46,
+            "source": "    rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'header_only.csv')), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03654378000010183,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002086740000777354,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004500489999372803,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_header_only_wi...csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 54,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.043320036999830336,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001665730001150223,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005306620000737894,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_...csv', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 61,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03703840299976946,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016972399998849141,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004762899998240755,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and...csv', '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 68,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03713174899985461,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002210150000792055,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006695229999422736,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...n.csv', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 75,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03738280199968358,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015631899987056386,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006332650000331341,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_cs....csv', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 82,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.037734729000021616,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015149999990171636,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0050413029998708225,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_wit...csv', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 95,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03973828100015453,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001631549998819537,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005386009997891961,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg...csv', '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 109,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05164083799991204,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016072100015662727,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006987460001255386,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg...csv', '/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 127,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03955809199987925,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014285200040831114,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005638329998873814,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_...csv', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 138,
+            "source": "    run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 31,
+            "source": "    assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040654893000009906,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001958009997906629,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00046806099999230355,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_success_with_i.../tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 147,
+            "source": "    assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04289676100006545,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014612800032409723,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006072099999983038,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.034364342000117176,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001934080000864924,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004983339999853342,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0397766920000322,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001641589997234405,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006209020002643229,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup...csv', '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 78,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04038061299979745,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015310800017687143,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005055619999438932,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_other_named_in...v', '/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0/out_a.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 95,
+            "source": "    rows_a = _run_ok(first, out_a)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04018399500000669,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000140737000037916,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00041540099982739775,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_ge...csv', '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 127,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040930014999958075,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002067519999400247,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005579839998972602,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_va...csv', '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 146,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03642832100013038,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015266199989127927,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042497200001889723,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_header_only_va...csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 158,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03556414800004859,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001528400002825947,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003992570000264095,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_names_with_emb...csv', '/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 175,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04159406000007948,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015919499992378405,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004617370000232768,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_can_be_...csv', '/tmp/pytest-of-unknown/pytest-0/test_output_can_be_reparsed_as0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 193,
+            "source": "    assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03900113600002442,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019491800003379467,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004637929996533785,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_single_record_...csv', '/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 214,
+            "source": "    assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040599353999823506,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017658999968261924,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005605159999504394,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b''\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an...csv', '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 230,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 57,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03644406700004765,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018748000002233312,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/terminal/001/final-docker/unconfirmed-holdout-invalid-020/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "/solution/solve.sh": "b3f7776f53ba5e1a855be234cdc1071d82386c965252710cf892337134531700"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "87aca1628565c202a3424abf5b1f000ec1e5b0485851e3e489caeea28a41d7ee"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "87aca1628565c202a3424abf5b1f000ec1e5b0485851e3e489caeea28a41d7ee"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "979e3df1d879de5734439c59635b0d0d1c5ec6b321a8639692327d8737551c4b",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_clean.py": "132d52e6ca90b7f82c9c48b859ef1666e432b410b42fd88a5e74ddcdeaf8a025",
+    "test_clean_extra.py": "e4d809cc1b3a3c734b1cb81b7950e303086c24a1e500ac4401e91a6e10abbe9a"
+  },
+  "stdout": "FFFFFFFFFFFF..FFFFFFFFF                                                  [100%]\n=================================== FAILURES ===================================\n__________________ test_mixed_fixture_normalization_and_dedup __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')\n\n    def test_mixed_fixture_normalization_and_dedup(tmp_path):\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:40: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/task-input-lcowmhmo/mixed.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/task-input-lcowmhmo/mixed.csv', '/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n______________ test_header_only_input_produces_header_only_output ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0')\n\n    def test_header_only_input_produces_header_only_output(tmp_path):\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'header_only.csv')), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:46: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/task-input-5phyury8/header_only.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/task-input-5phyury8/header_only.csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n__________________ test_header_only_without_trailing_newline ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0')\n\n    def test_header_only_without_trailing_newline(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        with open(in_path, 'w', encoding='utf-8', newline='') as fh:\n            fh.write('email,name')\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:54: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_header_only_wi...csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')\n\n    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['a@x.com', 'Doe, \"John\"'], ['b@x.com', 'Plain'], ['c@x.com', '']])\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:61: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_...csv', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')\n\n    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['  First@Mail.COM ', '  First Name  '], ['second@mail.com', 'Second'], ['FIRST@MAIL.COM', 'Other Name'], ['first@mail.com', 'Third'], ['\\tsecond@MAIL.com', 'Second Again']])\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:68: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and...csv', '/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n_________________________ test_all_fields_quoted_input _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')\n\n    def test_all_fields_quoted_input(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['X@Y.COM', 'One, Two'], ['x@y.com', 'Duplicate'], ['z@y.com', 'Three']], quoting=csv.QUOTE_ALL)\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:75: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...n.csv', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n________________________ test_output_uses_csv_escaping _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')\n\n    def test_output_uses_csv_escaping(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        write_csv(in_path, ['email', 'name'], [['q@x.com', 'Smith, J \"Q\"']])\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:82: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_cs....csv', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n______________________ test_crlf_input_with_quoted_commas ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')\n\n    def test_crlf_input_with_quoted_commas(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        data = 'email,name\\r\\nA@B.C,\"Last, First\"\\r\\na@b.c,\"Other, Name\"\\r\\n'\n        with open(in_path, 'w', encoding='utf-8', newline='') as fh:\n            fh.write(data)\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:95: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_wit...csv', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n_____________ test_generated_large_distinct_input_preserves_order ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')\n\n    def test_generated_large_distinct_input_preserves_order(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        expected = []\n        records = []\n        for i in range(1000):\n            email = 'user%04d@example.com' % i\n            name = 'User %d, Esq.' % i if i % 3 == 0 else 'User %d' % i\n            records.append([email, name])\n            expected.append([email, name])\n        write_csv(in_path, ['email', 'name'], records)\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:109: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg...csv', '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n_______________________ test_generated_large_duplicates ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0')\n\n    def test_generated_large_duplicates(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        records = []\n        expected = []\n        for i in range(1000):\n            idx = i % 500\n            email = 'user%03d@example.com' % idx\n            case_email = email.upper() if i % 2 else '  ' + email + '  '\n            name = 'Name %d' % i\n            records.append([case_email, name])\n            if i < 500:\n                expected.append([email, name])\n        write_csv(in_path, ['email', 'name'], records)\n        out = str(tmp_path / 'out.csv')\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:127: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg...csv', '/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n_______________________ test_input_file_is_not_modified ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0')\n\n    def test_input_file_is_not_modified(tmp_path):\n        in_path = str(tmp_path / 'in.csv')\n        content = 'email,name\\nA@B.C,\"Last, First\"\\na@b.c,Other\\n'\n        with open(in_path, 'w', encoding='utf-8', newline='') as fh:\n            fh.write(content)\n        before = open(in_path, 'rb').read()\n        out = str(tmp_path / 'out.csv')\n>       run_and_check(in_path, out)\n\ntest_clean.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, 'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_...csv', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:31: AssertionError\n________________ test_success_with_input_in_readonly_like_paths ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')\n\n    def test_success_with_input_in_readonly_like_paths(tmp_path):\n        in_path = str(tmp_path / 'input.csv')\n        write_csv(in_path, ['email', 'name'], [['Solo@Ex.com', ' Solo ']])\n        out = str(tmp_path / 'nested_out.csv')\n        proc = run_cli(in_path, out)\n>       assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)\nE       AssertionError: stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_success_with_i.../tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean.py:147: AssertionError\n_______________ test_sibling_backup_file_does_not_override_input _______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0')\n\n    def test_sibling_backup_file_does_not_override_input(tmp_path):\n        \"\"\"The rows written must come from the input path given on the CLI.\"\"\"\n        work = str(tmp_path)\n        in_path = _write_text(\n            work,\n            'in.csv',\n            'email,name\\n'\n            '  Alice@Example.COM  ,  Alice Smith  \\n'\n            'bob@example.com,\"Bob, Jr.\"\\n'\n            'ALICE@example.com,Alice Duplicate\\n',\n        )\n        expected_before = open(in_path, 'rb').read()\n        # A decoy sibling file that is not named on the command line.\n        _write_text(work, 'in.csv.bak', 'email,name\\nold@example.com,Old Export\\n')\n        out_path = os.path.join(work, 'out.csv')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:78: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup...csv', '/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n_________ test_other_named_input_is_used_and_not_replaced_by_neighbour _________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0')\n\n    def test_other_named_input_is_used_and_not_replaced_by_neighbour(tmp_path):\n        \"\"\"Two different input files produce two different, self-consistent outputs.\"\"\"\n        work = str(tmp_path)\n        first = _write_text(work, 'a.csv', 'email,name\\nOne@Example.com, First\\n')\n        second = _write_text(work, 'b.csv', 'email,name\\nTwo@Example.com,Second\\n')\n        _write_text(work, 'b.csv.bak', 'email,name\\nbogus@example.com,Bogus\\n')\n        out_a = os.path.join(work, 'out_a.csv')\n        out_b = os.path.join(work, 'out_b.csv')\n>       rows_a = _run_ok(first, out_a)\n                 ^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:95: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0/a.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0/out_a.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_other_named_in...v', '/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0/out_a.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n__________________ test_large_mixed_generated_input_reference __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0')\n\n    def test_large_mixed_generated_input_reference(tmp_path):\n        \"\"\"A 1000-record generated input checked against an independently computed result.\"\"\"\n        work = str(tmp_path)\n        records = []\n        expected = []\n        seen = set()\n        for i in range(1000):\n            idx = (i * 37) % 700\n            raw_email = 'Person%03d@Example.COM' % idx\n            if i % 3 == 0:\n                raw_email = '  ' + raw_email + '\\t'\n            if i % 4 == 0:\n                raw_email = raw_email.lower()\n            name = 'Person %d' % idx\n            if i % 5 == 0:\n                name = '  ' + name + ', Sr.  '\n                norm_name = 'Person %d, Sr.' % idx\n            else:\n                norm_name = name\n            records.append([raw_email, name])\n            norm_email = raw_email.strip().lower()\n            if norm_email not in seen:\n                seen.add(norm_email)\n                expected.append([norm_email, norm_name])\n        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)\n        out_path = os.path.join(work, 'out.csv')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:127: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_ge...csv', '/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n___________ test_email_ascii_variants_are_preserved_apart_from_case ____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0')\n\n    def test_email_ascii_variants_are_preserved_apart_from_case(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_rows(\n            work,\n            'in.csv',\n            ['email', 'name'],\n            [\n                ['  Mixed.Case+Tag@EXAMPLE.org ', ' A '],\n                ['mixed.case+tag@example.org', 'Duplicate'],\n                ['MIXED.CASE+TAG@EXAMPLE.ORG', 'Duplicate 2'],\n                ['other@example.org', 'B,C'],\n            ],\n        )\n        out_path = os.path.join(work, 'out.csv')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:146: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_va...csv', '/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n______________________ test_header_only_variant_with_crlf ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0')\n\n    def test_header_only_variant_with_crlf(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_text(work, 'in.csv', 'email,name\\r\\n')\n        out_path = os.path.join(work, 'out.csv')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:158: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_header_only_va...csv', '/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n_________________ test_names_with_embedded_newline_and_quotes __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0')\n\n    def test_names_with_embedded_newline_and_quotes(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_rows(\n            work,\n            'in.csv',\n            ['email', 'name'],\n            [\n                ['n@x.com', 'line1\\nline2'],\n                ['m@x.com', 'say \"hi\", please'],\n                ['N@X.COM', 'dropped'],\n            ],\n        )\n        out_path = os.path.join(work, 'out.csv')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:175: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_names_with_emb...csv', '/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n________________ test_output_can_be_reparsed_as_two_column_csv _________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_can_be_reparsed_as0')\n\n    def test_output_can_be_reparsed_as_two_column_csv(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_rows(\n            work,\n            'in.csv',\n            ['email', 'name'],\n            [['a@x.com', 'Comma, Inside'], ['b@x.com', 'Quote \"Q\" Inside']],\n        )\n        out_path = os.path.join(work, 'out.csv')\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)\nE       AssertionError: stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_can_be_...csv', '/tmp/pytest-of-unknown/pytest-0/test_output_can_be_reparsed_as0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:193: AssertionError\n_____________________ test_single_record_and_dup_pair_only _____________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0')\n\n    def test_single_record_and_dup_pair_only(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_rows(\n            work,\n            'in.csv',\n            ['email', 'name'],\n            [['Solo@Example.com', ' Only ']],\n        )\n        out_path = os.path.join(work, 'out.csv')\n>       assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:214: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_single_record_...csv', '/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n___________________ test_overwriting_an_existing_output_file ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0')\n\n    def test_overwriting_an_existing_output_file(tmp_path):\n        work = str(tmp_path)\n        in_path = _write_rows(work, 'in.csv', ['email', 'name'], [['k@x.com', 'K']])\n        out_path = _write_text(work, 'out.csv', 'email,name\\nstale@example.com,Stale\\nstale2@example.com,Stale2\\n')\n>       rows = _run_ok(in_path, out_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean_extra.py:230: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0/out.csv'\n\n    def _run_ok(in_path, out_path):\n        proc = _run(in_path, out_path)\n>       assert proc.returncode == 0, (\n            'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b''\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an...csv', '/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0/out.csv'], returncode=1, stdout=b'', stderr=b'').returncode\n\ntest_clean_extra.py:57: AssertionError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...\nFAILED test_clean.py::test_header_only_input_produces_header_only_output - As...\nFAILED test_clean.py::test_header_only_without_trailing_newline - AssertionEr...\nFAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names\nFAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order\nFAILED test_clean.py::test_all_fields_quoted_input - AssertionError: expected...\nFAILED test_clean.py::test_output_uses_csv_escaping - AssertionError: expecte...\nFAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: ex...\nFAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...\nFAILED test_clean.py::test_generated_large_duplicates - AssertionError: expec...\nFAILED test_clean.py::test_input_file_is_not_modified - AssertionError: expec...\nFAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...\nFAILED test_clean_extra.py::test_sibling_backup_file_does_not_override_input\nFAILED test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour\nFAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...\nFAILED test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case\nFAILED test_clean_extra.py::test_header_only_variant_with_crlf - AssertionErr...\nFAILED test_clean_extra.py::test_names_with_embedded_newline_and_quotes - Ass...\nFAILED test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv - A...\nFAILED test_clean_extra.py::test_single_record_and_dup_pair_only - AssertionE...\nFAILED test_clean_extra.py::test_overwriting_an_existing_output_file - Assert...\n21 failed, 2 passed in 1.16s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success",
+    "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+    "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+    "test_clean_extra.py::test_large_mixed_generated_input_reference",
+    "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+    "test_clean_extra.py::test_header_only_variant_with_crlf",
+    "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+    "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+    "test_clean_extra.py::test_single_record_and_dup_pair_only",
+    "test_clean_extra.py::test_overwriting_an_existing_output_file"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "af76cc8d3b0dc2f6f86d96c056bbc99b196c74beb52479d0897e09c85638ffc5",
+  "outcome": "fail",
+  "wall_sec": 6.563,
+  "attribution": "uncertain"
+}

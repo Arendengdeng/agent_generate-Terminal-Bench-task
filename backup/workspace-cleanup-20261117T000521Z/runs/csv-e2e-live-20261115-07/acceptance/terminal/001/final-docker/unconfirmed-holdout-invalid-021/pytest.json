@@ -1,0 +1,1459 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success",
+    "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+    "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+    "test_clean_extra.py::test_large_mixed_generated_input_reference",
+    "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+    "test_clean_extra.py::test_header_only_variant_with_crlf",
+    "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+    "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+    "test_clean_extra.py::test_single_record_and_dup_pair_only",
+    "test_clean_extra.py::test_overwriting_an_existing_output_file"
+  ],
+  "results": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0021091980001983757,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03641944999981206,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017187799994644593,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000504987000113033,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 46,
+            "source": "    rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'header_only.csv')), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03868487099998674,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00025824199974522344,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007997810002962069,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 54,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.036579839999831165,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015548200008197455,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000436601000274095,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 61,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03908001299987518,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002560160000939504,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005655049999404582,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 68,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04024679300027856,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015775700012454763,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005897880000702571,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 75,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03434043900006145,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023747300019749673,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006766069996047008,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 82,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04187607699986984,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019886199970642338,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007785749999129621,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 95,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.047971420000067155,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016278400016744854,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006121900000835012,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 109,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.041945495000163646,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014068799964661594,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004770129999087658,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 127,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040478536000136955,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014945600014470983,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000536156000180199,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 138,
+            "source": "    run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 32,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0334862320000866,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013850799996362184,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005802760001643037,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0/nested_out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 148,
+            "source": "    rows = read_output(out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 23,
+            "source": "        assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03618786600009116,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001377159996991395,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005316960000527615,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03474319099996137,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001239180000993656,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004663790000449808,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04005271300002278,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016054700017775758,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005087960003038461,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_sibling_backup_file_does_0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 78,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03884681299996373,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002150430000256165,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005875960000594205,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_other_named_input_is_used0/out_a.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 95,
+            "source": "    rows_a = _run_ok(first, out_a)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.034545424999578245,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001436219999959576,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003948399998989771,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 127,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04077063199974873,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_large_mixed_generated_input_reference",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020078800025657983,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00044160900006318116,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_email_ascii_variants_are_0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 146,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.035175556000012875,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014697599999635713,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005269879998195393,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_header_only_variant_with_0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 158,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03660697099985555,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_header_only_variant_with_crlf",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00022496500014312915,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004617800000232819,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 175,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03594194100014647,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001556209999762359,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00039991499988900614,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_output_can_be_reparsed_as0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 194,
+            "source": "    rows = _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0337841139999,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000169292000009591,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00039769899967723177,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_single_record_and_dup_pai0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 214,
+            "source": "    assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03824840499964921,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_single_record_and_dup_pair_only",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001502990003245941,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005395500002123299,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "output file was not created\nassert False\n +  where False = <function exists at 0x727bf3333420>('/tmp/pytest-of-unknown/pytest-0/test_overwriting_an_existing_o0/out.csv')\n +    where <function exists at 0x727bf3333420> = <module 'posixpath' (frozen)>.exists\n +      where <module 'posixpath' (frozen)> = os.path",
+        "test_traceback": [
+          {
+            "path": "test_clean_extra.py",
+            "line": 230,
+            "source": "    rows = _run_ok(in_path, out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 60,
+            "source": "    return _read_rows(out_path)"
+          },
+          {
+            "path": "test_clean_extra.py",
+            "line": 47,
+            "source": "    assert os.path.exists(out_path), 'output file was not created'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03377993200001583,
+      "commands": [
+        {
+          "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean_extra.py::test_overwriting_an_existing_output_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019880999980159686,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "585269039a597c385b7ec0f60cb8b6e119841826f8d338c21f79e5bc1c0234a6"
+  },
+  "wall_sec": 1.27991
+}

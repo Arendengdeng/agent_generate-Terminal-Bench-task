@@ -1,0 +1,37 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________________________________ test_value __________________________________
+
+    def test_value():
+        for n in range(11):
+            p = subprocess.run(['python3', '/app/clean.py', str(n)],capture_output=True,text=True,timeout=5)
+            assert p.returncode == 0
+            assert json.loads(p.stdout)['value'] == n
+            if n != 3:
+>               assert json.loads(p.stdout) == {'value': n, 'double': 2*n}
+E               AssertionError: assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}
+E                 
+E                 Omitting 1 identical items, use -vv to show
+E                 Differing items:
+E                 {'double': 0} != {'double': 2}
+E                 Use -v to get more diff
+
+test_behavior.py:9: AssertionError
+_________________________________ test_double __________________________________
+
+    def test_double():
+        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)
+        assert result.returncode == 0
+>       assert json.loads(result.stdout) == {'value': 3, 'double': 6}
+E       AssertionError: assert {'value': 3, 'double': 0} == {'value': 3, 'double': 6}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'double': 0} != {'double': 6}
+E         Use -v to get more diff
+
+test_behavior.py:14: AssertionError
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_value - AssertionError: assert {'value': 1, 'do...
+FAILED test_behavior.py::test_double - AssertionError: assert {'value': 3, 'd...
+2 failed in 0.19s

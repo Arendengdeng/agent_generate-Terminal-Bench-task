@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Input is in scope (CSV header email,name, ASCII emails, ≤1000 records, quoted/commas). argv uses two positional args. Assertions follow from Contract: exit_code 0 (R1), input unchanged (R4), and output CSV derived from output_spec: normalized emails lowercased and trimmed (a@b.c, z@y.com), dedup keeps first record/name, order is first-appearance, name only trimmed so internal quote doubling and \"A\\tB\" internal tab retained. Names: first name is `He said \"hi\", ok` → CSV-escaped as `\"He said \"\"hi\"\", ok\"`; third name `  A\\tB  ` → trimmed to `A\\tB`; second dup dropped. Output exactly matches expected file. All unambiguous and derivable.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "4ef1941942a85ea4105035bda7a7675d3044226c4bf9d13567d47f69c5c6b54f",
+  "method": "isolated-contract-model-review-v1"
+}

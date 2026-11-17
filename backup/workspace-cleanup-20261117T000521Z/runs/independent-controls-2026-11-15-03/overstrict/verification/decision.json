@@ -1,0 +1,123 @@
+{
+  "decision": "needs_review",
+  "action": "investigate",
+  "reason_code": "TEST_LOOP_NEEDS_REVIEW",
+  "reasons": [
+    "Test repair stopped without passing the Docker gate."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [
+    "tests",
+    "solution",
+    "environment",
+    "contract"
+  ],
+  "diagnostics": [
+    {
+      "code": "TEST_LOOP_NEEDS_REVIEW",
+      "message": "Test repair stopped without passing the Docker gate.",
+      "details": {
+        "status": "needs_review",
+        "stop_reason": "JSON repair may only replace the Contract-derived assertion",
+        "repairs": 1,
+        "max_repairs": 2,
+        "attempts": [
+          {
+            "index": 0,
+            "tests_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/initial-tests",
+            "tests_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+            "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/attempts/000/execution/execution.json",
+            "status": "failed",
+            "attribution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/attempts/000/attribution.json",
+            "repair_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/attempts/001/test-agent",
+            "attribution": "test_defect",
+            "analysis": {
+              "requirement_id": "R2",
+              "contract_quote": "For every permitted n, double equals 2*n.",
+              "test_path": "tests/test_behavior.py",
+              "line": "14",
+              "evidence_id": "known-000:test_behavior.py::test_double:call",
+              "explanation": "Contract output_spec: \"JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.\" test_double compares the raw stdout string to the exact literal '{\"value\": 3, \"double\": 6}\\n' (line 14, spacing and field order), which is stricter than the Contract: a compliant implementation emitting {\"double\":6,\"value\":3} (known-000) satisfies both requirements (value=3, double=6, exactly those two keys) yet fails. The allowed assertion is json.loads(result.stdout) == {'value': 3, 'double': 6}. Also note test_value line 9 applies the ordering-unrestricted dict comparison correctly but is special-cased to skip n=3; the fix should replace only the cited assertion at line 14 in test_double with a parsed-JSON equality check (keep the returncode assertion and other ASTs/files unchanged).",
+              "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52"
+            },
+            "changes_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/attempts/001/changes.patch"
+          }
+        ],
+        "comparison_matrix": [
+          {
+            "version": 0,
+            "tests_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+            "implementation": "oracle",
+            "status": "completed",
+            "reward": 1,
+            "expected_reward": 1,
+            "outcome": "pass"
+          },
+          {
+            "version": 0,
+            "tests_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+            "implementation": "nop",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+            "implementation": "known-000",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 1,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+            "implementation": "invalid-000",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          }
+        ],
+        "final_tests_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/initial-tests",
+        "budget_used": {
+          "model_calls": 16,
+          "tool_calls": 17,
+          "token_usage": {
+            "prompt_tokens": 108691,
+            "completion_tokens": 1477,
+            "total_tokens": 110168
+          }
+        },
+        "cost": {
+          "wall_sec": 83.818,
+          "token_usage": {
+            "prompt_tokens": 108691,
+            "completion_tokens": 1477,
+            "total_tokens": 110168
+          },
+          "executions": 4
+        }
+      },
+      "investigate_modules": [
+        "tests",
+        "solution",
+        "environment",
+        "contract"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/run_result.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/static_check.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/preflight.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/test-loop.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/independent-validation.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/validation-inputs.json",
+    "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-03/overstrict/verification/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

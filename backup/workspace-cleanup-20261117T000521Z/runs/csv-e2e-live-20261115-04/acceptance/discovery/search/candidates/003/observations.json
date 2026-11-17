@@ -1,0 +1,137 @@
+[
+  {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-d2renkz6/out.csv\ninput inode 13 -> 13\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "json_file",
+          "path": [
+            "out.csv"
+          ],
+          "value": [
+            [
+              "email",
+              "name"
+            ],
+            [
+              "a@b.c",
+              "Last, First"
+            ]
+          ]
+        },
+        "actual_error": "JSONDecodeError",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-jbicadfh/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "json_file",
+          "path": [
+            "out.csv"
+          ],
+          "value": [
+            [
+              "email",
+              "name"
+            ],
+            [
+              "a@b.c",
+              "Last, First"
+            ]
+          ]
+        },
+        "actual_error": "JSONDecodeError",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "json_file",
+          "path": [
+            "out.csv"
+          ],
+          "value": [
+            [
+              "email",
+              "name"
+            ],
+            [
+              "a@b.c",
+              "Last, First"
+            ]
+          ]
+        },
+        "actual_error": "JSONDecodeError",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp
+RUN mkdir -p /app && chown 65532:65532 /app
+COPY --chown=65532:65532 app/ /app/
+USER 65532:65532
+WORKDIR /app
+CMD ["/bin/sh"]

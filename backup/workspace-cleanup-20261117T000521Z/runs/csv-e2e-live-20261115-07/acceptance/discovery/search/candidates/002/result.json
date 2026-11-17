@@ -1,0 +1,11 @@
+{
+  "id": "002",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R3",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/002/solution",
+  "solution_digest": "4f36969de064d2921d8ad0eddee2907f9349de3368b90422098ecb88b5890395",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/002/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "reason": "The fixture input header is \"email,name\" preceded by a UTF-8 BOM (\\ufeff). The Contract's input_spec states the header is exactly \"email,name\" and describes the file as UTF-8 CSV; it says nothing about a BOM. A correct implementation could legitimately treat \"﻿email,name\" as not the exact header (invalid input) or preserve the BOM, so neither exit_code 0 nor exactly \"email,name\\n\" output follows directly from the Contract. The witness is outside the specified in-scope input format (BOM not mentioned), so the expected assertion of exactly the header-only output is not derivable. Additionally, the \"unchanged\" assertion for in.csv is fine but doesn't rescue the ambiguity. Reject as out-of-scope/ambiguous rather than confirmed."
+}

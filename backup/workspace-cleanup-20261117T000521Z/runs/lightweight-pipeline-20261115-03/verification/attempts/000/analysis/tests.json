@@ -1,0 +1,51 @@
+{
+  "status": "needs_review",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "991311236156281a1694076c63b134296f61a918dc264b99e4b28d8dc9113f3f",
+    "inputs/environment/app/sample_customers.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3",
+    "inputs/instruction.md": "55f459f8c1b19a587014a052d17b43c370c5a7e39b8c97f48e668b053c24d42f"
+  },
+  "parent_digest": "d0dc114352b365546e79c0d2ee8d260017092c95b2cce09bdc5201da1e25b900",
+  "review_reason": "The failing test `test_empty_input_file_produces_only_header` asserts that an empty (0-byte) input file produces only the header and exits 0. However, the Contract's input_spec states input is a UTF-8 CSV whose header is exactly `email,name`, and that input \"可以仅有表头\" (may be header-only) — it does not authorize a completely empty file with no header row at all. The test therefore appears to demand behavior beyond the contract (or at least the contract is ambiguous about zero-byte input), and the responsible component (implementation vs. test) cannot be determined from the supplied snippets. Additionally, repair_permission is analysis_only, so a diagnosis must not be issued. Stopping for review.",
+  "attribution": "uncertain",
+  "manifest": {
+    "fixtures/basic.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/order.csv": "57bc70ada2cd80c3d2df0c4cb068e07e3b2b5e0550f0fe5cf9d979c25804cdd5",
+    "fixtures/quoting.csv": "316d3e115e29d6eb2cf61e3bd8272891863ab78c7fec52663627f775915c1751",
+    "test_clean.py": "3779eac975b67f4abe0477f31e1682bb13ecc506ee7cff679062939b05d44817"
+  },
+  "digest": "d0dc114352b365546e79c0d2ee8d260017092c95b2cce09bdc5201da1e25b900",
+  "budget_used": {
+    "model_calls": 1,
+    "tool_calls": 1
+  },
+  "workflow_budget_used": {
+    "model_calls": 17,
+    "tool_calls": 23,
+    "max_total_tokens": 240000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 77385,
+      "completion_tokens": 7665,
+      "total_tokens": 85050
+    }
+  },
+  "cost": {
+    "wall_sec": 1.74,
+    "token_usage": {
+      "prompt_tokens": 77385,
+      "completion_tokens": 7665,
+      "total_tokens": 85050
+    }
+  }
+}

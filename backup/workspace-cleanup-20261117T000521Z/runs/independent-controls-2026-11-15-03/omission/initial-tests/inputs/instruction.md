@@ -1,0 +1,1 @@
+Implement the CLI according to the immutable Contract. Input: Integer n in [0,10]. Output: JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.

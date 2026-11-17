@@ -1,0 +1,124 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_r1_success_exit_code_and_output_file",
+        "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+        "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+        "test_challenge_r2.py::test_challenge_output_written_to_second_positional_argument"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+        "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+        "test_clean.py::test_r2_output_reparses_to_same_values",
+        "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+        "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+        "test_challenge_r2.py::test_challenge_first_quoted_duplicate_wins_over_later_plain",
+        "test_challenge_r2.py::test_challenge_later_duplicates_are_discarded_not_merged",
+        "test_challenge_r2.py::test_challenge_first_seen_order_preserved_with_mixed_quoting",
+        "test_challenge_r2.py::test_challenge_multiline_quoted_name_preserved"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_r3_header_only_input",
+        "test_clean.py::test_r3_header_only_without_trailing_newline",
+        "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+        "test_clean.py::test_r3_no_duplicates_all_kept",
+        "test_clean.py::test_r3_max_size_input_within_time",
+        "test_challenge_r2.py::test_challenge_output_written_to_second_positional_argument"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_r4_input_file_not_modified",
+        "test_clean.py::test_r4_stdlib_only_imports",
+        "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat",
+        "test_challenge_r2.py::test_challenge_input_file_unchanged_by_challenge_fixture"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "inputs/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "inputs/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84"
+  },
+  "parent_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+    "test_path": "tests/test_clean.py",
+    "line": "1",
+    "evidence_id": "challenge:001",
+    "explanation": "Controller confirmed a missing Contract behavior assertion; see independent witness.",
+    "parent_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_challenge_r2.py::test_challenge_first_quoted_duplicate_wins_over_later_plain",
+    "test_challenge_r2.py::test_challenge_later_duplicates_are_discarded_not_merged",
+    "test_challenge_r2.py::test_challenge_first_seen_order_preserved_with_mixed_quoting",
+    "test_challenge_r2.py::test_challenge_multiline_quoted_name_preserved",
+    "test_challenge_r2.py::test_challenge_output_written_to_second_positional_argument",
+    "test_challenge_r2.py::test_challenge_input_file_unchanged_by_challenge_fixture",
+    "test_clean.py::test_r1_success_exit_code_and_output_file",
+    "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+    "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+    "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+    "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+    "test_clean.py::test_r2_output_reparses_to_same_values",
+    "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+    "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+    "test_clean.py::test_r3_header_only_input",
+    "test_clean.py::test_r3_header_only_without_trailing_newline",
+    "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+    "test_clean.py::test_r3_no_duplicates_all_kept",
+    "test_clean.py::test_r3_max_size_input_within_time",
+    "test_clean.py::test_r4_input_file_not_modified",
+    "test_clean.py::test_r4_stdlib_only_imports",
+    "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat"
+  ],
+  "manifest": {
+    "test_challenge_r2.py": "759762e4422e15fd35b85570a6397af3ec0ada8e8954b1e8a6fd300bc33aeaa1",
+    "test_clean.py": "55e05a64da8227450274cf0180c47f8f4850a00913f7682073a9147b6514e85e"
+  },
+  "digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+  "budget_used": {
+    "model_calls": 6,
+    "tool_calls": 8
+  },
+  "workflow_budget_used": {
+    "model_calls": 53,
+    "tool_calls": 66,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 389228,
+      "completion_tokens": 27160,
+      "total_tokens": 416388
+    }
+  },
+  "cost": {
+    "wall_sec": 22.196,
+    "token_usage": {
+      "prompt_tokens": 389228,
+      "completion_tokens": 27160,
+      "total_tokens": 416388
+    }
+  }
+}

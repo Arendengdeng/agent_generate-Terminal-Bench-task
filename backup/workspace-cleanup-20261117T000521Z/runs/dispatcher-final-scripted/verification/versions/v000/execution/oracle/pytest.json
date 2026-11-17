@@ -1,0 +1,66 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_behavior.py::test_output"
+  ],
+  "results": [
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001397340001858538,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'43\\n'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.026985073998730513,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001501080005255062,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "wall_sec": 0.191133
+}

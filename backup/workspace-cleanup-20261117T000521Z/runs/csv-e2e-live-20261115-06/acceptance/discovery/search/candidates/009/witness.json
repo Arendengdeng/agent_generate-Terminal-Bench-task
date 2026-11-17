@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "input_spec 规定 email 去掉首尾空白后只含 ASCII 字符，因此归一化只需处理 ASCII 空白与大小写。R2 要求「正确处理空白」：姓名仅去掉首尾空白，内部空白必须原样保留。Python 的 str.strip() 会去掉更多 Unicode 空白（例如 U+00A0 不换行空格、U+3000 表意空格），因此若姓名以这些非 ASCII 空白开头结尾，实现会把它们一并删掉，而 Contract 只允许去掉「首尾空白」——在 CSV 语境下即 ASCII 空格与制表符。构造合法输入：姓名 '\\u00a0X\\u00a0' 经标准解析为 <NBSP>X<NBSP>，规范输出应保留首尾的 NBSP，即字段为 '\\u00a0X\\u00a0'（含逗号/引号时才需引号，此处无需引号）。本实现 strip() 得到 'X'，从而丢失字符，违反 R2「正确处理空白」。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C, X \na@b.c,Dup\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\na@b.c, X \n"
+    }
+  ]
+}

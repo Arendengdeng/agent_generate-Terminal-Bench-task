@@ -1,0 +1,188 @@
+.FFF.F....FFF                                                            [100%]
+=================================== FAILURES ===================================
+_______________________ test_sample_like_contract_input ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_sample_like_contract_inpu0')
+
+    def test_sample_like_contract_input(tmp_path):
+        inp = os.path.join(FIXTURES, "sample_like.csv")
+        out = tmp_path / "out.csv"
+        run_clean(inp, str(out))
+        rows = read_csv(str(out))
+        assert rows[0] == ["email", "name"]
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice S. (updated)"],
+            ["bob@example.com", "Bob Jones"],
+            ["carol@example.com", "Carol"],
+            ["dave@example.com", 'Dave "The D" Davis'],
+        ]
+E       assert [['alice@exam...he D" Davis']] == [['alice@exam...he D" Davis']]
+E         
+E         At index 0 diff: ['alice@example.com', 'Alice Smith'] != ['alice@example.com', 'Alice S. (updated)']
+E         Use -v to get more diff
+
+test_clean.py:88: AssertionError
+______________________ test_whitespace_case_and_last_name ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_case_and_last_0')
+
+    def test_whitespace_case_and_last_name(tmp_path):
+        inp = os.path.join(FIXTURES, "whitespace_case.csv")
+        out = tmp_path / "out.csv"
+        run_clean(inp, str(out))
+        rows = read_csv(str(out))
+>       assert rows == [
+            ["email", "name"],
+            ["a@x.com", "Third A"],
+            ["b@x.com", "Padded B2"],
+            ["c@x.com", "C, with comma"],
+        ]
+E       AssertionError: assert [['email', 'n... with comma']] == [['email', 'n... with comma']]
+E         
+E         At index 1 diff: ['a@x.com', 'First A'] != ['a@x.com', 'Third A']
+E         Use -v to get more diff
+
+test_clean.py:101: AssertionError
+____________________ test_quotes_commas_newlines_roundtrip _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quotes_commas_newlines_ro0')
+
+    def test_quotes_commas_newlines_roundtrip(tmp_path):
+        inp = os.path.join(FIXTURES, "quotes.csv")
+        out = tmp_path / "out.csv"
+        run_clean(inp, str(out))
+        rows = read_csv(str(out))
+>       assert rows == [
+            ["email", "name"],
+            ["q@example.com", 'Quote " and , comma'],
+            ["r@example.com", "Plain"],
+        ]
+E       assert [['email', 'n...ine1\nLine2']] == [['email', 'n...om', 'Plain']]
+E         
+E         At index 1 diff: ['q@example.com', 'Smith, John'] != ['q@example.com', 'Quote " and , comma']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+____________________ test_first_appearance_order_with_dupes ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_appearance_order_wi0')
+
+    def test_first_appearance_order_with_dupes(tmp_path):
+        rows_in = [
+            ["email", "name"],
+            ["m@e.com", "M1"],
+            ["z@e.com", "Z1"],
+            ["M@E.COM", "M2"],
+            ["  a@e.com ", "A1"],
+            ["m@e.com", "  M3  "],
+            ["b@e.com", "B1"],
+            ["a@e.com", "A2"],
+            ["z@e.com", "Z2"],
+        ]
+        in_path = str(tmp_path / "in.csv")
+        out_path = str(tmp_path / "out.csv")
+        write_csv(in_path, rows_in)
+        run_clean(in_path, out_path)
+        out_rows = read_csv(out_path)
+>       assert_canonical(out_rows, [
+            ["email", "name"],
+            ["m@e.com", "M3"],
+            ["z@e.com", "Z2"],
+            ["a@e.com", "A2"],
+            ["b@e.com", "B1"],
+        ])
+
+test_clean.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out_rows = [['email', 'name'], ['m@e.com', 'M1'], ['z@e.com', 'Z1'], ['a@e.com', 'A1'], ['b@e.com', 'B1']]
+expected = [['email', 'name'], ['m@e.com', 'M3'], ['z@e.com', 'Z2'], ['a@e.com', 'A2'], ['b@e.com', 'B1']]
+
+    def assert_canonical(out_rows, expected):
+        if not out_rows:
+            raise AssertionError("output CSV is empty; expected header row")
+        assert out_rows[0] == ["email", "name"]
+>       assert out_rows[1:] == expected[1:]
+E       AssertionError: assert [['m@e.com', ...e.com', 'B1']] == [['m@e.com', ...e.com', 'B1']]
+E         
+E         At index 0 diff: ['m@e.com', 'M1'] != ['m@e.com', 'M3']
+E         Use -v to get more diff
+
+test_clean.py:64: AssertionError
+_________________________ test_located_outside_app_cwd _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_located_outside_app_cwd0')
+
+    def test_located_outside_app_cwd(tmp_path):
+        inp = os.path.join(FIXTURES, "whitespace_case.csv")
+        out = tmp_path / "out.csv"
+        run_clean(inp, str(out), cwd="/tmp")
+>       assert read_csv(str(out))[1:] == [
+            ["a@x.com", "Third A"],
+            ["b@x.com", "Padded B2"],
+            ["c@x.com", "C, with comma"],
+        ]
+E       AssertionError: assert [['a@x.com', ... with comma']] == [['a@x.com', ... with comma']]
+E         
+E         At index 0 diff: ['a@x.com', 'First A'] != ['a@x.com', 'Third A']
+E         Use -v to get more diff
+
+test_clean.py:232: AssertionError
+________________________ test_large_input_1000_records _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_records0')
+
+    def test_large_input_1000_records(tmp_path):
+        rows_in = [["email", "name"]]
+        for i in range(1000):
+            email = "User%d@Example.COM" % (i % 250)
+            pad = " " * (i % 3)
+            rows_in.append([pad + email + pad, "Name %d" % i])
+        in_path = str(tmp_path / "in.csv")
+        out_path = str(tmp_path / "out.csv")
+        write_csv(in_path, rows_in)
+        start = time.time()
+        run_clean(in_path, out_path)
+        elapsed = time.time() - start
+        assert elapsed < TIMEOUT
+        expected = expected_rows(rows_in[1:])
+>       assert read_csv(out_path) == expected
+E       AssertionError: assert [['email', 'n...Name 4'], ...] == [['email', 'n...me 754'], ...]
+E         
+E         At index 1 diff: ['user0@example.com', 'Name 0'] != ['user0@example.com', 'Name 750']
+E         Use -v to get more diff
+
+test_clean.py:253: AssertionError
+_________________________ test_randomized_vs_reference _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_randomized_vs_reference0')
+
+    def test_randomized_vs_reference(tmp_path):
+        import random
+        rng = random.Random(1234)
+        names = ["Ann", " A, B ", 'Q "x"', "  T\t", "Zed"]
+        emails = ["a@e.com", " A@E.com ", "b@e.com", "B@e.COM", "c@e.com"]
+        for trial in range(5):
+            rows_in = [["email", "name"]]
+            for _ in range(rng.randint(1, 30)):
+                rows_in.append([rng.choice(emails), rng.choice(names)])
+            in_path = str(tmp_path / ("in%d.csv" % trial))
+            out_path = str(tmp_path / ("out%d.csv" % trial))
+            write_csv(in_path, rows_in)
+            run_clean(in_path, out_path)
+>           assert read_csv(out_path) == expected_rows(rows_in[1:])
+E           AssertionError: assert [['email', 'n....com', 'Ann']] == [['email', 'n....com', 'Ann']]
+E             
+E             At index 1 diff: ['b@e.com', 'Ann'] != ['b@e.com', 'Zed']
+E             Use -v to get more diff
+
+test_clean.py:270: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_sample_like_contract_input - assert [['alice@exam....
+FAILED test_clean.py::test_whitespace_case_and_last_name - AssertionError: as...
+FAILED test_clean.py::test_quotes_commas_newlines_roundtrip - assert [['email...
+FAILED test_clean.py::test_first_appearance_order_with_dupes - AssertionError...
+FAILED test_clean.py::test_located_outside_app_cwd - AssertionError: assert [...
+FAILED test_clean.py::test_large_input_1000_records - AssertionError: assert ...
+FAILED test_clean.py::test_randomized_vs_reference - AssertionError: assert [...
+7 failed, 6 passed in 0.53s

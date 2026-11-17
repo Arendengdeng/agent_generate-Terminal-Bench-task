@@ -1,0 +1,11 @@
+{
+  "id": "000",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/000/solution",
+  "solution_digest": "4f36969de064d2921d8ad0eddee2907f9349de3368b90422098ecb88b5890395",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/000/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "reason": "The json_file assertion uses a JSON parser on out.csv, but the Contract specifies CSV output. Per the observation-operator semantics, parsers are not interchangeable and json_file is for JSON output files; a CSV file cannot be parsed by the JSON parser. The assertion should use parsed_file with csv parser (or file comparison) to verify the CSV. As written, the assertion does not parse the Contract's specified format, so it does not validly follow from the Requirement. Additionally, the witness implicitly requires the tool to create the missing output subdirectory (newdir/), which the Contract does not state—this is an extra constraint beyond the Contract. The exit_code, unchanged assertions, and the substantive expected content (header, trimmed/lowercased email, trimmed name, dedup keeping first, CSV quoting of \"Bob, Jr.\") do follow from R1/R2, but the file-format assertion is invalid."
+}

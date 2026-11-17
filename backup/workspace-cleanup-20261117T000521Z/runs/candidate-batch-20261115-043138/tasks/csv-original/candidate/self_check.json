@@ -1,0 +1,87 @@
+{
+  "status": "stale",
+  "digest": "847a93711b998303758a2ace66022738d54c6cfb7580097bb9123ac707074531",
+  "manifest": {
+    "checks/probe.py": "741e05b4bb9f8ce103dce1033847f62de633254216ebed0978fc3079a50c1eb2",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "4e6212e7cf6a71a086e3ac3daa24fc45472da5c9489e0b2b159d295ac4061dc1",
+    "draft/environment/app/sample.csv": "8380ed5cfc94d21b95ae17dfedf698a59633cea0c351e9757ef74822a363411b",
+    "draft/instruction.md": "1870ca026d39089f17fba3e6f36a60cb1076ab29e4deed44e26760311676f2a3",
+    "draft/solution/solve.sh": "f101da1a86e239d4bfe36982ab8430e80c34205380f52fdb88fdd39b4d7d858e"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "wrong rows: [['foo@bar.com', ' Foo Bar ']]"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "wrong rows: [['alice@example.com', ' Alice Wong'], ['bob@example.com', 'Bob Li'], ['carol@example.com', 'Carol\\ndave@example.com,Dave \"\"The\"\" Man\"'], ['erin@example.com', '  Erin  Lee  ']] != [['alice@example.com', 'Alice Wong'], ['bob@example.com', 'Bob Li'], ['carol@example.com', 'Carol, C.'], ['dave@example.com', 'Dave \"The\" Man'], ['erin@example.com', 'Erin  Lee']]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "wrong rows: [['zed@corp.io', 'Zed\\namy@corp.io, Amy \\n']] != [['zed@corp.io', 'Zed, Jr.'], ['amy@corp.io', 'Amy']]"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "wrong rows: [['b@c.com', ' Bee ']]"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "wrong rows: [['user1@example.com', '\"Name 1'], ['user2@example.com', '\"Name 2'], ['user3@example.com', '\"Name 3'], ['user4@example.com', '\"Name 4'], ['user5@example.com', '\"Name 5'], ['user6@example.com', '\"Name 6'], ['user7@example.com', '\"Name 7'], ['user8@example.com', '\"Name 8'], ['user9@example.com', '\"Name 9'], ['user10@example.com', '\"Name 10'], ['user11@example.com', '\"Name 11'], ['user12@example.com', '\"Name 12'], ['user13@example.com', '\"Name 13'], ['user14@example.com', '\"Name 14'], ['user15@example.com', '\"Name 15'], ['user16@example.com', '\"Name 16'], ['user17@example.com', '\"Name 17'], ['user18@example.com', '\"Name 18'], ['user19@example.com', '\"Name 19'], ['user20@example.com', '\"Name 20'], ['user21@example.com', '\"Name 21'], ['user22@example.com', '\"Name 22'], ['user23@example.com', '\"Name 23'], ['user24@example.com', '\"Name 24'], ['user25@example.com', '\"Name 25'], ['user26@example.com', '\"Name 26'], ['user27@example.com', '\"Name 27'], ['user28@example.com', '\"Name 28'], ['user29@example.com', '\"Name 29'], ['user30@example.com', '\"Name 30'], ['user31@example.com', '\"Name 31'], ['user32@example.com', '\"Name 32'], ['user33@example.com', '\"Name 33'], ['user34@example.com', '\"Name 34'], ['user35@example.com', '\"Name 35'], ['user36@example.com', '\"Name 36'], ['user37@example.com', '\"Name 37'], ['user38@example.com', '\"Name 38'], ['user39@example.com', '\"Name 39'], ['user40@example.com', '\"Name 40'], ['user41@example.com', '\"Name 41'], ['user42@example.com', '\"Name 42'], ['user43@example.com', '\"Name 43'], ['user44@example.com', '\"Name 44'], ['user45@example.com', '\"Name 45'], ['user46@example.com', '\"Name 46'], ['user47@example.com', '\"Name 47'], ['user48@example.com', '\"Name 48'], ['user49@example.com', '\"Name 49'], ['user50@example.com', '\"Name 50'], ['user51@example.com', '\"Name 51'], ['user52@example.com', '\"Name 52'], ['user53@example.com', '\"Name 53'], ['user54@example.com', '\"Name 54'], ['user55@example.com', '\"Name 55'], ['user56@example.com', '\""
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "error": "requires initial failure and all repaired requirements passing",
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "4e6212e7cf6a71a086e3ac3daa24fc45472da5c9489e0b2b159d295ac4061dc1",
+      "draft/environment/app/sample.csv": "8380ed5cfc94d21b95ae17dfedf698a59633cea0c351e9757ef74822a363411b"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "4e6212e7cf6a71a086e3ac3daa24fc45472da5c9489e0b2b159d295ac4061dc1",
+      "draft/environment/app/sample.csv": "8380ed5cfc94d21b95ae17dfedf698a59633cea0c351e9757ef74822a363411b"
+    },
+    "unchanged": true
+  },
+  "current_digest": "67d5e86e6d63e9fb08b304e98f200af448e7c69bae17f7529eb6c985473bb3ab"
+}

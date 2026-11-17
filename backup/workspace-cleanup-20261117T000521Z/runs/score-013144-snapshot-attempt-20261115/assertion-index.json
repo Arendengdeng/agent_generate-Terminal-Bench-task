@@ -1,0 +1,126 @@
+{
+  "test_clean.py::run_cli": [],
+  "test_clean.py::write_csv": [],
+  "test_clean.py::read_output": [
+    {
+      "line": 33,
+      "assertion": "    assert os.path.exists(out_path), \"output file was not created\""
+    }
+  ],
+  "test_clean.py::run_and_check": [
+    {
+      "line": 40,
+      "assertion": "    assert proc.returncode == 0, (\n        \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n    )"
+    }
+  ],
+  "test_clean.py::assert_header": [
+    {
+      "line": 47,
+      "assertion": "    assert rows, \"output is empty; expected header row\""
+    },
+    {
+      "line": 48,
+      "assertion": "    assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)"
+    }
+  ],
+  "test_clean.py::test_mixed_fixture_normalization_and_dedup": [
+    {
+      "line": 55,
+      "assertion": "    assert rows[1:] == [\n        [\"alice@example.com\", \"Alice Smith\"],\n        [\"bob@example.com\", \"Bob, Jr.\"],\n        [\"carol@example.org\", 'Carol \"C\" Jones'],\n        [\"dave@example.net\", \"\"],\n    ]"
+    }
+  ],
+  "test_clean.py::test_header_only_input_produces_header_only_output": [
+    {
+      "line": 66,
+      "assertion": "    assert rows == [[\"email\", \"name\"]]"
+    }
+  ],
+  "test_clean.py::test_header_only_without_trailing_newline": [
+    {
+      "line": 75,
+      "assertion": "    assert rows == [[\"email\", \"name\"]]"
+    }
+  ],
+  "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names": [
+    {
+      "line": 91,
+      "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"a@x.com\", 'Doe, \"John\"'],\n        [\"b@x.com\", \"Plain\"],\n        [\"c@x.com\", \"\"],\n    ]"
+    }
+  ],
+  "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order": [
+    {
+      "line": 114,
+      "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"first@mail.com\", \"First Name\"],\n        [\"second@mail.com\", \"Second\"],\n    ]"
+    }
+  ],
+  "test_clean.py::test_all_fields_quoted_input": [
+    {
+      "line": 135,
+      "assertion": "    assert rows == [\n        [\"email\", \"name\"],\n        [\"x@y.com\", \"One, Two\"],\n        [\"z@y.com\", \"Three\"],\n    ]"
+    }
+  ],
+  "test_clean.py::test_output_uses_csv_escaping": [
+    {
+      "line": 147,
+      "assertion": "    assert rows == [[\"email\", \"name\"], [\"q@x.com\", 'Smith, J \"Q\"']]"
+    },
+    {
+      "line": 152,
+      "assertion": "    assert len(lines) == 2, \"output rows are not properly escaped: %r\" % (text,)"
+    }
+  ],
+  "test_clean.py::test_crlf_input_with_quoted_commas": [
+    {
+      "line": 162,
+      "assertion": "    assert rows == [[\"email\", \"name\"], [\"a@b.c\", \"Last, First\"]]"
+    }
+  ],
+  "test_clean.py::test_generated_large_distinct_input_preserves_order": [
+    {
+      "line": 178,
+      "assertion": "    assert rows[1:] == expected"
+    }
+  ],
+  "test_clean.py::test_generated_large_duplicates": [
+    {
+      "line": 197,
+      "assertion": "    assert rows[1:] == expected"
+    }
+  ],
+  "test_clean.py::test_input_file_is_not_modified": [
+    {
+      "line": 209,
+      "assertion": "    assert after == before, \"input file was modified\""
+    }
+  ],
+  "test_clean.py::test_success_with_input_in_readonly_like_paths": [
+    {
+      "line": 218,
+      "assertion": "    assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)"
+    },
+    {
+      "line": 220,
+      "assertion": "    assert rows == [[\"email\", \"name\"], [\"solo@ex.com\", \"Solo\"]]"
+    }
+  ],
+  "test_clean.py::test_no_third_party_imports": [
+    {
+      "line": 249,
+      "assertion": "    assert proc.returncode == 0, \"inspection failed: %r\" % (proc.stderr,)"
+    },
+    {
+      "line": 251,
+      "assertion": "    assert \"BAD:\" in text"
+    },
+    {
+      "line": 252,
+      "assertion": "    assert text.strip().endswith(\"BAD:\"), \"third-party imports found: %r\" % (text,)"
+    }
+  ],
+  "test_clean.py::test_wrong_argument_count_is_not_success": [
+    {
+      "line": 263,
+      "assertion": "    assert proc.returncode != 0"
+    }
+  ]
+}

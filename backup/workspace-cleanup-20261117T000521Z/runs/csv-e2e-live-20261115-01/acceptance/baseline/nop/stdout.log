@@ -1,0 +1,207 @@
+F..FFFFFF..F..                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+        assert_header(rows)
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.org", 'Carol "C" Jones'],
+            ["dave@example.net", ""],
+        ]
+E       AssertionError: assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']
+E         Right contains one more item: ['dave@example.net', '']
+E         Use -v to get more diff
+
+test_clean.py:55: AssertionError
+____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["a@x.com", 'Doe, "John"'],
+                ["b@x.com", "Plain"],
+                ["c@x.com", ""],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["a@x.com", 'Doe, "John"'],
+            ["b@x.com", "Plain"],
+            ["c@x.com", ""],
+        ]
+E       assert [['email', 'n...nc@x.com,\n']] == [['email', 'n...c@x.com', '']]
+E         
+E         At index 1 diff: ['a@x.com', 'Doe\nb@x.com,Plain\nc@x.com,\n'] != ['a@x.com', 'Doe, "John"']
+E         Right contains 2 more items, first extra item: ['b@x.com', 'Plain']
+E         Use -v to get more diff
+
+test_clean.py:91: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["  First@Mail.COM ", "  First Name  "],
+                ["second@mail.com", "Second"],
+                ["FIRST@MAIL.COM", "Other Name"],
+                ["first@mail.com", "Third"],
+                ["\tsecond@MAIL.com", "Second Again"],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["first@mail.com", "First Name"],
+            ["second@mail.com", "Second"],
+        ]
+E       AssertionError: assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]
+E         
+E         At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["X@Y.COM", "One, Two"],
+                ["x@y.com", "Duplicate"],
+                ["z@y.com", "Three"],
+            ],
+            quoting=csv.QUOTE_ALL,
+        )
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 63, in <module>\n    sys.exit(main(sys.argv))\n             ^^^^^^^^^^^^^^\n  File "/app/clean.py", line 56, in main\n    cleaned = normalize(rows)\n              ^^^^^^^^^^^^^^^\n  File "/app/clean.py", line 32, in normalize\n    email = row["email"]\n            ~~~^^^^^^^^^\nKeyError: \'email\'\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo...ile "/app/clean.py", line 32, in normalize\n    email = row["email"]\n            ~~~^^^^^^^^^\nKeyError: \'email\'\n').returncode
+
+test_clean.py:40: AssertionError
+________________________ test_output_uses_csv_escaping _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')
+
+    def test_output_uses_csv_escaping(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(in_path, ["email", "name"], [["q@x.com", 'Smith, J "Q"']])
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"], ["q@x.com", 'Smith, J "Q"']]
+E       assert [['email', 'n...', 'Smith\n']] == [['email', 'n...mith, J "Q"']]
+E         
+E         At index 1 diff: ['q@x.com', 'Smith\n'] != ['q@x.com', 'Smith, J "Q"']
+E         Use -v to get more diff
+
+test_clean.py:147: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(data)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"], ["a@b.c", "Last, First"]]
+E       AssertionError: assert [['email', 'n...c', 'Last\n']] == [['email', 'n...Last, First']]
+E         
+E         At index 1 diff: ['a@b.c', 'Last\n'] != ['a@b.c', 'Last, First']
+E         Use -v to get more diff
+
+test_clean.py:162: AssertionError
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        expected = []
+        records = []
+        for i in range(1000):
+            email = "user%04d@example.com" % i
+            name = "User %d, Esq." % i if i % 3 == 0 else "User %d" % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ["email", "name"], records)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['user0000@e...ser 11'], ...] == [['user0000@e...User 5'], ...]
+E         
+E         At index 0 diff: ['user0000@example.com', 'User 0\nuser0001@example.com,User 1\nuser0002@example.com,User 2\nuser0003@example.com,User 3'] != ['user0000@example.com', 'User 0, Esq.']
+E         Right contains 501 more items, first extra item: ['user0499@example.com', 'User 499']
+E         Use -v to get more diff
+
+test_clean.py:178: AssertionError
+________________ test_success_with_input_in_readonly_like_paths ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')
+
+    def test_success_with_input_in_readonly_like_paths(tmp_path):
+        # Ensures run only needs the two positional params and stdlib.
+        in_path = str(tmp_path / "input.csv")
+        write_csv(in_path, ["email", "name"], [["Solo@Ex.com", " Solo "]])
+        out = str(tmp_path / "nested_out.csv")
+        proc = run_cli(in_path, out)
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        rows = read_output(out)
+>       assert rows == [["email", "name"], ["solo@ex.com", "Solo"]]
+E       AssertionError: assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]
+E         
+E         At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']
+E         Use -v to get more diff
+
+test_clean.py:220: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: expected...
+FAILED test_clean.py::test_output_uses_csv_escaping - assert [['email', 'n......
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: as...
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+FAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...
+8 failed, 6 passed in 0.63s

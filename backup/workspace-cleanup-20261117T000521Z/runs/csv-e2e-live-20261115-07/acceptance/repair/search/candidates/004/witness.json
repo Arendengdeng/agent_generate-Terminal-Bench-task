@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "Contract R1: invoking the CLI with exactly two positional arguments that name a legal input and the intended output must succeed with exit code 0 and write the compliant CSV at that output path. When the output path has a file-extension other than '.csv' (an entirely ordinary output filename such as out.txt), the delivered CLI silently skips its main output write (a stale-path guard) and still exits 0, so no CSV is written although the output_spec requires the output to be a UTF-8 CSV of normalized, de-duplicated rows. Expected: exit 0 and out.txt containing header email,name followed by alice@example.com with the first normalized name and bob@example.com.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.txt"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.txt",
+      "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

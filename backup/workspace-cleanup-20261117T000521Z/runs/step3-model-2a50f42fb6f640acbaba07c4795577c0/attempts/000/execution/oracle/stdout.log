@@ -1,0 +1,38 @@
+.........F.                                                              [100%]
+=================================== FAILURES ===================================
+_________________ test_output_is_utf8_csv_and_input_untouched __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_is_utf8_csv_and_in0')
+
+    def test_output_is_utf8_csv_and_input_untouched(tmp_path):
+        src = os.path.join(str(tmp_path), "input.csv")
+        content = "email,name\n  A@B.com ,  Åsa, Name \nA@B.COM,Other\n"
+        with open(src, "w", encoding="utf-8", newline="") as fh:
+            fh.write(content)
+        with open(src, "rb") as fh:
+            before = fh.read()
+        out = os.path.join(str(tmp_path), "out.csv")
+        proc = run_clean(src, out)
+        assert proc.returncode == 0, "exit code %r, stderr=%r" % (proc.returncode, proc.stderr)
+        with open(src, "rb") as fh:
+            after = fh.read()
+        assert before == after, "input file was modified"
+        with open(out, "rb") as fh:
+            raw = fh.read()
+        decoded = raw.decode("utf-8")
+        assert decoded
+        with open(out, "r", encoding="utf-8", newline="") as fh:
+            rows = list(csv.reader(fh))
+>       assert rows == [
+            ["email", "name"],
+            ["a@b.com", "Åsa, Name"],
+        ]
+E       AssertionError: assert [['email', 'n....com', 'Åsa']] == [['email', 'n... 'Åsa, Name']]
+E         
+E         At index 1 diff: ['a@b.com', 'Åsa'] != ['a@b.com', 'Åsa, Name']
+E         Use -v to get more diff
+
+test_clean.py:155: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_output_is_utf8_csv_and_input_untouched - Assertion...
+1 failed, 10 passed in 0.47s

@@ -1,0 +1,33 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every integer n in [0,1000000], the JSON double field equals 2*n.",
+  "rationale": "R2 requires the JSON double field to equal 2*n for every in-range n, including the boundary n=1000000. The frozen suite only checks n=3, so a boundary defect at the range endpoint is uncaught. The candidate correctly reports value=1000000 (satisfying R1) but emits double=2000002 instead of 2000000 at n=1000000, violating R2.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "1000000"
+  ],
+  "stdin": "",
+  "fixtures": {},
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [
+        "value"
+      ],
+      "value": 1000000
+    },
+    {
+      "source": "json",
+      "path": [
+        "double"
+      ],
+      "value": 2000000
+    }
+  ]
+}

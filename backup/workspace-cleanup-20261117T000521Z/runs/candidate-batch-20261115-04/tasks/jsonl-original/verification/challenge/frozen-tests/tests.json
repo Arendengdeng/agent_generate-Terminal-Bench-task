@@ -1,0 +1,98 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_summarize.py::test_basic_grouping_counts_and_sums",
+        "test_summarize.py::test_single_record_input",
+        "test_summarize.py::test_output_sorted_by_service_then_level",
+        "test_summarize.py::test_empty_input_outputs_empty_array"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_summarize.py::test_basic_grouping_counts_and_sums",
+        "test_summarize.py::test_duplicate_records_all_counted",
+        "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+        "test_summarize.py::test_max_lines_boundary",
+        "test_summarize.py::test_single_record_input"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_summarize.py::test_output_sorted_by_service_then_level",
+        "test_summarize.py::test_unicode_and_mixed_case_services",
+        "test_summarize.py::test_empty_input_outputs_empty_array",
+        "test_summarize.py::test_different_inputs_produce_different_outputs",
+        "test_summarize.py::test_rerun_is_deterministic",
+        "test_summarize.py::test_max_lines_boundary"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_summarize.py::test_input_file_preserved",
+        "test_summarize.py::test_unicode_fixture_input_preserved",
+        "test_summarize.py::test_basic_grouping_counts_and_sums"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "9155bdb9e5c996ffddb8b6a0e3589d4faeee72b8b436505c311b96441e7375c8",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7",
+    "inputs/instruction.md": "dfc3789f49200be2aed8204f8f499ec7190c97625c383e3a028210be7d969260"
+  },
+  "nodeids": [
+    "test_summarize.py::test_basic_grouping_counts_and_sums",
+    "test_summarize.py::test_output_sorted_by_service_then_level",
+    "test_summarize.py::test_unicode_and_mixed_case_services",
+    "test_summarize.py::test_duplicate_records_all_counted",
+    "test_summarize.py::test_empty_input_outputs_empty_array",
+    "test_summarize.py::test_input_file_preserved",
+    "test_summarize.py::test_unicode_fixture_input_preserved",
+    "test_summarize.py::test_different_inputs_produce_different_outputs",
+    "test_summarize.py::test_rerun_is_deterministic",
+    "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+    "test_summarize.py::test_single_record_input",
+    "test_summarize.py::test_max_lines_boundary"
+  ],
+  "manifest": {
+    "fixtures/basic.jsonl": "5c918f8db428aedd19c6026391c43d420cf2eb49ea158e4e00750b0b3082b2ae",
+    "fixtures/duplicates.jsonl": "e9756c0a8a7c81bb64e38e4be2309661320b4faf148f64fbf439fe20f29e6663",
+    "fixtures/empty.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/unicode.jsonl": "9a373f33835ee3f025e7b8c16cad431ef925a50ec8141e1fc9658442b4435606",
+    "test_summarize.py": "7bc2453db675e780d6391f985156bad7561df05102eb666e069f544712000eac"
+  },
+  "digest": "ce92028002897883139b764c3699de7345f9cf5691b5d3d42d41141ec2e8ec8e",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 9
+  },
+  "workflow_budget_used": {
+    "model_calls": 5,
+    "tool_calls": 9,
+    "token_usage": {
+      "prompt_tokens": 22829,
+      "completion_tokens": 3512,
+      "total_tokens": 26341
+    }
+  },
+  "cost": {
+    "wall_sec": 22.624,
+    "token_usage": {
+      "prompt_tokens": 22829,
+      "completion_tokens": 3512,
+      "total_tokens": 26341
+    }
+  }
+}

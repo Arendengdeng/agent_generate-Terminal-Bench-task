@@ -1,0 +1,24 @@
+............F..........                                                  [100%]
+=================================== FAILURES ===================================
+_________________________ test_no_third_party_imports __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_no_third_party_imports0')
+
+    def test_no_third_party_imports(tmp_path):
+        code = "import ast,sys\nsrc=open('/app/clean.py',encoding='utf-8').read()\ntree=ast.parse(src)\nmods=set()\nfor n in ast.walk(tree):\n    if isinstance(n,ast.Import):\n        for a in n.names: mods.add(a.name.split('.')[0])\n    elif isinstance(n,ast.ImportFrom) and n.level==0 and n.module:\n        mods.add(n.module.split('.')[0])\nimport importlib.util\nbad=[]\nfor m in sorted(mods):\n    if m in sys.builtin_module_names: continue\n    spec=importlib.util.find_spec(m)\n    origin=(spec.origin or '') if spec else ''\n    if 'site-packages' in origin or 'dist-packages' in origin:\n        bad.append(m)\nprint('BAD:'+','.join(bad))\n"
+        proc = subprocess.run([sys.executable, '-c', code], capture_output=True, timeout=TIMEOUT, cwd='/tmp')
+        assert proc.returncode == 0, 'inspection failed: %r' % (proc.stderr,)
+        text = proc.stdout.decode()
+        assert 'BAD:' in text
+>       assert text.strip().endswith('BAD:'), 'third-party imports found: %r' % (text,)
+E       AssertionError: third-party imports found: 'BAD:pytest\n'
+E       assert False
+E        +  where False = <built-in method endswith of str object at 0x769a89078ff0>('BAD:')
+E        +    where <built-in method endswith of str object at 0x769a89078ff0> = 'BAD:pytest'.endswith
+E        +      where 'BAD:pytest' = <built-in method strip of str object at 0x769a8907a570>()
+E        +        where <built-in method strip of str object at 0x769a8907a570> = 'BAD:pytest\n'.strip
+
+test_clean.py:157: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_no_third_party_imports - AssertionError: third-par...
+1 failed, 22 passed in 6.09s

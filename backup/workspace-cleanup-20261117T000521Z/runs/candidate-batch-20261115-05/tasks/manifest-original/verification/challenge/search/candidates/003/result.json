@@ -1,0 +1,11 @@
+{
+  "id": "003",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R4",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/search/candidates/003/solution",
+  "solution_digest": "efb14e9047d1085faaf71b6146c1e3edbd9532d7fbc685de7fbf511cf123aae4",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-original/verification/challenge/search/candidates/003/witness.json",
+  "tests_digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5",
+  "reason": "The single assertion is about the produced manifest content, but the cited Requirement R4 is only: \"不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。\" That requirement covers (a) not modifying the input tree, (b) delivered modules under /app/src, and (c) stdlib-only dependencies. The assertion that out.json equals a specific sorted JSON array with exact paths, sizes, and SHA-256 digests does NOT follow directly from R4; it is the content obligation of R1/R2/R3 (and the output_spec). The witness explicitly frames the alleged defect as \"a file of the input tree is missing from the result,\" i.e., a completeness/содержание error — which is a violation of R2 (recursively list all regular files) / R3 (size/digest), not R4. The \"unchanged assertion\" portion would be derivable under R4, but the fixture provides no post-run byte-identity check on q/readme.md, q/load.txt, q/config.json — only the JSON output equality. So the sole supplied assertion is not justified by the quoted requirement. Additionally, the witness's narrative claims manifest.py \"silently drops files ending in 'd.txt'\"; that implementation detail is untrusted external text and cannot be confirmed here, and even if true it constitutes an R2/R3 failure, not R4. Because the concrete expected output does not follow from the cited Requirement and the cited Contract, the review is unconfirmed."
+}

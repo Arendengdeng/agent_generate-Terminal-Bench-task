@@ -1,0 +1,81 @@
+{
+  "full_pipeline": false,
+  "accepted": false,
+  "calls": 6,
+  "known_usage": {
+    "prompt_tokens": 10278,
+    "completion_tokens": 1173,
+    "total_tokens": 11451
+  },
+  "unknown_usage_calls": [
+    6
+  ],
+  "blockers": [
+    {
+      "stage": "synthesis",
+      "reason": {
+        "type": "SynthesisError",
+        "message": "model API unavailable (URLError)"
+      },
+      "evidence": "candidate/synthesis.json"
+    },
+    {
+      "stage": "synthesis",
+      "call": 6,
+      "reason": "model API unavailable (URLError)",
+      "type": "SynthesisError",
+      "wall_sec": 120.05228517500018,
+      "evidence": "model-calls.jsonl"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "preflight",
+      "status": "ready"
+    },
+    {
+      "stage": "synthesis",
+      "status": "error"
+    },
+    {
+      "stage": "instruction_consistency",
+      "status": "not_run"
+    },
+    {
+      "stage": "test_generation",
+      "status": "not_run"
+    },
+    {
+      "stage": "docker_test_gate",
+      "status": "not_run"
+    },
+    {
+      "stage": "challenge",
+      "status": "not_run",
+      "attempts": 0
+    },
+    {
+      "stage": "independent_reviewer",
+      "status": "not_run"
+    },
+    {
+      "stage": "repair",
+      "status": "not_run_or_not_authorized",
+      "rounds": 0
+    },
+    {
+      "stage": "final_docker",
+      "status": "not_run"
+    },
+    {
+      "stage": "final_harbor",
+      "status": "not_run_or_incomplete"
+    },
+    {
+      "stage": "controller",
+      "status": "not_run",
+      "decision": null,
+      "terminal_decision": false
+    }
+  ]
+}

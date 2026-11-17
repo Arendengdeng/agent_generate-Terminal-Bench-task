@@ -1,0 +1,11 @@
+{
+  "id": "001",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R2",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-013144/verification/challenge/search/candidates/001/solution",
+  "solution_digest": "48181d46d8bb208b203bf5d38dd401bc0f234c2b29eee59cc16e10b148d7e1d8",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-013144/verification/challenge/search/candidates/001/witness.json",
+  "tests_digest": "72aac00828defd2aca44df441d361a946d8a6c5a7c61a713ba4ad2db7b1d931e",
+  "reason": "Fixture 与预期输出不一致。out.csv 的期望值有两行数据（grace 与 ada），但 rationale 声称“three rows”。更关键的是，按契约归一化后，'Grace@Example.com'、'grace@example.com'、' GRACE@EXAMPLE.COM ' 三条均为同一归一化邮箱 grace@example.com，保留首次记录 name='Grace'，三者归一后确应只输出一条，故断言里的两行数据部分其实与契约推导一致（grace 行 + ada 行）。但断言中的期望输出与 rationale 描述存在矛盾（“three rows” vs 两行），且 rationale 称引号逗号记录“the email lowercased”，而断言与推导一致。存在明确歧义：rationale 自述行数与给定断言值不符，无法确认断言“直接”由契约得出。另外，'Ada@Example.ORG' 去除空白并小写为 ada@example.org，姓名 'Lovelace, Ada' 需 CSV 引号转义，断言值正是如此——这一部分合规。但由于 rationale 与断言内部矛盾，且契约未明确规定输出 CSV 是否必须使用最短引号（是否允许对非必需字段加引号），断言要求精确字节匹配可能超出契约保证，故判定 unconfirmed。"
+}

@@ -1,0 +1,175 @@
+FFFFF.................                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_challenge_first_quoted_duplicate_wins_over_later_plain __________
+
+    def test_challenge_first_quoted_duplicate_wins_over_later_plain():
+        # First occurrence of bob@example.com carries the quoted comma name.
+        text = (
+            "email,name\n"
+            '  Bob@Example.COM  ,"Doe, Bob"\n'
+            " bob@example.com ,Bob Doe\n"
+            "  Alice@Example.com ,  Alice Chen\n"
+            "ALICE@example.com,Alice Chen (dup)\n"
+        )
+>       _check(
+            text,
+            [["bob@example.com", "Doe, Bob"], ["alice@example.com", "Alice Chen"]],
+        )
+
+test_challenge_r2.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_challenge_r2.py:60: in _check
+    rows = _parse_csv_file(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/challenge_mxfgh3bg/people.csv'
+
+    def _parse_csv_file(path):
+>       assert os.path.exists(path), "output file %s was not created" % path
+E       AssertionError: output file /tmp/challenge_mxfgh3bg/people.csv was not created
+E       assert False
+E        +  where False = <function exists at 0x739001c9f420>('/tmp/challenge_mxfgh3bg/people.csv')
+E        +    where <function exists at 0x739001c9f420> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+test_challenge_r2.py:40: AssertionError
+___________ test_challenge_later_duplicates_are_discarded_not_merged ___________
+
+    def test_challenge_later_duplicates_are_discarded_not_merged():
+        # Later duplicates must be dropped entirely; the name must not be merged.
+        text = (
+            "email,name\n"
+            "carol@example.org,Carol First\n"
+            "  CAROL@Example.org ,Carol Second\n"
+            "carol@example.org,Carol Third\n"
+            "dave@example.net,Dave\n"
+        )
+>       _check(
+            text,
+            [["carol@example.org", "Carol First"], ["dave@example.net", "Dave"]],
+        )
+
+test_challenge_r2.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_challenge_r2.py:60: in _check
+    rows = _parse_csv_file(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/challenge_j4ce69ir/people.csv'
+
+    def _parse_csv_file(path):
+>       assert os.path.exists(path), "output file %s was not created" % path
+E       AssertionError: output file /tmp/challenge_j4ce69ir/people.csv was not created
+E       assert False
+E        +  where False = <function exists at 0x739001c9f420>('/tmp/challenge_j4ce69ir/people.csv')
+E        +    where <function exists at 0x739001c9f420> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+test_challenge_r2.py:40: AssertionError
+_________ test_challenge_first_seen_order_preserved_with_mixed_quoting _________
+
+    def test_challenge_first_seen_order_preserved_with_mixed_quoting():
+        text = (
+            "email,name\n"
+            'zed@example.com,"Zed, Z."\n'
+            "  AMY@Example.COM ,  Amy A.\n"
+            'Zed@EXAMPLE.com,"Later, Zed"\n'
+            "amy@example.com,Amy Again\n"
+            '  quinn@example.com ,"Quinn ""Q"" Q"\n'
+        )
+>       _check(
+            text,
+            [
+                ["zed@example.com", "Zed, Z."],
+                ["amy@example.com", "Amy A."],
+                ["quinn@example.com", 'Quinn "Q" Q'],
+            ],
+        )
+
+test_challenge_r2.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_challenge_r2.py:60: in _check
+    rows = _parse_csv_file(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/challenge_7wnh6djj/people.csv'
+
+    def _parse_csv_file(path):
+>       assert os.path.exists(path), "output file %s was not created" % path
+E       AssertionError: output file /tmp/challenge_7wnh6djj/people.csv was not created
+E       assert False
+E        +  where False = <function exists at 0x739001c9f420>('/tmp/challenge_7wnh6djj/people.csv')
+E        +    where <function exists at 0x739001c9f420> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+test_challenge_r2.py:40: AssertionError
+________________ test_challenge_multiline_quoted_name_preserved ________________
+
+    def test_challenge_multiline_quoted_name_preserved():
+        text = (
+            "email,name\n"
+            'lee@example.com,"Lee\nSecond Line"\n'
+            "LEE@example.com,Dropped\n"
+        )
+>       _check(text, [["lee@example.com", "Lee\nSecond Line"]])
+
+test_challenge_r2.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_challenge_r2.py:60: in _check
+    rows = _parse_csv_file(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/challenge_sh3b9j31/people.csv'
+
+    def _parse_csv_file(path):
+>       assert os.path.exists(path), "output file %s was not created" % path
+E       AssertionError: output file /tmp/challenge_sh3b9j31/people.csv was not created
+E       assert False
+E        +  where False = <function exists at 0x739001c9f420>('/tmp/challenge_sh3b9j31/people.csv')
+E        +    where <function exists at 0x739001c9f420> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+test_challenge_r2.py:40: AssertionError
+_________ test_challenge_output_written_to_second_positional_argument __________
+
+    def test_challenge_output_written_to_second_positional_argument():
+        text = (
+            "email,name\n"
+            'zed@sample.io,"Zed, Z"\n'
+            " zed@SAMPLE.io ,Zed Later\n"
+        )
+>       _check(
+            text,
+            [["zed@sample.io", "Zed, Z"]],
+            output_name="sub_people.csv",
+        )
+
+test_challenge_r2.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_challenge_r2.py:60: in _check
+    rows = _parse_csv_file(out_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/tmp/challenge_ghrritd6/sub_people.csv'
+
+    def _parse_csv_file(path):
+>       assert os.path.exists(path), "output file %s was not created" % path
+E       AssertionError: output file /tmp/challenge_ghrritd6/sub_people.csv was not created
+E       assert False
+E        +  where False = <function exists at 0x739001c9f420>('/tmp/challenge_ghrritd6/sub_people.csv')
+E        +    where <function exists at 0x739001c9f420> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+test_challenge_r2.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED test_challenge_r2.py::test_challenge_first_quoted_duplicate_wins_over_later_plain
+FAILED test_challenge_r2.py::test_challenge_later_duplicates_are_discarded_not_merged
+FAILED test_challenge_r2.py::test_challenge_first_seen_order_preserved_with_mixed_quoting
+FAILED test_challenge_r2.py::test_challenge_multiline_quoted_name_preserved
+FAILED test_challenge_r2.py::test_challenge_output_written_to_second_positional_argument
+5 failed, 17 passed in 0.88s

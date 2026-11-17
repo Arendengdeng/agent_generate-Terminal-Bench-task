@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "stop_reason": "docker_checks_passed",
+  "repairs": 1,
+  "max_repairs": 2,
+  "attempts": [
+    {
+      "index": 0,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/test-agent",
+      "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/000/execution/execution.json",
+      "status": "failed",
+      "attribution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/000/attribution.json",
+      "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/001/test-agent",
+      "attribution": "test_defect",
+      "analysis": {
+        "requirement_id": "R1",
+        "contract_quote": "Print 42 and exit successfully.",
+        "test_path": "tests/test_behavior.py",
+        "line": "6",
+        "evidence_id": "oracle:test_behavior.py::test_output:call",
+        "explanation": "The test expects 43 but R1 explicitly requires 42.",
+        "parent_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e"
+      },
+      "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/001/changes.patch"
+    },
+    {
+      "index": 1,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/001/test-agent",
+      "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/001/execution/execution.json",
+      "status": "passed"
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "version": 0,
+      "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    }
+  ],
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-4bdf6efe6cc1418a8190267fc811ea0b/verification/attempts/001/test-agent",
+  "budget_used": {
+    "model_calls": 8,
+    "tool_calls": 8
+  },
+  "cost": {
+    "wall_sec": 93.052,
+    "token_usage": null,
+    "executions": 8
+  }
+}

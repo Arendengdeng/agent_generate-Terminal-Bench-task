@@ -1,0 +1,1249 @@
+[
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "334b2edcf642c5c4a905e1c7afb4a0e984c5ad9c7ffde7bc1e2b4edafeee342c",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 99"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "334b2edcf642c5c4a905e1c7afb4a0e984c5ad9c7ffde7bc1e2b4edafeee342c",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 99"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/initial-tests/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "fc295666750c84901bbe64c55b62240e81fdfb3e1520c4c55e0fe6ba03fd7cfd",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 24,
+        "source": "assert p.returncode == 0, (\n        \"expected exit code 0 for n=%d, got %r; stderr=%r\"\n        % (n, p.returncode, p.stderr)\n    )"
+      },
+      {
+        "function": "run",
+        "line": 29,
+        "source": "assert out, \"expected JSON output for n=%d, got empty stdout\" % n"
+      },
+      {
+        "function": "run",
+        "line": 36,
+        "source": "assert isinstance(data, dict), (\n        \"expected JSON object for n=%d, got %r\" % (n, type(data).__name__)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 45,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 50,
+        "source": "assert isinstance(val, int) and not isinstance(val, bool), (\n        \"expected integer value for n=%d, got %r\" % (n, val)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 53,
+        "source": "assert val == n, \"expected value == %d, got %r\" % (n, val)"
+      },
+      {
+        "function": "test_double",
+        "line": 59,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 64,
+        "source": "assert isinstance(dbl, int) and not isinstance(dbl, bool), (\n        \"expected integer double for n=%d, got %r\" % (n, dbl)\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 67,
+        "source": "assert dbl == 2 * n, \"expected double == %d for n=%d, got %r\" % (2 * n, n, dbl)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "fc295666750c84901bbe64c55b62240e81fdfb3e1520c4c55e0fe6ba03fd7cfd",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 24,
+        "source": "assert p.returncode == 0, (\n        \"expected exit code 0 for n=%d, got %r; stderr=%r\"\n        % (n, p.returncode, p.stderr)\n    )"
+      },
+      {
+        "function": "run",
+        "line": 29,
+        "source": "assert out, \"expected JSON output for n=%d, got empty stdout\" % n"
+      },
+      {
+        "function": "run",
+        "line": 36,
+        "source": "assert isinstance(data, dict), (\n        \"expected JSON object for n=%d, got %r\" % (n, type(data).__name__)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 45,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 50,
+        "source": "assert isinstance(val, int) and not isinstance(val, bool), (\n        \"expected integer value for n=%d, got %r\" % (n, val)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 53,
+        "source": "assert val == n, \"expected value == %d, got %r\" % (n, val)"
+      },
+      {
+        "function": "test_double",
+        "line": 59,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 64,
+        "source": "assert isinstance(dbl, int) and not isinstance(dbl, bool), (\n        \"expected integer double for n=%d, got %r\" % (n, dbl)\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 67,
+        "source": "assert dbl == 2 * n, \"expected double == %d for n=%d, got %r\" % (2 * n, n, dbl)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/002/test-agent/tests/test_behavior.py",
+    "sha256": "fc295666750c84901bbe64c55b62240e81fdfb3e1520c4c55e0fe6ba03fd7cfd",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 24,
+        "source": "assert p.returncode == 0, (\n        \"expected exit code 0 for n=%d, got %r; stderr=%r\"\n        % (n, p.returncode, p.stderr)\n    )"
+      },
+      {
+        "function": "run",
+        "line": 29,
+        "source": "assert out, \"expected JSON output for n=%d, got empty stdout\" % n"
+      },
+      {
+        "function": "run",
+        "line": 36,
+        "source": "assert isinstance(data, dict), (\n        \"expected JSON object for n=%d, got %r\" % (n, type(data).__name__)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 45,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 50,
+        "source": "assert isinstance(val, int) and not isinstance(val, bool), (\n        \"expected integer value for n=%d, got %r\" % (n, val)\n    )"
+      },
+      {
+        "function": "test_value",
+        "line": 53,
+        "source": "assert val == n, \"expected value == %d, got %r\" % (n, val)"
+      },
+      {
+        "function": "test_double",
+        "line": 59,
+        "source": "assert set(data.keys()) == {\"value\", \"double\"}, (\n        \"expected exactly keys value and double for n=%d, got %r\"\n        % (n, sorted(data.keys()))\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 64,
+        "source": "assert isinstance(dbl, int) and not isinstance(dbl, bool), (\n        \"expected integer double for n=%d, got %r\" % (n, dbl)\n    )"
+      },
+      {
+        "function": "test_double",
+        "line": 67,
+        "source": "assert dbl == 2 * n, \"expected double == %d for n=%d, got %r\" % (2 * n, n, dbl)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/initial-tests/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/syntax/syntax-agent/tests/test_behavior.py",
+    "sha256": "11bf0b86923fded896914638cf9e4bd61059b00dfa6cc940408a7041e96a917b",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 17,
+        "source": "assert p.returncode == 0, (\n        f\"expected exit 0 for n={n}, got {p.returncode}; \"\n        f\"stdout={p.stdout!r} stderr={p.stderr!r}\"\n    )"
+      },
+      {
+        "function": "run",
+        "line": 22,
+        "source": "assert out, f\"expected non-empty stdout for n={n}, got {p.stdout!r}\""
+      },
+      {
+        "function": "run",
+        "line": 29,
+        "source": "assert isinstance(obj, dict), f\"expected JSON object for n={n}, got {type(obj).__name__}: {out!r}\""
+      },
+      {
+        "function": "test_r1_value_representative",
+        "line": 36,
+        "source": "assert \"value\" in obj, f\"missing 'value' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_representative",
+        "line": 37,
+        "source": "assert obj[\"value\"] == n, f\"value mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_all_permitted",
+        "line": 43,
+        "source": "assert \"value\" in obj, f\"missing 'value' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_all_permitted",
+        "line": 44,
+        "source": "assert obj[\"value\"] == n, f\"value mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_all_permitted",
+        "line": 50,
+        "source": "assert \"double\" in obj, f\"missing 'double' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_all_permitted",
+        "line": 51,
+        "source": "assert obj[\"double\"] == 2 * n, f\"double mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_boundaries",
+        "line": 57,
+        "source": "assert obj[\"double\"] == 2 * n, f\"double mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_output_has_exactly_required_fields",
+        "line": 63,
+        "source": "assert set(obj.keys()) == {\"value\", \"double\"}, (\n            f\"expected exactly value and double for n={n}: {obj!r}\"\n        )"
+      },
+      {
+        "function": "test_exit_code_zero_boundary_and_mid",
+        "line": 76,
+        "source": "assert p.returncode == 0, f\"expected exit 0 for n={n}, got {p.returncode}\""
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/syntax/syntax-agent/collections/001/tests/test_behavior.py",
+    "sha256": "11bf0b86923fded896914638cf9e4bd61059b00dfa6cc940408a7041e96a917b",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 17,
+        "source": "assert p.returncode == 0, (\n        f\"expected exit 0 for n={n}, got {p.returncode}; \"\n        f\"stdout={p.stdout!r} stderr={p.stderr!r}\"\n    )"
+      },
+      {
+        "function": "run",
+        "line": 22,
+        "source": "assert out, f\"expected non-empty stdout for n={n}, got {p.stdout!r}\""
+      },
+      {
+        "function": "run",
+        "line": 29,
+        "source": "assert isinstance(obj, dict), f\"expected JSON object for n={n}, got {type(obj).__name__}: {out!r}\""
+      },
+      {
+        "function": "test_r1_value_representative",
+        "line": 36,
+        "source": "assert \"value\" in obj, f\"missing 'value' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_representative",
+        "line": 37,
+        "source": "assert obj[\"value\"] == n, f\"value mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_all_permitted",
+        "line": 43,
+        "source": "assert \"value\" in obj, f\"missing 'value' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r1_value_all_permitted",
+        "line": 44,
+        "source": "assert obj[\"value\"] == n, f\"value mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_all_permitted",
+        "line": 50,
+        "source": "assert \"double\" in obj, f\"missing 'double' for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_all_permitted",
+        "line": 51,
+        "source": "assert obj[\"double\"] == 2 * n, f\"double mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_r2_double_boundaries",
+        "line": 57,
+        "source": "assert obj[\"double\"] == 2 * n, f\"double mismatch for n={n}: {obj!r}\""
+      },
+      {
+        "function": "test_output_has_exactly_required_fields",
+        "line": 63,
+        "source": "assert set(obj.keys()) == {\"value\", \"double\"}, (\n            f\"expected exactly value and double for n={n}: {obj!r}\"\n        )"
+      },
+      {
+        "function": "test_exit_code_zero_boundary_and_mid",
+        "line": 76,
+        "source": "assert p.returncode == 0, f\"expected exit 0 for n={n}, got {p.returncode}\""
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/syntax/syntax-agent/collections/000/tests/test_behavior.py",
+    "sha256": "bc38ce5d75aa6eb6a064e11432c1b54e3947344620536b81b9e711bab46ebbdf",
+    "assertions": [],
+    "syntax_error": {
+      "line": 10,
+      "message": "invalid syntax"
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/syntax/initial-tests/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/syntax/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "2006bb6171ae0379c2b11d9b5f5685af6b5875301862515ee0e7bdf4af0ac7d6",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "2006bb6171ae0379c2b11d9b5f5685af6b5875301862515ee0e7bdf4af0ac7d6",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/test-agent/tests/test_behavior.py",
+    "sha256": "68ca4f567b18108772681d291fc189e8728aefe40497f0777a7ed9a06e9e0247",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "68ca4f567b18108772681d291fc189e8728aefe40497f0777a7ed9a06e9e0247",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/initial-tests/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "5eb1f5f19674dc2a68e13b6f920e8d9028e0a3a63622ca0efff95e082176ebf0",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 28,
+        "source": "assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)"
+      },
+      {
+        "function": "run",
+        "line": 33,
+        "source": "assert isinstance(obj, dict), 'output is not a JSON object for n=%r: %r' % (n, obj)"
+      },
+      {
+        "function": "test_exit_code_zero_for_each_permitted_n",
+        "line": 40,
+        "source": "assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)"
+      },
+      {
+        "function": "test_output_is_json_object_with_exact_keys",
+        "line": 46,
+        "source": "assert set(obj.keys()) == {'value', 'double'}, (\n            'unexpected keys for n=%r: %r' % (n, sorted(obj.keys()))\n        )"
+      },
+      {
+        "function": "test_value_equals_n",
+        "line": 54,
+        "source": "assert obj['value'] == n, 'value mismatch for n=%r: %r' % (n, obj.get('value'))"
+      },
+      {
+        "function": "test_value_equals_n",
+        "line": 55,
+        "source": "assert isinstance(obj['value'], int) and not isinstance(obj['value'], bool)"
+      },
+      {
+        "function": "test_double_equals_twice_n",
+        "line": 61,
+        "source": "assert obj['double'] == 2 * n, (\n            'double mismatch for n=%r: %r' % (n, obj.get('double'))\n        )"
+      },
+      {
+        "function": "test_double_equals_twice_n",
+        "line": 64,
+        "source": "assert isinstance(obj['double'], int) and not isinstance(obj['double'], bool)"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 69,
+        "source": "assert obj['value'] == PROBE"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 70,
+        "source": "assert obj['double'] == 6"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 71,
+        "source": "assert set(obj.keys()) == {'value', 'double'}"
+      },
+      {
+        "function": "test_boundary_zero",
+        "line": 76,
+        "source": "assert obj == {'value': 0, 'double': 0}"
+      },
+      {
+        "function": "test_boundary_ten",
+        "line": 81,
+        "source": "assert obj == {'value': 10, 'double': 20}"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "5eb1f5f19674dc2a68e13b6f920e8d9028e0a3a63622ca0efff95e082176ebf0",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 28,
+        "source": "assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)"
+      },
+      {
+        "function": "run",
+        "line": 33,
+        "source": "assert isinstance(obj, dict), 'output is not a JSON object for n=%r: %r' % (n, obj)"
+      },
+      {
+        "function": "test_exit_code_zero_for_each_permitted_n",
+        "line": 40,
+        "source": "assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)"
+      },
+      {
+        "function": "test_output_is_json_object_with_exact_keys",
+        "line": 46,
+        "source": "assert set(obj.keys()) == {'value', 'double'}, (\n            'unexpected keys for n=%r: %r' % (n, sorted(obj.keys()))\n        )"
+      },
+      {
+        "function": "test_value_equals_n",
+        "line": 54,
+        "source": "assert obj['value'] == n, 'value mismatch for n=%r: %r' % (n, obj.get('value'))"
+      },
+      {
+        "function": "test_value_equals_n",
+        "line": 55,
+        "source": "assert isinstance(obj['value'], int) and not isinstance(obj['value'], bool)"
+      },
+      {
+        "function": "test_double_equals_twice_n",
+        "line": 61,
+        "source": "assert obj['double'] == 2 * n, (\n            'double mismatch for n=%r: %r' % (n, obj.get('double'))\n        )"
+      },
+      {
+        "function": "test_double_equals_twice_n",
+        "line": 64,
+        "source": "assert isinstance(obj['double'], int) and not isinstance(obj['double'], bool)"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 69,
+        "source": "assert obj['value'] == PROBE"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 70,
+        "source": "assert obj['double'] == 6"
+      },
+      {
+        "function": "test_probe_n_three",
+        "line": 71,
+        "source": "assert set(obj.keys()) == {'value', 'double'}"
+      },
+      {
+        "function": "test_boundary_zero",
+        "line": 76,
+        "source": "assert obj == {'value': 0, 'double': 0}"
+      },
+      {
+        "function": "test_boundary_ten",
+        "line": 81,
+        "source": "assert obj == {'value': 10, 'double': 20}"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/initial-tests/tests/test_behavior.py",
+    "sha256": "2f29d6aec10bbba2127127b4c20208b850b951d1a37f0c3f6a3e8b9b68842cf3",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert isinstance(json.loads(run(3).stdout)['double'], int)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "2f29d6aec10bbba2127127b4c20208b850b951d1a37f0c3f6a3e8b9b68842cf3",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert isinstance(json.loads(run(3).stdout)['double'], int)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/initial-tests/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/export/task/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent/collections/000/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/variants/known-000/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/variants/invalid-000/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/initial-tests/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "6d993fe6cf08636472c5d4c49d9c29baef985d173c9460484761ee63f9236b6e",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert run(3).stdout == '{\"value\": 3, \"double\": 6}\\n'"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/attempts/001/test-agent/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/initial-tests/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/initial-tests/collections/000/tests/test_behavior.py",
+    "sha256": "7cd49e7b631fb24c139a903791fa49f1c1f2e981b1b22232d5c6d097d23d5f39",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 7,
+        "source": "assert p.returncode == 0"
+      },
+      {
+        "function": "test_value",
+        "line": 11,
+        "source": "assert json.loads(run(3).stdout)['value'] == 3"
+      },
+      {
+        "function": "test_double",
+        "line": 14,
+        "source": "assert json.loads(run(3).stdout)['double'] == 6"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final/verification/export/task/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final/verification/variants/known-000/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final/verification/variants/invalid-000/tests/test_behavior.py",
+    "sha256": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8",
+    "assertions": [
+      {
+        "function": "run",
+        "line": 12,
+        "source": "assert p.returncode == 0, (p.returncode, p.stdout, p.stderr)"
+      },
+      {
+        "function": "parse",
+        "line": 22,
+        "source": "assert isinstance(data, dict), 'output is not a JSON object: %r' % (p.stdout,)"
+      },
+      {
+        "function": "test_value",
+        "line": 29,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_value",
+        "line": 30,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 36,
+        "source": "assert set(data.keys()) == {'value', 'double'}, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 37,
+        "source": "assert data['value'] == n, (n, data)"
+      },
+      {
+        "function": "test_double",
+        "line": 38,
+        "source": "assert data['double'] == 2 * n, (n, data)"
+      }
+    ]
+  }
+]

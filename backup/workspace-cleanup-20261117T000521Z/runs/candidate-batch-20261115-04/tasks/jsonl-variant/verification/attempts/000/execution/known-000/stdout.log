@@ -1,0 +1,60 @@
+..F............F....F..                                                  [100%]
+=================================== FAILURES ===================================
+______________________ test_r1_output_parses_as_utf8_json ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_output_parses_as_utf8_0')
+
+    def test_r1_output_parses_as_utf8_json(tmp_path):
+        data, out = run_cli(tmp_path, text=load_fixture("unicode.jsonl"))
+        text = out.read_bytes().decode("utf-8")
+        assert json.loads(text) == data
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: '日本' != '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:141: AssertionError
+__________________ test_r3_unicode_fixture_grouping_and_order __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_unicode_fixture_groupi0')
+
+    def test_r3_unicode_fixture_grouping_and_order(tmp_path):
+        data, _ = run_cli(tmp_path, text=load_fixture("unicode.jsonl"))
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: '日本' != '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:333: AssertionError
+______________________ test_r4_input_bytes_crlf_and_utf8 _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r4_input_bytes_crlf_and_u0')
+
+    def test_r4_input_bytes_crlf_and_utf8(tmp_path):
+        payload = load_fixture("unicode.jsonl").replace("\n", "\r\n").encode("utf-8")
+        src = tmp_path / "crlf.jsonl"
+        src.write_bytes(payload)
+        out = tmp_path / "o.json"
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT), str(src), str(out)],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            cwd=str(tmp_path),
+        )
+        assert proc.returncode == 0, proc.stderr
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al... '日本', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: '日本' != '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:434: AssertionError
+=========================== short test summary info ============================
+FAILED test_summarize.py::test_r1_output_parses_as_utf8_json - AssertionError...
+FAILED test_summarize.py::test_r3_unicode_fixture_grouping_and_order - Assert...
+FAILED test_summarize.py::test_r4_input_bytes_crlf_and_utf8 - AssertionError:...
+3 failed, 20 passed in 1.49s

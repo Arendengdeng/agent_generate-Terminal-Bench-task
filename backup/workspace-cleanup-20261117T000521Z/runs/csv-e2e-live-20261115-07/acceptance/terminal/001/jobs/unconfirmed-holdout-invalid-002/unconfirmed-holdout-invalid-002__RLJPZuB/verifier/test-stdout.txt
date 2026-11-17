@@ -1,0 +1,206 @@
+F...F......F..FFFF...F.                                                  [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(_iv_working_fixture(os.path.join(FIXTURES, 'mixed.csv')), out)
+        assert_header(rows)
+>       assert rows[1:] == [['alice@example.com', 'Alice Smith'], ['bob@example.com', 'Bob, Jr.'], ['carol@example.org', 'Carol "C" Jones'], ['dave@example.net', '']]
+E       AssertionError: assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']
+E         Use -v to get more diff
+
+test_clean.py:42: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / 'in.csv')
+        write_csv(in_path, ['email', 'name'], [['  First@Mail.COM ', '  First Name  '], ['second@mail.com', 'Second'], ['FIRST@MAIL.COM', 'Other Name'], ['first@mail.com', 'Third'], ['\tsecond@MAIL.com', 'Second Again']])
+        out = str(tmp_path / 'out.csv')
+        rows = run_and_check(in_path, out)
+>       assert rows == [['email', 'name'], ['first@mail.com', 'First Name'], ['second@mail.com', 'Second']]
+E       AssertionError: assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]
+E         
+E         At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']
+E         Use -v to get more diff
+
+test_clean.py:69: AssertionError
+________________ test_success_with_input_in_readonly_like_paths ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_success_with_input_in_rea0')
+
+    def test_success_with_input_in_readonly_like_paths(tmp_path):
+        in_path = str(tmp_path / 'input.csv')
+        write_csv(in_path, ['email', 'name'], [['Solo@Ex.com', ' Solo ']])
+        out = str(tmp_path / 'nested_out.csv')
+        proc = run_cli(in_path, out)
+        assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)
+        rows = read_output(out)
+>       assert rows == [['email', 'name'], ['solo@ex.com', 'Solo']]
+E       AssertionError: assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]
+E         
+E         At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']
+E         Use -v to get more diff
+
+test_clean.py:149: AssertionError
+_______________ test_sibling_backup_file_does_not_override_input _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_sibling_backup_file_does_0')
+
+    def test_sibling_backup_file_does_not_override_input(tmp_path):
+        """The rows written must come from the input path given on the CLI."""
+        work = str(tmp_path)
+        in_path = _write_text(
+            work,
+            'in.csv',
+            'email,name\n'
+            '  Alice@Example.COM  ,  Alice Smith  \n'
+            'bob@example.com,"Bob, Jr."\n'
+            'ALICE@example.com,Alice Duplicate\n',
+        )
+        expected_before = open(in_path, 'rb').read()
+        # A decoy sibling file that is not named on the command line.
+        _write_text(work, 'in.csv.bak', 'email,name\nold@example.com,Old Export\n')
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['alice@example.com', 'Alice Smith'],
+            ['bob@example.com', 'Bob, Jr.'],
+        ], 'output did not reflect the CLI input records: %r' % (rows,)
+E       AssertionError: output did not reflect the CLI input records: [['email', 'name'], ['alice@example.com', '  Alice Smith  '], ['bob@example.com', 'Bob, Jr.']]
+E       assert [['email', 'n..., 'Bob, Jr.']] == [['email', 'n..., 'Bob, Jr.']]
+E         
+E         At index 1 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']
+E         Use -v to get more diff
+
+test_clean_extra.py:79: AssertionError
+_________ test_other_named_input_is_used_and_not_replaced_by_neighbour _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_other_named_input_is_used0')
+
+    def test_other_named_input_is_used_and_not_replaced_by_neighbour(tmp_path):
+        """Two different input files produce two different, self-consistent outputs."""
+        work = str(tmp_path)
+        first = _write_text(work, 'a.csv', 'email,name\nOne@Example.com, First\n')
+        second = _write_text(work, 'b.csv', 'email,name\nTwo@Example.com,Second\n')
+        _write_text(work, 'b.csv.bak', 'email,name\nbogus@example.com,Bogus\n')
+        out_a = os.path.join(work, 'out_a.csv')
+        out_b = os.path.join(work, 'out_b.csv')
+        rows_a = _run_ok(first, out_a)
+        rows_b = _run_ok(second, out_b)
+>       assert rows_a == [['email', 'name'], ['one@example.com', 'First']], rows_a
+E       AssertionError: [['email', 'name'], ['one@example.com', ' First']]
+E       assert [['email', 'n...m', ' First']] == [['email', 'n...om', 'First']]
+E         
+E         At index 1 diff: ['one@example.com', ' First'] != ['one@example.com', 'First']
+E         Use -v to get more diff
+
+test_clean_extra.py:97: AssertionError
+__________________ test_large_mixed_generated_input_reference __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_large_mixed_generated_inp0')
+
+    def test_large_mixed_generated_input_reference(tmp_path):
+        """A 1000-record generated input checked against an independently computed result."""
+        work = str(tmp_path)
+        records = []
+        expected = []
+        seen = set()
+        for i in range(1000):
+            idx = (i * 37) % 700
+            raw_email = 'Person%03d@Example.COM' % idx
+            if i % 3 == 0:
+                raw_email = '  ' + raw_email + '\t'
+            if i % 4 == 0:
+                raw_email = raw_email.lower()
+            name = 'Person %d' % idx
+            if i % 5 == 0:
+                name = '  ' + name + ', Sr.  '
+                norm_name = 'Person %d, Sr.' % idx
+            else:
+                norm_name = name
+            records.append([raw_email, name])
+            norm_email = raw_email.strip().lower()
+            if norm_email not in seen:
+                seen.add(norm_email)
+                expected.append([norm_email, norm_name])
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+        assert rows[0] == ['email', 'name']
+>       assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'
+E       AssertionError: normalization/dedup/order mismatch on generated input
+E       assert [['person000@... Sr.  '], ...] == [['person000@...5, Sr.'], ...]
+E         
+E         At index 0 diff: ['person000@example.com', '  Person 0, Sr.  '] != ['person000@example.com', 'Person 0, Sr.']
+E         Use -v to get more diff
+
+test_clean_extra.py:129: AssertionError
+___________ test_email_ascii_variants_are_preserved_apart_from_case ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_email_ascii_variants_are_0')
+
+    def test_email_ascii_variants_are_preserved_apart_from_case(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['  Mixed.Case+Tag@EXAMPLE.org ', ' A '],
+                ['mixed.case+tag@example.org', 'Duplicate'],
+                ['MIXED.CASE+TAG@EXAMPLE.ORG', 'Duplicate 2'],
+                ['other@example.org', 'B,C'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['mixed.case+tag@example.org', 'A'],
+            ['other@example.org', 'B,C'],
+        ], rows
+E       AssertionError: [['email', 'name'], ['mixed.case+tag@example.org', ' A '], ['other@example.org', 'B,C']]
+E       assert [['email', 'n....org', 'B,C']] == [['email', 'n....org', 'B,C']]
+E         
+E         At index 1 diff: ['mixed.case+tag@example.org', ' A '] != ['mixed.case+tag@example.org', 'A']
+E         Use -v to get more diff
+
+test_clean_extra.py:147: AssertionError
+_____________________ test_single_record_and_dup_pair_only _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_single_record_and_dup_pai0')
+
+    def test_single_record_and_dup_pair_only(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [['Solo@Example.com', ' Only ']],
+        )
+        out_path = os.path.join(work, 'out.csv')
+>       assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]
+E       AssertionError: assert [['email', 'n...m', ' Only ']] == [['email', 'n...com', 'Only']]
+E         
+E         At index 1 diff: ['solo@example.com', ' Only '] != ['solo@example.com', 'Only']
+E         Use -v to get more diff
+
+test_clean_extra.py:214: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...
+FAILED test_clean_extra.py::test_sibling_backup_file_does_not_override_input
+FAILED test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour
+FAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...
+FAILED test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case
+FAILED test_clean_extra.py::test_single_record_and_dup_pair_only - AssertionE...
+8 failed, 15 passed in 1.33s

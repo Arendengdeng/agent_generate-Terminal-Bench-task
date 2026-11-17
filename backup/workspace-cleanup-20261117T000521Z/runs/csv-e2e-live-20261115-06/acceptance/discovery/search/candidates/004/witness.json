@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "R1 要求：以两个位置参数（输入、输出）调用时，成功必须退出码 0 并「写出规范 CSV」。output_spec 规定输出必须遵循 CSV 转义规则，且写出表头 email,name。本实现在去重后无任何记录时（例如输入只有表头，合法输入且明确允许）直接返回 0 而完全不创建输出文件；因此虽然退出码为 0，却没有按要求「写出规范 CSV」——输出文件名对应的文件不存在，违反 R1 的写出要求。（已有测试 test_header_only_input_produces_header_only_output 会捕捉此行为，之所以仍构造此 witness 是因为 R1 的 CLIN 层面本身要求成功即写出规范 CSV。）",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Dup@X.com ,Dup\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\ndup@x.com,Dup\n"
+    }
+  ]
+}

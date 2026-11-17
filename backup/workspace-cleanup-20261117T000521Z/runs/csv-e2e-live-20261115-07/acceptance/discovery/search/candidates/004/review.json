@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Witness is in scope for R1. argv gives exactly two positional args (input, output) and invokes /app/clean.py via python3, matching the specified command form. exit_code 0 follows from R1's \"成功时退出码为 0\". The input fixture is a valid UTF-8 CSV with header exactly `email,name`, using standard quoting for the `\"Bob, Jr.\"` field containing a comma, so it is within the input_spec. The expected output derives directly from output_spec: emails trimmed and lowercased (alice@example.com, bob@example.com), names trimmed only (Alice Smith, `Bob, Jr.` retained with quotes/escaping), dedup by normalized email keeping first occurrence in first-appearance order (second ALICE@example.com dropped with its name), header `email,name`, UTF-8 CSV escaping. The out.txt content matches exactly, including the quoted comma-containing name. The `unchanged` assertion on in.csv follows from R4 (\"不修改输入文件\"). Output filename out.txt (non-.csv extension) is not prohibited by Contract, so no extra formatting constraint is imposed. All assertions follow from cited Requirement and Contract; no source identity, Oracle, or hardcoded-example assumption is used.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "a0ceb64b9fce91f8079ff7123516d53e9d452c2f752f20e8dbab0b9ebcf512f5",
+  "method": "isolated-contract-model-review-v1"
+}

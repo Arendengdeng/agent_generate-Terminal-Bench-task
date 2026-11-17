@@ -1,0 +1,1 @@
+Make /app/clean.py print 42 followed by newline, exiting successfully.

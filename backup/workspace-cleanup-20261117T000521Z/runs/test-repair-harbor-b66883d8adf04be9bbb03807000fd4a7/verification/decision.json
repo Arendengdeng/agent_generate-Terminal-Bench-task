@@ -1,0 +1,84 @@
+{
+  "decision": "needs_review",
+  "action": "investigate",
+  "reason_code": "TEST_LOOP_NEEDS_REVIEW",
+  "reasons": [
+    "Test repair stopped without passing the Docker gate."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [
+    "tests",
+    "solution",
+    "environment",
+    "contract"
+  ],
+  "diagnostics": [
+    {
+      "code": "TEST_LOOP_NEEDS_REVIEW",
+      "message": "Test repair stopped without passing the Docker gate.",
+      "details": {
+        "status": "needs_review",
+        "stop_reason": "test_repair_requires_legal_and_invalid_controls",
+        "repairs": 0,
+        "max_repairs": 2,
+        "attempts": [
+          {
+            "index": 0,
+            "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/test-agent",
+            "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/attempts/000/execution/execution.json",
+            "status": "failed"
+          }
+        ],
+        "comparison_matrix": [
+          {
+            "version": 0,
+            "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+            "implementation": "oracle",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 1,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+            "implementation": "nop",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          }
+        ],
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/test-agent",
+        "budget_used": {
+          "model_calls": 3,
+          "tool_calls": 3
+        },
+        "cost": {
+          "wall_sec": 26.277,
+          "token_usage": null,
+          "executions": 2
+        }
+      },
+      "investigate_modules": [
+        "tests",
+        "solution",
+        "environment",
+        "contract"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-harbor-b66883d8adf04be9bbb03807000fd4a7/verification/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

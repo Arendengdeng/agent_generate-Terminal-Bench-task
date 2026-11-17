@@ -1,0 +1,27 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "R3 mandates that an input with only the header yields an output containing only the header. The Contract input_spec explicitly allows header-only input ('可以仅有表头') with header exactly email,name, so the fixture below is a legal input. The Contract output_spec requires the output CSV header to be email,name; therefore for this input the output, read as CSV, must be exactly one row: [\"email\",\"name\"]. Because that single row contains no comma, quote or newline, standard CSV escaping leaves it verbatim, so the output file content is exactly 'email,name' followed by a line terminator, and its first line must be 'email,name'. The CLI must still exit 0 on this legal input. An implementation that writes nothing for header-only input violates R3 and fails these assertions.",
+  "argv": [
+    "python",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\n"
+    }
+  ]
+}

@@ -1,0 +1,856 @@
+[
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/test-loop.json",
+    "status": "needs_review",
+    "stop_reason": "repair_budget_exhausted",
+    "repairs": 1,
+    "max_repairs": 1,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/initial-tests",
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "field order and whitespace are unrestricted.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "known-000:test_behavior.py::test_double:call",
+          "explanation": "The raw JSON string assertion imposes a forbidden serialization constraint.",
+          "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+        "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/execution/execution.json",
+        "status": "failed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "0a18a4d144e7ea48234d6020d9992f3f3a8c3325fdad51376f253604457d9c94",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/regression/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 5,
+      "tool_calls": 5
+    },
+    "cost": {
+      "wall_sec": 51.925,
+      "token_usage": null,
+      "executions": 8
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/test-loop.json",
+    "status": "error",
+    "stop_reason": "repair_agent_failed",
+    "repairs": 2,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/initial-tests",
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "For every permitted n, double equals 2*n.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "oracle:test_behavior.py::test_double:call",
+          "explanation": "Oracle returns a correct-looking JSON ({\"double\":6,\"value\":3} per known-000 for n=3), yet test_double failed against Oracle with stdout {\"value\": 3, \"double\": 3}. The test invokes 'python3' and parses raw stdout directly, contradicting the Contract command 'python /app/clean.py <n>' where output is a JSON object with key double; the current test's execution/parsing does not reliably correspond to the Contract's required output (whitespace/field order unrestricted, JSON object with exactly value and double). The test must run the Contract's command, parse a JSON object, and verify both fields for every permitted n in [0,10], tolerating field order and extra whitespace.",
+          "parent_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent",
+        "tests_digest": "6dd6ad4305c4100466412004b51a9f3895bb15b6de70f59bf2311763705e4612",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/002/test-agent",
+        "attribution": "uncertain",
+        "analysis": null,
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/002/changes.patch"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "6dd6ad4305c4100466412004b51a9f3895bb15b6de70f59bf2311763705e4612",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "6dd6ad4305c4100466412004b51a9f3895bb15b6de70f59bf2311763705e4612",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "6dd6ad4305c4100466412004b51a9f3895bb15b6de70f59bf2311763705e4612",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "6dd6ad4305c4100466412004b51a9f3895bb15b6de70f59bf2311763705e4612",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/oracle_error/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 16,
+      "tool_calls": 21,
+      "token_usage": {
+        "prompt_tokens": 110233,
+        "completion_tokens": 1827,
+        "total_tokens": 112060
+      }
+    },
+    "cost": {
+      "wall_sec": 72.439,
+      "token_usage": {
+        "prompt_tokens": 110233,
+        "completion_tokens": 1827,
+        "total_tokens": 112060
+      },
+      "executions": 8
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/test-loop.json",
+    "status": "needs_review",
+    "stop_reason": "repair_budget_exhausted",
+    "repairs": 2,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/initial-tests",
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "field order and whitespace are unrestricted.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "known-000:test_behavior.py::test_double:call",
+          "explanation": "The raw JSON string assertion imposes a forbidden serialization constraint.",
+          "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/test-agent",
+        "tests_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/001/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "field order and whitespace are unrestricted.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "known-000:test_behavior.py::test_double:call",
+          "explanation": "The raw JSON string assertion imposes a forbidden serialization constraint.",
+          "parent_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/changes.patch"
+      },
+      {
+        "index": 2,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/test-agent",
+        "tests_digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/execution/execution.json",
+        "status": "failed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 2,
+        "tests_digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 2,
+        "tests_digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 2,
+        "tests_digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 2,
+        "tests_digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/exhausted/attempts/002/test-agent",
+    "budget_used": {
+      "model_calls": 10,
+      "tool_calls": 10
+    },
+    "cost": {
+      "wall_sec": 75.758,
+      "token_usage": null,
+      "executions": 12
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/test-loop.json",
+    "status": "passed",
+    "stop_reason": "docker_checks_passed",
+    "repairs": 1,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/initial-tests",
+        "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "explanation": "test_double only asserts isinstance(double,int) and never checks double==2*n, so the faulty initial implementation (double always 0) and the invalid control (double=n) both pass. Tests must check double == 2*n across permitted n and the exact key set.",
+          "evidence_id": "nop:outcome",
+          "line": "12",
+          "requirement_id": "R2",
+          "contract_quote": "For every permitted n, double equals 2*n.",
+          "test_path": "tests/test_behavior.py",
+          "parent_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+        "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/execution/execution.json",
+        "status": "passed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 0,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 0,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 10,
+      "tool_calls": 12,
+      "token_usage": {
+        "prompt_tokens": 62143,
+        "completion_tokens": 1700,
+        "total_tokens": 63843
+      }
+    },
+    "cost": {
+      "wall_sec": 65.067,
+      "token_usage": {
+        "prompt_tokens": 62143,
+        "completion_tokens": 1700,
+        "total_tokens": 63843
+      },
+      "executions": 8
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/missing-image/test-loop.json",
+    "status": "error",
+    "stop_reason": "execution_error",
+    "repairs": 0,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/initial-tests",
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/missing-image/attempts/000/execution/execution.json",
+        "status": "error",
+        "attribution": "execution_error"
+      }
+    ],
+    "comparison_matrix": [],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/execution_error/initial-tests",
+    "budget_used": {
+      "model_calls": 0,
+      "tool_calls": 0
+    },
+    "cost": {
+      "wall_sec": 2.533,
+      "token_usage": null,
+      "executions": 0
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/test-loop.json",
+    "status": "passed",
+    "stop_reason": "docker_checks_passed",
+    "repairs": 1,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/initial-tests",
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "known-000:test_behavior.py::test_double:call",
+          "explanation": "test_double compares the raw stdout to a fixed string with a particular field order and spacing, explicitly rejected by the Contract; the correct known-000 implementation outputs '{\"double\":6,\"value\":3}' and fails. The test must parse JSON and assert double==2*n for all n in [0,10], plus the 'exactly' keys constraint.",
+          "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/execution/execution.json",
+        "status": "passed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 8,
+      "tool_calls": 11,
+      "token_usage": {
+        "prompt_tokens": 56736,
+        "completion_tokens": 873,
+        "total_tokens": 57609
+      }
+    },
+    "cost": {
+      "wall_sec": 58.274,
+      "token_usage": {
+        "prompt_tokens": 56736,
+        "completion_tokens": 873,
+        "total_tokens": 57609
+      },
+      "executions": 8
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/test-loop.json",
+    "status": "needs_review",
+    "stop_reason": "The current tests directly follow the Contract: R1 (exit 0 and JSON value == n) and R2 (double == 2*n for every permitted n). The oracle implementation under test produced output {\"value\": 3, \"double\": 3}, which violates the Contract's requirement that double == 2*n. The test assertion (line 14: json.loads(run(3).stdout)['double'] == 6) is exactly the Contract requirement, so the failing component is the implementation, not the test. This matches the instruction-quoted Contract and there is no test/fixture defect to repair. Repair permission is analysis_only anyway; I stop without editing.",
+    "repairs": 1,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/initial-tests",
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/attempts/001/test-agent",
+        "attribution": "implementation_defect",
+        "analysis": {
+          "category": "implementation_defect",
+          "evidence_id": "oracle:test_behavior.py::test_double:call",
+          "explanation": "The current tests directly follow the Contract: R1 (exit 0 and JSON value == n) and R2 (double == 2*n for every permitted n). The oracle implementation under test produced output {\"value\": 3, \"double\": 3}, which violates the Contract's requirement that double == 2*n. The test assertion (line 14: json.loads(run(3).stdout)['double'] == 6) is exactly the Contract requirement, so the failing component is the implementation, not the test. This matches the instruction-quoted Contract and there is no test/fixture defect to repair. Repair permission is analysis_only anyway; I stop without editing."
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/attempts/001/changes.patch"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "fa22352ff628d9d9d0bd840c34c25eca3bb4432c9872804f436805291a8bcc3d",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-oracle-fix/oracle_error/initial-tests",
+    "budget_used": {
+      "model_calls": 6,
+      "tool_calls": 8,
+      "token_usage": {
+        "prompt_tokens": 31631,
+        "completion_tokens": 438,
+        "total_tokens": 32069
+      }
+    },
+    "cost": {
+      "wall_sec": 39.39,
+      "token_usage": {
+        "prompt_tokens": 31631,
+        "completion_tokens": 438,
+        "total_tokens": 32069
+      },
+      "executions": 4
+    }
+  },
+  {
+    "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final/verification/test-loop.json",
+    "status": "passed",
+    "stop_reason": "docker_checks_passed",
+    "repairs": 0,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114-final/verification/attempts/000/execution/execution.json",
+        "status": "passed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 0,
+      "tool_calls": 0
+    },
+    "cost": {
+      "wall_sec": 25.493,
+      "token_usage": null,
+      "executions": 4
+    }
+  }
+]

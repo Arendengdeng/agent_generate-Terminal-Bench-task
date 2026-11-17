@@ -1,0 +1,70 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_control_audit.py::test_independent_control_audit"
+  ],
+  "results": [
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005533669973374344,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'path': 'a....00000000000'}] == [{'path': 'a....dc7169389b8'}]\n  \n  At index 0 diff: {'path': 'a.txt', 'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'} != {'path': 'a.txt', 'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_control_audit.py",
+            "line": 14,
+            "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06829062900214922,
+      "commands": [
+        {
+          "nodeid": "test_control_audit.py::test_independent_control_audit",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023627399787073955,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/src/manifest.py": "3d43974983abc82b16b95cde217165c4b65ec8ce5e39df07811454c9162f957c",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "wall_sec": 0.380753
+}

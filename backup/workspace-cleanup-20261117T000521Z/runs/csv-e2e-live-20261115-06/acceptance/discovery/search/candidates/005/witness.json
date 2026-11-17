@@ -1,0 +1,43 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "R2 要求去重键为「归一化邮箱」，input_spec 规定 email 去掉首尾空白后只含 ASCII 字符。Python 的 str.strip() 不只去掉 ASCII 空白，还会去掉 Unicode 空白字符（例如 U+00A0 不换行空格）。对于输入中 email 字段为 'a@b.c\\u00a0' 的合法行（去掉首尾空白后为 'a@b.c'，仅 ASCII），按 Contract 归一化后就是 'a@b.c'，应与前一行的 'A@B.C ' 去重，输出只保留首次记录 ['a@b.c', 'First']。本实现虽能去掉 Unicode 空白，但这里的问题不在 strip；真正差异在于：实现按「归一化邮箱」也就是 strip().lower() 的结果去重——这与 Contract 一致，因此该点不构成违规。为构造违规，需要指出实现与 Contract 不符之处。经检查实现与 Contract 一致，故本 witness 用于验证：带引号与逗号的姓名在去重时保留首次值，且归一化后的重复邮箱（大小写与首尾空白不同）被合并。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C ,\"Solo, One\"\n a@b.c,Dup\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@b.c",
+          "Solo, One"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_________________________________ test_double __________________________________
+
+    def test_double():
+        for n in PERMITTED:
+            data = parse(n)
+            assert set(data.keys()) == {'value', 'double'}, (n, data)
+            assert data['value'] == n, (n, data)
+>           assert data['double'] == 2 * n, (n, data)
+E           AssertionError: (1, {'value': 1, 'double': 0})
+E           assert 0 == (2 * 1)
+
+test_behavior.py:38: AssertionError
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_double - AssertionError: (1, {'value': 1, 'doub...
+1 failed, 1 passed in 0.44s

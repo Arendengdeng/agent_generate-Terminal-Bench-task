@@ -1,0 +1,79 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_cli_success_exit_zero_and_writes_output",
+        "test_clean.py::test_output_is_utf8_and_header_first",
+        "test_cli_args.py::test_cli_accepts_positional_arguments"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_dedupe_case_and_whitespace_normalization",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_newlines",
+        "test_clean.py::test_duplicate_keeps_first_name_and_order",
+        "test_clean.py::test_output_value_requiring_escaping_roundtrips",
+        "test_clean.py::test_all_duplicates_of_single_email"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input_gives_header_only_output",
+        "test_clean.py::test_varied_inputs_no_hardcoding",
+        "test_clean.py::test_large_input_up_to_limit"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_not_modified",
+        "test_clean.py::test_stdlib_only_no_third_party_imports",
+        "test_stdlib.py::test_script_works_with_only_stdlib_importable",
+        "test_stdlib.py::test_no_install_or_dependency_artifacts_in_app"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "nodeids": [
+    "test_clean.py::test_cli_success_exit_zero_and_writes_output",
+    "test_clean.py::test_output_is_utf8_and_header_first",
+    "test_clean.py::test_dedupe_case_and_whitespace_normalization",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_newlines",
+    "test_clean.py::test_duplicate_keeps_first_name_and_order",
+    "test_clean.py::test_output_value_requiring_escaping_roundtrips",
+    "test_clean.py::test_header_only_input_gives_header_only_output",
+    "test_clean.py::test_all_duplicates_of_single_email",
+    "test_clean.py::test_varied_inputs_no_hardcoding",
+    "test_clean.py::test_large_input_up_to_limit",
+    "test_clean.py::test_input_file_not_modified",
+    "test_clean.py::test_stdlib_only_no_third_party_imports",
+    "test_cli_args.py::test_cli_accepts_positional_arguments",
+    "test_stdlib.py::test_script_works_with_only_stdlib_importable",
+    "test_stdlib.py::test_no_install_or_dependency_artifacts_in_app"
+  ],
+  "manifest": {
+    "test_clean.py": "c18d104e54cb5fe376577771d59eeb8aef159ddd81c289a93af722763b24e8f6",
+    "test_cli_args.py": "c9f4e4289edec1d3515acdd258066d56ff183976ca609e053b4e4618e2f17b2a",
+    "test_stdlib.py": "4d9ea759edfe07948d5ffb99423991815592d533f6e78f1698b372ba60921c2c"
+  },
+  "digest": "a1623b4e96f5a9c44cf68b58cc8de083f88b476a25bcf0ac127890f35a6d24ac",
+  "budget_used": {
+    "model_calls": 11,
+    "tool_calls": 13
+  }
+}

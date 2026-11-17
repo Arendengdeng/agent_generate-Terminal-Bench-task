@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "Contract output_spec defines exactly two field normalizations: the email is trimmed then lowercased, and the name is only trimmed at both ends ('姓名仅去掉首尾空白'). Nothing in the Contract authorizes Unicode compatibility (NFKC) folding of names, and the CSV is UTF-8 so legal names may contain any characters. For the CSV-quoted name \"Fran\\u00e7ois Ⅳ\" the only expected transformation is the end trim (a no-op), so the output field must stay 'Fran\\u00e7ois Ⅳ' (U+2163 ROMAN NUMERAL FOUR) verbatim, with the email trimmed/lowercased and the remaining duplicate dropped. The delivered CLI applies NFKC and emits 'Fran\\u00e7ois IV' (ASCII 'IV'), altering the retained first name and thus violating R2's normalization rule.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Zoe@Example.COM ,\"  François Ⅳ  \"\nzoe@example.com,Zoe Duplicate\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nzoe@example.com,François Ⅳ\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

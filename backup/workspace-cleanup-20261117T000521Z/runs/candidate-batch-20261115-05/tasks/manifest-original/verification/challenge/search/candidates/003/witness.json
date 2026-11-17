@@ -1,0 +1,42 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。",
+  "rationale": "input_spec requires the CLI to leave input_dir untouched; output_spec requires every regular file below input_dir to be listed with relative path, byte size and SHA-256. With fixtures q/readme.md ('hello'), q/load.txt ('hello') and q/config.json ('{}'), a conforming run must leave every input file byte-identical (unchanged assertion) and emit a UTF-8 JSON array at out.json recording all three files with sizes 2/5/5 and the digests of b'{}' and b'hello'. The submitted manifest.py silently drops any file whose name ends with 'd.txt' (e.g. 'load.txt'), so the delivered solution's output for the given input directory tree is wrong (a file of the input tree is missing from the result), violating R4, while every frozen test still passes because none uses such a name.",
+  "argv": [
+    "python3",
+    "/app/src/manifest.py",
+    "$WORK/q",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "q/readme.md": "hello",
+    "q/load.txt": "hello",
+    "q/config.json": "{}"
+  },
+  "assertions": [
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "path": "config.json",
+          "size": 2,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "load.txt",
+          "size": 5,
+          "sha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        },
+        {
+          "path": "readme.md",
+          "size": 5,
+          "sha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        }
+      ]
+    }
+  ]
+}

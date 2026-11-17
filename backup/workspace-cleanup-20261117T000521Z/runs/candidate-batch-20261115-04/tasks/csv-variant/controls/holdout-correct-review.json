@@ -1,0 +1,57 @@
+{
+  "contract": {
+    "objective": "修复 CSV 清洗工具，按归一化邮箱保留最后一次姓名，按邮箱首次出现顺序输出。",
+    "workspace": "/app",
+    "command": "python /app/clean.py <input.csv> <output.csv>",
+    "input_spec": "UTF-8 CSV，表头恰为 email,name；使用标准 CSV 引号规则，字段可能包含逗号；email 去掉首尾空白后非空，只含 ASCII 字符。输入最多 1000 条数据记录，可以仅有表头。",
+    "output_spec": "UTF-8 CSV，表头为 email,name。邮箱去掉首尾空白后转小写；姓名仅去掉首尾空白。按归一化邮箱去重，姓名使用该邮箱最后一条记录的姓名；输出顺序为各邮箱首次出现顺序；使用 CSV 转义规则。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+      },
+      {
+        "id": "R2",
+        "description": "归一化邮箱后去重，保留最后一次姓名，但按邮箱首次出现顺序输出；正确处理空白、大小写以及带引号和逗号的字段。"
+      },
+      {
+        "id": "R3",
+        "description": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+      },
+      {
+        "id": "R4",
+        "description": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_input_lines": 1001
+    }
+  },
+  "source": "import csv,sys\nwith open(sys.argv[1],encoding='utf-8',newline='') as source:\n    data=[(r['email'].strip().lower(),r['name'].strip()) for r in csv.DictReader(source)]\norder=list(dict.fromkeys(k for k,v in data))\nnames={}\nfor key,value in data: names[key]=value\nwith open(sys.argv[2],'w',encoding='utf-8',newline='') as target:\n    writer=csv.DictWriter(target,fieldnames=['email','name'])\n    writer.writeheader()\n    writer.writerows(dict(email=k,name=names[k]) for k in order)\n",
+  "review": {
+    "status": "confirmed",
+    "reviewer": "Codex authored source review and independent Docker behavior audit",
+    "method": "contract-source-review-and-finite-behavior-audit",
+    "rationale": "Both sources use csv parsing/writing, strip/lower ASCII email and strip names; explicit first-occurrence order is preserved. The selected traversal/update policy implements last-name replacement. Header-only input retains the header. Only the output is opened for writing; only clean.py is delivered and imports are standard library.",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/controls/holdout-correct-review.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/controls/test_control_audit.py",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/controls/holdout-correct-audit/execution.json"
+    ]
+  },
+  "limitation": "Finite probe plus source review; not exhaustive verification."
+}

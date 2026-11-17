@@ -1,0 +1,60 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_value"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_behavior.py::test_double"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "e0a0fde90c93bb86985287f6bbe8647d5d5f9b992fc6d9fce4d111299262fcec",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "c45a21e8f954eb68c235b907e7d782800123b68d32248b929840c7fde45539ee"
+  },
+  "parent_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "field order and whitespace are unrestricted.",
+    "test_path": "tests/test_behavior.py",
+    "line": "14",
+    "evidence_id": "known-000:test_behavior.py::test_double:call",
+    "explanation": "The raw JSON string assertion imposes a forbidden serialization constraint.",
+    "parent_digest": "409f3cb8b233891934b181f7a7174e606e8ebc1f2a30a81ab3edda2cdc932a72"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_behavior.py::test_value",
+    "test_behavior.py::test_double"
+  ],
+  "manifest": {
+    "test_behavior.py": "68ca4f567b18108772681d291fc189e8728aefe40497f0777a7ed9a06e9e0247"
+  },
+  "digest": "d2b17bf8a98b1dab6b26282dc31c7cd161b194ff5b67bbf74a55e63ac8d6c38c",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 5
+  },
+  "workflow_budget_used": {
+    "model_calls": 10,
+    "tool_calls": 10
+  },
+  "cost": {
+    "wall_sec": 5.621,
+    "token_usage": null
+  }
+}

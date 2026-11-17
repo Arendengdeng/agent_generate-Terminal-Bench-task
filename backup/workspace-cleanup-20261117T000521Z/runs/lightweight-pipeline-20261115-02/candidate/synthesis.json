@@ -1,0 +1,72 @@
+{
+  "status": "error",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "Meter",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 30,
+    "max_tool_calls": 100,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 120,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 300000,
+    "max_completion_tokens": 7000,
+    "max_diagnosis_calls": 2,
+    "max_diagnosis_context_bytes": 24576,
+    "max_diagnosis_completion_tokens": 2000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": {
+    "type": "SynthesisError",
+    "message": "model API unavailable (URLError)"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "model_calls": 6,
+  "tool_calls": 5,
+  "digest": "f66150213794288c498442b992523e21e9878cc214607e287ebdc27c0dcfb07d",
+  "manifest": {
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "7215590cf81a87d498ef12c7c4f174c158d81b5bfac86ed0bd341e5a61fc8d8e",
+    "draft/environment/app/sample.csv": "f0f19c000e9b1c69567c379aafe6d5cbbfdce2c20f81bffecf6f0e38b2b9f41a",
+    "draft/solution/solve.sh": "7001d24cb4417743f9bd35b6bc5e0c5ce02aadca61d1fe0fb4b91a3e32f98ccd"
+  },
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 6,
+      "limit": 30
+    },
+    "tool_calls": {
+      "used": 5,
+      "limit": 100
+    },
+    "files": {
+      "used": 4,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 3706,
+      "limit": 2000000
+    },
+    "elapsed_sec": 131.367
+  },
+  "workflow_budget_used": {
+    "model_calls": 6,
+    "tool_calls": 5,
+    "token_usage": {
+      "prompt_tokens": 10278,
+      "completion_tokens": 1173,
+      "total_tokens": 11451
+    }
+  }
+}

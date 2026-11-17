@@ -1,0 +1,84 @@
+{
+  "status": "failed",
+  "digest": "373bc1d52bf27f8af6f1d9f0f706535d38b905fe8dca58fd35672b788cd32912",
+  "manifest": {
+    "checks/probe.py": "6e0fd297abcc4c65b12719b3d664aa3bc0f82afea98f5216eee3e588d6bdd313",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "1a7d71c86e8ec1a88565ea03a881eed080ff85dab149178aad5af1f1b8d55305",
+    "draft/environment/app/sample_customers.csv": "c3783d943172e86f9648c9080a8ef04a124ca66fe15aadac363e8e46a45b4090",
+    "draft/instruction.md": "9cad2b8018f4c4fadd0061425271a29a998f13b113f316cd67d6102728684b6b",
+    "draft/solution/solve.sh": "b17617cdc9fdbf9bcc83dbb904d282bd4ef9825028c08bc34c21b4b0c699d616"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "unexpected cleaned rows: [['email', 'name'], ['Alice@Example.com', 'Roe'], ['bob@example.com', 'Bob'], ['alice@example.com', 'Dup Alice'], ['BOB@EXAMPLE.COM', 'Dup Bob'], ['carol@example.com', 'Carol \"CJ\" Smith']]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "unexpected cleaned rows for second fixture: [['email', 'name'], ['ZED@Corp.IO', 'Zed'], ['amy@corp.io', 'Amy A'], ['zed@corp.io', 'Zed Dup'], ['amy@CORP.IO', 'Amy Dup'], ['kim@corp.io', 'Kim, Jr.']]"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "unexpected cleaned rows: [['email', 'name'], ['alice@example.com', 'Roe'], ['bob@example.com', 'Bob'], ['carol@example.com', 'Carol \"CJ\" Smith']]"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "error": "requires initial failure and all repaired requirements passing",
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "1a7d71c86e8ec1a88565ea03a881eed080ff85dab149178aad5af1f1b8d55305",
+      "draft/environment/app/sample_customers.csv": "c3783d943172e86f9648c9080a8ef04a124ca66fe15aadac363e8e46a45b4090"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "1a7d71c86e8ec1a88565ea03a881eed080ff85dab149178aad5af1f1b8d55305",
+      "draft/environment/app/sample_customers.csv": "c3783d943172e86f9648c9080a8ef04a124ca66fe15aadac363e8e46a45b4090"
+    },
+    "unchanged": true
+  }
+}

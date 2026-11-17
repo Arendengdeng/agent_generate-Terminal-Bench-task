@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/zyl/projects/agent_generate Terminal Bench task/independent_verification/acceptance.py", line 271, in run_acceptance
+    initial = prepare_robust_tests(candidate, root / 'original-tests', root / 'robustness', config, client=client, budget=budget)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/agent_generate Terminal Bench task/independent_verification/robustness.py", line 190, in prepare_robust_tests
+    updated = transform(original.files, edits, candidate.contract)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/agent_generate Terminal Bench task/independent_verification/robustness.py", line 150, in transform
+    raise SynthesisError('decode guard must select one function')
+synthesis_agent.errors.SynthesisError: decode guard must select one function

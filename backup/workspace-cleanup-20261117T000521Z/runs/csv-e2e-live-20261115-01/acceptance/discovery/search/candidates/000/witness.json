@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "The Contract fixes the command as `python /app/clean.py <input.csv> <output.csv>`; the second positional argument designates the output file, and success must write the normative CSV there. With input $WORK/in.csv containing one record '  Q@Example.COM ,  Q Person  ', the program must exit 0 and create the requested output file $WORK/out.csv (note the directory and file name given by the caller) containing exactly the normalized/deduplicated CSV 'email,name' + 'q@example.com,Q Person'. The candidate instead writes to a different path derived from the input directory and a lowercased basename, so the requested out.csv is never created.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Q@Example.COM ,  Q Person  \nq@example.com,Duplicate\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nq@example.com,Q Person\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

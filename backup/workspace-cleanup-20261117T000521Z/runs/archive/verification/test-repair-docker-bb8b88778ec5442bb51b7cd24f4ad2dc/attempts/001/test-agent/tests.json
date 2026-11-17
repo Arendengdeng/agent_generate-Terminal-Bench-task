@@ -1,0 +1,49 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_output"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+    "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+  },
+  "parent_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+  "diagnosis": {
+    "requirement_id": "R1",
+    "contract_quote": "Print 42 and exit successfully.",
+    "test_path": "tests/test_behavior.py",
+    "line": "6",
+    "evidence_id": "oracle:test_behavior.py::test_output:call",
+    "explanation": "The test expects 43 but R1 explicitly requires 42.",
+    "parent_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e"
+  },
+  "nodeids": [
+    "test_behavior.py::test_output"
+  ],
+  "manifest": {
+    "test_behavior.py": "340aaf0009bdb42a807d5dcbceb465613a6f81c94401a62e5b8392b977600852"
+  },
+  "digest": "b1424fe22a82db32d1226bdc14948daf80a1122862b62b0fb6e53b1c90a00039",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 5
+  },
+  "workflow_budget_used": {
+    "model_calls": 5,
+    "tool_calls": 5
+  }
+}

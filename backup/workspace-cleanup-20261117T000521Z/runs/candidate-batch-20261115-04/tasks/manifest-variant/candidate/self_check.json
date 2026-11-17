@@ -1,0 +1,91 @@
+{
+  "status": "failed",
+  "digest": "fe099a816f5b9b65ed5ce2d89f8948d972d27ec62f93bb6f427afa37b4b01607",
+  "manifest": {
+    "checks/probe.py": "403b7dac48ec3525dc12abf581d01a48ef4c674cc71dcda8cb7760eb1cd099a3",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/src/digest.py": "c03548c0f5c286a8cf04b1a286b187fba1981b940a05204f6437075587fa477c",
+    "draft/environment/app/src/manifest.py": "807a412e1007eeeae143876fc4407f0ff57e91e36d4df563139939bfddc6f212",
+    "draft/environment/app/src/walker.py": "7d081148bbd7ca62b481eb26950c23c5020d3ce2c87deebd552f55ba5a3a325f",
+    "draft/instruction.md": "de5133bf118f14e50309d3472504097c2247b51317c1ce245bbcf5765f6b82c7",
+    "draft/solution/solve.sh": "342f5dd662bc22d68cf6c222e56c91586fbb4e2efee9456866f2facacdee9059"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "(1, b'', b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 62, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 53, in main\\n    entries = build_manifest(root)\\n              ^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 30, in build_manifest\\n    size, key = measure(full)\\n                ^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 24, in measure\\n    return os.path.getsize(path), digest.digest_file(path, identity)\\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/digest.py\", line 23, in digest_file\\n    h.update(callback(chunk))\\nTypeError: Strings must be encoded before hashing\\n')"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "(1, b'', b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 62, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 53, in main\\n    entries = build_manifest(root)\\n              ^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 30, in build_manifest\\n    size, key = measure(full)\\n                ^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 24, in measure\\n    return os.path.getsize(path), digest.digest_file(path, identity)\\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/digest.py\", line 23, in digest_file\\n    h.update(callback(chunk))\\nTypeError: Strings must be encoded before hashing\\n')"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "(1, b'', b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 62, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 53, in main\\n    entries = build_manifest(root)\\n              ^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 30, in build_manifest\\n    size, key = measure(full)\\n                ^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 24, in measure\\n    return os.path.getsize(path), digest.digest_file(path, identity)\\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/digest.py\", line 23, in digest_file\\n    h.update(callback(chunk))\\nTypeError: Strings must be encoded before hashing\\n')"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "(1, b'', b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 62, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 53, in main\\n    entries = build_manifest(root)\\n              ^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 30, in build_manifest\\n    size, key = measure(full)\\n                ^^^^^^^^^^^^^\\n  File \"/app/src/manifest.py\", line 24, in measure\\n    return os.path.getsize(path), digest.digest_file(path, identity)\\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"/app/src/digest.py\", line 23, in digest_file\\n    h.update(callback(chunk))\\nTypeError: Strings must be encoded before hashing\\n')"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/src/digest.py",
+    "/app/src/manifest.py",
+    "/app/src/walker.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "(1, b'', b'Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 14, in <module>\\n    import digest\\nModuleNotFoundError: No module named \\'digest\\'\\n')"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "error": "requires initial failure and all repaired requirements passing",
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/src/digest.py": "c03548c0f5c286a8cf04b1a286b187fba1981b940a05204f6437075587fa477c",
+      "draft/environment/app/src/manifest.py": "807a412e1007eeeae143876fc4407f0ff57e91e36d4df563139939bfddc6f212",
+      "draft/environment/app/src/walker.py": "7d081148bbd7ca62b481eb26950c23c5020d3ce2c87deebd552f55ba5a3a325f"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/src/digest.py": "c03548c0f5c286a8cf04b1a286b187fba1981b940a05204f6437075587fa477c",
+      "draft/environment/app/src/manifest.py": "807a412e1007eeeae143876fc4407f0ff57e91e36d4df563139939bfddc6f212",
+      "draft/environment/app/src/walker.py": "7d081148bbd7ca62b481eb26950c23c5020d3ce2c87deebd552f55ba5a3a325f"
+    },
+    "unchanged": true
+  }
+}

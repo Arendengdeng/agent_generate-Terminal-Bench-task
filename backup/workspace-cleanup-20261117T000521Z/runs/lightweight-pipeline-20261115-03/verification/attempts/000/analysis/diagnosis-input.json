@@ -1,0 +1,152 @@
+{
+  "contract": {
+    "objective": "修复客户名单清洗工具，正确解析 CSV、归一化字段并按邮箱去重。",
+    "workspace": "/app",
+    "command": "python /app/clean.py <input.csv> <output.csv>",
+    "input_spec": "UTF-8 CSV，表头恰为 email,name；使用标准 CSV 引号规则，字段可能包含逗号；email 去掉首尾空白后非空，只含 ASCII 字符。输入最多 1000 条数据记录，可以仅有表头。",
+    "output_spec": "UTF-8 CSV，表头为 email,name。邮箱去掉首尾空白后转小写；姓名仅去掉首尾空白。按归一化邮箱去重，保留首次记录及其姓名，输出顺序为首次出现顺序；使用 CSV 转义规则。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+      },
+      {
+        "id": "R2",
+        "description": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。"
+      },
+      {
+        "id": "R3",
+        "description": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+      },
+      {
+        "id": "R4",
+        "description": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_input_lines": 1001
+    }
+  },
+  "repair_parent_digest": "d0dc114352b365546e79c0d2ee8d260017092c95b2cce09bdc5201da1e25b900",
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "991311236156281a1694076c63b134296f61a918dc264b99e4b28d8dc9113f3f",
+    "inputs/environment/app/sample_customers.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3",
+    "inputs/instruction.md": "55f459f8c1b19a587014a052d17b43c370c5a7e39b8c97f48e668b053c24d42f"
+  },
+  "repair_permission": "analysis_only",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_cli_success_exit_code_and_header",
+        "test_clean.py::test_cli_accepts_positional_args_from_any_cwd",
+        "test_clean.py::test_output_uses_csv_escaping"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_normalization_dedup_and_quoting",
+        "test_clean.py::test_quoted_fields_with_commas_and_escaped_quotes",
+        "test_clean.py::test_stable_order_preserved",
+        "test_clean.py::test_duplicate_only_input_yields_single_record",
+        "test_clean.py::test_internal_whitespace_and_case_preserved",
+        "test_clean.py::test_large_input_with_many_duplicates",
+        "test_clean.py::test_output_uses_csv_escaping"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input",
+        "test_clean.py::test_empty_input_file_produces_only_header",
+        "test_clean.py::test_normalization_dedup_and_quoting",
+        "test_clean.py::test_quoted_fields_with_commas_and_escaped_quotes",
+        "test_clean.py::test_stable_order_preserved",
+        "test_clean.py::test_large_input_max_records"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_not_modified",
+        "test_clean.py::test_only_stdlib_imports",
+        "test_clean.py::test_no_additional_files_created_in_app"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "oracle:test_clean.py::test_empty_input_file_produces_only_header:call",
+      "label": "oracle",
+      "nodeid": "test_clean.py::test_empty_input_file_produces_only_header",
+      "when": "call",
+      "outcome": "failed",
+      "requirement_ids": [
+        "R3"
+      ],
+      "exception_type": "AssertionError",
+      "frames": [
+        {
+          "path": "test_clean.py",
+          "line": 124,
+          "source": "    rows = run_and_check(src, tmp_path)"
+        },
+        {
+          "path": "test_clean.py",
+          "line": 41,
+          "source": "    assert proc.returncode == 0, \"exit=%r stderr=%r\" % (proc.returncode, proc.stderr)"
+        }
+      ]
+    }
+  ],
+  "source_excerpts": [
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 116,
+      "source": "116: \n117: def test_header_only_input(tmp_path):\n118:     rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), tmp_path)\n119:     assert rows == []\n120: \n121: \n122: def test_empty_input_file_produces_only_header(tmp_path):\n123:     src = write_input(tmp_path, \"\")\n124:     rows = run_and_check(src, tmp_path)\n125:     assert rows == []\n126: \n127: \n128: def test_duplicate_only_input_yields_single_record(tmp_path):\n129:     src = write_input(\n130:         tmp_path,\n131:         \"email,name\\n\"\n132:         \"A@x.com,First\\n\""
+    },
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 33,
+      "source": "33:         pytest.fail(\"output file was not created: %s\" % path)\n34:     with open(path, \"r\", encoding=\"utf-8\", newline=\"\") as fh:\n35:         return list(csv.reader(fh))\n36: \n37: \n38: def run_and_check(input_path, tmp_path, name=\"out.csv\"):\n39:     out = os.path.join(str(tmp_path), name)\n40:     proc = run_clean(input_path, out)\n41:     assert proc.returncode == 0, \"exit=%r stderr=%r\" % (proc.returncode, proc.stderr)\n42:     rows = read_output(out)\n43:     assert rows, \"output must contain at least a header row\"\n44:     assert rows[0] == [\"email\", \"name\"], \"unexpected header: %r\" % (rows[0],)\n45:     return rows[1:]\n46: \n47: \n48: def write_input(tmp_path, text, name=\"in.csv\"):\n49:     path = os.path.join(str(tmp_path), name)"
+    }
+  ],
+  "host_supported_diagnoses": [],
+  "trials": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    }
+  ]
+}

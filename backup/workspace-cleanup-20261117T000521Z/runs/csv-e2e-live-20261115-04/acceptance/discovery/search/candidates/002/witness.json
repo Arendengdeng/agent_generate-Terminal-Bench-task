@@ -1,0 +1,38 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "R3 says the tool must follow the spec for different legal inputs rather than recognize specific examples. The input spec says the header is exactly 'email,name' and data rows follow it with standard CSV quoting; a legal row may have a quoted email field, e.g. \"  Zoe@Example.COM  \", which contains leading/trailing whitespace. The output spec requires such an email to be stripped and lowercased. Because the implementation discards the input's own header row and then treats every remaining row as data, a file whose header is not consumed correctly (e.g. blank first line skipped later) misaligns rows; more importantly here the implementation never uses the header to locate columns, so a legal input whose single data row is quoted is written to the 'email' column including nothing normalized only if strip fails. For this witness the first data record's email is quoted and padded: the Contract requires output [['email','name'],['zoe@example.com','Zoe']]. An implementation that mishandles a quoted first data row (skipping the header unconditionally, including on files where the first line is a quoted record) breaks the general-input requirement.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n\"  Zoe@Example.COM  \",\"  Zoe  \"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "zoe@example.com",
+          "Zoe"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "input_manifest": {
+    "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+    "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+  },
+  "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+  "status": "failed",
+  "trials": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    }
+  ],
+  "evidence": [
+    {
+      "id": "oracle:outcome",
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "id": "oracle:test_behavior.py::test_output:call",
+      "label": "oracle",
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'43\\n'"
+          }
+        ]
+      },
+      "xfail": false
+    },
+    {
+      "id": "nop:outcome",
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "id": "nop:test_behavior.py::test_output:call",
+      "label": "nop",
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'broken\\n' == b'43\\n'\n  \n  At index 0 diff: b'b' != b'4'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'43\\n'"
+          }
+        ]
+      },
+      "xfail": false
+    },
+    {
+      "id": "known-000:outcome",
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "id": "known-000:test_behavior.py::test_output:call",
+      "label": "known-000",
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'43\\n'"
+          }
+        ]
+      },
+      "xfail": false
+    }
+  ]
+}

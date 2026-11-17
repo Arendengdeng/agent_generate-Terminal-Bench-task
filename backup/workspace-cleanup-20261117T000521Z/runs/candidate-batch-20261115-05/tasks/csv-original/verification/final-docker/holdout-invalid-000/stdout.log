@@ -1,0 +1,91 @@
+.....F..FF...                                                            [100%]
+=================================== FAILURES ===================================
+______________ test_stable_order_preserved_across_many_duplicates ______________
+
+workdir = '/tmp/clean-test-m781taiu'
+
+    def test_stable_order_preserved_across_many_duplicates(workdir):
+        raw = [("email", "name")]
+        records = [
+            ("  Zed@Mail.COM ", "  Zed First  "),
+            ("amy@mail.com", "Amy"),
+            ("ZED@mail.com", "Zed Second"),
+            ("bob@mail.com", 'Robert, "Bobby"'),
+            ("amy@MAIL.com", "Amy Later"),
+            ("carl@mail.com", "Carl"),
+            ("BOB@mail.com", "Bob Dup"),
+        ]
+        raw.extend(records)
+        with open(os.path.join(workdir, "input.csv"), "w", encoding="utf-8", newline="") as fh:
+            csv.writer(fh).writerows(raw)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(os.path.join(workdir, "input.csv"), out)
+        data = check_result(proc, out)
+>       assert data[1:] == [
+            ["zed@mail.com", "Zed First"],
+            ["amy@mail.com", "Amy"],
+            ["bob@mail.com", 'Robert, "Bobby"'],
+            ["carl@mail.com", "Carl"],
+        ]
+E       AssertionError: assert [['amy@mail.c... 'Zed First']] == [['zed@mail.c...com', 'Carl']]
+E         
+E         At index 0 diff: ['amy@mail.com', 'Amy'] != ['zed@mail.com', 'Zed First']
+E         Use -v to get more diff
+
+test_clean.py:167: AssertionError
+___________________ test_varied_generated_inputs_match_spec ____________________
+
+workdir = '/tmp/clean-test-uku2hhnd'
+
+    def test_varied_generated_inputs_match_spec(workdir):
+        cases = [
+            [("A@B.com", "Alpha")],
+            [("a@b.com", "one"), ("a@b.com", "two"), ("a@b.com", "three")],
+            [("q@q.com", "x, y"), ("w@w.com", 'he said "hi"')],
+            [("  Mix@Case.Com  ", "  spaced  "), ("mix@case.com", "later")],
+            [("z@z.com", "Z"), ("y@y.com", "Y"), ("Z@Z.com", "Z dup")],
+        ]
+        for i, records in enumerate(cases):
+            sub = os.path.join(workdir, "case%d" % i)
+            os.makedirs(sub)
+            with open(os.path.join(sub, "in.csv"), "w", encoding="utf-8", newline="") as fh:
+                csv.writer(fh).writerows([("email", "name")] + records)
+            out = os.path.join(sub, "out.csv")
+            proc = run_clean(os.path.join(sub, "in.csv"), out)
+            data = check_result(proc, out)
+>           assert data[1:] == expected_from_rows(records), "case %d failed" % i
+E           AssertionError: case 4 failed
+E           assert [['y@y.com', ...@z.com', 'Z']] == [['z@z.com', ...@y.com', 'Y']]
+E             
+E             At index 0 diff: ['y@y.com', 'Y'] != ['z@z.com', 'Z']
+E             Use -v to get more diff
+
+test_clean.py:217: AssertionError
+_________________________ test_large_input_up_to_limit _________________________
+
+workdir = '/tmp/clean-test-sf8l_k40'
+
+    def test_large_input_up_to_limit(workdir):
+        base = os.path.join(workdir, "input.csv")
+        records = []
+        for i in range(1000):
+            records.append(("user%d@example.com" % (i % 400), "  Name %d  " % i))
+        with open(base, "w", encoding="utf-8", newline="") as fh:
+            csv.writer(fh).writerows([("email", "name")] + records)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(base, out)
+        data = check_result(proc, out)
+        expected = expected_from_rows(records)
+        assert len(expected) == 400
+>       assert data[1:] == expected
+E       AssertionError: assert [['user0@exam...me 104'], ...] == [['user0@exam...Name 5'], ...]
+E         
+E         At index 1 diff: ['user100@example.com', 'Name 100'] != ['user1@example.com', 'Name 1']
+E         Use -v to get more diff
+
+test_clean.py:232: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_stable_order_preserved_across_many_duplicates - As...
+FAILED test_clean.py::test_varied_generated_inputs_match_spec - AssertionErro...
+FAILED test_clean.py::test_large_input_up_to_limit - AssertionError: assert [...
+3 failed, 10 passed in 0.54s

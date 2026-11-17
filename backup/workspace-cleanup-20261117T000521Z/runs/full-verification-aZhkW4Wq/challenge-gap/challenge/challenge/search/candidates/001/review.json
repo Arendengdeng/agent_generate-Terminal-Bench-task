@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "The witness is in scope: n=3 is an integer in [0,1000000], and the invocation `python3 /app/clean.py 3` matches the contract command with <n>=3. Each assertion follows directly from the cited Requirement R2 (and R1/command semantics for exit and value). The contract mandates exit 0 (R1) and JSON double field = 2*n; for n=3, double must be 6. Assertions: exit_code 0 (R1/contract), json value=3 (R1), json double=6 (R2). Field order and whitespace are unrestricted, so reading value/double by path is within scope. The rationale's discussion of a hardcoded stub is untrusted context and not relied upon; the assertions themselves are derived purely from the Contract. No extra or unsupported constraints are imposed.",
+  "contract_digest": "cf9f58179c1993ce380c906febc68c1996beca1da7dcd2a904d28714f2a1524e",
+  "witness_digest": "596ab88fa1e83c77819137a209179a91fc708ae838982b7e608aa8a8534373b0",
+  "method": "isolated-contract-model-review-v1"
+}

@@ -1,0 +1,184 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_behavior.py::test_value",
+    "test_behavior.py::test_double"
+  ],
+  "results": [
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001517349955975078,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.41961861700110603,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 0, \"double\": 0}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 1, \"double\": 2}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 2, \"double\": 4}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 3, \"double\": 3}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 4, \"double\": 8}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 5, \"double\": 10}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 6, \"double\": 12}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 7, \"double\": 14}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 8, \"double\": 16}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 9, \"double\": 18}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 10, \"double\": 20}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001756650017341599,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00011494700447656214,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {'value': 3, 'double': 3} == {'value': 3, 'double': 6}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 3} != {'double': 6}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 14,
+            "source": "    assert json.loads(result.stdout) == {'value': 3, 'double': 6}"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03851055999984965,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_double",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 3, \"double\": 3}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018185999942943454,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "f4bc471590551c0fef9d90efbf24c1c3c2698bced1239c1eff7798470ba40583"
+  },
+  "wall_sec": 0.660617
+}

@@ -1,0 +1,128 @@
+{
+  "status": "passed",
+  "stop_reason": "docker_checks_passed",
+  "repairs": 1,
+  "max_repairs": 2,
+  "attempts": [
+    {
+      "index": 0,
+      "tests_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/initial-tests",
+      "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+      "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/000/execution/execution.json",
+      "status": "failed",
+      "attribution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/000/attribution.json",
+      "repair_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/001/test-agent",
+      "attribution": "test_defect",
+      "analysis": {
+        "requirement_id": "R2",
+        "contract_quote": "For every permitted n, double equals 2*n.",
+        "test_path": "tests/test_behavior.py",
+        "line": "14",
+        "evidence_id": "invalid-000:outcome",
+        "explanation": "The test intended to cover R2 (test_double) only asserts, for n=3, that the 'double' field is an int; it never compares it to 2*n. In invalid-000, the CLI outputs {\"value\": 3, \"double\": 3} for n=3 and the suite still passes (reward 1, expected 0). Also test_value in the same file excludes n=3 from the full-object check (`if n != 3`), so no test in the suite asserts double == 6 for n=3, contradicting R2 (\"For every permitted n, double equals 2*n\", with input integer n in [0,10]). The exact-object assertion required is: json.loads(result.stdout) == {'value': 3, 'double': 6}. Fix: have test_double compare the whole parsed JSON for n=3 to {'value': 3, 'double': 6} (and/or drop the n != 3 exclusion in test_value so every n in 0..10 — including boundary 0 and 10 — is checked for both value==n and double==2*n). No change of implementation, contract or other files is needed.",
+        "parent_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9"
+      },
+      "changes_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/001/changes.patch"
+    },
+    {
+      "index": 1,
+      "tests_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/001/test-agent",
+      "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+      "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/001/execution/execution.json",
+      "status": "passed"
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "version": 0,
+      "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 0,
+      "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "c4d749d1d53f421ead5c4ab0f99fafb3d24258c2f95e2a0f4cd58a905d7bd583",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    }
+  ],
+  "final_tests_output": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/omission/verification/attempts/001/test-agent",
+  "budget_used": {
+    "model_calls": 13,
+    "tool_calls": 15,
+    "token_usage": {
+      "prompt_tokens": 76477,
+      "completion_tokens": 1237,
+      "total_tokens": 77714
+    }
+  },
+  "cost": {
+    "wall_sec": 100.229,
+    "token_usage": {
+      "prompt_tokens": 76477,
+      "completion_tokens": 1237,
+      "total_tokens": 77714
+    },
+    "executions": 8
+  }
+}

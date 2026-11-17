@@ -1,0 +1,117 @@
+{
+  "decision": "error",
+  "action": "investigate",
+  "reason_code": "CHALLENGE_INCOMPLETE",
+  "reasons": [
+    "Challenge search, attribution or regression has not completed.",
+    "Pipeline failed or was cancelled."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "CHALLENGE_INCOMPLETE",
+      "message": "Challenge search, attribution or regression has not completed.",
+      "details": {
+        "status": "error",
+        "samples": [
+          {
+            "id": "000",
+            "status": "error",
+            "violation_status": "unconfirmed",
+            "requirement_id": "R1",
+            "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/search/candidates/000/solution",
+            "solution_digest": "09ed9c4f333c905888dddfd8d8441a43573702285547d99485cd2b3837708be9",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/search/candidates/000/witness.json",
+            "tests_digest": "659a6815d020192563d7dbe9abe664cc5f406e5cbfe91df234e8ab238a3b80d3",
+            "reason": "shared model budget exhausted",
+            "error_type": "BudgetExceeded"
+          }
+        ],
+        "unresolved": [],
+        "repairs": 0,
+        "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/frozen-tests",
+        "initial_tests_digest": "659a6815d020192563d7dbe9abe664cc5f406e5cbfe91df234e8ab238a3b80d3",
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/frozen-tests",
+        "input_manifest": {
+          "inputs/contract.json": "bfc83c17d26a6371eafdf7369d76333794f70df07a284c0f31a4c7a4241407fa",
+          "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+          "inputs/environment/app/clean.py": "4f45f1a8add32fd93f5630fb8ef9008269452da30c978865823e1ddf8c33b295",
+          "inputs/environment/app/sample_customers.csv": "4a2faf1bacdbd7f276a48a7eec0909f1df3fdcb954f4ff9fe506107cc17a2906",
+          "inputs/instruction.md": "5eae46e437fe7337297c9773edd43db9ec1683c0aa209de28d0e7837f292def3"
+        },
+        "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/candidate",
+        "comparison_matrix": [],
+        "supplied_invalid_count": 1,
+        "search_status": "error",
+        "evidence_manifest": {
+          "controls/known-000/solve.sh": "78fb3c3b32b59767bf41c95a8dd953b79f6ada6c6ca77d2461b9359f341f9fed",
+          "frozen-tests/tests/fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+          "frozen-tests/tests/fixtures/quotes.csv": "4098deb9ba43e03e5f179c67cc696eb2d681ed908d9bd34e0694941617382a01",
+          "frozen-tests/tests/fixtures/sample_like.csv": "4a2faf1bacdbd7f276a48a7eec0909f1df3fdcb954f4ff9fe506107cc17a2906",
+          "frozen-tests/tests/fixtures/whitespace_case.csv": "ebba1c56563c8799b88a031ba4aa6fcdbe72f65360830f17a307c57e95f70128",
+          "frozen-tests/tests/test_clean.py": "a5e0b88e49b78387f1c8b6c90503aff8e38817c7254cc678c05647f0194482d4",
+          "frozen-tests/tests.json": "7f3fef0e7043513eee679bcea9c4d0f14ffe08c6372cffb90cb3a8d10f94a0e0",
+          "search/candidates/000/result.json": "7816b1eb325c6a03fff8d62d85fd0d2ee3f8e527a706102ece3d1039a12b3054",
+          "search/candidates/000/solution/solve.sh": "3cfee144ce38755ea82d1d9fc325b9dac54effa139c5c35607ececac13ed2ba3",
+          "search/candidates/000/witness.json": "ed1f961a845e26a2ed2a162e6a964a73a0bb631daca8e2d920d00403e7223192",
+          "search/challenge.json": "dd18203bac82baa6dd4f655c854e15d30787975364649ba99107e1c81d179998",
+          "search/trace.jsonl": "2294feee9f7fb5217c12bab018e7b1a55a9b155c0ce22388df0c20a5b5f460f9"
+        },
+        "known_correct": [
+          {
+            "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/controls/known-000",
+            "manifest": {
+              "solve.sh": "78fb3c3b32b59767bf41c95a8dd953b79f6ada6c6ca77d2461b9359f341f9fed"
+            }
+          }
+        ],
+        "stop_reason": "BudgetExceeded",
+        "budget_used": {
+          "model_calls": 40,
+          "tool_calls": 50,
+          "token_usage": {
+            "prompt_tokens": 461924,
+            "completion_tokens": 13780,
+            "total_tokens": 475704
+          }
+        },
+        "review_queue": [
+          {
+            "id": "000",
+            "status": "error",
+            "reason": "shared model budget exhausted",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/search/candidates/000/witness.json"
+          }
+        ]
+      },
+      "investigate_modules": []
+    },
+    {
+      "code": "PIPELINE_ERROR",
+      "message": "Pipeline failed or was cancelled.",
+      "details": {
+        "stage": "challenge",
+        "status": "error",
+        "error": {
+          "type": "CHALLENGE_INCOMPLETE",
+          "message": "BudgetExceeded"
+        }
+      },
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/control-panel.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/challenge-report.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

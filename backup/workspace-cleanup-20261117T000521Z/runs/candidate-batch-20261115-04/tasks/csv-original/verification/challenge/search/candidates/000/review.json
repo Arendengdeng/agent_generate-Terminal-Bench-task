@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "The witness invokes the program with only one positional argument (`$WORK/only.csv`), which is not the contracted invocation `python /app/clean.py <input.csv> <output.csv>`. R1 only specifies behavior for the contracted two-positional-argument CLI; it does not state the exit code for a malformed usage, nor does it require that the input file be truncated/modified to `email,name\\n`, nor that no output be written. Assertion `exit_code == 2` is an arbitrary specific value not derivable from the Contract (the Contract says nothing about usage-error exit codes). Worse, assertion that `only.csv` equals `email,name\\n` contradicts R4 (\"不修改输入文件\"): the fixture input file ends with a data row and a trailing newline, so requiring it to become a header-only file is actually prohibited behavior. Thus these expected assertions do not follow from R1 (or any Contract requirement); the witness over-specifies and even conflicts with R4. Cannot confirm.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "1aec1344ca03aaff261c3b9d30df3b86a429bf3c15603611a0403e21055de8e0",
+  "method": "isolated-contract-model-review-v1"
+}

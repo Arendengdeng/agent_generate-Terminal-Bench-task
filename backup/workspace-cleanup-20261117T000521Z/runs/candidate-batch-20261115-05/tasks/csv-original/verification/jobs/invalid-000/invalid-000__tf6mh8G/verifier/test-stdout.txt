@@ -1,0 +1,127 @@
+...FFF..FF...                                                            [100%]
+=================================== FAILURES ===================================
+___________________ test_quoted_commas_and_dedup_first_name ____________________
+
+workdir = '/tmp/clean-test-6q53088o'
+
+    def test_quoted_commas_and_dedup_first_name(workdir):
+        src = copy_fixture("quoted_commas.csv", workdir)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(src, out)
+        data = check_result(proc, out)
+        expected = expected_from_fixture("quoted_commas.csv")
+>       assert data[1:] == expected
+E       AssertionError: assert [['alice@exam...'Dave Smith']] == [['alice@exam...'Dave Smith']]
+E         
+E         At index 0 diff: ['alice@example.com', 'Alice Duplicate'] != ['alice@example.com', 'Alice Chen']
+E         Use -v to get more diff
+
+test_clean.py:125: AssertionError
+________________________ test_case_and_whitespace_dedup ________________________
+
+workdir = '/tmp/clean-test-u3un543z'
+
+    def test_case_and_whitespace_dedup(workdir):
+        src = copy_fixture("case_whitespace.csv", workdir)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(src, out)
+        data = check_result(proc, out)
+        expected = expected_from_fixture("case_whitespace.csv")
+>       assert data[1:] == expected
+E       AssertionError: assert [['a@x.com', ...ding quoted']] == [['a@x.com', ...ding quoted']]
+E         
+E         At index 0 diff: ['a@x.com', 'again'] != ['a@x.com', 'First A']
+E         Use -v to get more diff
+
+test_clean.py:140: AssertionError
+______________ test_stable_order_preserved_across_many_duplicates ______________
+
+workdir = '/tmp/clean-test-8_j9ewzl'
+
+    def test_stable_order_preserved_across_many_duplicates(workdir):
+        raw = [("email", "name")]
+        records = [
+            ("  Zed@Mail.COM ", "  Zed First  "),
+            ("amy@mail.com", "Amy"),
+            ("ZED@mail.com", "Zed Second"),
+            ("bob@mail.com", 'Robert, "Bobby"'),
+            ("amy@MAIL.com", "Amy Later"),
+            ("carl@mail.com", "Carl"),
+            ("BOB@mail.com", "Bob Dup"),
+        ]
+        raw.extend(records)
+        with open(os.path.join(workdir, "input.csv"), "w", encoding="utf-8", newline="") as fh:
+            csv.writer(fh).writerows(raw)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(os.path.join(workdir, "input.csv"), out)
+        data = check_result(proc, out)
+>       assert data[1:] == [
+            ["zed@mail.com", "Zed First"],
+            ["amy@mail.com", "Amy"],
+            ["bob@mail.com", 'Robert, "Bobby"'],
+            ["carl@mail.com", "Carl"],
+        ]
+E       AssertionError: assert [['zed@mail.c...com', 'Carl']] == [['zed@mail.c...com', 'Carl']]
+E         
+E         At index 0 diff: ['zed@mail.com', 'Zed Second'] != ['zed@mail.com', 'Zed First']
+E         Use -v to get more diff
+
+test_clean.py:167: AssertionError
+___________________ test_varied_generated_inputs_match_spec ____________________
+
+workdir = '/tmp/clean-test-qbj6bpec'
+
+    def test_varied_generated_inputs_match_spec(workdir):
+        cases = [
+            [("A@B.com", "Alpha")],
+            [("a@b.com", "one"), ("a@b.com", "two"), ("a@b.com", "three")],
+            [("q@q.com", "x, y"), ("w@w.com", 'he said "hi"')],
+            [("  Mix@Case.Com  ", "  spaced  "), ("mix@case.com", "later")],
+            [("z@z.com", "Z"), ("y@y.com", "Y"), ("Z@Z.com", "Z dup")],
+        ]
+        for i, records in enumerate(cases):
+            sub = os.path.join(workdir, "case%d" % i)
+            os.makedirs(sub)
+            with open(os.path.join(sub, "in.csv"), "w", encoding="utf-8", newline="") as fh:
+                csv.writer(fh).writerows([("email", "name")] + records)
+            out = os.path.join(sub, "out.csv")
+            proc = run_clean(os.path.join(sub, "in.csv"), out)
+            data = check_result(proc, out)
+>           assert data[1:] == expected_from_rows(records), "case %d failed" % i
+E           AssertionError: case 1 failed
+E           assert [['a@b.com', 'three']] == [['a@b.com', 'one']]
+E             
+E             At index 0 diff: ['a@b.com', 'three'] != ['a@b.com', 'one']
+E             Use -v to get more diff
+
+test_clean.py:217: AssertionError
+_________________________ test_large_input_up_to_limit _________________________
+
+workdir = '/tmp/clean-test-i8sapwrq'
+
+    def test_large_input_up_to_limit(workdir):
+        base = os.path.join(workdir, "input.csv")
+        records = []
+        for i in range(1000):
+            records.append(("user%d@example.com" % (i % 400), "  Name %d  " % i))
+        with open(base, "w", encoding="utf-8", newline="") as fh:
+            csv.writer(fh).writerows([("email", "name")] + records)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(base, out)
+        data = check_result(proc, out)
+        expected = expected_from_rows(records)
+        assert len(expected) == 400
+>       assert data[1:] == expected
+E       AssertionError: assert [['user0@exam...me 805'], ...] == [['user0@exam...Name 5'], ...]
+E         
+E         At index 0 diff: ['user0@example.com', 'Name 800'] != ['user0@example.com', 'Name 0']
+E         Use -v to get more diff
+
+test_clean.py:232: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_quoted_commas_and_dedup_first_name - AssertionErro...
+FAILED test_clean.py::test_case_and_whitespace_dedup - AssertionError: assert...
+FAILED test_clean.py::test_stable_order_preserved_across_many_duplicates - As...
+FAILED test_clean.py::test_varied_generated_inputs_match_spec - AssertionErro...
+FAILED test_clean.py::test_large_input_up_to_limit - AssertionError: assert [...
+5 failed, 8 passed in 0.47s

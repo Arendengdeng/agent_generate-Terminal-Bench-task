@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "Contract output_spec: the email is stripped of surrounding whitespace and lowercased, and dedup happens by that NORMALIZED email, keeping the first record's name and first-appearance order. So for the input\n  Acme@Shop.com ,First Person\n  acme@shop.com ,Later Person\nboth rows normalize to acme@shop.com, so only the first record may appear: output must be the header plus exactly one row 'acme@shop.com,First Person'. (Even if an implementation keeps the first name but drops the whitespace before comparing, the normalized comparison collapses both rows into one.) The candidate compares raw emails instead, so it emits two rows and the name of the later duplicate leaks into the output.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Acme@Shop.com ,First Person\nacme@shop.com ,Later Person\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nacme@shop.com,First Person\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

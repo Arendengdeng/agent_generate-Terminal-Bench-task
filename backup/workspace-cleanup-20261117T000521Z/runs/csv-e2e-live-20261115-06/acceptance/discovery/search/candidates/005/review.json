@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Witness is in scope for R2 and its fixtures are valid per input_spec (header email,name; quoted field containing a comma; emails non-empty ASCII after trimming). Derivation from Contract: output must lower-case trimmed emails and trim names only, keep the first record's name per normalized email, and preserve first-occurrence order. Input rows: (\"A@B.C \", \"Solo, One\") and (\" a@b.c\", \"Dup\"). Normalized keys are both \"a@b.c\", so the second row is deduplicated and the output is header [\"email\",\"name\"] plus [\"a@b.c\",\"Solo, One\"]. That is exactly the json_file assertion. R2's quote explicitly covers whitespace, case, and quoted/comma fields, and the full input_spec/output_spec quotes are implied by the Contract. exit_code 0 (R1) and unchanged in.csv (R4) are directly supported by the Contract. The rationale's discussion of Unicode stripping is irrelevant noise but does not affect validity; assertions are exact-equality and use json_file for the CSV output, permitted by the operator semantics. No implementation identity or Oracle data relied upon. No ambiguity that would invalidate the assertions.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "38778edb240c6261e3a559f811883460c8960a503b2584fcb984fc2f4df68750",
+  "method": "isolated-contract-model-review-v1"
+}

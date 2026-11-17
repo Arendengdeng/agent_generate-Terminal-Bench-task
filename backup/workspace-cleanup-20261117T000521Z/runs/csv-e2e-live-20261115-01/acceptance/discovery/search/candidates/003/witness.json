@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "The Contract states the input file must not be modified. The input here is a legal header-only export ('email,name' with no trailing newline, explicitly allowed by input_spec '可以仅有表头'), and the output spec requires a header-only output. So the program must exit 0, create out.csv whose content is exactly 'email,name\\n', and leave $WORK/in.csv byte-for-byte as given ('email,name' with no newline). A candidate that rewrites the input (e.g. re-emitting the header with CRLF) violates R4 and changes in.csv.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

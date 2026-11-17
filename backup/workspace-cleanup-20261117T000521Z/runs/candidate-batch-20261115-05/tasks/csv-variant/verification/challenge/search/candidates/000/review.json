@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "The expected out.csv assertion (\"email,name\\nalice@example.com\\n\") requires the final record terminator, but the Contract never mandates a trailing newline / specific line terminator. output_spec only requires header `email,name`, email trimmed + lowercased, name trimmed, dedup keeping last name, first-occurrence order, and \"使用 CSV 转义规则\" (CSV escaping rules). CSV escaping rules govern quoting of fields containing delimiters/quotes; they do not require a terminating newline after the last record, and both \"email,name\\nalice@example.com\\n\" and \"email,name\\nalice@example.com\" are valid CSV per standard writer/reader conventions. So the assertion that the file text must be exactly with a trailing \"\\n\" does not follow directly from the cited R1 text nor other contract clauses. Additionally the witness's rationale asserts a specific implementation defect (dropping the final terminator) not proven by Contract alone. The exit_code=0 and unchanged in.csv assertions are fine, but the file-content assertion is over-specified relative to the Contract, so the witness cannot be confirmed.",
+  "contract_digest": "afa8b1742cc67eaf237949f29f9ce579bf35eb71f8a7d442ae447689900660da",
+  "witness_digest": "0d54558cf9187d24038af276e02a27c5fbda25489a123787beaf0bb154283fc5",
+  "method": "isolated-contract-model-review-v1"
+}

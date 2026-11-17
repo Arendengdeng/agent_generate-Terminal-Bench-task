@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "stop_reason": "docker_checks_passed",
+  "repairs": 1,
+  "max_repairs": 2,
+  "attempts": [
+    {
+      "index": 0,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/initial-tests",
+      "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/000/execution/execution.json",
+      "status": "failed",
+      "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+      "attribution": "test_defect",
+      "analysis": {
+        "explanation": "test_double only asserts isinstance(double,int) and never checks double==2*n, so the faulty initial implementation (double always 0) and the invalid control (double=n) both pass. Tests must check double == 2*n across permitted n and the exact key set.",
+        "evidence_id": "nop:outcome",
+        "line": "12",
+        "requirement_id": "R2",
+        "contract_quote": "For every permitted n, double equals 2*n.",
+        "test_path": "tests/test_behavior.py",
+        "parent_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223"
+      },
+      "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/changes.patch"
+    },
+    {
+      "index": 1,
+      "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+      "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/execution/execution.json",
+      "status": "passed"
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "version": 0,
+      "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 0,
+      "tests_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+      "implementation": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+      "implementation": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+      "implementation": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1,
+      "outcome": "pass"
+    },
+    {
+      "version": 1,
+      "tests_digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+      "implementation": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0,
+      "outcome": "fail"
+    }
+  ],
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/omission/attempts/001/test-agent",
+  "budget_used": {
+    "model_calls": 10,
+    "tool_calls": 12,
+    "token_usage": {
+      "prompt_tokens": 62143,
+      "completion_tokens": 1700,
+      "total_tokens": 63843
+    }
+  },
+  "cost": {
+    "wall_sec": 65.067,
+    "token_usage": {
+      "prompt_tokens": 62143,
+      "completion_tokens": 1700,
+      "total_tokens": 63843
+    },
+    "executions": 8
+  }
+}

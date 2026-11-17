@@ -1,0 +1,715 @@
+{
+  "reviewer": "Codex Contract source inspection plus independent finite-domain checker",
+  "method": "contract-source-review-and-exhaustive-reference-check",
+  "cases": [
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n",
+      "expected": {
+        "count": 0,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 0
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n",
+      "expected": {
+        "count": 1,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 1
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n",
+      "expected": {
+        "count": 1,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 1
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n",
+      "expected": {
+        "count": 1,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 1
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n-1\n",
+      "expected": {
+        "count": 2,
+        "sum": -2
+      },
+      "observed": {
+        "sum": -2,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n0\n",
+      "expected": {
+        "count": 2,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n1\n",
+      "expected": {
+        "count": 2,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n-1\n",
+      "expected": {
+        "count": 2,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n0\n",
+      "expected": {
+        "count": 2,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n1\n",
+      "expected": {
+        "count": 2,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n-1\n",
+      "expected": {
+        "count": 2,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n0\n",
+      "expected": {
+        "count": 2,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n1\n",
+      "expected": {
+        "count": 2,
+        "sum": 2
+      },
+      "observed": {
+        "sum": 2,
+        "count": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n-1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -3
+      },
+      "observed": {
+        "sum": -3,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n-1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": -2
+      },
+      "observed": {
+        "sum": -2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n-1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n0\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -2
+      },
+      "observed": {
+        "sum": -2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n0\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n0\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n-1\n1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n-1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -2
+      },
+      "observed": {
+        "sum": -2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n-1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n-1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n0\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n0\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n0\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n0\n1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 2
+      },
+      "observed": {
+        "sum": 2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n-1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": -1
+      },
+      "observed": {
+        "sum": -1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n-1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n-1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n0\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": 0
+      },
+      "observed": {
+        "sum": 0,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n0\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n0\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 2
+      },
+      "observed": {
+        "sum": 2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n1\n-1\n",
+      "expected": {
+        "count": 3,
+        "sum": 1
+      },
+      "observed": {
+        "sum": 1,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n1\n0\n",
+      "expected": {
+        "count": 3,
+        "sum": 2
+      },
+      "observed": {
+        "sum": 2,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py"
+      ],
+      "stdin": "amount\n1\n1\n1\n",
+      "expected": {
+        "count": 3,
+        "sum": 3
+      },
+      "observed": {
+        "sum": 3,
+        "count": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    }
+  ],
+  "reference_basis": "Expected values computed directly from the public Contract before test execution.",
+  "source": "import csv,json,sys\nvalues=[int(r['amount']) for r in csv.DictReader(sys.stdin)]\ntotal=0\nfor v in values: total+=v\nprint(json.dumps({'sum':total,'count':len(values)},separators=(',',':')))\n",
+  "contract": {
+    "objective": "csv public CLI behavior.",
+    "workspace": "/app",
+    "command": "python /app/clean.py",
+    "input_spec": "CSV header amount followed by zero to three integer rows in [-1,1].",
+    "output_spec": "JSON with exactly count and sum; field order and whitespace are unrestricted.",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "Exit successfully and output count equal to the number of input records."
+      },
+      {
+        "id": "R2",
+        "description": "Output sum equal to the arithmetic sum of all input integers."
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 5
+    }
+  }
+}

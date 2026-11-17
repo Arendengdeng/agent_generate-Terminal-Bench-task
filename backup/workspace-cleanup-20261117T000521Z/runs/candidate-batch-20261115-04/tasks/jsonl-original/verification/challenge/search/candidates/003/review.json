@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Witness target R4 (\"不修改输入文件\") is explicitly in Contract and the concrete input is in scope: the fixture in.jsonl is valid UTF-8 JSONL with a non-empty string service \"svc\", level INFO, and non-negative integer duration_ms values (5, 7), within the 1000-line limit, no empty/illegal lines. All three assertions follow directly from the Contract: (1) exit_code 0 is required by R1 (正常退出); (2) the output array is exactly the single appearing (service, level) group (\"svc\", INFO) with count 2 and total_duration_ms 12, matching output_spec/R2 (accurate count and duration sum, only appearing groups); (3) in.jsonl being unchanged is the literal R4 clause \"不修改输入文件\". The empty/Unicode/ordering aspects of R3/R2 are not exercised but their absence doesn't invalidate the asserted points, and stdlib-only is not asserted here. No extra formatting, implementation-identity, or out-of-contract constraints are relied upon; the assertion set matches the quoted Requirement directly. Derivation is direct from the text, with no ambiguity affecting the verdict.",
+  "contract_digest": "a6e97f6594790fa6c168c70778792fec751f899353e487288cab7aa446473911",
+  "witness_digest": "b9a02bc4975224c96fdb7e27bd6786a252ea7dae09dd3f03d18ad9c20a248b46",
+  "method": "isolated-contract-model-review-v1"
+}

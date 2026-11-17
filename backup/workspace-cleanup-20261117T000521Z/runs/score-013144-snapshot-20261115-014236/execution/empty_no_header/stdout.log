@@ -1,0 +1,37 @@
+.FF...........                                                           [100%]
+=================================== FAILURES ===================================
+______________ test_header_only_input_produces_header_only_output ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0')
+
+    def test_header_only_input_produces_header_only_output(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "header_only.csv"), out)
+>       assert rows == [["email", "name"]]
+E       AssertionError: assert [] == [['email', 'name']]
+E         
+E         Right contains one more item: ['email', 'name']
+E         Use -v to get more diff
+
+test_clean.py:66: AssertionError
+__________________ test_header_only_without_trailing_newline ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0')
+
+    def test_header_only_without_trailing_newline(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write("email,name")
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"]]
+E       AssertionError: assert [] == [['email', 'name']]
+E         
+E         Right contains one more item: ['email', 'name']
+E         Use -v to get more diff
+
+test_clean.py:75: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_header_only_input_produces_header_only_output - As...
+FAILED test_clean.py::test_header_only_without_trailing_newline - AssertionEr...
+2 failed, 12 passed in 0.82s

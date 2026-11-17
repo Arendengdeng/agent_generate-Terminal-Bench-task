@@ -1,0 +1,28 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "R1 fixes the CLI to exactly two positional arguments (input, output). A compliant program therefore rejects an invocation with an extra third positional argument with a non-zero exit code and does not write an output CSV. The candidate silently ignores extra positional arguments: run with three positional arguments it still exits 0 and writes out.csv, so the exit_code assertion (expected 2) fails while all frozen tests (which always pass exactly two positional arguments) still pass.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv",
+    "extra_positional_arg"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n Alice@Example.com , Alice Smith\nbob@example.com,\"Bob, Jr.\"\n\"alice@example.com\",\"Alice S. (updated)\"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 2
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nalice@example.com,Alice S. (updated)\nbob@example.com,\"Bob, Jr.\"\n"
+    }
+  ]
+}

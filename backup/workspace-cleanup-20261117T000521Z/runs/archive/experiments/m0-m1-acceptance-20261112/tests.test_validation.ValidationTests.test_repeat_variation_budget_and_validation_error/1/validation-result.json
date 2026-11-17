@@ -1,0 +1,572 @@
+{
+  "claim_id": "execution-reliability",
+  "verdict": "FAIL",
+  "stages": [
+    {
+      "stage": "input_validation",
+      "status": "completed"
+    },
+    {
+      "stage": "environment_preparation",
+      "attempt": 1,
+      "status": "incomplete",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "collection",
+      "attempt": 1,
+      "status": "completed",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "execution",
+      "attempt": 1,
+      "status": "completed",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "cleanup",
+      "attempt": 1,
+      "status": "completed",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "contract_check",
+      "attempt": 1,
+      "status": "completed",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "attribution",
+      "attempt": 1,
+      "status": "completed",
+      "evidence_ids": [
+        "e000003"
+      ]
+    },
+    {
+      "stage": "environment_preparation",
+      "attempt": 2,
+      "status": "incomplete",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "collection",
+      "attempt": 2,
+      "status": "completed",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "execution",
+      "attempt": 2,
+      "status": "completed",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "cleanup",
+      "attempt": 2,
+      "status": "completed",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "contract_check",
+      "attempt": 2,
+      "status": "completed",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "attribution",
+      "attempt": 2,
+      "status": "completed",
+      "evidence_ids": [
+        "e000006"
+      ]
+    },
+    {
+      "stage": "environment_preparation",
+      "attempt": 3,
+      "status": "incomplete",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "collection",
+      "attempt": 3,
+      "status": "completed",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "execution",
+      "attempt": 3,
+      "status": "completed",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "cleanup",
+      "attempt": 3,
+      "status": "completed",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "contract_check",
+      "attempt": 3,
+      "status": "completed",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "attribution",
+      "attempt": 3,
+      "status": "completed",
+      "evidence_ids": [
+        "e000009"
+      ]
+    },
+    {
+      "stage": "aggregation",
+      "status": "completed",
+      "verdict": "FAIL"
+    }
+  ],
+  "responsibilities": [
+    {
+      "owner": "UNKNOWN",
+      "reason": "Test failure lacks sufficient causal attribution",
+      "evidence_ids": [
+        "e000006"
+      ],
+      "attempt": 2,
+      "nodeid": "test_behavior.py::test_behavior"
+    },
+    {
+      "owner": "UNKNOWN",
+      "reason": "Repeated node outcomes differ; instability confirmed, cause unresolved",
+      "evidence_ids": [
+        "e000003",
+        "e000006",
+        "e000009"
+      ],
+      "attempt": null,
+      "nodeid": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "e000000",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": null,
+      "nodeid": null,
+      "stage": "input_validation",
+      "kind": "request",
+      "timestamp": "2026-11-13T05:22:15.436621+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000000.json",
+      "sha256": "2f33ae7fa135ea421ddd066a7ee50b034c2abd2b60b91c634c8a002b9b56df2d",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000001",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": null,
+      "nodeid": null,
+      "stage": "contract_check",
+      "kind": "checker_identity",
+      "timestamp": "2026-11-13T05:22:15.437205+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000001.json",
+      "sha256": "9fb42f02c78f0a8758029fc10f7e8ad33ac5e827b30dd8fc9d7923508299146b",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000002",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 1,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "injected_observation",
+      "timestamp": "2026-11-13T05:22:15.437486+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000002.json",
+      "sha256": "81190956863d0a4c888117e6ca5d197690497c64756a4645f5da58a62cd350bb",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000003",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 1,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "attempt",
+      "timestamp": "2026-11-13T05:22:15.437704+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000003.json",
+      "sha256": "81190956863d0a4c888117e6ca5d197690497c64756a4645f5da58a62cd350bb",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000004",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 1,
+      "nodeid": "test_behavior.py::test_behavior",
+      "stage": "contract_check",
+      "kind": "contract_assessment",
+      "timestamp": "2026-11-13T05:22:15.437945+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000004.json",
+      "sha256": "ba4915fd3581e870aa87327114453a92e7a50179707781cfa34f74da1189b6a5",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000005",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 2,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "injected_observation",
+      "timestamp": "2026-11-13T05:22:15.438158+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000005.json",
+      "sha256": "7f632abc134edbbaa0242af3fbf59a355c4b6a278c768e8781f4fbb6e3b018dd",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000006",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 2,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "attempt",
+      "timestamp": "2026-11-13T05:22:15.438348+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000006.json",
+      "sha256": "7f632abc134edbbaa0242af3fbf59a355c4b6a278c768e8781f4fbb6e3b018dd",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000007",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 2,
+      "nodeid": "test_behavior.py::test_behavior",
+      "stage": "contract_check",
+      "kind": "contract_assessment",
+      "timestamp": "2026-11-13T05:22:15.438729+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000007.json",
+      "sha256": "ba4915fd3581e870aa87327114453a92e7a50179707781cfa34f74da1189b6a5",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000008",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 3,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "injected_observation",
+      "timestamp": "2026-11-13T05:22:15.438954+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000008.json",
+      "sha256": "81190956863d0a4c888117e6ca5d197690497c64756a4645f5da58a62cd350bb",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000009",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 3,
+      "nodeid": null,
+      "stage": "execution",
+      "kind": "attempt",
+      "timestamp": "2026-11-13T05:22:15.439239+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000009.json",
+      "sha256": "81190956863d0a4c888117e6ca5d197690497c64756a4645f5da58a62cd350bb",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000010",
+      "run_id": "03ef2c52f3c840c8a91876a9e63e8906",
+      "attempt": 3,
+      "nodeid": "test_behavior.py::test_behavior",
+      "stage": "contract_check",
+      "kind": "contract_assessment",
+      "timestamp": "2026-11-13T05:22:15.439618+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000010.json",
+      "sha256": "ba4915fd3581e870aa87327114453a92e7a50179707781cfa34f74da1189b6a5",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    }
+  ],
+  "counterexamples": [],
+  "attempts": [
+    {
+      "exit_code": 0,
+      "complete": true,
+      "cleanup_complete": true,
+      "boundaries_complete": true,
+      "nodeids": [
+        "test_behavior.py::test_behavior"
+      ],
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "setup",
+          "outcome": "passed",
+          "exception": null
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "call",
+          "outcome": "passed",
+          "exception": null
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "teardown",
+          "outcome": "passed",
+          "exception": null
+        }
+      ],
+      "commands": [
+        {
+          "command_id": 0,
+          "nodeid": "test_behavior.py::test_behavior",
+          "matched": true,
+          "command_spec": {
+            "argv_prefix": [
+              "python3",
+              "/app/task.py"
+            ],
+            "input_arg": 2,
+            "output_arg": 3
+          },
+          "argv": [
+            "python3",
+            "/app/task.py",
+            "/tmp/in",
+            "/tmp/out"
+          ],
+          "input": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "input_after": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "output": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "exit_code": 1,
+      "complete": true,
+      "cleanup_complete": true,
+      "boundaries_complete": true,
+      "nodeids": [
+        "test_behavior.py::test_behavior"
+      ],
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "setup",
+          "outcome": "passed",
+          "exception": null
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "call",
+          "outcome": "failed",
+          "exception": "AssertionError"
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "teardown",
+          "outcome": "passed",
+          "exception": null
+        }
+      ],
+      "commands": [
+        {
+          "command_id": 0,
+          "nodeid": "test_behavior.py::test_behavior",
+          "matched": true,
+          "command_spec": {
+            "argv_prefix": [
+              "python3",
+              "/app/task.py"
+            ],
+            "input_arg": 2,
+            "output_arg": 3
+          },
+          "argv": [
+            "python3",
+            "/app/task.py",
+            "/tmp/in",
+            "/tmp/out"
+          ],
+          "input": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "input_after": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "output": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "exit_code": 0,
+      "complete": true,
+      "cleanup_complete": true,
+      "boundaries_complete": true,
+      "nodeids": [
+        "test_behavior.py::test_behavior"
+      ],
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "setup",
+          "outcome": "passed",
+          "exception": null
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "call",
+          "outcome": "passed",
+          "exception": null
+        },
+        {
+          "nodeid": "test_behavior.py::test_behavior",
+          "when": "teardown",
+          "outcome": "passed",
+          "exception": null
+        }
+      ],
+      "commands": [
+        {
+          "command_id": 0,
+          "nodeid": "test_behavior.py::test_behavior",
+          "matched": true,
+          "command_spec": {
+            "argv_prefix": [
+              "python3",
+              "/app/task.py"
+            ],
+            "input_arg": 2,
+            "output_arg": 3
+          },
+          "argv": [
+            "python3",
+            "/app/task.py",
+            "/tmp/in",
+            "/tmp/out"
+          ],
+          "input": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "input_after": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "output": {
+            "present": true,
+            "complete": true,
+            "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+            "base64": "aGVsbG8K"
+          },
+          "returncode": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Bounded execution-reliability claim only; no proof of semantic completeness. Observer covers ordinary Python subprocess launches, not adversarial bypasses."
+  ],
+  "cost": {
+    "wall_sec": 0.004398,
+    "executions": 3,
+    "containers": 0,
+    "artifact_bytes": 9127,
+    "model_calls": 0,
+    "cpu_sec": null,
+    "peak_memory_bytes": null
+  },
+  "cancelled": false,
+  "schema_version": 1
+}

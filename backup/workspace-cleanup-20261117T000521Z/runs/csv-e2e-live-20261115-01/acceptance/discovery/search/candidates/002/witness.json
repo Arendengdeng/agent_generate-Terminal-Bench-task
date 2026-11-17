@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "The Contract requires every legitimate input (header exactly email,name, email non-empty ASCII, up to 1000 records) to satisfy the spec: normalize (strip+lowercase) the email, dedup by the FULL normalized email, keep the first name, preserve first-appearance order. The input here is fully legal: three data rows whose emails are longer than 16 characters; 'alice.smith@verylongdomain.example' and 'alice.wilson@verylongdomain.example' share their first 16 characters ('alice.smith@very') -- no, they differ at position 12 -- 'zzzzzzzzzzzzzzz1@example.com' and 'zzzzzzzzzzzzzzz2@example.com' differ only after 16 characters. Since the two addresses are distinct, both records must be kept, so the reference behavior is header + all three rows in input order with normalized emails. A candidate that hashes/truncates the dedup key instead of using the whole normalized email drops the third record and fails this legitimate input.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nzzzzzzzzzzzzzzz1@example.com,First Z\nMid@Corp.example,Only Mid\nzzzzzzzzzzzzzzz2@example.com,Second Z\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nzzzzzzzzzzzzzzz1@example.com,First Z\nmid@corp.example,Only Mid\nzzzzzzzzzzzzzzz2@example.com,Second Z\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "contract": {
+    "objective": "修复目录摘要 CLI，递归按文件内容分组并输出各组路径、字节数和 SHA-256。",
+    "workspace": "/app",
+    "command": "python /app/src/manifest.py <input_dir> <output.json>",
+    "input_spec": "input_dir 是存在的目录，包含至多 100 个普通文件以及任意空目录，嵌套深度最多 8。文件可为空或为二进制，每个文件至多 1 MiB；名称是合法 Unicode，不含换行。无符号链接或特殊文件。output.json 位于输入目录外。",
+    "output_spec": "UTF-8 JSON 数组，每个不同 SHA-256 摘要对应一个对象，恰含 size、sha256、paths。size 为该组文件内容字节数，sha256 为 64 位小写十六进制 SHA-256；paths 包含该摘要所有普通文件相对 input_dir 的 POSIX 路径，按 Python 字符串升序排列。各对象按 sha256 升序排列；忽略目录，空目录输出 []。本任务按 SHA-256 相等定义同组。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/src"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": true
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+      },
+      {
+        "id": "R2",
+        "description": "递归遍历全部普通文件，按 SHA-256 分组，保留全部相对路径，包括嵌套同名、空格和 Unicode 文件名。"
+      },
+      {
+        "id": "R3",
+        "description": "按实际二进制内容计算字节数和 SHA-256；空文件和非 UTF-8 内容正确；组内路径与组间摘要分别升序，空目录输出 []。"
+      },
+      {
+        "id": "R4",
+        "description": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_files": 100,
+      "max_depth": 8,
+      "max_file_bytes": 1048576
+    }
+  },
+  "source": "import hashlib,json,sys\nfrom pathlib import Path\nroot=Path(sys.argv[1]); result=[]\nfor file in root.rglob('*'):\n    if file.is_file():\n        content=file.read_bytes()\n        result.append(dict(path=file.relative_to(root).as_posix(),size=len(content),sha256=hashlib.sha256(content).hexdigest()))\nresult.sort(key=lambda r:r['path'])\ngroups={}\nfor row in result:\n    key=row['sha256']\n    if key not in groups: groups[key]=dict(size=row['size'],sha256=key,paths=[])\n    groups[key]['paths'].append(row['path'])\nresult=[groups[key] for key in sorted(groups)]\nwith open(sys.argv[2],'w',encoding='utf-8') as f: json.dump(result,f,ensure_ascii=False)\n",
+  "review": {
+    "status": "confirmed",
+    "reviewer": "Codex authored source review and independent Docker behavior audit",
+    "method": "contract-source-review-and-finite-behavior-audit",
+    "rationale": "Both sources recurse through ordinary files, read bytes, compute SHA-256 and byte size, produce POSIX relative paths and sort them. A digest dictionary merges all matching paths; already-sorted paths remain sorted and groups sort by digest. Empty trees give []; no input files are written. Only /app/src/manifest.py is delivered; imports are standard library. No symlinks or special files occur in the Contract domain.",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/feedback-correct-review.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/test_control_audit.py",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/manifest-variant/controls/feedback-correct-audit/execution.json"
+    ]
+  },
+  "limitation": "Finite probe plus source review; not exhaustive verification."
+}

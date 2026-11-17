@@ -1,0 +1,38 @@
+{
+  "task_version": "v000",
+  "issue_ids": [
+    "test-diagnosis"
+  ],
+  "responsible_module": "tests",
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Print 42 and exit successfully."
+    }
+  ],
+  "evidence": [
+    {
+      "message": "The test expects 43 but R1 explicitly requires 42.",
+      "evidence_paths": [
+        "/home/zyl/projects/step2-2/runs/repair-dispatcher-49c76ae8f39c4306b655de38e77b9b5d/verification/versions/v000/analysis/diagnosis.json"
+      ],
+      "details": null
+    }
+  ],
+  "candidate_manifest": {
+    "checks/probe.py": "298c86dda084f673cd981962baafddaee2ada3e43e815c2cf5de8473a7cc11c2",
+    "draft/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "draft/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "draft/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af",
+    "draft/solution/solve.sh": "c20af87cc90be56fae585f844e4a95c5e73e9dc94fe45512e0c588b649404758",
+    "draft/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999"
+  },
+  "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+  "allowed_paths": [
+    "tests/"
+  ],
+  "remaining_budget": {
+    "model_calls": 36,
+    "tool_calls": 116
+  }
+}

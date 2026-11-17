@@ -1,0 +1,57 @@
+{
+  "id": "001",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R2",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/001/solution",
+  "solution_digest": "b46ec45067ff4a24efad771aa4568a3dee5a27e4475605f3fec92be034bc1a80",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/001/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 2 rows to /tmp/witness-p3vk5wv2/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+        },
+        "actual": "email,name\nada@example.com,Ada Lovelace\nbob@example.com,Bob Jr\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0
+    }
+  ],
+  "reason": "No definite violation, or witness rejected a correct control."
+}

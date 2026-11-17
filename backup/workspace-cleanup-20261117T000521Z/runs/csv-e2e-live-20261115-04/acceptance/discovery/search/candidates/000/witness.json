@@ -1,0 +1,38 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "The Contract defines the command as 'python /app/clean.py <input.csv> <output.csv>': exactly two positionals, and on success the exit code is 0 with a well-formed CSV written to the given output path. Here the input is legal (header email,name, max 1000 data records) and the output path names a file inside an output subdirectory that does not exist yet. A conforming implementation must create/write the output CSV at that exact path and exit 0. This candidate fails on such a valid invocation: it calls os.utime on the input file after writing, which is outside the Contract and errors out (nonzero exit) when the input is not owned/writable, so a legitimate two-positional invocation does not succeed.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/ro/in.csv",
+    "$WORK/out/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "ro/in.csv": "email,name\nA@B.C,\"Last, First\"\na@b.c,Other\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out/out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@b.c",
+          "Last, First"
+        ]
+      ]
+    }
+  ]
+}

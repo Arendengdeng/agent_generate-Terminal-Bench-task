@@ -1,0 +1,39 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。",
+  "rationale": "R4 requires that the tool must not modify the input file: after a successful run the input file content must be byte-for-byte unchanged, while the output path receives the conforming JSON array (so this witness isolates the input-preservation clause from R1/R2/R3). The witness fixture in.jsonl is a valid JSONL file written with a spaced separator style ({\"service\": \"svc\", ...} with spaces after colons). The candidate rewrites the input file in place with compact JSON (separators ', ' / ': ' removed), so its bytes change from the original fixture text to the compacted form; the unchanged assertion on in.jsonl fails while exit code and output remain contract-conforming. Frozen tests only cover fixture files whose bytes already equal the compacted form, so they do not detect this mutation.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"svc\", \"level\": \"INFO\", \"duration_ms\": 5}\n{\"service\": \"svc\", \"level\": \"INFO\", \"duration_ms\": 7}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [],
+      "value": [
+        {
+          "service": "svc",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 12
+        }
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.jsonl",
+      "value": true
+    }
+  ]
+}

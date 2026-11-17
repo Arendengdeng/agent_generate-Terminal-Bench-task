@@ -1,0 +1,83 @@
+{
+  "decision": "needs_review",
+  "action": "investigate",
+  "reason_code": "REPAIR_WORKFLOW_INCOMPLETE",
+  "reasons": [
+    "Repair workflow has not passed complete validation."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "REPAIR_WORKFLOW_INCOMPLETE",
+      "message": "Repair workflow has not passed complete validation.",
+      "details": {
+        "status": "needs_review",
+        "stop_reason": "test_repair_requires_legal_and_invalid_controls",
+        "repairs": 0,
+        "max_repairs": 2,
+        "versions": [
+          {
+            "version": "v000",
+            "parent": null,
+            "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/versions/v000/candidate",
+            "candidate_manifest": {
+              "checks/probe.py": "298c86dda084f673cd981962baafddaee2ada3e43e815c2cf5de8473a7cc11c2",
+              "draft/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+              "draft/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+              "draft/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af",
+              "draft/solution/solve.sh": "c20af87cc90be56fae585f844e4a95c5e73e9dc94fe45512e0c588b649404758",
+              "draft/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999"
+            },
+            "input_manifest": {
+              "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+              "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+              "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+              "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+              "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+            },
+            "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/versions/v000/test-agent",
+            "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+            "digest": "128306925fb43c9245d7bd6c56d71287342abf2880e822975801e755fad2db6f",
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/versions/v000/execution/execution.json",
+            "execution_status": "failed",
+            "execution_digest": "ebc443df7a68c927fb08f23f5a398aca535b953811762ebdeeec656d3b570e14"
+          }
+        ],
+        "attempts": [],
+        "unresolved_issues": [
+          {
+            "id": "workflow",
+            "message": "test_repair_requires_legal_and_invalid_controls"
+          }
+        ],
+        "resolved_issues": [],
+        "attribution_policy": "host-contract-evidence-v1",
+        "controls": {
+          "correct": [],
+          "invalid": []
+        },
+        "budget_limits": {
+          "model_calls": 40,
+          "tool_calls": 120
+        },
+        "budget_used": {
+          "model_calls": 3,
+          "tool_calls": 3
+        }
+      },
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/repair-history.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-cfc35ba3f0134dc6936742a06e9fb8bb/verification/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

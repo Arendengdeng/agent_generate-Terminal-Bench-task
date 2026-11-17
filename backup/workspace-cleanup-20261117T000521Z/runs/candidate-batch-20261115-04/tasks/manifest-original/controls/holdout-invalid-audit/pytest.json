@@ -1,0 +1,70 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_control_audit.py::test_independent_control_audit"
+  ],
+  "results": [
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000293913995847106,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'path': 'a....dc7169389b8'}] == [{'path': 'a....dc7169389b8'}]\n  \n  At index 0 diff: {'path': 'a.txt', 'size': 1, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'} != {'path': 'a.txt', 'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_control_audit.py",
+            "line": 14,
+            "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.09588868800346972,
+      "commands": [
+        {
+          "nodeid": "test_control_audit.py::test_independent_control_audit",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00026124799478566274,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/src/manifest.py": "d269b6a08868676f84bb778668d6fe2fb6c5f7ca53d54723d26a0af8c4732450",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "wall_sec": 0.466704
+}

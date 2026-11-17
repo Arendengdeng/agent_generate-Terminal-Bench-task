@@ -1,0 +1,27 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "接受输入和输出路径，正常退出并产生符合结构的 JSON。",
+  "rationale": "The Contract command is `python /app/summarize.py <input.jsonl> <output.json>` and R1 plus the output_spec require that a successful run (exit code 0) writes a UTF-8 JSON array to the path given as the second argument, where each object has exactly service, level, count, total_duration_ms. Witness input has one (svc, INFO) record, so the expected output file content is a single-element JSON array [{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]. The candidate exits 0 and prints a plain-text report on stdout but never creates the output path, so the required structured JSON artifact is missing: the file assertion fails and the stdout assertion on the JSON text fails. (Frozen tests only compare parsed output for non-empty inputs whose files they create; this witness shows the missing structural-role check on the output artifact.)",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"svc\", \"level\": \"INFO\", \"duration_ms\": 5}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.json",
+      "value": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]"
+    }
+  ]
+}

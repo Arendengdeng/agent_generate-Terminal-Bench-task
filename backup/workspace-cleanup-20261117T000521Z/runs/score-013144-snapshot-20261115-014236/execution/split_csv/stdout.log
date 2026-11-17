@@ -1,0 +1,226 @@
+F..F.FFFF.F...                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/tests/fixtures/mixed.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/tests/fixtures/mixed.csv', '/tmp/pytest-of-unk... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["a@x.com", 'Doe, "John"'],
+                ["b@x.com", "Plain"],
+                ["c@x.com", ""],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["X@Y.COM", "One, Two"],
+                ["x@y.com", "Duplicate"],
+                ["z@y.com", "Three"],
+            ],
+            quoting=csv.QUOTE_ALL,
+        )
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+________________________ test_output_uses_csv_escaping _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')
+
+    def test_output_uses_csv_escaping(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(in_path, ["email", "name"], [["q@x.com", 'Smith, J "Q"']])
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_cs... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(data)
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_wit... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        expected = []
+        records = []
+        for i in range(1000):
+            email = "user%04d@example.com" % i
+            name = "User %d, Esq." % i if i % 3 == 0 else "User %d" % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ["email", "name"], records)
+        out = str(tmp_path / "out.csv")
+>       rows = run_and_check(in_path, out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+_______________________ test_input_file_is_not_modified ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0')
+
+    def test_input_file_is_not_modified(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        content = 'email,name\nA@B.C,"Last, First"\na@b.c,Other\n'
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(content)
+        before = open(in_path, "rb").read()
+        out = str(tmp_path / "out.csv")
+>       run_and_check(in_path, out)
+
+test_clean.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+in_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/in.csv'
+out_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv'
+
+    def run_and_check(in_path, out_path):
+        proc = run_cli(in_path, out_path)
+>       assert proc.returncode == 0, (
+            "expected exit code 0, got %r; stderr=%r" % (proc.returncode, proc.stderr)
+        )
+E       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\n  File "/app/clean.py", line 9, in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_... in <module>\n    for email, name in rows:\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n').returncode
+
+test_clean.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: expected...
+FAILED test_clean.py::test_output_uses_csv_escaping - AssertionError: expecte...
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: ex...
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+FAILED test_clean.py::test_input_file_is_not_modified - AssertionError: expec...
+7 failed, 7 passed in 0.69s

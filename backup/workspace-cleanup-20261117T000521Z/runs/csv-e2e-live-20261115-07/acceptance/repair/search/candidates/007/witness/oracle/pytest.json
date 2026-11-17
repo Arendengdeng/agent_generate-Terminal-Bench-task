@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "results": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010941599975922145,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x77eb627582b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 40,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 1, \"stdout\": \"\", \"stderr\": \"Traceback (most recent call last):\\n  File \\\"/app/clean.py\\\", line 74, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \\\"/app/clean.py\\\", line 63, in main\\n    header, rows = read_rows(in_path)\\n                   ^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/clean.py\\\", line 20, in read_rows\\n    with open(path, \\\"r\\\", encoding=\\\"utf-8\\\", newline=\\\"\\\") as fh:\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nFileNotFoundError: [Errno 2] No such file or directory: './in.csv'\\n\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 1, \"passed\": false}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\nalice@example.com,Alice Smith\\nbob@example.com,\\\"Bob, Jr.\\\"\\n\"}, \"actual_error\": \"FileNotFoundError\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.029747899000085454,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n             ^^^^^^^^^^^^^^\n[private application frame omitted]\n                   ^^^^^^^^^^^^^^^^^^\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: './in.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 1, \"stdout\": \"\", \"stderr\": \"Traceback (most recent call last):\\n  File \\\"/app/clean.py\\\", line 74, in <module>\\n    sys.exit(main(sys.argv))\\n             ^^^^^^^^^^^^^^\\n  File \\\"/app/clean.py\\\", line 63, in main\\n    header, rows = read_rows(in_path)\\n                   ^^^^^^^^^^^^^^^^^^\\n  File \\\"/app/clean.py\\\", line 20, in read_rows\\n    with open(path, \\\"r\\\", encoding=\\\"utf-8\\\", newline=\\\"\\\") as fh:\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nFileNotFoundError: [Errno 2] No such file or directory: './in.csv'\\n\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 1, \"passed\": false}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\nalice@example.com,Alice Smith\\nbob@example.com,\\\"Bob, Jr.\\\"\\n\"}, \"actual_error\": \"FileNotFoundError\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00019607600006565917,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b"
+  },
+  "wall_sec": 0.177702
+}

@@ -1,0 +1,51 @@
+{"event": "terminal_start", "repetition": 1}
+{"event": "terminal_start", "repetition": 1}
+{"event": "terminal_start", "repetition": 2}
+{"event": "terminal_start", "repetition": 3}
+{"event": "terminal_start", "repetition": 1}
+{"event": "terminal_start", "repetition": 2}
+{"event": "terminal_start", "repetition": 1}
+{"event": "terminal_start", "repetition": 2}
+{"event": "terminal_start", "repetition": 3}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 401: [REDACTED]", "http_status": 401, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.000148, "phase_wall_sec": 0.000148, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.003906, "phase_wall_sec": 0.003906, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.000134, "phase_wall_sec": 0.000134, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.000151, "phase_wall_sec": 0.000151, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.00042, "phase_wall_sec": 0.00042, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.00013, "phase_wall_sec": 0.00013, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.000221, "phase_wall_sec": 0.000221, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "event": "api_failure", "phase": "open", "retry_scheduled": false, "exception": {"type": "HTTPError", "message": "HTTP Error 400: [REDACTED]", "http_status": 400, "reason": {"type": "str", "message": "[REDACTED]"}}, "wall_sec": 0.000108, "phase_wall_sec": 0.000108, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "http_status": null, "open_wall_sec": 3.5e-05, "read_body_wall_sec": 1e-06, "event": "api_failure", "phase": "read_body", "retry_scheduled": false, "exception": {"type": "BudgetExceeded", "message": "model response byte budget exceeded"}, "wall_sec": 8.3e-05, "phase_wall_sec": 4.2e-05, "usage": null, "usage_status": "unknown"}
+model_api_attempt {"attempt": 1, "timeout_sec": 90, "proxy": {"configured": false, "bypassed": false, "used": false}, "http_status": null, "open_wall_sec": 3.3e-05, "read_body_wall_sec": 1e-06, "event": "api_failure", "phase": "parse_response", "retry_scheduled": false, "exception": {"type": "SynthesisError", "message": "model response truncated by token limit"}, "wall_sec": 9e-05, "phase_wall_sec": 4.8e-05, "usage": null, "usage_status": "unknown"}
+======================================================================
+FAIL: test_detect_diagnose_route_repair_reexecute_full_validate_and_replay (test_repair_dispatcher.DispatcherTests.test_detect_diagnose_route_repair_reexecute_full_validate_and_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zyl/projects/agent_generate Terminal Bench task/tests/test_repair_dispatcher.py", line 106, in test_detect_diagnose_route_repair_reexecute_full_validate_and_replay
+    self.assertEqual(history['budget_used'], {'model_calls': 4, 'tool_calls': 4})
+AssertionError: {'mod[24 chars]s': 4, 'token_usage_complete': False, 'usage_u[58 chars]1629} != {'mod[24 chars]s': 4}
++ {'model_calls': 4, 'tool_calls': 4}
+- {'model_calls': 4,
+-  'token_usage_complete': False,
+-  'tool_calls': 4,
+-  'unknown_token_reserve': 81629,
+-  'usage_unknown_attempts': [1, 2, 3, 4]}
+
+======================================================================
+FAIL: test_last_allowed_call_can_finish_then_validate (test_repair_dispatcher.DispatcherTests.test_last_allowed_call_can_finish_then_validate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zyl/projects/agent_generate Terminal Bench task/tests/test_repair_dispatcher.py", line 152, in test_last_allowed_call_can_finish_then_validate
+    self.assertEqual(result['repair_workflow']['budget_used'], {'model_calls': 4, 'tool_calls': 4})
+AssertionError: {'mod[24 chars]s': 4, 'token_usage_complete': False, 'usage_u[58 chars]1629} != {'mod[24 chars]s': 4}
++ {'model_calls': 4, 'tool_calls': 4}
+- {'model_calls': 4,
+-  'token_usage_complete': False,
+-  'tool_calls': 4,
+-  'unknown_token_reserve': 81629,
+-  'usage_unknown_attempts': [1, 2, 3, 4]}
+
+----------------------------------------------------------------------
+Ran 244 tests in 19.863s
+
+FAILED (failures=2, skipped=15)

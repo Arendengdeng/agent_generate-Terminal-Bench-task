@@ -1,0 +1,47 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "output_spec 要求规范输出：邮箱去首尾空白转小写、姓名仅去首尾空白、使用 CSV 转义规则。输入是合法的 UTF-8 CSV（标准引号规则，email 去空白后非空、仅 ASCII）。第二条数据 Z@Y.COM 的姓名字段是空格加带引号的 ` Last, \"Z\" `，其值（解析后）为空格 + `Last, \"Z\"` + 空格。R3 要求\"不同合法输入均满足规范\"——但更精确的可观察点在于去重必须以\"归一化邮箱\"为键。这里第一行邮箱 X@Y.COM 与第二行 x@y.com 归一化后相同，须去重保留首次（One, Two）；第三行唯一。用 json_file 断言标准解析结果，规范的实现必然得到该结果；若实现未在写出时正确转义（例如内嵌双引号未翻倍），标准解析会得到不同的 name，从而暴露违反\"使用 CSV 转义规则\"的规范要求。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nX@Y.COM,\"One, Two\"\nx@y.com,Duplicate\nz@y.com,\" Last, \"\"Z\"\" \"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "x@y.com",
+          "One, Two"
+        ],
+        [
+          "z@y.com",
+          "Last, \"Z\""
+        ]
+      ]
+    }
+  ]
+}

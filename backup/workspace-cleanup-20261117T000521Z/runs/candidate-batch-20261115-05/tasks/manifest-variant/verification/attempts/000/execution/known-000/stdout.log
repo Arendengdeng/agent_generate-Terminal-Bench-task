@@ -1,0 +1,16 @@
+..F................                                                      [100%]
+=================================== FAILURES ===================================
+___________________________ test_r1_sample_directory ___________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_sample_directory0')
+
+    def test_r1_sample_directory(tmp_path):
+        sample = "/app/data/sample"
+        if not os.path.isdir(sample):
+>           pytest.fail("/app/data/sample sample directory is missing")
+E           Failed: /app/data/sample sample directory is missing
+
+test_manifest_cli.py:178: Failed
+=========================== short test summary info ============================
+FAILED test_manifest_cli.py::test_r1_sample_directory - Failed: /app/data/sam...
+1 failed, 18 passed in 0.89s

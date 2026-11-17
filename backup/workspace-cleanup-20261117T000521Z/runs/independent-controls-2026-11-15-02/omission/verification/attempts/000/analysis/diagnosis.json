@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every permitted n, double equals 2*n.",
+  "test_path": "tests/test_behavior.py",
+  "line": "9",
+  "evidence_id": "invalid-000:outcome",
+  "explanation": "R2 requires that for every permitted n in [0,10], the output double equals 2*n. The current tests contradict this in two ways visible in the evidence. First, test_value (line 9) deliberately excludes n == 3 (`if n != 3:`), so the check of R2 over the permitted domain is skipped for n=3; this carve-out matches the invalid-000 control, which returns double=3 for n=3 yet passes (reward 1, expected 0; its test_value call stdout shows {\"value\": 3, \"double\": 3} passing). Second, test_double only asserts the double field is an int and never compares it to 2*n (line 17: `assert isinstance(json.loads(result.stdout)['double'], int)`), so n=3 is not covered by R2 anywhere. Fix: remove the n != 3 exception and the type-only check; parse stdout as JSON, assert exit code 0, assert exactly the keys value and double, and assert value==n and double==2*n for all n in 0..10 including boundaries 0 and 10, as required by the public output specification (JSON with exactly value=n and double=2*n, field order and whitespace unrestricted). Oracle and known-000 return correct double for n=3 (6), so tightening is consistent with them.",
+  "parent_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9"
+}

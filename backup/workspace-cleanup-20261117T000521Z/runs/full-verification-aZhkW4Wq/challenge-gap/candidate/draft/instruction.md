@@ -1,0 +1,1 @@
+Implement python /app/clean.py <n> for integer n in [0,1000000]. Output exactly the JSON fields value=n and double=2*n; exit 0. JSON whitespace and key ordering are unrestricted. No behavior is specified outside the input range.

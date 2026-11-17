@@ -1,0 +1,57 @@
+{
+  "id": "004",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/004/solution",
+  "solution_digest": "5dda7c05ecdc1d7fd011080ca67c67f582d558972508c8831cb8b3f91b5a89ff",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/004/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 2 rows to /tmp/witness-3pdsuiq3/out.txt\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.txt",
+          "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+        },
+        "actual": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n",
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1
+    }
+  ],
+  "reason": "No definite violation, or witness rejected a correct control."
+}

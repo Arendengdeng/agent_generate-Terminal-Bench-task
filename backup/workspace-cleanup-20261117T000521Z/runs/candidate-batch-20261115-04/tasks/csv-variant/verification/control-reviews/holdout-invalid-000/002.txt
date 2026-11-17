@@ -1,0 +1,91 @@
+{
+  "label": "invalid-control",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017851099983090535,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'email': 'a...ame': 'Last'}] == [{'email': 'z...'A \"quoted\"'}]\n  \n  At index 0 diff: {'email': 'a@example.com', 'name': 'A \"quoted\"'} != {'email': 'z@example.com', 'name': 'Last'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_control_audit.py",
+            "line": 16,
+            "source": "            assert actual==expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.032718100999773014,
+      "commands": [
+        {
+          "nodeid": "test_control_audit.py::test_independent_control_audit",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019314800010761246,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/controls/holdout-invalid-audit/execution.json",
+  "implementation_manifest": {
+    "/app/sample_customers.csv": "4a2faf1bacdbd7f276a48a7eec0909f1df3fdcb954f4ff9fe506107cc17a2906",
+    "/app/clean.py": "4f45f1a8add32fd93f5630fb8ef9008269452da30c978865823e1ddf8c33b295",
+    "/solution/solve.sh": "98263c3e61f0124d2b5785477c2a37d28b1c415d4564cf469686371f3cf6eb9f"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "f686611c5b79938cfa62835d8cc8a385e46d8ab2dfadc0e71a8d29623f707287"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "f686611c5b79938cfa62835d8cc8a385e46d8ab2dfadc0e71a8d29623f707287"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "5386b16ff272d364599c830cab288a91d8b555353ad5c69dadf1ccd401198c5f",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_control_audit.py": "4b65740011f174671101049f6868403a0a954947acd3f98a07b18bf0d44a3801"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'email': ' z@EXAMPLE.com ', 'name': ' First, 姓名 '}, {'email': 'a@example.com', 'name': ' A \"quoted\" '}, {'email': 'Z@example.com', 'name': ' Last '}], [{'email': 'z@example.com', 'name': 'Last'}, {'email': 'a@example.com', 'name': 'A \"quoted\"'}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.csv'; target=t/'output.csv'\n                with source.open('w',encoding='utf-8',newline='') as f:\n                    w=csv.DictWriter(f,fieldnames=['email','name']); w.writeheader(); w.writerows(data)\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/clean.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n                with target.open(encoding='utf-8',newline='') as f:\n                    reader=csv.DictReader(f); assert reader.fieldnames==['email','name']; actual=list(reader)\n>               assert actual==expected\nE               assert [{'email': 'a...ame': 'Last'}] == [{'email': 'z...'A \"quoted\"'}]\nE                 \nE                 At index 0 diff: {'email': 'a@example.com', 'name': 'A \"quoted\"'} != {'email': 'z@example.com', 'name': 'Last'}\nE                 Use -v to get more diff\n\ntest_control_audit.py:16: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - assert [{'emai...\n1 failed in 0.07s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_control_audit.py::test_independent_control_audit"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "97ebe56f6e886d73db7d03684d8d5563090e1fc763cb5b459f7c2e323ceeb4c8",
+  "outcome": "fail",
+  "wall_sec": 5.903,
+  "attribution": "uncertain"
+}

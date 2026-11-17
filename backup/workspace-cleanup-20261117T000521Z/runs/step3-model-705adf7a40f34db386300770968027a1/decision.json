@@ -1,0 +1,81 @@
+{
+  "decision": "error",
+  "action": "investigate",
+  "reason_code": "CHALLENGE_INCOMPLETE",
+  "reasons": [
+    "Challenge search, attribution or regression has not completed.",
+    "Pipeline failed or was cancelled."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "CHALLENGE_INCOMPLETE",
+      "message": "Challenge search, attribution or regression has not completed.",
+      "details": {
+        "status": "error",
+        "samples": [],
+        "unresolved": [],
+        "repairs": 0,
+        "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/challenge/frozen-tests",
+        "initial_tests_digest": "2a8fc82a978b85313a49337823f60d84e2157cc855cef84c063ad7626ffb25ff",
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/challenge/frozen-tests",
+        "input_manifest": {
+          "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+          "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+          "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+          "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+        },
+        "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/archive/candidates/acceptance-csv-01",
+        "comparison_matrix": [],
+        "supplied_invalid_count": 0,
+        "search_status": "error",
+        "evidence_manifest": {
+          "frozen-tests/tests/test_clean.py": "953b65d37b78e14a7c520d5f70803663cceccfa9d604cbf68a724f3fc7157fae",
+          "frozen-tests/tests.json": "8428780b9f3963ca19f5124965b30ceebaf96e76aa22127f2dcfaa219c43a204",
+          "search/challenge.json": "6bba93ea47110662b4cf6bb18d4cac36081d4bad610c451031ab34c542a24752",
+          "search/trace.jsonl": "def981727ab463895a0203f5e1fcc342ce0d28e7335c7400c0b284b0f0fb6ad5"
+        },
+        "known_correct": [],
+        "stop_reason": "BudgetExceeded",
+        "budget_used": {
+          "model_calls": 40,
+          "tool_calls": 53,
+          "token_usage": {
+            "prompt_tokens": 484801,
+            "completion_tokens": 15765,
+            "total_tokens": 500566
+          }
+        },
+        "review_queue": []
+      },
+      "investigate_modules": []
+    },
+    {
+      "code": "PIPELINE_ERROR",
+      "message": "Pipeline failed or was cancelled.",
+      "details": {
+        "stage": "challenge",
+        "status": "error",
+        "error": {
+          "type": "CHALLENGE_INCOMPLETE",
+          "message": "BudgetExceeded"
+        }
+      },
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/control-panel.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-705adf7a40f34db386300770968027a1/challenge/challenge-report.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

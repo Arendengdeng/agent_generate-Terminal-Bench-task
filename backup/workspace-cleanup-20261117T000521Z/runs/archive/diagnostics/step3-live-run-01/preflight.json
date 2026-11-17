@@ -1,0 +1,38 @@
+{
+  "docker": {
+    "status": "available",
+    "process": {
+      "argv": [
+        "docker",
+        "info",
+        "--format",
+        "{{.OSType}}"
+      ],
+      "exit_code": 0,
+      "error": null,
+      "stdout_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-live-run-01/docker-info.stdout.log",
+      "stderr_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-live-run-01/docker-info.stderr.log"
+    }
+  },
+  "harbor": {
+    "status": "available",
+    "version": "0.25.0"
+  },
+  "status": "unavailable",
+  "harbor_network": {
+    "status": "unavailable",
+    "process": {
+      "argv": [
+        "/home/zyl/projects/agent_generate Terminal Bench task/.harbor-venv/bin/python",
+        "-I",
+        "-c",
+        "from harbor.environments.docker.docker import DockerEnvironment; import sys; ok = DockerEnvironment._egress_control_kernel_support(); print('supported' if ok else 'unsupported'); sys.exit(0 if ok else 1)"
+      ],
+      "exit_code": 1,
+      "error": null,
+      "stdout_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-live-run-01/harbor-network.stdout.log",
+      "stderr_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-live-run-01/harbor-network.stderr.log"
+    },
+    "requirement": "Harbor Docker no-network requires CONFIG_NFT_FIB_INET; probe errors also fail closed."
+  }
+}

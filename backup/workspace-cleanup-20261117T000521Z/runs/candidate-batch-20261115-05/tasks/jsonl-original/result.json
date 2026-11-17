@@ -1,0 +1,90 @@
+{
+  "id": "jsonl-original",
+  "family": "jsonl",
+  "variant": "original",
+  "outcome": "unresolved",
+  "detail": "needs_review",
+  "failure_stage": "challenge",
+  "responsible_module": "unknown",
+  "candidate_generated": true,
+  "stages": {
+    "synthesis": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/candidate/synthesis.json",
+      "reused": true
+    },
+    "controls": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/controls/manifest.json",
+      "reused": true
+    },
+    "independent_test": {
+      "status": "passed",
+      "reason": "upstream_not_completed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/run_result.json"
+    },
+    "challenge": {
+      "status": "completed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/challenge/challenge-report.json",
+      "confirmed_violations": 1,
+      "already_rejected": 1,
+      "review_queue": [
+        {
+          "id": "000",
+          "status": "unconfirmed",
+          "reason": "The concrete input and result follow from the Contract (ordering a<b, grouping, sums), but not every expected assertion follows from R1. specifically: (1) stdout==\"\" and stderr==\"\" are not required by any Requirement; the Contract permits normal exit and validity of JSON, not silence, so empty-stream assertions are extra formatting/behavior constraints beyond the Contract. (2) The witness checks the input file is unchanged, but the cited requirement is R1 (\"accept paths, exit normally, produce conforming JSON\"); the no-modification rule belongs to R4, so it is not derivable from the cited Requirement. (3) The argv uses `python3` and `$WORK/...` paths rather than the exact contract command form `python /app/summarize.py <input> <output>`; while semantically equivalent in spirit, the witness's own rationale claims it exercises the contract command form, which it does not strictly. The JSON ordering/values themselves are consistent with output_spec, but because the assertion set contains constraints not entailed by the cited R1 (and referencing R4), the witness cannot be confirmed as-is.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/challenge/search/candidates/000/witness.json"
+        },
+        {
+          "id": "001",
+          "status": "unconfirmed",
+          "reason": "No definite violation, or witness rejected a correct control.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/challenge/search/candidates/001/witness.json"
+        },
+        {
+          "id": "003",
+          "status": "unconfirmed",
+          "reason": "No definite violation, or witness rejected a correct control.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/challenge/search/candidates/003/witness.json"
+        }
+      ]
+    },
+    "repair": {
+      "status": "needs_review",
+      "attempts": 0,
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/challenge/challenge-report.json"
+    },
+    "reverification": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-original/verification/run_result.json"
+    }
+  },
+  "cost": {
+    "model_calls": 16,
+    "tool_calls": 20,
+    "token_usage": {
+      "prompt_tokens": 100849,
+      "completion_tokens": 5959,
+      "total_tokens": 106808
+    },
+    "wall_sec": 375.153,
+    "synthesis": {
+      "model_calls": 0,
+      "tool_calls": 0
+    },
+    "verification": {
+      "model_calls": 16,
+      "tool_calls": 20,
+      "token_usage": {
+        "prompt_tokens": 100849,
+        "completion_tokens": 5959,
+        "total_tokens": 106808
+      }
+    }
+  },
+  "repair_count": 0,
+  "reused_candidate_from": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/candidate",
+  "controller_decision": "accept",
+  "native_stage": "execution",
+  "error": null
+}

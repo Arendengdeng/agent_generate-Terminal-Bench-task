@@ -1,0 +1,91 @@
+{
+  "label": "invalid-challenge",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012822200369555503,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x76bcdbce02b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 50,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"parsed_file\", \"path\": [\"people.csv\", \"csv\"], \"value\": [[\"email\", \"name\"], [\"bob@example.com\", \"Doe, Bob\"], [\"alice@example.com\", \"Alice Chen\"]]}, \"actual_error\": \"FileNotFoundError\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.035965663999377284,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"parsed_file\", \"path\": [\"people.csv\", \"csv\"], \"value\": [[\"email\", \"name\"], [\"bob@example.com\", \"Doe, Bob\"], [\"alice@example.com\", \"Alice Chen\"]]}, \"actual_error\": \"FileNotFoundError\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00015562100452370942,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/witness/invalid-challenge/execution.json",
+  "implementation_manifest": {
+    "/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "/solution/solve.sh": "0eda2ca0a635462b3264eddf6e2b0158be67a38b94a5e38e420e66c7c4898b94"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "0b0b869ac98243c9201c07ca0825a320277873e50ed392e18b1c015a4d177068"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "0b0b869ac98243c9201c07ca0825a320277873e50ed392e18b1c015a4d177068"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_contract_witness.py": "7609e6ff7afb6e587524c489ef1e41b60053e4b3c8e63525705db442b6efde44"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________________________ test_contract_witness _____________________________\n\n    def test_contract_witness():\n        with tempfile.TemporaryDirectory(prefix='witness-') as directory:\n            root = pathlib.Path(directory)\n            for name, content in SPEC['fixtures'].items():\n                path = root / name\n                path.parent.mkdir(parents=True, exist_ok=True)\n                path.write_text(content)\n            proc = subprocess.run([a.replace('$WORK', directory) for a in SPEC['argv']],\n                                  input=SPEC['stdin'], capture_output=True, text=True, timeout=TIMEOUT)\n            observed = {'exit_code': proc.returncode, 'stdout': proc.stdout, 'stderr': proc.stderr}\n            checks = []\n            for assertion in SPEC['assertions']:\n                source, path = assertion['source'], assertion['path']\n                try:\n                    if source == 'json':\n                        actual = json.loads(proc.stdout)\n                        for key in path:\n                            actual = actual[key]\n                    elif source == 'parsed_file':\n                        target = root / path[0]\n                        if not target.resolve().is_relative_to(root.resolve()):\n                            raise ValueError('output escaped fixture directory')\n                        if path[1] == 'csv':\n                            with target.open(encoding='utf-8', newline='') as stream:\n                                actual = list(csv.reader(stream, strict=True))\n                        else:\n                            text = target.read_text(encoding='utf-8')\n                            actual = json.loads(text) if path[1] == 'json' else [json.loads(line) for line in text.splitlines()]\n                    elif source in ('file', 'unchanged'):\n                        target = root / path\n                        if not target.resolve().is_relative_to(root.resolve()):\n                            raise ValueError('output escaped fixture directory')\n                        actual = target.read_text()\n                        if source == 'unchanged':\n                            actual = actual == SPEC['fixtures'][path]\n                    else:\n                        actual = observed[source]\n                    checks.append({'assertion': assertion, 'actual': actual,\n                                   'passed': type(actual) is type(assertion['value']) and actual == assertion['value']})\n                except (csv.Error, ValueError, KeyError, IndexError, TypeError, OSError) as exc:\n                    checks.append({'assertion': assertion, 'actual_error': type(exc).__name__, 'passed': False})\n            observed['checks'] = checks\n            print('WITNESS_OBSERVATION=' + json.dumps(observed))\n>           assert all(c['passed'] for c in checks), 'Contract behavior witness failed'\nE           AssertionError: Contract behavior witness failed\nE           assert False\nE            +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x76bcdbce02b0>)\n\ntest_contract_witness.py:50: AssertionError\n----------------------------- Captured stdout call -----------------------------\nWITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"parsed_file\", \"path\": [\"people.csv\", \"csv\"], \"value\": [[\"email\", \"name\"], [\"bob@example.com\", \"Doe, Bob\"], [\"alice@example.com\", \"Alice Chen\"]]}, \"actual_error\": \"FileNotFoundError\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}]}\n=========================== short test summary info ============================\nFAILED test_contract_witness.py::test_contract_witness - AssertionError: Cont...\n1 failed in 0.07s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "b0d76610cf36610fdec21791073a6580acb93f8125358e876c45419f2c842ae5",
+  "outcome": "fail",
+  "wall_sec": 5.508,
+  "attribution": "uncertain"
+}

@@ -1,0 +1,234 @@
+............FFFFFFFFFF                                                   [100%]
+=================================== FAILURES ===================================
+________________________________ test_double[1] ________________________________
+
+n = 1
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 2 for n=1, got 1
+E       assert 1 == (2 * 1)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 1, "double": 1}
+________________________________ test_double[2] ________________________________
+
+n = 2
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 4 for n=2, got 2
+E       assert 2 == (2 * 2)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 2, "double": 2}
+________________________________ test_double[3] ________________________________
+
+n = 3
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 6 for n=3, got 3
+E       assert 3 == (2 * 3)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 3, "double": 3}
+________________________________ test_double[4] ________________________________
+
+n = 4
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 8 for n=4, got 4
+E       assert 4 == (2 * 4)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 4, "double": 4}
+________________________________ test_double[5] ________________________________
+
+n = 5
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 10 for n=5, got 5
+E       assert 5 == (2 * 5)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 5, "double": 5}
+________________________________ test_double[6] ________________________________
+
+n = 6
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 12 for n=6, got 6
+E       assert 6 == (2 * 6)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 6, "double": 6}
+________________________________ test_double[7] ________________________________
+
+n = 7
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 14 for n=7, got 7
+E       assert 7 == (2 * 7)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 7, "double": 7}
+________________________________ test_double[8] ________________________________
+
+n = 8
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 16 for n=8, got 8
+E       assert 8 == (2 * 8)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 8, "double": 8}
+________________________________ test_double[9] ________________________________
+
+n = 9
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 18 for n=9, got 9
+E       assert 9 == (2 * 9)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 9, "double": 9}
+_______________________________ test_double[10] ________________________________
+
+n = 10
+
+    @pytest.mark.parametrize("n", PERMITTED)
+    def test_double(n):
+        data = run(n)
+        assert set(data.keys()) == {"value", "double"}, (
+            "expected exactly keys value and double for n=%d, got %r"
+            % (n, sorted(data.keys()))
+        )
+        dbl = data["double"]
+        assert isinstance(dbl, int) and not isinstance(dbl, bool), (
+            "expected integer double for n=%d, got %r" % (n, dbl)
+        )
+>       assert dbl == 2 * n, "expected double == %d for n=%d, got %r" % (2 * n, n, dbl)
+E       AssertionError: expected double == 20 for n=10, got 10
+E       assert 10 == (2 * 10)
+
+test_behavior.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 10, "double": 10}
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_double[1] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[2] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[3] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[4] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[5] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[6] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[7] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[8] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[9] - AssertionError: expected double == ...
+FAILED test_behavior.py::test_double[10] - AssertionError: expected double ==...
+10 failed, 12 passed in 0.81s

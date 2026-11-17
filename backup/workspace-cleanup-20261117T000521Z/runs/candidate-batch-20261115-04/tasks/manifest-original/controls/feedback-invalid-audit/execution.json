@@ -1,0 +1,99 @@
+{
+  "label": "invalid-control",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005533669973374344,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'path': 'a....00000000000'}] == [{'path': 'a....dc7169389b8'}]\n  \n  At index 0 diff: {'path': 'a.txt', 'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'} != {'path': 'a.txt', 'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_control_audit.py",
+            "line": 14,
+            "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06829062900214922,
+      "commands": [
+        {
+          "nodeid": "test_control_audit.py::test_independent_control_audit",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023627399787073955,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/controls/feedback-invalid-audit/execution.json",
+  "implementation_manifest": {
+    "/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371",
+    "/app/sample/release/Überblick.md": "a1f4b3b4c74dfd93dcbda1e88506d7b70335997456cffcb4ddff4c1532d015cc",
+    "/app/sample/release/readme.md": "f7b8f6b4939711c973888537901df445c2bf4f38866e5646274c7484ba9f9cbb",
+    "/app/sample/release/patch notes.txt": "2bde51b7e799e9604b6ab436ccfaaca102b109446b91551c2bc226c09e4f693a",
+    "/app/sample/release/README.txt": "b67d0928909b90767a3be258e96348c4d1391efb998202ca82bf45d886f391a6",
+    "/app/sample/release/notes.txt": "a3a60d91a8c8a8cc8e6cf6b65959d2894b5c8c86bc7fbeb13fce7b731cc03ea5",
+    "/app/sample/release/assets/fonts/readme.md": "0abbd0c0884225cc0e5b417a8123a196e2ed9317b7003daf0e4679ad1d779817",
+    "/solution/solve.sh": "f66a2edf821b6a16bf3aa41976827902a1eeae644c25e742d430dc084e28f393"
+  },
+  "artifact_manifest": {
+    "/app/src/manifest.py": "3d43974983abc82b16b95cde217165c4b65ec8ce5e39df07811454c9162f957c",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "received_artifact_manifest": {
+    "/app/src/manifest.py": "3d43974983abc82b16b95cde217165c4b65ec8ce5e39df07811454c9162f957c",
+    "/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "f94d6f6b65a31c57896fc5a43ec8a1ec279ca023bd87bdccce6a220abab24669",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_control_audit.py": "d74a15e0a40082a7097d7a36bce7195632185cc91b3e2f92cdac2ba5d679682e"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [({'a.txt': [], 'nested/a.txt': [0, 255], '中文 space.bin': [0, 255]}, [{'path': 'a.txt', 'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}, {'path': 'nested/a.txt', 'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8'}, {'path': '中文 space.bin', 'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8'}]), ({}, [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'tree'; source.mkdir(); (source/'empty dir').mkdir(); target=t/'output.json'\n                for name,values in data.items():\n                    file=source/name; file.parent.mkdir(parents=True,exist_ok=True); file.write_bytes(bytes(values))\n                before={p.relative_to(source).as_posix():p.read_bytes() for p in source.rglob('*') if p.is_file()}\n                p=subprocess.run(['python3','/app/src/manifest.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n>               assert json.loads(target.read_text(encoding='utf-8'))==expected\nE               AssertionError: assert [{'path': 'a....00000000000'}] == [{'path': 'a....dc7169389b8'}]\nE                 \nE                 At index 0 diff: {'path': 'a.txt', 'size': 0, 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'} != {'path': 'a.txt', 'size': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}\nE                 Use -v to get more diff\n\ntest_control_audit.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - AssertionError...\n1 failed in 0.13s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_control_audit.py::test_independent_control_audit"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "4892e23b6f1fd99c21e17e22c226b0e3e00b7226056a5fc9832ef4e17f96a4c5",
+  "outcome": "fail",
+  "wall_sec": 13.59,
+  "attribution": "uncertain"
+}

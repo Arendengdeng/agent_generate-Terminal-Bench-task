@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "results": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014787200052523986,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x738d7904c2b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 40,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"service\"], \"value\": \"svc\"}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"level\"], \"value\": \"INFO\"}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"count\"], \"value\": 2}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"total_duration_ms\"], \"value\": 7}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.040569893004430924,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"service\"], \"value\": \"svc\"}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"level\"], \"value\": \"INFO\"}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"count\"], \"value\": 2}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}, {\"assertion\": {\"source\": \"json\", \"path\": [0, \"total_duration_ms\"], \"value\": 7}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.000374739000108093,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/summarize.py": "aad4048f476a7b8708f21a6d715cb6ad0e07845a88c41e93fe0754b3fc62c2b2"
+  },
+  "wall_sec": 0.251141
+}

@@ -1,0 +1,48 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。",
+  "rationale": "R3 requires supporting different inputs and Unicode service names together with deterministic ordering (service then level, Python string ascending) and only emitting occurring groups. For input lines (b,INFO,0), (a,ERROR,5), (a,INFO,2), (a,INFO,3) the Contract-mandated output is [{'service':'a','level':'ERROR','count':1,'total_duration_ms':5}, {'service':'a','level':'INFO','count':2,'total_duration_ms':5}, {'service':'b','level':'INFO','count':1,'total_duration_ms':0}]: each group's total_duration_ms equals exactly the sum of its records' duration_ms (a/ERROR: 5, a/INFO: 2+3=5, b/INFO: 0). The assertions check exit code 0 and that exact JSON at the output path.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"b\", \"level\": \"INFO\", \"duration_ms\": 0}\n{\"service\": \"a\", \"level\": \"ERROR\", \"duration_ms\": 5}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 2}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 3}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "service": "a",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "a",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "b",
+          "level": "INFO",
+          "count": 1,
+          "total_duration_ms": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "status": "failed",
+  "requested_backends": [
+    "live-model",
+    "docker",
+    "harbor"
+  ],
+  "execution": {
+    "dependency_status": "ready",
+    "groups_started": [
+      "challenge"
+    ],
+    "groups_completed": []
+  },
+  "initial_suite": "constructed-gap",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 80,
+    "max_tool_calls": 200,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 6000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "groups": {
+    "challenge": {
+      "status": "error",
+      "group": "challenge",
+      "flags": {
+        "independent_generation": false,
+        "challenge_search": true,
+        "test_repair": false
+      },
+      "limitation": "Finite task/control experiment. Challenge-discovered samples are selected, not held-out robustness evidence.",
+      "input_manifest": {
+        "inputs/contract.json": "491a8d9c65fe7d8e57857f820ad3377a1ec4035800b090bf4aa1dc497866854a",
+        "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+        "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+        "inputs/instruction.md": "db2f9cfb46c561fef62cb869bf9a30d73b8b6c528f29a80d863ece801e8b7c8c"
+      },
+      "initial_tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+      "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/baseline-tests",
+      "before": {
+        "incorrect_count": 0,
+        "correct_count": 2,
+        "false_acceptance_rate": null,
+        "false_rejection_rate": 0.0,
+        "error_count": 0
+      },
+      "challenge": {
+        "status": "error",
+        "samples": [
+          {
+            "id": "000",
+            "status": "error",
+            "violation_status": "unconfirmed",
+            "requirement_id": "R1",
+            "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/000/solution",
+            "solution_digest": "af707cab361bede726c3ce96d65e8fe5564662e6b218b0ba872de86de92c2c27",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/000/witness.json",
+            "tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+            "reason": "Verifier source integrity evidence mismatch",
+            "error_type": "SynthesisError"
+          },
+          {
+            "id": "001",
+            "status": "error",
+            "violation_status": "unconfirmed",
+            "requirement_id": "R2",
+            "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/001/solution",
+            "solution_digest": "bda78b3bc997057858d8f0f46b754c0091cd6f00109b3f6848ce9371033f6ce2",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/001/witness.json",
+            "tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+            "reason": "Verifier source integrity evidence mismatch",
+            "error_type": "SynthesisError"
+          }
+        ],
+        "unresolved": [],
+        "repairs": 0,
+        "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/frozen-tests",
+        "initial_tests_digest": "26f095a345998ada91b1dff17759d7b93c68932d6f9896a236ace92dcfb59cbd",
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/frozen-tests",
+        "input_manifest": {
+          "inputs/contract.json": "491a8d9c65fe7d8e57857f820ad3377a1ec4035800b090bf4aa1dc497866854a",
+          "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+          "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+          "inputs/instruction.md": "db2f9cfb46c561fef62cb869bf9a30d73b8b6c528f29a80d863ece801e8b7c8c"
+        },
+        "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/candidate",
+        "comparison_matrix": [],
+        "supplied_invalid_count": 0,
+        "search_status": "completed",
+        "evidence_manifest": {
+          "controls/known-000/solve.sh": "2659f67eb77c6364e1575b07ea9cbe1ba749fac38f1ba5025e3a956f8abae1fe",
+          "frozen-tests/tests/test_baseline.py": "61261c7541b2955b21c53c7b3161e8b5be49fcd956363b3e8b08250351f8092d",
+          "frozen-tests/tests.json": "0bd0d02ad824dc4175c398dba2181cdac937fe437a769fb92f71c8053348fd7b",
+          "search/candidates/000/result.json": "ef4dcc3f094fe445c8ffe3594528b3878311f1a9387390b4eedd42ff90196aac",
+          "search/candidates/000/review.json": "f63b3e06d1c524d2078db616fc229f289cfa7fad9cc0a290271157e855d794b2",
+          "search/candidates/000/solution/app/clean.py": "f165551cadfd9c9a550e51748f814ec95a9103598cfe14cb7f15ee6bc12d57c0",
+          "search/candidates/000/solution/solve.sh": "7e9b9f6dac44f340c600c97fa0cf050e68f2f636a79b16e008fc0ab655e06270",
+          "search/candidates/000/witness/invalid-challenge/execution.json": "4b303fae02448cb4357987fde3d64caf50690fd5e175565da3db9430500dbd31",
+          "search/candidates/000/witness/invalid-challenge/pytest.json": "20b628b80435169dc7cd45bc072e33ce02ac30490db3a1f9005075e7b29e9353",
+          "search/candidates/000/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+          "search/candidates/000/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "search/candidates/000/witness/invalid-challenge/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+          "search/candidates/000/witness.json": "acb64379ad17745d3940d7ca5bc3a129fddddf6b724c028031a145f3bcde7078",
+          "search/candidates/001/result.json": "b3c6a4ad133846824e6c9f7dc8c44338d37e71ce9e3f87c7f09dd13bc24a0009",
+          "search/candidates/001/review.json": "af99144131480ac0afce561e42c648a77085fd0b348193ff1fafe6e20e28a5ea",
+          "search/candidates/001/solution/app/clean.py": "41915e51c3176bc8387af7afc3ba68ee32f1d3f09c2d3611b8670507b3a7fce1",
+          "search/candidates/001/solution/solve.sh": "7e9b9f6dac44f340c600c97fa0cf050e68f2f636a79b16e008fc0ab655e06270",
+          "search/candidates/001/witness/invalid-challenge/execution.json": "1f9ace76de6a474312e550ffeaa6ea14eeb89e50c2e179d37e05803e322ff1c8",
+          "search/candidates/001/witness/invalid-challenge/pytest.json": "8b5dcb97ff7223c233542281f4f21944a9241d001ece6498002e98861c6c6a6c",
+          "search/candidates/001/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+          "search/candidates/001/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "search/candidates/001/witness/invalid-challenge/stdout.log": "e93632f4cabdf2ec4d121b8f3dfd55fbf4eea5b6a089a4320e010aa5e18ad30d",
+          "search/candidates/001/witness.json": "d1f09dc297f9b0f729a17c54ba825ff4c52e74adb0f700504f356fa67e01b870",
+          "search/challenge.json": "7d54307cada7f1c0eba876fe2aa7e92db2ad89b606998a32fed1d8fd9261c176",
+          "search/trace.jsonl": "abf104f132092344515ebd49092559ecee04f79bdb46fff439b907f0d51271f8"
+        },
+        "known_correct": [
+          {
+            "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/controls/known-000",
+            "manifest": {
+              "solve.sh": "2659f67eb77c6364e1575b07ea9cbe1ba749fac38f1ba5025e3a956f8abae1fe"
+            }
+          }
+        ],
+        "stop_reason": "challenge_execution_error",
+        "budget_used": {
+          "model_calls": 19,
+          "tool_calls": 24,
+          "token_usage": {
+            "prompt_tokens": 53449,
+            "completion_tokens": 3335,
+            "total_tokens": 56784
+          }
+        },
+        "review_queue": [
+          {
+            "id": "000",
+            "status": "error",
+            "reason": "Verifier source integrity evidence mismatch",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/000/witness.json"
+          },
+          {
+            "id": "001",
+            "status": "error",
+            "reason": "Verifier source integrity evidence mismatch",
+            "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/search/candidates/001/witness.json"
+          }
+        ]
+      },
+      "challenge_report_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/full-verification-aZhkW4Wq/challenge-gap/challenge/challenge/challenge-report.json",
+      "error": "challenge_execution_error",
+      "cost": {
+        "wall_sec": 70.817,
+        "model_calls": 19,
+        "tool_calls": 24,
+        "token_usage": {
+          "prompt_tokens": 53449,
+          "completion_tokens": 3335,
+          "total_tokens": 56784
+        }
+      }
+    }
+  },
+  "error": {
+    "type": "AssertionError",
+    "message": "{'group': 'challenge', 'status': 'error', 'error': 'challenge_execution_error'}"
+  },
+  "wall_sec": 79.492,
+  "cost": {
+    "model_calls": 19,
+    "tool_calls": 24
+  }
+}

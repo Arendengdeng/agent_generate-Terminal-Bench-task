@@ -1,0 +1,57 @@
+{
+  "contract": {
+    "objective": "修复 JSONL 聚合工具，仅按 service 分组，统计条数、总耗时及最大耗时。",
+    "workspace": "/app",
+    "command": "python /app/summarize.py <input.jsonl> <output.json>",
+    "input_spec": "UTF-8 JSONL，每行对象包含非空字符串 service、级别 INFO/WARN/ERROR 和非负整数 duration_ms。最多 1000 行；允许空文件，不包含空行或非法 JSON。",
+    "output_spec": "UTF-8 JSON 数组；每个实际出现的 service 对应一个对象，恰含 service、count、total_duration_ms、max_duration_ms。统计该服务所有级别的记录数、耗时之和及最大耗时。按 service 的 Python 字符串升序排列；空输入输出 []。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/summarize.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON。"
+      },
+      {
+        "id": "R2",
+        "description": "仅按 service 分组，跨 level 统计条数、总耗时与最大耗时，不丢失重复记录。"
+      },
+      {
+        "id": "R3",
+        "description": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。"
+      },
+      {
+        "id": "R4",
+        "description": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_input_lines": 1000
+    }
+  },
+  "source": "import json,sys\nwith open(sys.argv[1],encoding='utf-8') as f: records=[json.loads(line) for line in f]\ngroups={}\nfor row in records:\n    key=row['service']\n    if key not in groups: groups[key]=dict(service=row['service'],count=0,total_duration_ms=0,max_duration_ms=0)\n    g=groups[key]\n    g['count']+=1\n    g['total_duration_ms']+=row['duration_ms']\n    g['max_duration_ms']=max(g['max_duration_ms'],row['duration_ms'])\nresult=[groups[k] for k in sorted(groups)]\nwith open(sys.argv[2],'w',encoding='utf-8') as f: json.dump(result,f,ensure_ascii=False)\n",
+  "review": {
+    "status": "confirmed",
+    "reviewer": "Codex authored source review and independent Docker behavior audit",
+    "method": "contract-source-review-and-finite-behavior-audit",
+    "rationale": "Both standard-library sources parse each JSONL record once, initialize counts and sums to zero, add every record including duplicates and sort by the required key. The service-only key merges levels and max starts at zero, valid for nonnegative durations. Empty input gives []; JSON preserves Unicode semantically. Only output is written, and only summarize.py is delivered.",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-correct-review.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/test_control_audit.py",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-correct-audit/execution.json"
+    ]
+  },
+  "limitation": "Finite probe plus source review; not exhaustive verification."
+}

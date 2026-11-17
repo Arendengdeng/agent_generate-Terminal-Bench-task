@@ -1,0 +1,43 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "output_spec 规定输出必须使用 CSV 转义规则（\"使用 CSV 转义规则\"）。当姓名本身包含双引号时，合法 CSV 必须把内嵌的双引号写成两个双引号（即 \"Q\"\"X\"\"Z\"）。本实现虽然会加引号，但未把内嵌双引号翻倍，因此写出的 CSV 不是规范 CSV：按标准规则重新解析后，name 字段会变成 Q\"X\"Z 之后内容不同（重读后值不再等于 \"Q\"X\"Z\"）。程序退出码仍为 0，但输出文件违反规范，故 R1 中\"写出规范 CSV\"被违反。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nQ@X.com,\"Q\"\"X\"\"Z\"\nq@x.com,dup\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "q@x.com",
+          "Q\"X\"Z"
+        ]
+      ]
+    }
+  ]
+}

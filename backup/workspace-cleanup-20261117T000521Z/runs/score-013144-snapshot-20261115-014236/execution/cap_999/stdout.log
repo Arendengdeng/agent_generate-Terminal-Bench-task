@@ -1,0 +1,29 @@
+........F.....                                                           [100%]
+=================================== FAILURES ===================================
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        expected = []
+        records = []
+        for i in range(1000):
+            email = "user%04d@example.com" % i
+            name = "User %d, Esq." % i if i % 3 == 0 else "User %d" % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ["email", "name"], records)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['user0000@e...User 5'], ...] == [['user0000@e...User 5'], ...]
+E         
+E         Right contains one more item: ['user0999@example.com', 'User 999, Esq.']
+E         Use -v to get more diff
+
+test_clean.py:178: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+1 failed, 13 passed in 0.71s

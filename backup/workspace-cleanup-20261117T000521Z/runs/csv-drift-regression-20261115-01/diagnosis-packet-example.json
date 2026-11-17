@@ -1,0 +1,230 @@
+{
+  "contract": {
+    "objective": "修复客户名单清洗工具，正确解析 CSV、归一化字段并按邮箱去重。",
+    "workspace": "/app",
+    "command": "python /app/clean.py <input.csv> <output.csv>",
+    "input_spec": "UTF-8 CSV，表头恰为 email,name；使用标准 CSV 引号规则，字段可能包含逗号；email 去掉首尾空白后非空，只含 ASCII 字符。输入最多 1000 条数据记录，可以仅有表头。",
+    "output_spec": "UTF-8 CSV，表头为 email,name。邮箱去掉首尾空白后转小写；姓名仅去掉首尾空白。按归一化邮箱去重，保留首次记录及其姓名，输出顺序为首次出现顺序；使用 CSV 转义规则。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+      },
+      {
+        "id": "R2",
+        "description": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。"
+      },
+      {
+        "id": "R3",
+        "description": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+      },
+      {
+        "id": "R4",
+        "description": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_input_lines": 1001
+    }
+  },
+  "repair_parent_digest": "933c621672a69b9ab1c5714fa17f40b5c2c0020b23a372a6496e323e1b783387",
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "b217d68163fef01888dcb5050277639ef48afff28ac22f0f0b50c1121792079d",
+    "inputs/instruction.md": "5fdb9973aee84a45f07bd3898d0c96f8a95d9333a9d189d9cfd4adbab981f6eb"
+  },
+  "repair_permission": "diagnosis_required",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_basic_dedupe_and_normalization",
+        "test_clean.py::test_header_only",
+        "test_stdlib_only.py::test_runs_isolated_without_site_packages"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_basic_dedupe_and_normalization",
+        "test_clean.py::test_quoted_commas_and_quotes",
+        "test_clean.py::test_multiline_quoted_field",
+        "test_clean.py::test_blank_email_records_skipped",
+        "test_clean.py::test_empty_name_preserved_as_empty",
+        "test_clean.py::test_first_occurrence_order",
+        "test_clean.py::test_varied_inputs[records0]",
+        "test_clean.py::test_varied_inputs[records1]",
+        "test_clean.py::test_varied_inputs[records2]",
+        "test_clean.py::test_large_input_1000_records"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only",
+        "test_clean.py::test_header_only_crlf",
+        "test_clean.py::test_varied_inputs[records0]",
+        "test_clean.py::test_varied_inputs[records1]",
+        "test_clean.py::test_varied_inputs[records2]",
+        "test_clean.py::test_basic_dedupe_and_normalization",
+        "test_clean.py::test_large_input_1000_records"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_not_modified",
+        "test_clean.py::test_no_stray_files_created_in_cwd",
+        "test_stdlib_only.py::test_only_stdlib_imports",
+        "test_clean.py::test_stdlib_only_imports",
+        "test_stdlib_only.py::test_runs_isolated_without_site_packages"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "known-000:test_clean.py::test_basic_dedupe_and_normalization:call",
+      "label": "known-000",
+      "nodeid": "test_clean.py::test_basic_dedupe_and_normalization",
+      "when": "call",
+      "outcome": "failed",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "exception_type": "AssertionError",
+      "frames": [
+        {
+          "path": "test_clean.py",
+          "line": 79,
+          "source": "    assert \"\\r\\n\" not in text"
+        }
+      ]
+    },
+    {
+      "id": "known-000:test_clean.py::test_header_only:call",
+      "label": "known-000",
+      "nodeid": "test_clean.py::test_header_only",
+      "when": "call",
+      "outcome": "failed",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "exception_type": "AssertionError",
+      "frames": [
+        {
+          "path": "test_clean.py",
+          "line": 128,
+          "source": "    assert \"\\r\\n\" not in text"
+        }
+      ]
+    },
+    {
+      "id": "known-000:test_clean.py::test_blank_email_records_skipped:call",
+      "label": "known-000",
+      "nodeid": "test_clean.py::test_blank_email_records_skipped",
+      "when": "call",
+      "outcome": "failed",
+      "requirement_ids": [
+        "R2"
+      ],
+      "exception_type": "AssertionError",
+      "frames": [
+        {
+          "path": "test_clean.py",
+          "line": 146,
+          "source": "    rows = parse_output(check(tmp_path, records))"
+        },
+        {
+          "path": "test_clean.py",
+          "line": 65,
+          "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+        }
+      ]
+    },
+    {
+      "id": "known-000:test_stdlib_only.py::test_runs_isolated_without_site_packages:call",
+      "label": "known-000",
+      "nodeid": "test_stdlib_only.py::test_runs_isolated_without_site_packages",
+      "when": "call",
+      "outcome": "failed",
+      "requirement_ids": [
+        "R1",
+        "R4"
+      ],
+      "exception_type": "AssertionError",
+      "frames": [
+        {
+          "path": "test_stdlib_only.py",
+          "line": 37,
+          "source": "    assert out.read_bytes() == b\"email,name\\nb@x.com,Bob\\n\""
+        }
+      ]
+    }
+  ],
+  "source_excerpts": [
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 71,
+      "source": "71:         (\"Alice@Example.com\", \"Alice\"),\n72:         (\"  alice@example.com  \", \"Alice Dup\"),\n73:         (\"bob@example.com\", \"Bob\"),\n74:         (\"BOB@EXAMPLE.COM\", \"Bobby\"),\n75:         (\"carol@example.com\", \"  Carol  \"),\n76:     ]\n77:     data = check(tmp_path, records)\n78:     text = data.decode(\"utf-8\")\n79:     assert \"\\r\\n\" not in text\n80:     assert text.split(\"\\n\")[0] == \"email,name\"\n81: \n82: \n83: def test_quoted_commas_and_quotes(tmp_path):\n84:     csv_text = (\n85:         'email,name\\r\\n'\n86:         '\"a@x.com\",\"Smith, John\"\\r\\n'\n87:         '\"A@X.COM\",\"Other, Name\"\\r\\n'"
+    },
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 120,
+      "source": "120:     ]\n121: \n122: \n123: def test_header_only(tmp_path):\n124:     data = check(tmp_path, [], csv_text=\"email,name\\n\")\n125:     rows = parse_output(data)\n126:     assert rows == [[\"email\", \"name\"]]\n127:     text = data.decode(\"utf-8\")\n128:     assert \"\\r\\n\" not in text\n129: \n130: \n131: def test_header_only_crlf(tmp_path):\n132:     data = check(tmp_path, [], csv_text=\"email,name\\r\\n\")\n133:     rows = parse_output(data)\n134:     assert rows == [[\"email\", \"name\"]]\n135: \n136: "
+    },
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 138,
+      "source": "138:     records = [\n139:         (\"   \", \"Nobody\"),\n140:         (\"\", \"Empty\"),\n141:         (\"real@example.com\", \"Real\"),\n142:         (\" real@example.com\", \"Real Again\"),\n143:         (\"\\t\", \"Tab\"),\n144:         (\"second@example.com\", \"Second\"),\n145:     ]\n146:     rows = parse_output(check(tmp_path, records))\n147:     assert rows == [\n148:         [\"email\", \"name\"],\n149:         [\"real@example.com\", \"Real\"],\n150:         [\"second@example.com\", \"Second\"],\n151:     ]\n152: \n153: \n154: def test_empty_name_preserved_as_empty(tmp_path):"
+    },
+    {
+      "path": "tests/test_clean.py",
+      "start_line": 57,
+      "source": "57:         writer.writerow([\"email\", \"name\"])\n58:         for r in records:\n59:             writer.writerow(list(r))\n60:         csv_text = buf.getvalue()\n61:     _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n62:     rows = parse_output(data)\n63:     exp = expected(records)\n64:     assert rows[0] == [\"email\", \"name\"], rows[0]\n65:     assert [tuple(r) for r in rows[1:]] == exp[1:], rows\n66:     return data\n67: \n68: \n69: def test_basic_dedupe_and_normalization(tmp_path):\n70:     records = [\n71:         (\"Alice@Example.com\", \"Alice\"),\n72:         (\"  alice@example.com  \", \"Alice Dup\"),\n73:         (\"bob@example.com\", \"Bob\"),"
+    },
+    {
+      "path": "tests/test_stdlib_only.py",
+      "start_line": 29,
+      "source": "29:     out = tmp_path / \"out.csv\"\n30:     proc = subprocess.run(\n31:         [sys.executable, \"-I\", \"-S\", SCRIPT, str(inp), str(out)],\n32:         cwd=str(tmp_path),\n33:         capture_output=True,\n34:         timeout=TIMEOUT,\n35:     )\n36:     assert proc.returncode == 0, proc.stderr\n37:     assert out.read_bytes() == b\"email,name\\nb@x.com,Bob\\n\"\n38:     assert inp.read_bytes() == b\"email,name\\nb@x.com,Bob\\n\""
+    }
+  ],
+  "host_supported_diagnoses": [],
+  "trials": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    }
+  ]
+}

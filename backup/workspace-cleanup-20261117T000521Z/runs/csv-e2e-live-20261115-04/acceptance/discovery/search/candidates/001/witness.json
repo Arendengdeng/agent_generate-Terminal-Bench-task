@@ -1,0 +1,38 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "The output spec defines the normalized email as the email with leading/trailing whitespace stripped and then lowercased, and dedup is keyed on that normalized email: records whose normalized emails are equal are duplicates regardless of the original casing/whitespace. Here 'A@B.C' and 'a@b.c' both normalize to 'a@b.c', so the second record is a duplicate; the output must contain only one row, keeping the first record's name. Any implementation that keys dedup on non-normalized casing (or otherwise fails to treat case variants as the same email) emits two rows and violates R2. Frozen tests only cover duplicates where both records are already lowercase after stripping, so they do not catch this.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C,First Person\na@b.c,Second Person\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@b.c",
+          "First Person"
+        ]
+      ]
+    }
+  ]
+}

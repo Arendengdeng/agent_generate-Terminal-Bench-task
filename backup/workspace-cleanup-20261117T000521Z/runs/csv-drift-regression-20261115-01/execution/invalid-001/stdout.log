@@ -1,0 +1,91 @@
+.....F.F.........                                                        [100%]
+=================================== FAILURES ===================================
+________________________ test_whitespace_padded_emails _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_padded_emails0')
+
+    def test_whitespace_padded_emails(tmp_path):
+        records = [
+            ("  padded@example.com  ", "Nobody"),
+            ("other@example.com", "Empty"),
+            ("real@example.com", "Real"),
+            (" real@example.com", "Real Again"),
+            ("\ttab@example.com\t", "Tab"),
+            ("second@example.com", "Second"),
+        ]
+>       rows = parse_output(check(tmp_path, records))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_padded_emails0')
+records = [('  padded@example.com  ', 'Nobody'), ('other@example.com', 'Empty'), ('real@example.com', 'Real'), (' real@example.com', 'Real Again'), ('\ttab@example.com\t', 'Tab'), ('second@example.com', 'Second')]
+csv_text = 'email,name\r\n  padded@example.com  ,Nobody\r\nother@example.com,Empty\r\nreal@example.com,Real\r\n real@example.com,Real Again\r\n\ttab@example.com\t,Tab\r\nsecond@example.com,Second\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['other@example.com', 'Empty'], ['padded@example.com', 'Nobody'], ['real@example.com', 'Real'], ['second@example.com', 'Second'], ['tab@example.com', 'Tab']]
+E       assert [('other@exam....com', 'Tab')] == [('padded@exa...m', 'Second')]
+E         
+E         At index 0 diff: ('other@example.com', 'Empty') != ('padded@example.com', 'Nobody')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+_________________________ test_first_occurrence_order __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')
+
+    def test_first_occurrence_order(tmp_path):
+        records = [
+            ("z@example.com", "Z"),
+            ("a@example.com", "A"),
+            ("y@example.com", "Y"),
+            ("Z@example.com", "Z2"),
+            (" a@Example.com ", "A2"),
+        ]
+>       rows = parse_output(check(tmp_path, records))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:179: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')
+records = [('z@example.com', 'Z'), ('a@example.com', 'A'), ('y@example.com', 'Y'), ('Z@example.com', 'Z2'), (' a@Example.com ', 'A2')]
+csv_text = 'email,name\r\nz@example.com,Z\r\na@example.com,A\r\ny@example.com,Y\r\nZ@example.com,Z2\r\n a@Example.com ,A2\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['a@example.com', 'A'], ['y@example.com', 'Y'], ['z@example.com', 'Z']]
+E       assert [('a@example....le.com', 'Z')] == [('z@example....le.com', 'Y')]
+E         
+E         At index 0 diff: ('a@example.com', 'A') != ('z@example.com', 'Z')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_whitespace_padded_emails - AssertionError: [['emai...
+FAILED test_clean.py::test_first_occurrence_order - AssertionError: [['email'...
+2 failed, 15 passed in 0.63s

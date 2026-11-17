@@ -1,0 +1,49 @@
+{
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 24,
+    "max_tool_calls": 100,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 6000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "scenarios": [
+    "overstrict",
+    "omission"
+  ],
+  "real_model_requested": true,
+  "workers": 2,
+  "test_setup": "scripted",
+  "source_manifest": {
+    "independent_verification/controller.py": "59cd63d18edeed953ab03f8dcffd97d82395dd2a189a6aef6e2f7cd24c0f4877",
+    "independent_verification/exporter.py": "9473ac25824a741f7e8c6aafaef92488e2516349034d307140de2493ef9129dc",
+    "independent_verification/common.py": "a430bc16ed91e07cd5ae8dc1fc1b9ebe8ccb2482028ed17047199d6f544529c2",
+    "independent_verification/harbor.py": "d5ad9ec7043e21e496be37fca9cb9223f12481569618427a3fb9f147bf09043e",
+    "independent_verification/wrapper.py": "feef78d2e131c4a4042ba93b3cd4f53a93bf352a09d1bad285dd211e7a33ca1a",
+    "independent_verification/test_repair_workflow.py": "6390c2e58383d80a47af9f2a7eb0f46ef141324840d96d431c6c1abe26379498",
+    "independent_verification/agent.py": "26cd8628fb18d53ad91f9356fb073a24a99eb7a8128f82df1648342a4c51ad33",
+    "independent_verification/__main__.py": "c3f2ed47baf4a464172cb51de6da9239d13373cef4e626e0bad2c2849a021a79",
+    "independent_verification/__init__.py": "6ff65af2a0bda151eba2f2804357bc3f425b65a3969e3d9a2478fea4409f0401",
+    "independent_verification/sandbox.py": "67315c6cd21936a57ebe3dc2b74e133aeb8fea49eda24d363e16e2676c70141c",
+    "independent_verification/docker_test_runner.py": "00a498ca8eb2c0b3fccf7606ac1522569706bcf964b15838122122ce06716337",
+    "independent_verification/repair.py": "14eaced0791d33e8d059bbfd5e2870e51c9d7919535e712ac645824a792f5ba9",
+    "independent_verification/panel.py": "764515eba10d530f2a1ee43b7dbeec522416176ad7e16154f25d31fd16f89fef",
+    "independent_verification/attribution.py": "561db7a3d060299acc2b53facb6dfe5c5cf4dadbd2f6cd1aecc6c1c1cfd36381",
+    "independent_verification/candidate.py": "c7c5138df1003250da11196febc06ca96dedd1e480fef55897ebe0d1d80dd299",
+    "independent_verification/json_attribution.py": "d630c3c64d073b2d8ac42326fab862e7867b6bc6b1391ea215d22fb148699657",
+    "independent_verification/pipeline.py": "4683ed36be43eb87fc3099274b0907e87fb8266fcb719d51d802841ba087ba7b",
+    "scripts/independent_controls/run_experiments.py": "2c93b629bf753e2aca6501ac8b1cfb07621c96a2559d9c5d000b522f6d17e89d",
+    "scripts/independent_controls/build_report.py": "94120b6eed4b33546a3753cd892d10cc46dab8b2894c4fcf5a6cb4ecb452e004"
+  }
+}

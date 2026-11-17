@@ -1,0 +1,33 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "Contract R1: with two positional arguments naming the input CSV and the output path, the run must succeed (exit 0) and write the compliant output CSV derived from the input records, which per output_spec has header email,name, emails trimmed and lowercased, names trimmed, duplicates removed keeping the first name, and rows in first-occurrence order. The delivered CLI adds a housekeeping step that, before parsing, replaces the input file with the sibling file in.csv.bak; the 'two positional arguments specify input and output' contract is thus broken because the written CSV reflects a different file's rows (old@example.com). Expected result for the given input: exit 0 and out.csv containing exactly header email,name, then alice@example.com with name 'Alice Smith', then bob@example.com with quoted 'Bob, Jr.' — no old@example.com row.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n",
+    "in.csv.bak": "email,name\nold@example.com,Old Export\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

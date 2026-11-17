@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "error": null,
+  "trials": [
+    {
+      "label": "oracle",
+      "expected_reward": 1,
+      "status": "completed",
+      "reward": 1,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "call",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-binary-30333b52e9d94fe99febb6ace71c0961/execution/oracle/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+        "/app/resources/fixture.txt": "cd66cef78c36b239058c82f6a144f701df853b0a0f61a4a415bfe87a3ea44975",
+        "/solution/solve.sh": "517405c7ca11919871578ed79a607472450554f852ccb7215c077b82cd592605"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "58a44735ffdfa6b14977516ad6e6e642d477999cd361537028f2d6b99e07ad68",
+        "/app/resources/data.bin": "06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8",
+        "/app/resources/fixture.txt": "cd66cef78c36b239058c82f6a144f701df853b0a0f61a4a415bfe87a3ea44975"
+      },
+      "pytest_exit_code": 0
+    },
+    {
+      "label": "nop",
+      "expected_reward": 0,
+      "status": "completed",
+      "reward": 0,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert b'broken\\n' == b'42\\n'\n  \n  At index 0 diff: b'b' != b'4'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_behavior.py",
+                "line": 6,
+                "source": "    assert result.stdout == b'42\\n'"
+              }
+            ]
+          },
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/test-repair-binary-30333b52e9d94fe99febb6ace71c0961/execution/nop/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+        "/app/resources/fixture.txt": "cd66cef78c36b239058c82f6a144f701df853b0a0f61a4a415bfe87a3ea44975"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/resources/fixture.txt": "cd66cef78c36b239058c82f6a144f701df853b0a0f61a4a415bfe87a3ea44975"
+      },
+      "pytest_exit_code": 1
+    }
+  ],
+  "input_manifest": {
+    "inputs/contract.json": "47849bdee1bda2fd3e2746c3ae97bb83ca868e8bdb966c74540cca512110f359",
+    "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "inputs/environment/app/resources/fixture.txt": "cd66cef78c36b239058c82f6a144f701df853b0a0f61a4a415bfe87a3ea44975",
+    "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+  },
+  "tests_digest": "2bcb0ceb004c0fa3e400dd762a7d271a7bb4cd42b0882343f8a97cc8bc5f6a2f",
+  "nodeids": [
+    "test_behavior.py::test_output"
+  ],
+  "suite_timeout_sec": 120,
+  "images": {
+    "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+    "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+  }
+}

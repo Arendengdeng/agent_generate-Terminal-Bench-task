@@ -1,0 +1,69 @@
+[
+  {
+    "command": [
+      "python3",
+      "-m",
+      "synthesis_agent",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: __main__.py [-h] --plan PLAN --contract CONTRACT --output OUTPUT\n                   [--seed SEED] [--config CONFIG] [--model MODEL]\n                   [--base-url BASE_URL] [--image IMAGE]\n\nGenerate a Docker-isolated Python CLI repair task candidate\n\noptions:\n  -h, --help           show this help message and exit\n  --plan PLAN\n  --contract CONTRACT\n  --output OUTPUT\n  --seed SEED          caller-provided UTF-8 reference directory\n  --config CONFIG      JSON Config fields; prefer environment variables for\n                       secrets\n  --model MODEL\n  --base-url BASE_URL\n  --image IMAGE\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "independent_verification",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: __main__.py [-h] [--candidate CANDIDATE] --output OUTPUT\n                   [--stage {inspect,generate,export,run,all,decide}]\n                   [--report-dir REPORT_DIR] [--tests TESTS]\n                   [--harbor-python HARBOR_PYTHON] [--config CONFIG]\n                   [--model MODEL] [--known-correct KNOWN_CORRECT]\n                   [--known-invalid KNOWN_INVALID]\n                   [--holdout-correct HOLDOUT_CORRECT]\n                   [--holdout-invalid HOLDOUT_INVALID]\n                   [--controls-manifest CONTROLS_MANIFEST]\n                   [--repair-tests | --no-repair-tests]\n                   [--max-test-repairs MAX_TEST_REPAIRS]\n                   [--challenge | --no-challenge]\n                   [--max-challenge-attempts MAX_CHALLENGE_ATTEMPTS]\n                   [--experiment {baseline,independent,challenge,repair}]\n                   [--baseline-tests BASELINE_TESTS]\n                   [--challenge-report CHALLENGE_REPORT] [--repair]\n                   [--max-repairs MAX_REPAIRS]\n\nIndependent tests and Harbor Oracle/Nop; no Synthesis self-check reuse\n\noptions:\n  -h, --help            show this help message and exit\n  --candidate CANDIDATE\n  --output OUTPUT\n  --stage {inspect,generate,export,run,all,decide}\n  --report-dir REPORT_DIR\n                        existing verification output directory for --stage\n                        decide\n  --tests TESTS         existing Test Agent output directory (tests.json and\n                        tests/)\n  --harbor-python HARBOR_PYTHON\n                        Harbor Python interpreter (default: project .harbor-\n                        venv/bin/python)\n  --config CONFIG       Test Agent Config JSON; prefer environment variables\n                        for API secrets\n  --model MODEL\n  --known-correct KNOWN_CORRECT\n                        additional solution directory with solve.sh\n  --known-invalid KNOWN_INVALID\n                        known-invalid solution directory; must fail\n                        assertions, not error\n  --holdout-correct HOLDOUT_CORRECT\n                        terminal-only correct control directory\n  --holdout-invalid HOLDOUT_INVALID\n                        terminal-only invalid control directory\n  --controls-manifest CONTROLS_MANIFEST\n                        Contract-bound independent control reviews JSON\n  --repair-tests        execute and repair tests in Docker before final Harbor\n                        validation (default for all)\n  --no-repair-tests     disable the Docker test repair loop\n  --max-test-repairs MAX_TEST_REPAIRS\n                        maximum test repair rounds (default: 2)\n  --challenge           actively challenge frozen tests and repair confirmed\n                        gaps (default for all)\n  --no-challenge\n  --max-challenge-attempts MAX_CHALLENGE_ATTEMPTS\n  --experiment {baseline,independent,challenge,repair}\n                        explicit ablation group; overrides ordinary pipeline\n                        defaults\n  --baseline-tests BASELINE_TESTS\n                        frozen original scoring suite for baseline experiments\n  --challenge-report CHALLENGE_REPORT\n                        completed Challenge group report, required for repair\n                        group\n  --repair              Controller-directed cross-module repair loop (all/run\n                        only)\n  --max-repairs MAX_REPAIRS\n                        shared repair attempt limit (default: 2)\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "synthesis_agent.candidate_batch",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: __main__.py [-h] --output OUTPUT [--plan PLAN] [--contract CONTRACT]\n                   [--seed SEED] [--config CONFIG] [--resume]\n                   [--max-candidates MAX_CANDIDATES]\n                   [--max-total-tokens MAX_TOTAL_TOKENS]\n                   [--max-no-progress MAX_NO_PROGRESS]\n                   [--max-self-check-failures MAX_SELF_CHECK_FAILURES]\n                   [--verification-options VERIFICATION_OPTIONS]\n\nCandidate Orchestrator with persistent shared budgets\n\noptions:\n  -h, --help            show this help message and exit\n  --output OUTPUT\n  --plan PLAN\n  --contract CONTRACT\n  --seed SEED\n  --config CONFIG\n  --resume\n  --max-candidates MAX_CANDIDATES\n  --max-total-tokens MAX_TOTAL_TOKENS\n  --max-no-progress MAX_NO_PROGRESS\n  --max-self-check-failures MAX_SELF_CHECK_FAILURES\n  --verification-options VERIFICATION_OPTIONS\n                        JSON file of independent verification options\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "independent_verification.implementation_library",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: __main__.py [-h]\n                   {build,validate,verify,reverify,report,export-panel,score,fixtures}\n                   ...\n\nVersioned implementation corpus and independent semantic audits\n\npositional arguments:\n  {build,validate,verify,reverify,report,export-panel,score,fixtures}\n\noptions:\n  -h, --help            show this help message and exit\n"
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/challenge_agent/csv_e2e.py",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: csv_e2e.py [-h] --output OUTPUT [--history HISTORY] [--tests TESTS]\n                  [--prepared-suite PREPARED_SUITE] [--env-file ENV_FILE]\n                  [--harbor-python HARBOR_PYTHON]\n                  [--max-attempts MAX_ATTEMPTS]\n\nAdapt the existing CSV task and historical 9/24 panel to generic acceptance.\nOnly this adapter knows historical paths. It does not create Challenge\nsolutions, modify prompts, or feed historical invalid controls to\nsearch/repair.\n\noptions:\n  -h, --help            show this help message and exit\n  --output OUTPUT\n  --history HISTORY\n  --tests TESTS\n  --prepared-suite PREPARED_SUITE\n  --env-file ENV_FILE\n  --harbor-python HARBOR_PYTHON\n  --max-attempts MAX_ATTEMPTS\n"
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/challenge_agent/run_acceptance.py",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: run_acceptance.py [-h] --output OUTPUT [--env-file ENV_FILE]\n                         [--harbor-python HARBOR_PYTHON]\n                         [--max-attempts MAX_ATTEMPTS]\n                         [--initial-suite {generated,constructed-gap}]\n\nReal-model search + independent witness + Controller repair + Docker/Harbor\nablation. All candidate code and repaired tests are generated by the live\nmodel. The task and correct controls are handwritten. --initial-suite\nconstructed-gap uses an explicitly handwritten, incomplete suite instead of\nrelying on live test generation to leave a gap.\n\noptions:\n  -h, --help            show this help message and exit\n  --output OUTPUT\n  --env-file ENV_FILE   optional existing dotenv configuration; values are\n                        never printed\n  --harbor-python HARBOR_PYTHON\n  --max-attempts MAX_ATTEMPTS\n  --initial-suite {generated,constructed-gap}\n                        generated: live independent tests; constructed-gap:\n                        handwritten n=3-only suite\n"
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/challenge_agent/run_e2e.py",
+      "--help"
+    ],
+    "exit_code": 0,
+    "output": "usage: run_e2e.py [-h] [--candidate CANDIDATE] [--tests TESTS]\n                  [--prepared-suite PREPARED_SUITE]\n                  [--controls-manifest CONTROLS_MANIFEST]\n                  [--panel-manifest PANEL_MANIFEST] [--output OUTPUT]\n                  [--review REVIEW] [--env-file ENV_FILE]\n                  [--harbor-python HARBOR_PYTHON] [--repeats REPEATS]\n                  [--max-attempts MAX_ATTEMPTS] [--max-repairs MAX_REPAIRS]\n                  [--max-model-calls MAX_MODEL_CALLS]\n                  [--max-tool-calls MAX_TOOL_CALLS]\n\nGeneric live Challenge acceptance. No task or historical panel is built in.\n\noptions:\n  -h, --help            show this help message and exit\n  --candidate CANDIDATE\n  --tests TESTS\n  --prepared-suite PREPARED_SUITE\n                        reuse an independently confirmed robustness directory\n                        with identical original tests\n  --controls-manifest CONTROLS_MANIFEST\n  --panel-manifest PANEL_MANIFEST\n  --output OUTPUT\n  --review REVIEW       offline recomputation of an existing acceptance\n                        directory\n  --env-file ENV_FILE\n  --harbor-python HARBOR_PYTHON\n  --repeats REPEATS\n  --max-attempts MAX_ATTEMPTS\n  --max-repairs MAX_REPAIRS\n  --max-model-calls MAX_MODEL_CALLS\n  --max-tool-calls MAX_TOOL_CALLS\n"
+  }
+]

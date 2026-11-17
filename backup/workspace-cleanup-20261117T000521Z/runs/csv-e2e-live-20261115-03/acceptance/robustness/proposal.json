@@ -1,0 +1,29 @@
+{
+  "edits": [
+    {
+      "path": "test_clean.py",
+      "line": 53,
+      "kind": "fixture_copy",
+      "expression": "run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)",
+      "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+      "rationale": "The mixed.csv fixture original is passed directly to the task CLI. Although R4 forbids mutation, an incorrect implementation could still modify the protected fixture. Host copies it to a per-test working path before invoking the CLI so the original remains intact."
+    },
+    {
+      "path": "test_clean.py",
+      "line": 65,
+      "kind": "fixture_copy",
+      "expression": "run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)",
+      "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+      "rationale": "The header_only.csv fixture original is passed directly to the task CLI. Host copies it to a per-test working path before invoking the CLI so any accidental mutation by an incorrect implementation does not corrupt the protected fixture."
+    },
+    {
+      "path": "test_clean.py",
+      "line": 31,
+      "kind": "output_decode",
+      "expression": "def read_output(out_path):",
+      "contract_quote": "UTF-8 CSV，表头为 email,name。",
+      "rationale": "read_output opens the task-produced output file (untrusted task output, not just stdout) with strict UTF-8 decoding. Wrapping the parse so that only UnicodeDecodeError surfaces as an AssertionError leaves all original statements/assertions intact while converting a decode crash into a clear failure."
+    }
+  ],
+  "limitations": "output_decode is applied only to read_output (test_clean.py line 31), the helper that reads the task-written output CSV as UTF-8. Two separate direct `open(out, \"r\", encoding=\"utf-8\")` reads inside test_output_uses_csv_escaping (the fh.read() text check) also parse task-produced output; they are plain inline reads, not a named helper, so the host-declared output_decode transformation (which targets a function by name) does not cover them — flagged as a limitation. Fixture parsing (run_and_check input paths) and test-code errors are not guarded. Input/output formats other than the specified UTF-8 CSV (email,name header, standard CSV quoting) are unsupported and would be reported as limitations rather than handled. Fixture-root references at lines 53 and 65 are reported as locations only, not as evidence of implementation correctness."
+}

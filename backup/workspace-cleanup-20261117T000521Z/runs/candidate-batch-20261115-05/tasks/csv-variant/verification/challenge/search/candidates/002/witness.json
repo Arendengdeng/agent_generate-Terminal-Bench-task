@@ -1,0 +1,47 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "Contract: 输出规范要求按归一化邮箱去重、保留最后一条姓名、按首次出现顺序输出，且输出表头为 email,name。输入 `email,name\\nA@E.com, Ann\\nb@e.com,Bee\\n` 是合法输入（表头恰为 email,name；两条数据记录）。按输出规范，期望输出恰好两行数据：`a@e.com,Ann`（邮箱去首尾空白并转小写，姓名去首尾空白）然后 `b@e.com,Bee`。提交的 clean.py 没有做任何去重/归一化/顺序处理，只是把输入原样（仅换行归一）拷贝到输出，因此输出的第一列仍是 `A@E.com`、姓名仍是 ` Ann`，与规范的规范化结果不同：不同合法输入并不满足规范。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@E.com, Ann\nb@e.com,Bee\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@e.com",
+          "Ann"
+        ],
+        [
+          "b@e.com",
+          "Bee"
+        ]
+      ]
+    }
+  ]
+}

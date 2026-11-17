@@ -1,0 +1,66 @@
+{
+  "status": "candidate_generated",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "OpenAICompatibleClient",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 40,
+    "max_tool_calls": 120,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 8000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": null,
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "status_label": "候选已生成",
+  "model_calls": 10,
+  "tool_calls": 14,
+  "digest": "25286c8e98c4eb1566a0401e1018dc8efbc0aad97b3075570b00fbd29134893a",
+  "manifest": {
+    "checks/probe.py": "d71ecad79a2ad5ccf1504d5c872370b2ba95268babdfd502b25042a94ca0f50a",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "8ab989779660ac23da79b2472afb4a646dc17f548c10cbdda83dd46ffd90cfaf",
+    "draft/environment/app/sample.csv": "4e74d52fbccb049e03bbd1cf2e22daf003f1a81feee3b7c62f6ba22ca8a30c3f",
+    "draft/instruction.md": "97842e9ab7b326de38db9d5b57a51dc027632eb1b6d917a8942dfe042cb045f8",
+    "draft/solution/solve.sh": "87ae684dcbf8f0c793cbdcd9c22ffcce1227c7dc093cacfaff54cf01b6d690b1"
+  },
+  "instruction_path": "draft/instruction.md",
+  "environment_dir": "draft/environment",
+  "dockerfile_path": "draft/environment/Dockerfile",
+  "solution_dir": "draft/solution",
+  "solution_entrypoint": "draft/solution/solve.sh",
+  "self_check_path": "self_check.json",
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 10,
+      "limit": 40
+    },
+    "tool_calls": {
+      "used": 14,
+      "limit": 120
+    },
+    "files": {
+      "used": 6,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 11632,
+      "limit": 2000000
+    },
+    "elapsed_sec": 44.843
+  }
+}

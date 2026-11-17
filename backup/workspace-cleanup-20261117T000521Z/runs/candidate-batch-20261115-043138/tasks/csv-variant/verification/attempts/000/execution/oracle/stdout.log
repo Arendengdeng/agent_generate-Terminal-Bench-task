@@ -1,0 +1,45 @@
+.....F......F...                                                         [100%]
+=================================== FAILURES ===================================
+_________________ test_r2_quoted_fields_with_commas_and_quotes _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_quoted_fields_with_com0')
+
+    def test_r2_quoted_fields_with_commas_and_quotes(tmp_path):
+        src = os.path.join(FIXTURES, "mixed.csv")
+        out = str(tmp_path / "out.csv")
+        rows = run_ok(src, out)
+>       assert rows == read_fixture("mixed_expected.csv")
+E       assert [['email', 'n...e "M" Final']] == [['email', 'n... 'Zoe Three']]
+E         
+E         At index 1 diff: ['zoe@example.com', 'Zoe Three'] != ['zoe@example.com', 'Zoe "M" Final']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+_____________________________ test_r3_many_records _____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_many_records0')
+
+    def test_r3_many_records(tmp_path):
+        lines = ["email,name"]
+        expected = [["email", "name"]]
+        for i in range(300):
+            email = "user%03d@example.com" % (299 - i)
+            lines.append("%s,Name %d" % (email, i))
+            expected.append([email, "Name %d" % i])
+        lines.append("user150@example.com,Updated 150")
+        lines.append(" user000@EXAMPLE.com ,Updated 0")
+        expected[151][1] = "Updated 150"
+        expected[300][1] = "Updated 0"
+        src = write_input(tmp_path, "\n".join(lines) + "\n")
+        out = str(tmp_path / "out.csv")
+>       assert run_ok(src, out) == expected
+E       AssertionError: assert [['email', 'n...Name 4'], ...] == [['email', 'n...Name 4'], ...]
+E         
+E         At index 150 diff: ['user150@example.com', 'Updated 150'] != ['user150@example.com', 'Name 149']
+E         Use -v to get more diff
+
+test_clean.py:188: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_r2_quoted_fields_with_commas_and_quotes - assert [...
+FAILED test_clean.py::test_r3_many_records - AssertionError: assert [['email'...
+2 failed, 14 passed in 0.91s

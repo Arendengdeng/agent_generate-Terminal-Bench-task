@@ -1,0 +1,157 @@
+{
+  "candidate_attempts": 1,
+  "synthesis_status": "candidate_generated",
+  "model_calls": 17,
+  "budget": {
+    "model_calls": 17,
+    "tool_calls": 23,
+    "max_total_tokens": 240000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 77385,
+      "completion_tokens": 7665,
+      "total_tokens": 85050
+    }
+  },
+  "token_usage": {
+    "prompt_tokens": 77385,
+    "completion_tokens": 7665,
+    "total_tokens": 85050
+  },
+  "usage_complete": true,
+  "error": {
+    "type": "TEST_LOOP_NEEDS_REVIEW",
+    "message": "The failing test `test_empty_input_file_produces_only_header` asserts that an empty (0-byte) input file produces only the header and exits 0. However, the Contract's input_spec states input is a UTF-8 CSV whose header is exactly `email,name`, and that input \"可以仅有表头\" (may be header-only) — it does not authorize a completely empty file with no header row at all. The test therefore appears to demand behavior beyond the contract (or at least the contract is ambiguous about zero-byte input), and the responsible component (implementation vs. test) cannot be determined from the supplied snippets. Additionally, repair_permission is analysis_only, so a diagnosis must not be issued. Stopping for review."
+  },
+  "wall_sec": 141.474886349999,
+  "pipeline_execution_success": false,
+  "pipeline_completed_to_final_controller": false,
+  "terminal_controller_reached": false,
+  "controller_returned": true,
+  "candidate_accepted": false,
+  "accepted_candidates": 0,
+  "generated_candidates": 1,
+  "final_status": "Stopped_with_specific_blockers",
+  "candidate_count": 1,
+  "model_call_attempts": 17,
+  "api_failure_count": 0,
+  "transport_retry_attempts": 0,
+  "model_calls_by_stage": {
+    "synthesis": 9,
+    "test_generation": 7,
+    "test_diagnosis": 1
+  },
+  "token_usage_unknown_calls": [],
+  "original_contract_unchanged": true,
+  "production_source_unchanged_during_run": true,
+  "stages": [
+    {
+      "stage": "preflight",
+      "status": "ready"
+    },
+    {
+      "stage": "synthesis",
+      "status": "candidate_generated"
+    },
+    {
+      "stage": "instruction_consistency",
+      "status": "no_findings"
+    },
+    {
+      "stage": "test_generation",
+      "status": "tests_generated"
+    },
+    {
+      "stage": "docker_test_gate",
+      "status": "needs_review"
+    },
+    {
+      "stage": "challenge",
+      "status": "not_run",
+      "attempts": 0
+    },
+    {
+      "stage": "independent_reviewer",
+      "status": "not_run"
+    },
+    {
+      "stage": "repair",
+      "status": "not_run_or_not_authorized",
+      "rounds": 0
+    },
+    {
+      "stage": "final_docker",
+      "status": "not_run"
+    },
+    {
+      "stage": "final_harbor",
+      "status": "not_run_or_incomplete"
+    },
+    {
+      "stage": "controller",
+      "status": "returned",
+      "decision": "needs_review",
+      "terminal_decision": false
+    }
+  ],
+  "blockers": [
+    {
+      "stage": "test_execution",
+      "reason": {
+        "type": "TEST_LOOP_NEEDS_REVIEW",
+        "message": "The failing test `test_empty_input_file_produces_only_header` asserts that an empty (0-byte) input file produces only the header and exits 0. However, the Contract's input_spec states input is a UTF-8 CSV whose header is exactly `email,name`, and that input \"可以仅有表头\" (may be header-only) — it does not authorize a completely empty file with no header row at all. The test therefore appears to demand behavior beyond the contract (or at least the contract is ambiguous about zero-byte input), and the responsible component (implementation vs. test) cannot be determined from the supplied snippets. Additionally, repair_permission is analysis_only, so a diagnosis must not be issued. Stopping for review."
+      },
+      "evidence": "verification/run_result.json"
+    },
+    {
+      "stage": "docker_test_gate_or_diagnosis",
+      "reason": "The failing test `test_empty_input_file_produces_only_header` asserts that an empty (0-byte) input file produces only the header and exits 0. However, the Contract's input_spec states input is a UTF-8 CSV whose header is exactly `email,name`, and that input \"可以仅有表头\" (may be header-only) — it does not authorize a completely empty file with no header row at all. The test therefore appears to demand behavior beyond the contract (or at least the contract is ambiguous about zero-byte input), and the responsible component (implementation vs. test) cannot be determined from the supplied snippets. Additionally, repair_permission is analysis_only, so a diagnosis must not be issued. Stopping for review.",
+      "evidence": "verification/test-loop.json"
+    },
+    {
+      "stage": "controller",
+      "reason": "TEST_LOOP_NEEDS_REVIEW",
+      "details": [
+        "Test repair stopped without passing the Docker gate."
+      ],
+      "evidence": "verification/decision.json"
+    }
+  ],
+  "final_docker_matrix": [],
+  "final_harbor_matrix": [],
+  "diagnosis_usage": {
+    "prompt_tokens": 2452,
+    "completion_tokens": 185,
+    "total_tokens": 2637,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "concrete_blocker": "test_clean.py::test_empty_input_file_produces_only_header requires success on a zero-byte file outside the header-required Contract domain; Oracle failed, triggering analysis_only; no host-confirmed test-repair attribution.",
+  "docker_test_gate_matrix": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 1
+    },
+    {
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    }
+  ]
+}

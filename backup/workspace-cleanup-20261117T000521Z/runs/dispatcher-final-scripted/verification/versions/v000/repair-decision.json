@@ -1,0 +1,39 @@
+{
+  "decision": "repair",
+  "action": "repair",
+  "reason_code": "CRITICAL_ISSUES",
+  "reasons": [
+    "Unresolved critical issues require attention."
+  ],
+  "responsible_module": "tests",
+  "investigate_modules": [
+    "tests"
+  ],
+  "diagnostics": [
+    {
+      "code": "CRITICAL_ISSUES",
+      "message": "Unresolved critical issues require attention.",
+      "details": [
+        {
+          "id": "test-diagnosis",
+          "message": "The test expects 43 but R1 explicitly requires 42.",
+          "responsible_module": "tests",
+          "requirement_ids": [
+            "R1"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/step2-2/runs/dispatcher-final-scripted/verification/versions/v000/analysis/diagnosis.json"
+          ]
+        }
+      ],
+      "investigate_modules": [
+        "tests"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/step2-2/runs/dispatcher-final-scripted/verification/versions/v000/analysis/diagnosis.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers current basic checks only, not test sufficiency, difficulty or publication readiness."
+}

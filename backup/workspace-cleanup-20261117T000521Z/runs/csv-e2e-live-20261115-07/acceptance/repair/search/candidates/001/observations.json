@@ -1,0 +1,104 @@
+[
+  {
+    "exit_code": 0,
+    "stdout": "wrote 2 rows to /tmp/witness-p3vk5wv2/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+        },
+        "actual": "email,name\nada@example.com,Ada Lovelace\nbob@example.com,Bob Jr\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "wrote 2 rows to /tmp/witness-iuq5j4vq/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+        },
+        "actual": "email,name\nada@example.com,Ada   Lovelace\nbob@example.com,Bob  Jr\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+        },
+        "actual": "email,name\nada@example.com,Ada   Lovelace\nbob@example.com,Bob  Jr\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  }
+]

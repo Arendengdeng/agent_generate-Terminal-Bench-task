@@ -1,0 +1,96 @@
+{
+  "id": "001",
+  "status": "confirmed",
+  "violation_status": "confirmed",
+  "requirement_id": "R2",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/solution",
+  "solution_digest": "cdc4b0d60d23883989ed342c9b846836e675a923966fce71df61279e932c6edd",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/witness.json",
+  "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "parsed_file",
+          "path": [
+            "people.csv",
+            "csv"
+          ],
+          "value": [
+            [
+              "email",
+              "name"
+            ],
+            [
+              "bob@example.com",
+              "Doe, Bob"
+            ],
+            [
+              "alice@example.com",
+              "Alice Chen"
+            ]
+          ]
+        },
+        "actual_error": "FileNotFoundError",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": true,
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1
+    }
+  ],
+  "scoring_feedback": [
+    {
+      "repeat": 0,
+      "status": "completed",
+      "reward": 1,
+      "failures": []
+    },
+    {
+      "repeat": 1,
+      "status": "completed",
+      "reward": 1,
+      "failures": []
+    }
+  ],
+  "decision": {
+    "decision": "repair",
+    "responsible_module": "tests",
+    "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+    "requirement_ids": [
+      "R2"
+    ],
+    "evidence_digest": "94d14c9d6e9771abfeaf2b3b0dbb2b584101a4b199777586209d30466fec2158"
+  },
+  "evidence_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/evidence.json"
+}

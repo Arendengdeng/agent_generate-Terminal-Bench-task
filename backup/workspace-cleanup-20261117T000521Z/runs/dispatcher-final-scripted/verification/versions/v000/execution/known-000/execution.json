@@ -1,0 +1,78 @@
+{
+  "label": "known-000",
+  "expected_reward": 1,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010942399967461824,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 6,
+            "source": "    assert result.stdout == b'43\\n'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.018603043999974034,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019562200031941757,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/step2-2/runs/dispatcher-final-scripted/verification/versions/v000/execution/known-000/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "/solution/solve.sh": "898c37d13c8b557071ab255d3948d4f0f08f7225775865b9ac8bf20138d4b4e7"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "58a44735ffdfa6b14977516ad6e6e642d477999cd361537028f2d6b99e07ad68"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________________ test_output __________________________________\n\n    def test_output():\n        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == b'43\\n'\nE       AssertionError: assert b'42\\n' == b'43\\n'\nE         \nE         At index 1 diff: b'2' != b'3'\nE         Use -v to get more diff\n\ntest_behavior.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_output - AssertionError: assert b'42\\n' == b'43\\n'\n1 failed in 0.05s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "outcome": "fail",
+  "wall_sec": 4.275,
+  "attribution": "uncertain"
+}

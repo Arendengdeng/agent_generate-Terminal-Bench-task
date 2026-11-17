@@ -1,0 +1,17 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________________________ test_output __________________________________
+
+    def test_output():
+        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)
+        assert result.returncode == 0
+>       assert result.stdout == b'42\n'
+E       AssertionError: assert b'broken\n' == b'42\n'
+E         
+E         At index 0 diff: b'b' != b'4'
+E         Use -v to get more diff
+
+test_behavior.py:6: AssertionError
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_output - AssertionError: assert b'broken\n' == ...
+1 failed in 0.08s

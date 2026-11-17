@@ -1,0 +1,35 @@
+...................F...                                                  [100%]
+=================================== FAILURES ===================================
+_________________ test_names_with_embedded_newline_and_quotes __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0')
+
+    def test_names_with_embedded_newline_and_quotes(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['n@x.com', 'line1\nline2'],
+                ['m@x.com', 'say "hi", please'],
+                ['N@X.COM', 'dropped'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['n@x.com', 'line1\nline2'],
+            ['m@x.com', 'say "hi", please'],
+        ], rows
+E       AssertionError: [['email', 'name'], ['n@x.com', 'line1 line2'], ['m@x.com', 'say "hi", please']]
+E       assert [['email', 'n...hi", please']] == [['email', 'n...hi", please']]
+E         
+E         At index 1 diff: ['n@x.com', 'line1 line2'] != ['n@x.com', 'line1\nline2']
+E         Use -v to get more diff
+
+test_clean_extra.py:176: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean_extra.py::test_names_with_embedded_newline_and_quotes - Ass...
+1 failed, 22 passed in 1.07s

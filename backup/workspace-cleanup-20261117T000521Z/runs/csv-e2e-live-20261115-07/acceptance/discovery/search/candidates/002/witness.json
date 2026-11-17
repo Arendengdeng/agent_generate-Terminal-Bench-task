@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "Contract input_spec: the header is exactly 'email,name' and the input may contain only the header; output_spec: the output header is 'email,name'. Hence a legal input consisting of just the header line (as a UTF-8 file, which may legitimately start with a byte-order mark) must produce an output consisting of just the header row and 'email,name' fields. The delivered CLI writes correct output for BOM-less header-only input but crashes on a BOM-prefixed header-only file (UnicodeDecodeError on 0xef), so it fails R3's requirement that every legal header-only input yields header-only output.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "﻿email,name\r\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

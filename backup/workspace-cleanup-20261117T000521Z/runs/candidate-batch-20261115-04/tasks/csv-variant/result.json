@@ -1,0 +1,77 @@
+{
+  "id": "csv-variant",
+  "family": "csv",
+  "variant": "variant",
+  "outcome": "unresolved",
+  "detail": "needs_review",
+  "failure_stage": "challenge",
+  "responsible_module": "unknown",
+  "candidate_generated": true,
+  "stages": {
+    "synthesis": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/candidate/synthesis.json"
+    },
+    "controls": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/controls/manifest.json"
+    },
+    "independent_test": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/run_result.json"
+    },
+    "challenge": {
+      "status": "error",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/challenge-report.json",
+      "confirmed_violations": 0,
+      "already_rejected": 0,
+      "review_queue": [
+        {
+          "id": "000",
+          "status": "error",
+          "reason": "shared model budget exhausted",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/search/candidates/000/witness.json"
+        }
+      ]
+    },
+    "repair": {
+      "status": "needs_review",
+      "attempts": 0,
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-variant/verification/challenge/challenge-report.json"
+    },
+    "reverification": {
+      "status": "not_run",
+      "reason": "upstream_not_completed"
+    }
+  },
+  "cost": {
+    "model_calls": 48,
+    "tool_calls": 60,
+    "wall_sec": 236.185,
+    "synthesis": {
+      "model_calls": 8,
+      "tool_calls": 10,
+      "token_usage": {
+        "prompt_tokens": 28925,
+        "completion_tokens": 3845,
+        "total_tokens": 32770
+      }
+    },
+    "verification": {
+      "model_calls": 40,
+      "tool_calls": 50,
+      "token_usage": {
+        "prompt_tokens": 461924,
+        "completion_tokens": 13780,
+        "total_tokens": 475704
+      }
+    }
+  },
+  "repair_count": 0,
+  "controller_decision": "error",
+  "native_stage": "challenge",
+  "error": {
+    "type": "CHALLENGE_INCOMPLETE",
+    "message": "BudgetExceeded"
+  }
+}

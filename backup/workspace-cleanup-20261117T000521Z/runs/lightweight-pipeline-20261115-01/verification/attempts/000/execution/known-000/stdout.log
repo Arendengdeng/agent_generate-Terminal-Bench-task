@@ -1,0 +1,116 @@
+F..F.F..........F                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_basic_dedupe_and_normalization ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_dedupe_and_normaliz0')
+
+    def test_basic_dedupe_and_normalization(tmp_path):
+        records = [
+            ("Alice@Example.com", "Alice"),
+            ("  alice@example.com  ", "Alice Dup"),
+            ("bob@example.com", "Bob"),
+            ("BOB@EXAMPLE.COM", "Bobby"),
+            ("carol@example.com", "  Carol  "),
+        ]
+        data = check(tmp_path, records)
+        text = data.decode("utf-8")
+>       assert "\r\n" not in text
+E       AssertionError: assert '\r\n' not in 'email,name\...om,Carol\r\n'
+E         
+E         '\r\n' is contained here:
+E           email,name
+E         ? ----------
+E           alice@example.com,Alice
+E           bob@example.com,Bob
+E           carol@example.com,Carol
+
+test_clean.py:79: AssertionError
+_______________________________ test_header_only _______________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only0')
+
+    def test_header_only(tmp_path):
+        data = check(tmp_path, [], csv_text="email,name\n")
+        rows = parse_output(data)
+        assert rows == [["email", "name"]]
+        text = data.decode("utf-8")
+>       assert "\r\n" not in text
+E       AssertionError: assert '\r\n' not in 'email,name\r\n'
+E         
+E         '\r\n' is contained here:
+E           email,name
+E         ?           ++
+
+test_clean.py:128: AssertionError
+_______________________ test_blank_email_records_skipped _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_blank_email_records_skipp0')
+
+    def test_blank_email_records_skipped(tmp_path):
+        records = [
+            ("   ", "Nobody"),
+            ("", "Empty"),
+            ("real@example.com", "Real"),
+            (" real@example.com", "Real Again"),
+            ("\t", "Tab"),
+            ("second@example.com", "Second"),
+        ]
+>       rows = parse_output(check(tmp_path, records))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_blank_email_records_skipp0')
+records = [('   ', 'Nobody'), ('', 'Empty'), ('real@example.com', 'Real'), (' real@example.com', 'Real Again'), ('\t', 'Tab'), ('second@example.com', 'Second')]
+csv_text = 'email,name\r\n   ,Nobody\r\n,Empty\r\nreal@example.com,Real\r\n real@example.com,Real Again\r\n\t,Tab\r\nsecond@example.com,Second\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['', 'Nobody'], ['real@example.com', 'Real'], ['second@example.com', 'Second']]
+E       assert [('', 'Nobody...m', 'Second')] == [('real@examp...m', 'Second')]
+E         
+E         At index 0 diff: ('', 'Nobody') != ('real@example.com', 'Real')
+E         Left contains one more item: ('second@example.com', 'Second')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+___________________ test_runs_isolated_without_site_packages ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_runs_isolated_without_sit0')
+
+    def test_runs_isolated_without_site_packages(tmp_path):
+        inp = tmp_path / "in.csv"
+        inp.write_bytes(b"email,name\nb@x.com,Bob\n")
+        out = tmp_path / "out.csv"
+        proc = subprocess.run(
+            [sys.executable, "-I", "-S", SCRIPT, str(inp), str(out)],
+            cwd=str(tmp_path),
+            capture_output=True,
+            timeout=TIMEOUT,
+        )
+        assert proc.returncode == 0, proc.stderr
+>       assert out.read_bytes() == b"email,name\nb@x.com,Bob\n"
+E       AssertionError: assert b'email,name\...x.com,Bob\r\n' == b'email,name\nb@x.com,Bob\n'
+E         
+E         At index 10 diff: b'\r' != b'\n'
+E         Use -v to get more diff
+
+test_stdlib_only.py:37: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_basic_dedupe_and_normalization - AssertionError: a...
+FAILED test_clean.py::test_header_only - AssertionError: assert '\r\n' not in...
+FAILED test_clean.py::test_blank_email_records_skipped - AssertionError: [['e...
+FAILED test_stdlib_only.py::test_runs_isolated_without_site_packages - Assert...
+4 failed, 13 passed in 0.64s

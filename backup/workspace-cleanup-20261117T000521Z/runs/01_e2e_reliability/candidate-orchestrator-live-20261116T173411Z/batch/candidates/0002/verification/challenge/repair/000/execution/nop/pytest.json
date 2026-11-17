@@ -1,0 +1,939 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_clean.py::test_r1_success_exit_code_and_output_file",
+    "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+    "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+    "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+    "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+    "test_clean.py::test_r2_output_reparses_to_same_values",
+    "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+    "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+    "test_clean.py::test_r3_header_only_input",
+    "test_clean.py::test_r3_header_only_without_trailing_newline",
+    "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+    "test_clean.py::test_r3_no_duplicates_all_kept",
+    "test_clean.py::test_r3_max_size_input_within_time",
+    "test_clean.py::test_r4_input_file_not_modified",
+    "test_clean.py::test_r4_stdlib_only_imports",
+    "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat"
+  ],
+  "results": [
+    {
+      "nodeid": "test_clean.py::test_r1_success_exit_code_and_output_file",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012734099436784163,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_success_exit_code_and_output_file",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['alice@example.com', 'Alice']] got [['email', 'name'], ['alice@example.com', 'Alice']]\nassert [['email', 'n...om', 'Alice']] == [['alice@exam...om', 'Alice']]\n  \n  At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice']\n  Left contains one more item: ['alice@example.com', 'Alice']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 93,
+            "source": "        assert_rows_equal(rows, [[\"alice@example.com\", \"Alice\"]])"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022929072998522315,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r1_success_exit_code_and_output_file",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_success_exit_code_and_output_file",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015465099568245932,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 8.581200381740928e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['x@y.z', 'X']] got [['email', 'name'], ['x@y.z', 'X']]\nassert [['email', 'n...'x@y.z', 'X']] == [['x@y.z', 'X']]\n  \n  At index 0 diff: ['email', 'name'] != ['x@y.z', 'X']\n  Left contains one more item: ['x@y.z', 'X']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 122,
+            "source": "        assert_rows_equal(rows, [[\"x@y.z\", \"X\"]])"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021004417998483405,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017453300097258762,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013822900655213743,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n....com', 'Bob']] == [['bob@example.com', 'Bob']]\n  \n  At index 0 diff: ['email', 'name'] != ['bob@example.com', 'Bob']\n  Left contains one more item: ['bob@example.com', 'Bob']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 133,
+            "source": "        assert rows[1:] == [[\"bob@example.com\", \"Bob\"]]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02124287700280547,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001725269976304844,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012464000610634685,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Bob B']] got [['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['\\tBOB@Example.COM\\t', 'Bob B'], [' alice@example.com ', 'Alice Again'], ['bob@example.com', 'Bob Doe']]\nassert [['email', 'n...', 'Bob Doe']] == [['alice@exam...om', 'Bob B']]\n  \n  At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice Chen']\n  Left contains 3 more items, first extra item: ['\\tBOB@Example.COM\\t', 'Bob B']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 149,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021726340004533995,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001761090024956502,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 8.70910007506609e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['bob@example.com', 'Doe, Bob'], ['carol@example.org', 'Carol \"CC\" Ng'], ['dan@example.net', 'Dan  Q.  Public, Jr.']] got [['email', 'name'], ['bob@example.com', ' Bob\"'], ['carol@example.org', 'Carol \"CC\" Ng'], [' dan@example.net ', ' Jr.  \"']]\nassert [['email', 'n...', ' Jr.  \"']] == [['bob@exampl...Public, Jr.']]\n  \n  At index 0 diff: ['email', 'name'] != ['bob@example.com', 'Doe, Bob']\n  Left contains one more item: [' dan@example.net ', ' Jr.  \"']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 166,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02009869999892544,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014207599451765418,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_output_reparses_to_same_values",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.796499994583428e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_output_reparses_to_same_values",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert 'Name, With' in 'email,name\\nemail,name\\nA@B.com, With \"\"quotes\"\"\"\\n'",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 183,
+            "source": "        assert \"Name, With\" in text_out"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022177871003805194,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r2_output_reparses_to_same_values",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_output_reparses_to_same_values",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001484140011598356,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016704999870853499,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B']] got [['email', 'name'], ['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B'], ['B@X.COM', 'Second B']]\nassert [['email', 'n..., 'Second B']] == [['c@x.com', ...', 'First B']]\n  \n  At index 0 diff: ['email', 'name'] != ['c@x.com', 'First C']\n  Left contains 2 more items, first extra item: ['b@x.com', 'First B']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 203,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021942819003015757,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013403099728748202,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 8.163500024238601e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['dup@example.com', 'Zed, First']] got [['email', 'name'], ['dup@example.com', ' First\"'], ['  DUP@Example.com ', 'Overwritten']]\nassert [['email', 'n...Overwritten']] == [['dup@exampl...'Zed, First']]\n  \n  At index 0 diff: ['email', 'name'] != ['dup@example.com', 'Zed, First']\n  Left contains 2 more items, first extra item: ['dup@example.com', ' First\"']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 223,
+            "source": "        assert_rows_equal(rows, [[\"dup@example.com\", \"Zed, First\"]])"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020577850998961367,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014659400039818138,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.782100146869197e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected only the header row, got [['email', 'name'], ['email', 'name']]\nassert [['email', 'n...ail', 'name']] == [['email', 'name']]\n  \n  Left contains one more item: ['email', 'name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 231,
+            "source": "        assert rows == [HEADER], \"expected only the header row, got %r\" % (rows,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02057696600240888,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r3_header_only_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012810099724447355,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 8.941600390244275e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected only the header row, got [['email', 'name'], ['email', 'name']]\nassert [['email', 'n...ail', 'name']] == [['email', 'name']]\n  \n  Left contains one more item: ['email', 'name']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 239,
+            "source": "        assert rows == [HEADER], \"expected only the header row, got %r\" % (rows,)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020377042004838586,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r3_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00011441199603723362,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.30379979358986e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['zed@sample.io', 'Zed'], ['amy@other.net', 'Amy, A.']] got [['email', 'name'], ['  Zed@Sample.IO ', 'Zed'], ['amy@other.net', ' A.\"'], ['ZED@sample.io', 'Zed duplicated'], ['amy@OTHER.net', 'Amy second']]\nassert [['email', 'n...'Amy second']] == [['zed@sample...', 'Amy, A.']]\n  \n  At index 0 diff: ['email', 'name'] != ['zed@sample.io', 'Zed']\n  Left contains 3 more items, first extra item: ['amy@other.net', ' A.\"']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 254,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021824229996127542,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013319300342118368,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_no_duplicates_all_kept",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.556199852842838e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_no_duplicates_all_kept",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', 'User, Three'], ['u4@b.com', 'User Four']] got [['email', 'name'], ['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', ' Three\"'], ['u4@b.com', 'User Four']]\nassert [['email', 'n... 'User Four']] == [['u1@a.com',... 'User Four']]\n  \n  At index 0 diff: ['email', 'name'] != ['u1@a.com', 'User One']\n  Left contains one more item: ['u4@b.com', 'User Four']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 275,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021067804002086632,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r3_no_duplicates_all_kept",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_no_duplicates_all_kept",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013408600352704525,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_max_size_input_within_time",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.507699774578214e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_max_size_input_within_time",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['user0@ex.com', 'Name 0'], ['user1@ex.com', 'Name 1'], ['user2@ex.com', 'Name 2'], ['user3@ex.com', 'Name 3'], ['user4@ex.com', 'Name 4'], ['user5@ex.com', 'Name 5'], ['user6@ex.com', 'Name 6'], ['user7@ex.com', 'Name 7'], ['user8@ex.com', 'Name 8'], ['user9@ex.com', 'Name 9'], ['user10@ex.com', 'Name 10'], ['user11@ex.com', 'Name 11'], ['user12@ex.com', 'Name 12'], ['user13@ex.com', 'Name 13'], ['user14@ex.com', 'Name 14'], ['user15@ex.com', 'Name 15'], ['user16@ex.com', 'Name 16'], ['user17@ex.com', 'Name 17'], ['user18@ex.com', 'Name 18'], ['user19@ex.com', 'Name 19'], ['user20@ex.com', 'Name 20'], ['user21@ex.com', 'Name 21'], ['user22@ex.com', 'Name 22'], ['user23@ex.com', 'Name 23'], ['user24@ex.com', 'Name 24'], ['user25@ex.com', 'Name 25'], ['user26@ex.com', 'Name 26'], ['user27@ex.com', 'Name 27'], ['user28@ex.com', 'Name 28'], ['user29@ex.com', 'Name 29'], ['user30@ex.com', 'Name 30'], ['user31@ex.com', 'Name 31'], ['user32@ex.com', 'Name 32'], ['user33@ex.com', 'Name 33'], ['user34@ex.com', 'Name 34'], ['user35@ex.com', 'Name 35'], ['user36@ex.com', 'Name 36'], ['user37@ex.com', 'Name 37'], ['user38@ex.com', 'Name 38'], ['user39@ex.com', 'Name 39'], ['user40@ex.com', 'Name 40'], ['user41@ex.com', 'Name 41'], ['user42@ex.com', 'Name 42'], ['user43@ex.com', 'Name 43'], ['user44@ex.com', 'Name 44'], ['user45@ex.com', 'Name 45'], ['user46@ex.com', 'Name 46'], ['user47@ex.com', 'Name 47'], ['user48@ex.com', 'Name 48'], ['user49@ex.com', 'Name 49'], ['user50@ex.com', 'Name 50'], ['user51@ex.com', 'Name 51'], ['user52@ex.com', 'Name 52'], ['user53@ex.com', 'Name 53'], ['user54@ex.com', 'Name 54'], ['user55@ex.com', 'Name 55'], ['user56@ex.com', 'Name 56'], ['user57@ex.com', 'Name 57'], ['user58@ex.com', 'Name 58'], ['user59@ex.com', 'Name 59'], ['user60@ex.com', 'Name 60'], ['user61@ex.com', 'Name 61'], ['user62@ex.com', 'Name 62'], ['user63@ex.com', 'Name 63'], ['user64@ex.com', 'Name 64'], ['user65@ex.com', 'Name 65'], ['user66@ex.com",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 310,
+            "source": "        assert_rows_equal(rows, expected)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.024257657998532522,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r3_max_size_input_within_time",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r3_max_size_input_within_time",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017391599976690486,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_input_file_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000141502998303622,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_input_file_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Doe, Bob']] got [['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['bob@example.com', ' Bob\"'], ['ALICE@example.com', 'Alice Chen (dup)']]\nassert [['email', 'n... Chen (dup)']] == [['alice@exam..., 'Doe, Bob']]\n  \n  At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice Chen']\n  Left contains 2 more items, first extra item: ['bob@example.com', ' Bob\"']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 347,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02654577100474853,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r4_input_file_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_input_file_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00027579799643717706,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_stdlib_only_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010906700481427833,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_stdlib_only_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06481039200298255,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r4_stdlib_only_imports",
+          "status": "completed",
+          "returncode": 2,
+          "stdout": "",
+          "stderr": "usage: clean.py <input.csv> <output.csv>\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_stdlib_only_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012412200157996267,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.690699567319825e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "rows mismatch: expected [['x@y.com', 'A, B'], ['q@y.com', 'Has \"inner\" quotes']] got [['email', 'name'], ['x@y.com', ' B\"'], ['q@y.com', 'Has \"inner\" quotes']]\nassert [['email', 'n...ner\" quotes']] == [['x@y.com', ...ner\" quotes']]\n  \n  At index 0 diff: ['email', 'name'] != ['x@y.com', 'A, B']\n  Left contains one more item: ['q@y.com', 'Has \"inner\" quotes']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 394,
+            "source": "        assert_rows_equal("
+          },
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    assert actual[1:] == expected, \"rows mismatch: expected %r got %r\" % ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.020146301001659594,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014926199946785346,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242"
+  },
+  "wall_sec": 0.745595
+}

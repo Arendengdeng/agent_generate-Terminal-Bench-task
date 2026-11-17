@@ -1,0 +1,170 @@
+..FF.F.FFFFF...                                                          [100%]
+=================================== FAILURES ===================================
+_____________________ test_normalization_dedup_and_quoting _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_normalization_dedup_and_q0')
+
+    def test_normalization_dedup_and_quoting(tmp_path):
+        rows = run_and_check(os.path.join(FIXTURES, "basic.csv"), tmp_path)
+>       assert rows == [
+            ["alice@example.com", "Alice Chen"],
+            ["bob@example.com", "Bob Li"],
+            ["carol@example.com", "Carol, Jr."],
+            ["dave@example.com", "Dave, Sr."],
+        ]
+E       AssertionError: assert [['alice@exam...Robert Li\n']] == [['alice@exam... 'Dave, Sr.']]
+E         
+E         At index 1 diff: [' bob@example.com ', 'Bob Li'] != ['bob@example.com', 'Bob Li']
+E         Right contains one more item: ['dave@example.com', 'Dave, Sr.']
+E         Use -v to get more diff
+
+test_clean.py:74: AssertionError
+______________ test_quoted_fields_with_commas_and_escaped_quotes _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_and_escaped_quotes(tmp_path):
+        rows = run_and_check(os.path.join(FIXTURES, "quoting.csv"), tmp_path)
+>       assert rows == [
+            ['quo"ted@example.com', 'Ann "Q" Lee'],
+            ["comma@example.com", "Doe, John, III"],
+            ["leading@example.com", "Spaced Name"],
+            ["plain@example.com", "Plain Name"],
+            ["quoted@example.com", 'Back"slash \\ name'],
+        ]
+E       assert [['quo"ted@ex...ash \\ name']] == [['quo"ted@ex...ash \\ name']]
+E         
+E         At index 1 diff: ['comma@example.com', 'Doe\n leading@example.com"', '  Spaced Name  '] != ['comma@example.com', 'Doe, John, III']
+E         Left contains one more item: ['quoted@example.com', 'Back"slash \\ name']
+E         Use -v to get more diff
+
+test_clean.py:84: AssertionError
+________________________ test_output_uses_csv_escaping _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')
+
+    def test_output_uses_csv_escaping(tmp_path):
+        src = write_input(
+            tmp_path,
+            'email,name\n"x@example.com","Doe, ""J"" Do"\n',
+        )
+        out = os.path.join(str(tmp_path), "out.csv")
+        proc = run_clean(src, out)
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        with open(out, "r", encoding="utf-8", newline="") as fh:
+            raw = fh.read()
+        # The name must be CSV-quoted with doubled inner quotes.
+>       assert '"Doe, ""J"" Do"' in raw
+E       assert '"Doe, ""J"" Do"' in 'email,name\n"x@example.com","Doe\n'
+
+test_clean.py:113: AssertionError
+__________________ test_empty_input_file_produces_only_header __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_input_file_produces0')
+
+    def test_empty_input_file_produces_only_header(tmp_path):
+        src = write_input(tmp_path, "")
+>       rows = run_and_check(src, tmp_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_path = '/tmp/pytest-of-unknown/pytest-0/test_empty_input_file_produces0/in.csv'
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_input_file_produces0')
+name = 'out.csv'
+
+    def run_and_check(input_path, tmp_path, name="out.csv"):
+        out = os.path.join(str(tmp_path), name)
+        proc = run_clean(input_path, out)
+>       assert proc.returncode == 0, "exit=%r stderr=%r" % (proc.returncode, proc.stderr)
+E       AssertionError: exit=1 stderr='error: unexpected header\n'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_empty_input_fi...known/pytest-0/test_empty_input_file_produces0/out.csv'], returncode=1, stdout='', stderr='error: unexpected header\n').returncode
+
+test_clean.py:41: AssertionError
+________________ test_duplicate_only_input_yields_single_record ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_duplicate_only_input_yiel0')
+
+    def test_duplicate_only_input_yields_single_record(tmp_path):
+        src = write_input(
+            tmp_path,
+            "email,name\n"
+            "A@x.com,First\n"
+            " a@X.COM ,Second\n"
+            "  A@x.com,Third\n",
+        )
+        rows = run_and_check(src, tmp_path)
+>       assert rows == [["a@x.com", "First"]]
+E       AssertionError: assert [['A@x.com', ...om', 'Third']] == [['a@x.com', 'First']]
+E         
+E         At index 0 diff: ['A@x.com', 'First'] != ['a@x.com', 'First']
+E         Left contains 2 more items, first extra item: [' a@X.COM ', 'Second']
+E         Use -v to get more diff
+
+test_clean.py:137: AssertionError
+_________________ test_internal_whitespace_and_case_preserved __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_internal_whitespace_and_c0')
+
+    def test_internal_whitespace_and_case_preserved(tmp_path):
+        src = write_input(
+            tmp_path,
+            'email,name\n"a@example.com","  John   von Neumann  "\n'
+            '"A@example.com","john von neumann"\n',
+        )
+        rows = run_and_check(src, tmp_path)
+>       assert rows == [["a@example.com", "John   von Neumann"]]
+E       AssertionError: assert [['a@example....von neumann']] == [['a@example....von Neumann']]
+E         
+E         At index 0 diff: ['a@example.com', '  John   von Neumann  '] != ['a@example.com', 'John   von Neumann']
+E         Left contains one more item: ['A@example.com', 'john von neumann']
+E         Use -v to get more diff
+
+test_clean.py:147: AssertionError
+_________________________ test_large_input_max_records _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_max_records0')
+
+    def test_large_input_max_records(tmp_path):
+        lines = ["email,name"]
+        for i in range(1000):
+            lines.append("User%d@Example.com,Name %d" % (i, i))
+        src = write_input(tmp_path, "\n".join(lines) + "\n")
+        rows = run_and_check(src, tmp_path)
+        assert len(rows) == 1000
+>       assert rows[0] == ["user0@example.com", "Name 0"]
+E       AssertionError: assert ['User0@Examp...om', 'Name 0'] == ['user0@examp...om', 'Name 0']
+E         
+E         At index 0 diff: 'User0@Example.com' != 'user0@example.com'
+E         Use -v to get more diff
+
+test_clean.py:157: AssertionError
+____________________ test_large_input_with_many_duplicates _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_with_many_dup0')
+
+    def test_large_input_with_many_duplicates(tmp_path):
+        lines = ["email,name"]
+        for i in range(500):
+            lines.append("dup%d@example.com,First %d" % (i, i))
+        for i in range(500):
+            lines.append(" DUP%d@EXAMPLE.com ,Second %d" % (i, i))
+        src = write_input(tmp_path, "\n".join(lines) + "\n")
+        rows = run_and_check(src, tmp_path)
+>       assert len(rows) == 500
+E       AssertionError: assert 1000 == 500
+E        +  where 1000 = len([['dup0@example.com', 'First 0'], ['dup1@example.com', 'First 1'], ['dup2@example.com', 'First 2'], ['dup3@example.com', 'First 3'], ['dup4@example.com', 'First 4'], ['dup5@example.com', 'First 5'], ...])
+
+test_clean.py:169: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_normalization_dedup_and_quoting - AssertionError: ...
+FAILED test_clean.py::test_quoted_fields_with_commas_and_escaped_quotes - ass...
+FAILED test_clean.py::test_output_uses_csv_escaping - assert '"Doe, ""J"" Do"...
+FAILED test_clean.py::test_empty_input_file_produces_only_header - AssertionE...
+FAILED test_clean.py::test_duplicate_only_input_yields_single_record - Assert...
+FAILED test_clean.py::test_internal_whitespace_and_case_preserved - Assertion...
+FAILED test_clean.py::test_large_input_max_records - AssertionError: assert [...
+FAILED test_clean.py::test_large_input_with_many_duplicates - AssertionError:...
+8 failed, 7 passed in 0.43s

@@ -1,0 +1,84 @@
+{
+  "status": "candidate_generated",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "OpenAICompatibleClient",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 40,
+    "max_tool_calls": 120,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 8000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": null,
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "status_label": "候选已生成",
+  "model_calls": 34,
+  "tool_calls": 47,
+  "digest": "60a8a63aa048af6a0cca1e91f35736dafbdefa9294a70af5e0ed234d4910faec",
+  "manifest": {
+    "checks/probe.py": "d39786c8cb18ffdb01710660012645c6f16708b400256f3011b72d9b5862cd92",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/archive/README.txt": "8f40808c9d4badfdf6ff8610ca7eb43500e5f6a7cf7c65d88a80107b80e0e789",
+    "draft/environment/app/src/__init__.py": "6b0acd19e32a4919172fad9681000416e57bcd891d2193a2da205aba3bc055ac",
+    "draft/environment/app/src/fs_walk.py": "64598404a97beb87c74183c6587d76f3691162c92e80b5a1415406a896d0a159",
+    "draft/environment/app/src/hashing.py": "f275b694f3667777bcc343dac511c8bbc99af339c7dc8ec09136ebf120b29725",
+    "draft/environment/app/src/manifest.py": "46a0353299af31cba7b461e20523db63b00d6bcb83ac1eea5c165d085756b03f",
+    "draft/environment/app/src/paths.py": "e8b483a6e563e695e515df2e2cf21c831b6b87d360e6ecd885835b200775fafb",
+    "draft/instruction.md": "ae01cb1d21a930a7e02a9a5e94593deff03a2d9dd51f0374cb48dfcd022196f0",
+    "draft/solution/solve.sh": "b6b546446719bfc89295333d008859c702c9c19023d68d492384c08cc7234de5",
+    "draft/solution/src/__init__.py": "7cd54b4c9ec058fbff5e49154296e869f4877ec5d8b6ac5a604780946aa78616",
+    "draft/solution/src/fs_walk.py": "cdaa35c2129b2d80a4b11ae5d3d3f497299c6be5ef4a87463602fa2cf3dbc3ef",
+    "draft/solution/src/hashing.py": "b630382b0f3ed307ec0657b54cb00535acb782f9111196d9998114b02fb12df5",
+    "draft/solution/src/manifest.py": "f70f1dc32f90b831e6d8c2a4d0f9fdc2ae242de71b155b6c41e71f5fefe0685e",
+    "draft/solution/src/paths.py": "8167777bce590a1eeb18c0665c19c1dc2b15b3efd226031d3febd1d9a23d2bb8"
+  },
+  "instruction_path": "draft/instruction.md",
+  "environment_dir": "draft/environment",
+  "dockerfile_path": "draft/environment/Dockerfile",
+  "solution_dir": "draft/solution",
+  "solution_entrypoint": "draft/solution/solve.sh",
+  "self_check_path": "self_check.json",
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 34,
+      "limit": 40
+    },
+    "tool_calls": {
+      "used": 47,
+      "limit": 120
+    },
+    "files": {
+      "used": 15,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 23773,
+      "limit": 2000000
+    },
+    "elapsed_sec": 175.775
+  },
+  "workflow_budget_used": {
+    "model_calls": 34,
+    "tool_calls": 47,
+    "token_usage": {
+      "prompt_tokens": 475142,
+      "completion_tokens": 17661,
+      "total_tokens": 492803
+    }
+  }
+}

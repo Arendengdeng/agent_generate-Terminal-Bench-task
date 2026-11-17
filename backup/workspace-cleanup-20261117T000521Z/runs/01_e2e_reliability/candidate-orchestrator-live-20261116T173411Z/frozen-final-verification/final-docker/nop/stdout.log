@@ -1,0 +1,780 @@
+FFFFF.FFFFFFFFFFFFFF.F                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_challenge_first_quoted_duplicate_wins_over_later_plain __________
+
+    def test_challenge_first_quoted_duplicate_wins_over_later_plain():
+        # First occurrence of bob@example.com carries the quoted comma name.
+        text = (
+            "email,name\n"
+            '  Bob@Example.COM  ,"Doe, Bob"\n'
+            " bob@example.com ,Bob Doe\n"
+            "  Alice@Example.com ,  Alice Chen\n"
+            "ALICE@example.com,Alice Chen (dup)\n"
+        )
+>       _check(
+            text,
+            [["bob@example.com", "Doe, Bob"], ["alice@example.com", "Alice Chen"]],
+        )
+
+test_challenge_r2.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_text = 'email,name\n  Bob@Example.COM  ,"Doe, Bob"\n bob@example.com ,Bob Doe\n  Alice@Example.com ,  Alice Chen\nALICE@example.com,Alice Chen (dup)\n'
+expected_rows = [['bob@example.com', 'Doe, Bob'], ['alice@example.com', 'Alice Chen']]
+output_name = 'people.csv'
+
+    def _check(input_text, expected_rows, output_name="people.csv"):
+        try:
+            proc, in_path, out_path, workdir = _run(input_text, output_name=output_name)
+        except subprocess.TimeoutExpired:
+            raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+        try:
+            stderr = proc.stderr.decode("utf-8", "replace")
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r" % (proc.returncode, stderr)
+            )
+            rows = _parse_csv_file(out_path)
+            assert rows[:1] == [HEADER], "expected header email,name, got %r" % (rows[:1],)
+>           assert rows[1:] == expected_rows, (
+                "expected rows %r, got %r" % (expected_rows, rows[1:])
+            )
+E           AssertionError: expected rows [['bob@example.com', 'Doe, Bob'], ['alice@example.com', 'Alice Chen']], got [['email', 'name'], ['  Bob@Example.COM  ', ' Bob"'], [' bob@example.com ', 'Bob Doe'], ['  Alice@Example.com ', '  Alice Chen'], ['ALICE@example.com', 'Alice Chen (dup)']]
+E           assert [['email', 'n... Chen (dup)']] == [['bob@exampl...'Alice Chen']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['bob@example.com', 'Doe, Bob']
+E             Left contains 3 more items, first extra item: [' bob@example.com ', 'Bob Doe']
+E             Use -v to get more diff
+
+test_challenge_r2.py:62: AssertionError
+___________ test_challenge_later_duplicates_are_discarded_not_merged ___________
+
+    def test_challenge_later_duplicates_are_discarded_not_merged():
+        # Later duplicates must be dropped entirely; the name must not be merged.
+        text = (
+            "email,name\n"
+            "carol@example.org,Carol First\n"
+            "  CAROL@Example.org ,Carol Second\n"
+            "carol@example.org,Carol Third\n"
+            "dave@example.net,Dave\n"
+        )
+>       _check(
+            text,
+            [["carol@example.org", "Carol First"], ["dave@example.net", "Dave"]],
+        )
+
+test_challenge_r2.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_text = 'email,name\ncarol@example.org,Carol First\n  CAROL@Example.org ,Carol Second\ncarol@example.org,Carol Third\ndave@example.net,Dave\n'
+expected_rows = [['carol@example.org', 'Carol First'], ['dave@example.net', 'Dave']]
+output_name = 'people.csv'
+
+    def _check(input_text, expected_rows, output_name="people.csv"):
+        try:
+            proc, in_path, out_path, workdir = _run(input_text, output_name=output_name)
+        except subprocess.TimeoutExpired:
+            raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+        try:
+            stderr = proc.stderr.decode("utf-8", "replace")
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r" % (proc.returncode, stderr)
+            )
+            rows = _parse_csv_file(out_path)
+            assert rows[:1] == [HEADER], "expected header email,name, got %r" % (rows[:1],)
+>           assert rows[1:] == expected_rows, (
+                "expected rows %r, got %r" % (expected_rows, rows[1:])
+            )
+E           AssertionError: expected rows [['carol@example.org', 'Carol First'], ['dave@example.net', 'Dave']], got [['email', 'name'], ['carol@example.org', 'Carol First'], ['  CAROL@Example.org ', 'Carol Second'], ['dave@example.net', 'Dave']]
+E           assert [['email', 'n...net', 'Dave']] == [['carol@exam...net', 'Dave']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['carol@example.org', 'Carol First']
+E             Left contains 2 more items, first extra item: ['  CAROL@Example.org ', 'Carol Second']
+E             Use -v to get more diff
+
+test_challenge_r2.py:62: AssertionError
+_________ test_challenge_first_seen_order_preserved_with_mixed_quoting _________
+
+    def test_challenge_first_seen_order_preserved_with_mixed_quoting():
+        text = (
+            "email,name\n"
+            'zed@example.com,"Zed, Z."\n'
+            "  AMY@Example.COM ,  Amy A.\n"
+            'Zed@EXAMPLE.com,"Later, Zed"\n'
+            "amy@example.com,Amy Again\n"
+            '  quinn@example.com ,"Quinn ""Q"" Q"\n'
+        )
+>       _check(
+            text,
+            [
+                ["zed@example.com", "Zed, Z."],
+                ["amy@example.com", "Amy A."],
+                ["quinn@example.com", 'Quinn "Q" Q'],
+            ],
+        )
+
+test_challenge_r2.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_text = 'email,name\nzed@example.com,"Zed, Z."\n  AMY@Example.COM ,  Amy A.\nZed@EXAMPLE.com,"Later, Zed"\namy@example.com,Amy Again\n  quinn@example.com ,"Quinn ""Q"" Q"\n'
+expected_rows = [['zed@example.com', 'Zed, Z.'], ['amy@example.com', 'Amy A.'], ['quinn@example.com', 'Quinn "Q" Q']]
+output_name = 'people.csv'
+
+    def _check(input_text, expected_rows, output_name="people.csv"):
+        try:
+            proc, in_path, out_path, workdir = _run(input_text, output_name=output_name)
+        except subprocess.TimeoutExpired:
+            raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+        try:
+            stderr = proc.stderr.decode("utf-8", "replace")
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r" % (proc.returncode, stderr)
+            )
+            rows = _parse_csv_file(out_path)
+            assert rows[:1] == [HEADER], "expected header email,name, got %r" % (rows[:1],)
+>           assert rows[1:] == expected_rows, (
+                "expected rows %r, got %r" % (expected_rows, rows[1:])
+            )
+E           AssertionError: expected rows [['zed@example.com', 'Zed, Z.'], ['amy@example.com', 'Amy A.'], ['quinn@example.com', 'Quinn "Q" Q']], got [['email', 'name'], ['zed@example.com', ' Z."'], ['  AMY@Example.COM ', '  Amy A.'], ['Zed@EXAMPLE.com', ' Zed"'], ['amy@example.com', 'Amy Again'], ['  quinn@example.com ', 'Quinn "Q" Q']]
+E           assert [['email', 'n...Quinn "Q" Q']] == [['zed@exampl...Quinn "Q" Q']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['zed@example.com', 'Zed, Z.']
+E             Left contains 3 more items, first extra item: ['Zed@EXAMPLE.com', ' Zed"']
+E             Use -v to get more diff
+
+test_challenge_r2.py:62: AssertionError
+________________ test_challenge_multiline_quoted_name_preserved ________________
+
+    def test_challenge_multiline_quoted_name_preserved():
+        text = (
+            "email,name\n"
+            'lee@example.com,"Lee\nSecond Line"\n'
+            "LEE@example.com,Dropped\n"
+        )
+>       _check(text, [["lee@example.com", "Lee\nSecond Line"]])
+
+test_challenge_r2.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_text = 'email,name\nlee@example.com,"Lee\nSecond Line"\nLEE@example.com,Dropped\n'
+expected_rows = [['lee@example.com', 'Lee\nSecond Line']]
+output_name = 'people.csv'
+
+    def _check(input_text, expected_rows, output_name="people.csv"):
+        try:
+            proc, in_path, out_path, workdir = _run(input_text, output_name=output_name)
+        except subprocess.TimeoutExpired:
+            raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+        try:
+            stderr = proc.stderr.decode("utf-8", "replace")
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r" % (proc.returncode, stderr)
+            )
+            rows = _parse_csv_file(out_path)
+            assert rows[:1] == [HEADER], "expected header email,name, got %r" % (rows[:1],)
+>           assert rows[1:] == expected_rows, (
+                "expected rows %r, got %r" % (expected_rows, rows[1:])
+            )
+E           AssertionError: expected rows [['lee@example.com', 'Lee\nSecond Line']], got [['email', 'name'], ['lee@example.com', 'Lee\nSecond Line', 'Second Line"'], ['LEE@example.com', 'Dropped']]
+E           assert [['email', 'n...', 'Dropped']] == [['lee@exampl...Second Line']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['lee@example.com', 'Lee\nSecond Line']
+E             Left contains 2 more items, first extra item: ['lee@example.com', 'Lee\nSecond Line', 'Second Line"']
+E             Use -v to get more diff
+
+test_challenge_r2.py:62: AssertionError
+_________ test_challenge_output_written_to_second_positional_argument __________
+
+    def test_challenge_output_written_to_second_positional_argument():
+        text = (
+            "email,name\n"
+            'zed@sample.io,"Zed, Z"\n'
+            " zed@SAMPLE.io ,Zed Later\n"
+        )
+>       _check(
+            text,
+            [["zed@sample.io", "Zed, Z"]],
+            output_name="sub_people.csv",
+        )
+
+test_challenge_r2.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_text = 'email,name\nzed@sample.io,"Zed, Z"\n zed@SAMPLE.io ,Zed Later\n'
+expected_rows = [['zed@sample.io', 'Zed, Z']], output_name = 'sub_people.csv'
+
+    def _check(input_text, expected_rows, output_name="people.csv"):
+        try:
+            proc, in_path, out_path, workdir = _run(input_text, output_name=output_name)
+        except subprocess.TimeoutExpired:
+            raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+        try:
+            stderr = proc.stderr.decode("utf-8", "replace")
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r" % (proc.returncode, stderr)
+            )
+            rows = _parse_csv_file(out_path)
+            assert rows[:1] == [HEADER], "expected header email,name, got %r" % (rows[:1],)
+>           assert rows[1:] == expected_rows, (
+                "expected rows %r, got %r" % (expected_rows, rows[1:])
+            )
+E           AssertionError: expected rows [['zed@sample.io', 'Zed, Z']], got [['email', 'name'], ['zed@sample.io', ' Z"'], [' zed@SAMPLE.io ', 'Zed Later']]
+E           assert [['email', 'n... 'Zed Later']] == [['zed@sample.io', 'Zed, Z']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['zed@sample.io', 'Zed, Z']
+E             Left contains 2 more items, first extra item: ['zed@sample.io', ' Z"']
+E             Use -v to get more diff
+
+test_challenge_r2.py:62: AssertionError
+__________________ test_r1_success_exit_code_and_output_file ___________________
+
+    def test_r1_success_exit_code_and_output_file():
+        text = "email,name\nalice@example.com,Alice\n"
+        proc, in_path, out_path, workdir = run_clean(text)
+        try:
+            assert proc is not None, "CLI timed out after %ss" % TIMEOUT
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r"
+                % (proc.returncode, proc.stderr.decode("utf-8", "replace"))
+            )
+            rows, raw = parse_output(out_path)
+>           assert_rows_equal(rows, [["alice@example.com", "Alice"]])
+
+test_clean.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['alice@example.com', 'Alice']]
+expected = [['alice@example.com', 'Alice']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['alice@example.com', 'Alice']] got [['email', 'name'], ['alice@example.com', 'Alice']]
+E       assert [['email', 'n...om', 'Alice']] == [['alice@exam...om', 'Alice']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice']
+E         Left contains one more item: ['alice@example.com', 'Alice']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+_______________ test_r1_output_path_is_user_supplied_second_arg ________________
+
+    def test_r1_output_path_is_user_supplied_second_arg():
+        workdir = tempfile.mkdtemp(dir="/tmp", prefix="cleantest_")
+        try:
+            in_path = os.path.join(workdir, "in.csv")
+            out_path = os.path.join(workdir, "sub", "result.csv")
+            os.makedirs(os.path.dirname(out_path))
+            with open(in_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("email,name\nx@y.z,X\n")
+            try:
+                proc = subprocess.run(
+                    [sys.executable, CLEAN, in_path, out_path],
+                    cwd=workdir,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    timeout=TIMEOUT,
+                )
+            except subprocess.TimeoutExpired:
+                raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r"
+                % (proc.returncode, proc.stderr.decode("utf-8", "replace"))
+            )
+            rows, _ = parse_output(out_path)
+>           assert_rows_equal(rows, [["x@y.z", "X"]])
+
+test_clean.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['x@y.z', 'X']]
+expected = [['x@y.z', 'X']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['x@y.z', 'X']] got [['email', 'name'], ['x@y.z', 'X']]
+E       assert [['email', 'n...'x@y.z', 'X']] == [['x@y.z', 'X']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['x@y.z', 'X']
+E         Left contains one more item: ['x@y.z', 'X']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+________________ test_r1_output_header_and_csv_written_to_spec _________________
+
+    def test_r1_output_header_and_csv_written_to_spec():
+        rows, raw, in_path, out_path, workdir = expect_ok(
+            "email,name\nbob@example.com,Bob\n"
+        )
+        try:
+            assert rows[0] == HEADER, "header must be exactly email,name: %r" % (rows[0],)
+>           assert rows[1:] == [["bob@example.com", "Bob"]]
+E           AssertionError: assert [['email', 'n....com', 'Bob']] == [['bob@example.com', 'Bob']]
+E             
+E             At index 0 diff: ['email', 'name'] != ['bob@example.com', 'Bob']
+E             Left contains one more item: ['bob@example.com', 'Bob']
+E             Use -v to get more diff
+
+test_clean.py:133: AssertionError
+_________________ test_r2_normalizes_email_whitespace_and_case _________________
+
+    def test_r2_normalizes_email_whitespace_and_case():
+        text = (
+            "email,name\n"
+            "  Alice@Example.com ,  Alice Chen\n"
+            "\tBOB@Example.COM\t,Bob B\n"
+            " alice@example.com ,Alice Again\n"
+            "bob@example.com,Bob Doe\n"
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [["alice@example.com", "Alice Chen"], ["bob@example.com", "Bob B"]],
+            )
+
+test_clean.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['\tBOB@Example.COM\t', 'Bob B'], [' alice@example.com ', 'Alice Again'], ['bob@example.com', 'Bob Doe']]
+expected = [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Bob B']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Bob B']] got [['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['\tBOB@Example.COM\t', 'Bob B'], [' alice@example.com ', 'Alice Again'], ['bob@example.com', 'Bob Doe']]
+E       assert [['email', 'n...', 'Bob Doe']] == [['alice@exam...om', 'Bob B']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice Chen']
+E         Left contains 3 more items, first extra item: ['\tBOB@Example.COM\t', 'Bob B']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+____________ test_r2_quoted_names_with_commas_and_quotes_preserved _____________
+
+    def test_r2_quoted_names_with_commas_and_quotes_preserved():
+        text = (
+            "email,name\n"
+            'bob@example.com,"Doe, Bob"\n'
+            'carol@example.org,"Carol ""CC"" Ng"\n'
+            ' dan@example.net ,"  Dan  Q.  Public, Jr.  "\n'
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [
+                    ["bob@example.com", "Doe, Bob"],
+                    ["carol@example.org", 'Carol "CC" Ng'],
+                    ["dan@example.net", "Dan  Q.  Public, Jr."],
+                ],
+            )
+
+test_clean.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['bob@example.com', ' Bob"'], ['carol@example.org', 'Carol "CC" Ng'], [' dan@example.net ', ' Jr.  "']]
+expected = [['bob@example.com', 'Doe, Bob'], ['carol@example.org', 'Carol "CC" Ng'], ['dan@example.net', 'Dan  Q.  Public, Jr.']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['bob@example.com', 'Doe, Bob'], ['carol@example.org', 'Carol "CC" Ng'], ['dan@example.net', 'Dan  Q.  Public, Jr.']] got [['email', 'name'], ['bob@example.com', ' Bob"'], ['carol@example.org', 'Carol "CC" Ng'], [' dan@example.net ', ' Jr.  "']]
+E       assert [['email', 'n...', ' Jr.  "']] == [['bob@exampl...Public, Jr.']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['bob@example.com', 'Doe, Bob']
+E         Left contains one more item: [' dan@example.net ', ' Jr.  "']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+____________________ test_r2_output_reparses_to_same_values ____________________
+
+    def test_r2_output_reparses_to_same_values():
+        text = "email,name\nA@B.com,\"Name, With \"\"quotes\"\"\"\n"
+        rows, raw, _, _, workdir = expect_ok(text)
+        try:
+            text_out = raw.decode("utf-8")
+>           assert "Name, With" in text_out
+E           assert 'Name, With' in 'email,name\nemail,name\nA@B.com, With ""quotes"""\n'
+
+test_clean.py:183: AssertionError
+__________________ test_r2_stable_order_first_occurrence_kept __________________
+
+    def test_r2_stable_order_first_occurrence_kept():
+        text = (
+            "email,name\n"
+            "c@x.com,First C\n"
+            "a@x.com,First A\n"
+            "b@x.com,First B\n"
+            "B@X.COM,Second B\n"
+            "a@x.com,Second A\n"
+            "c@x.com,Second C\n"
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [
+                    ["c@x.com", "First C"],
+                    ["a@x.com", "First A"],
+                    ["b@x.com", "First B"],
+                ],
+            )
+
+test_clean.py:203: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B'], ['B@X.COM', 'Second B']]
+expected = [['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B']] got [['email', 'name'], ['c@x.com', 'First C'], ['a@x.com', 'First A'], ['b@x.com', 'First B'], ['B@X.COM', 'Second B']]
+E       assert [['email', 'n..., 'Second B']] == [['c@x.com', ...', 'First B']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['c@x.com', 'First C']
+E         Left contains 2 more items, first extra item: ['b@x.com', 'First B']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+________________ test_r2_first_duplicate_name_with_quotes_kept _________________
+
+    def test_r2_first_duplicate_name_with_quotes_kept():
+        text = (
+            "email,name\n"
+            'dup@example.com,"Zed, First"\n'
+            "  DUP@Example.com ,Overwritten\n"
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(rows, [["dup@example.com", "Zed, First"]])
+
+test_clean.py:223: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['dup@example.com', ' First"'], ['  DUP@Example.com ', 'Overwritten']]
+expected = [['dup@example.com', 'Zed, First']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['dup@example.com', 'Zed, First']] got [['email', 'name'], ['dup@example.com', ' First"'], ['  DUP@Example.com ', 'Overwritten']]
+E       assert [['email', 'n...Overwritten']] == [['dup@exampl...'Zed, First']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['dup@example.com', 'Zed, First']
+E         Left contains 2 more items, first extra item: ['dup@example.com', ' First"']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+__________________________ test_r3_header_only_input ___________________________
+
+    def test_r3_header_only_input():
+        rows, raw, _, _, workdir = expect_ok("email,name\n")
+        try:
+>           assert rows == [HEADER], "expected only the header row, got %r" % (rows,)
+E           AssertionError: expected only the header row, got [['email', 'name'], ['email', 'name']]
+E           assert [['email', 'n...ail', 'name']] == [['email', 'name']]
+E             
+E             Left contains one more item: ['email', 'name']
+E             Use -v to get more diff
+
+test_clean.py:231: AssertionError
+_________________ test_r3_header_only_without_trailing_newline _________________
+
+    def test_r3_header_only_without_trailing_newline():
+        rows, _, _, _, workdir = expect_ok("email,name")
+        try:
+>           assert rows == [HEADER], "expected only the header row, got %r" % (rows,)
+E           AssertionError: expected only the header row, got [['email', 'name'], ['email', 'name']]
+E           assert [['email', 'n...ail', 'name']] == [['email', 'name']]
+E             
+E             Left contains one more item: ['email', 'name']
+E             Use -v to get more diff
+
+test_clean.py:239: AssertionError
+___________________ test_r3_other_input_not_hardcoded_sample ___________________
+
+    def test_r3_other_input_not_hardcoded_sample():
+        text = (
+            "email,name\n"
+            "  Zed@Sample.IO ,Zed\n"
+            "amy@other.net,\"Amy, A.\"\n"
+            "ZED@sample.io,Zed duplicated\n"
+            "amy@OTHER.net,Amy second\n"
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [
+                    ["zed@sample.io", "Zed"],
+                    ["amy@other.net", "Amy, A."],
+                ],
+            )
+
+test_clean.py:254: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['  Zed@Sample.IO ', 'Zed'], ['amy@other.net', ' A."'], ['ZED@sample.io', 'Zed duplicated'], ['amy@OTHER.net', 'Amy second']]
+expected = [['zed@sample.io', 'Zed'], ['amy@other.net', 'Amy, A.']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['zed@sample.io', 'Zed'], ['amy@other.net', 'Amy, A.']] got [['email', 'name'], ['  Zed@Sample.IO ', 'Zed'], ['amy@other.net', ' A."'], ['ZED@sample.io', 'Zed duplicated'], ['amy@OTHER.net', 'Amy second']]
+E       assert [['email', 'n...'Amy second']] == [['zed@sample...', 'Amy, A.']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['zed@sample.io', 'Zed']
+E         Left contains 3 more items, first extra item: ['amy@other.net', ' A."']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+________________________ test_r3_no_duplicates_all_kept ________________________
+
+    def test_r3_no_duplicates_all_kept():
+        text = (
+            "email,name\n"
+            "u1@a.com,User One\n"
+            "u2@a.com,User Two\n"
+            "u3@b.com,\"User, Three\"\n"
+            "u4@b.com,User Four\n"
+        )
+        rows, _, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [
+                    ["u1@a.com", "User One"],
+                    ["u2@a.com", "User Two"],
+                    ["u3@b.com", "User, Three"],
+                    ["u4@b.com", "User Four"],
+                ],
+            )
+
+test_clean.py:275: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', ' Three"'], ['u4@b.com', 'User Four']]
+expected = [['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', 'User, Three'], ['u4@b.com', 'User Four']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', 'User, Three'], ['u4@b.com', 'User Four']] got [['email', 'name'], ['u1@a.com', 'User One'], ['u2@a.com', 'User Two'], ['u3@b.com', ' Three"'], ['u4@b.com', 'User Four']]
+E       assert [['email', 'n... 'User Four']] == [['u1@a.com',... 'User Four']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['u1@a.com', 'User One']
+E         Left contains one more item: ['u4@b.com', 'User Four']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+______________________ test_r3_max_size_input_within_time ______________________
+
+    def test_r3_max_size_input_within_time():
+        lines = ["email,name"]
+        expected = []
+        for i in range(1000):
+            email = "user%d@ex.com" % i
+            lines.append("%s,Name %d" % (email, i))
+            expected.append([email, "Name %d" % i])
+        # add some duplicates by re-listing half of them (1000 total records)
+        lines = ["email,name"]
+        expected = []
+        for i in range(500):
+            lines.append("  User%d@EX.com ,Name %d" % (i, i))
+            lines.append("user%d@ex.com,Duplicate %d" % (i, i))
+            expected.append(["user%d@ex.com" % i, "Name %d" % i])
+        proc, in_path, out_path, workdir = run_clean("\n".join(lines) + "\n")
+        try:
+            assert proc is not None, "CLI timed out after %ss" % TIMEOUT
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r"
+                % (proc.returncode, proc.stderr.decode("utf-8", "replace"))
+            )
+            rows, _ = parse_output(out_path)
+>           assert_rows_equal(rows, expected)
+
+test_clean.py:310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['  User0@EX.com ', 'Name 0'], ['user0@ex.com', 'Duplicate 0'], ['  User1@EX.com ', 'Name 1'], ['user1@ex.com', 'Duplicate 1'], ...]
+expected = [['user0@ex.com', 'Name 0'], ['user1@ex.com', 'Name 1'], ['user2@ex.com', 'Name 2'], ['user3@ex.com', 'Name 3'], ['user4@ex.com', 'Name 4'], ['user5@ex.com', 'Name 5'], ...]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['user0@ex.com', 'Name 0'], ['user1@ex.com', 'Name 1'], ['user2@ex.com', 'Name 2'], ['user3@ex.com', 'Name 3'], ['user4@ex.com', 'Name 4'], ['user5@ex.com', 'Name 5'], ['user6@ex.com', 'Name 6'], ['user7@ex.com', 'Name 7'], ['user8@ex.com', 'Name 8'], ['user9@ex.com', 'Name 9'], ['user10@ex.com', 'Name 10'], ['user11@ex.com', 'Name 11'], ['user12@ex.com', 'Name 12'], ['user13@ex.com', 'Name 13'], ['user14@ex.com', 'Name 14'], ['user15@ex.com', 'Name 15'], ['user16@ex.com', 'Name 16'], ['user17@ex.com', 'Name 17'], ['user18@ex.com', 'Name 18'], ['user19@ex.com', 'Name 19'], ['user20@ex.com', 'Name 20'], ['user21@ex.com', 'Name 21'], ['user22@ex.com', 'Name 22'], ['user23@ex.com', 'Name 23'], ['user24@ex.com', 'Name 24'], ['user25@ex.com', 'Name 25'], ['user26@ex.com', 'Name 26'], ['user27@ex.com', 'Name 27'], ['user28@ex.com', 'Name 28'], ['user29@ex.com', 'Name 29'], ['user30@ex.com', 'Name 30'], ['user31@ex.com', 'Name 31'], ['user32@ex.com', 'Name 32'], ['user33@ex.com', 'Name 33'], ['user34@ex.com', 'Name 34'], ['user35@ex.com', 'Name 35'], ['user36@ex.com', 'Name 36'], ['user37@ex.com', 'Name 37'], ['user38@ex.com', 'Name 38'], ['user39@ex.com', 'Name 39'], ['user40@ex.com', 'Name 40'], ['user41@ex.com', 'Name 41'], ['user42@ex.com', 'Name 42'], ['user43@ex.com', 'Name 43'], ['user44@ex.com', 'Name 44'], ['user45@ex.com', 'Name 45'], ['user46@ex.com', 'Name 46'], ['user47@ex.com', 'Name 47'], ['user48@ex.com', 'Name 48'], ['user49@ex.com', 'Name 49'], ['user50@ex.com', 'Name 50'], ['user51@ex.com', 'Name 51'], ['user52@ex.com', 'Name 52'], ['user53@ex.com', 'Name 53'], ['user54@ex.com', 'Name 54'], ['user55@ex.com', 'Name 55'], ['user56@ex.com', 'Name 56'], ['user57@ex.com', 'Name 57'], ['user58@ex.com', 'Name 58'], ['user59@ex.com', 'Name 59'], ['user60@ex.com', 'Name 60'], ['user61@ex.com', 'Name 61'], ['user62@ex.com', 'Name 62'], ['user63@ex.com', 'Name 63'], ['user64@ex.com', 'Name 64'], ['user65@ex.com', 'Name 65'], ['user66@ex.com', 'Name 66'], ['user67@ex.com', 'Name 67'], ['user68@ex.com', 'Name 68'], ['user69@ex.com', 'Name 69'], ['user70@ex.com', 'Name 70'], ['user71@ex.com', 'Name 71'], ['user72@ex.com', 'Name 72'], ['user73@ex.com', 'Name 73'], ['user74@ex.com', 'Name 74'], ['user75@ex.com', 'Name 75'], ['user76@ex.com', 'Name 76'], ['user77@ex.com', 'Name 77'], ['user78@ex.com', 'Name 78'], ['user79@ex.com', 'Name 79'], ['user80@ex.com', 'Name 80'], ['user81@ex.com', 'Name 81'], ['user82@ex.com', 'Name 82'], ['user83@ex.com', 'Name 83'], ['user84@ex.com', 'Name 84'], ['user85@ex.com', 'Name 85'], ['user86@ex.com', 'Name 86'], ['user87@ex.com', 'Name 87'], ['user88@ex.com', 'Name 88'], ['user89@ex.com', 'Name 89'], ['user90@ex.com', 'Name 90'], ['user91@ex.com', 'Name 91'], ['user92@ex.com', 'Name 92'], ['user93@ex.com', 'Name 93'], ['user94@ex.com', 'Name 94'], ['user95@ex.com', 'Name 95'], ['user96@ex.com', 'Name 96'], ['user97@ex.com', 'Name 97'], ['user98@ex.com', 'Name 98'], ['user99@ex.com', 'Name 99'], ['user100@ex.com', 'Name 100'], ['user101@ex.com', 'Name 101'], ['user102@ex.com', 'Name 102'], ['user103@ex.com', 'Name 103'], ['user104@ex.com', 'Name 104'], ['user105@ex.com', 'Name 105'], ['user106@ex.com', 'Name 106'], ['user107@ex.com', 'Name 107'], ['user108@ex.com', 'Name 108'], ['user109@ex.com', 'Name 109'], ['user110@ex.com', 'Name 110'], ['user111@ex.com', 'Name 111'], ['user112@ex.com', 'Name 112'], ['user113@ex.com', 'Name 113'], ['user114@ex.com', 'Name 114'], ['user115@ex.com', 'Name 115'], ['user116@ex.com', 'Name 116'], ['user117@ex.com', 'Name 117'], ['user118@ex.com', 'Name 118'], ['user119@ex.com', 'Name 119'], ['user120@ex.com', 'Name 120'], ['user121@ex.com', 'Name 121'], ['user122@ex.com', 'Name 122'], ['user123@ex.com', 'Name 123'], ['user124@ex.com', 'Name 124'], ['user125@ex.com', 'Name 125'], ['user126@ex.com', 'Name 126'], ['user127@ex.com', 'Name 127'], ['user128@ex.com', 'Name 128'], ['user129@ex.com', 'Name 129'], ['user130@ex.com', 'Name 130'], ['user131@ex.com', 'Name 131'], ['user132@ex.com', 'Name 132'], ['user133@ex.com', 'Name 133'], ['user134@ex.com', 'Name 134'], ['user135@ex.com', 'Name 135'], ['user136@ex.com', 'Name 136'], ['user137@ex.com', 'Name 137'], ['user138@ex.com', 'Name 138'], ['user139@ex.com', 'Name 139'], ['user140@ex.com', 'Name 140'], ['user141@ex.com', 'Name 141'], ['user142@ex.com', 'Name 142'], ['user143@ex.com', 'Name 143'], ['user144@ex.com', 'Name 144'], ['user145@ex.com', 'Name 145'], ['user146@ex.com', 'Name 146'], ['user147@ex.com', 'Name 147'], ['user148@ex.com', 'Name 148'], ['user149@ex.com', 'Name 149'], ['user150@ex.com', 'Name 150'], ['user151@ex.com', 'Name 151'], ['user152@ex.com', 'Name 152'], ['user153@ex.com', 'Name 153'], ['user154@ex.com', 'Name 154'], ['user155@ex.com', 'Name 155'], ['user156@ex.com', 'Name 156'], ['user157@ex.com', 'Name 157'], ['user158@ex.com', 'Name 158'], ['user159@ex.com', 'Name 159'], ['user160@ex.com', 'Name 160'], ['user161@ex.com', 'Name 161'], ['user162@ex.com', 'Name 162'], ['user163@ex.com', 'Name 163'], ['user164@ex.com', 'Name 164'], ['user165@ex.com', 'Name 165'], ['user166@ex.com', 'Name 166'], ['user167@ex.com', 'Name 167'], ['user168@ex.com', 'Name 168'], ['user169@ex.com', 'Name 169'], ['user170@ex.com', 'Name 170'], ['user171@ex.com', 'Name 171'], ['user172@ex.com', 'Name 172'], ['user173@ex.com', 'Name 173'], ['user174@ex.com', 'Name 174'], ['user175@ex.com', 'Name 175'], ['user176@ex.com', 'Name 176'], ['user177@ex.com', 'Name 177'], ['user178@ex.com', 'Name 178'], ['user179@ex.com', 'Name 179'], ['user180@ex.com', 'Name 180'], ['user181@ex.com', 'Name 181'], ['user182@ex.com', 'Name 182'], ['user183@ex.com', 'Name 183'], ['user184@ex.com', 'Name 184'], ['user185@ex.com', 'Name 185'], ['user186@ex.com', 'Name 186'], ['user187@ex.com', 'Name 187'], ['user188@ex.com', 'Name 188'], ['user189@ex.com', 'Name 189'], ['user190@ex.com', 'Name 190'], ['user191@ex.com', 'Name 191'], ['user192@ex.com', 'Name 192'], ['user193@ex.com', 'Name 193'], ['user194@ex.com', 'Name 194'], ['user195@ex.com', 'Name 195'], ['user196@ex.com', 'Name 196'], ['user197@ex.com', 'Name 197'], ['user198@ex.com', 'Name 198'], ['user199@ex.com', 'Name 199'], ['user200@ex.com', 'Name 200'], ['user201@ex.com', 'Name 201'], ['user202@ex.com', 'Name 202'], ['user203@ex.com', 'Name 203'], ['user204@ex.com', 'Name 204'], ['user205@ex.com', 'Name 205'], ['user206@ex.com', 'Name 206'], ['user207@ex.com', 'Name 207'], ['user208@ex.com', 'Name 208'], ['user209@ex.com', 'Name 209'], ['user210@ex.com', 'Name 210'], ['user211@ex.com', 'Name 211'], ['user212@ex.com', 'Name 212'], ['user213@ex.com', 'Name 213'], ['user214@ex.com', 'Name 214'], ['user215@ex.com', 'Name 215'], ['user216@ex.com', 'Name 216'], ['user217@ex.com', 'Name 217'], ['user218@ex.com', 'Name 218'], ['user219@ex.com', 'Name 219'], ['user220@ex.com', 'Name 220'], ['user221@ex.com', 'Name 221'], ['user222@ex.com', 'Name 222'], ['user223@ex.com', 'Name 223'], ['user224@ex.com', 'Name 224'], ['user225@ex.com', 'Name 225'], ['user226@ex.com', 'Name 226'], ['user227@ex.com', 'Name 227'], ['user228@ex.com', 'Name 228'], ['user229@ex.com', 'Name 229'], ['user230@ex.com', 'Name 230'], ['user231@ex.com', 'Name 231'], ['user232@ex.com', 'Name 232'], ['user233@ex.com', 'Name 233'], ['user234@ex.com', 'Name 234'], ['user235@ex.com', 'Name 235'], ['user236@ex.com', 'Name 236'], ['user237@ex.com', 'Name 237'], ['user238@ex.com', 'Name 238'], ['user239@ex.com', 'Name 239'], ['user240@ex.com', 'Name 240'], ['user241@ex.com', 'Name 241'], ['user242@ex.com', 'Name 242'], ['user243@ex.com', 'Name 243'], ['user244@ex.com', 'Name 244'], ['user245@ex.com', 'Name 245'], ['user246@ex.com', 'Name 246'], ['user247@ex.com', 'Name 247'], ['user248@ex.com', 'Name 248'], ['user249@ex.com', 'Name 249'], ['user250@ex.com', 'Name 250'], ['user251@ex.com', 'Name 251'], ['user252@ex.com', 'Name 252'], ['user253@ex.com', 'Name 253'], ['user254@ex.com', 'Name 254'], ['user255@ex.com', 'Name 255'], ['user256@ex.com', 'Name 256'], ['user257@ex.com', 'Name 257'], ['user258@ex.com', 'Name 258'], ['user259@ex.com', 'Name 259'], ['user260@ex.com', 'Name 260'], ['user261@ex.com', 'Name 261'], ['user262@ex.com', 'Name 262'], ['user263@ex.com', 'Name 263'], ['user264@ex.com', 'Name 264'], ['user265@ex.com', 'Name 265'], ['user266@ex.com', 'Name 266'], ['user267@ex.com', 'Name 267'], ['user268@ex.com', 'Name 268'], ['user269@ex.com', 'Name 269'], ['user270@ex.com', 'Name 270'], ['user271@ex.com', 'Name 271'], ['user272@ex.com', 'Name 272'], ['user273@ex.com', 'Name 273'], ['user274@ex.com', 'Name 274'], ['user275@ex.com', 'Name 275'], ['user276@ex.com', 'Name 276'], ['user277@ex.com', 'Name 277'], ['user278@ex.com', 'Name 278'], ['user279@ex.com', 'Name 279'], ['user280@ex.com', 'Name 280'], ['user281@ex.com', 'Name 281'], ['user282@ex.com', 'Name 282'], ['user283@ex.com', 'Name 283'], ['user284@ex.com', 'Name 284'], ['user285@ex.com', 'Name 285'], ['user286@ex.com', 'Name 286'], ['user287@ex.com', 'Name 287'], ['user288@ex.com', 'Name 288'], ['user289@ex.com', 'Name 289'], ['user290@ex.com', 'Name 290'], ['user291@ex.com', 'Name 291'], ['user292@ex.com', 'Name 292'], ['user293@ex.com', 'Name 293'], ['user294@ex.com', 'Name 294'], ['user295@ex.com', 'Name 295'], ['user296@ex.com', 'Name 296'], ['user297@ex.com', 'Name 297'], ['user298@ex.com', 'Name 298'], ['user299@ex.com', 'Name 299'], ['user300@ex.com', 'Name 300'], ['user301@ex.com', 'Name 301'], ['user302@ex.com', 'Name 302'], ['user303@ex.com', 'Name 303'], ['user304@ex.com', 'Name 304'], ['user305@ex.com', 'Name 305'], ['user306@ex.com', 'Name 306'], ['user307@ex.com', 'Name 307'], ['user308@ex.com', 'Name 308'], ['user309@ex.com', 'Name 309'], ['user310@ex.com', 'Name 310'], ['user311@ex.com', 'Name 311'], ['user312@ex.com', 'Name 312'], ['user313@ex.com', 'Name 313'], ['user314@ex.com', 'Name 314'], ['user315@ex.com', 'Name 315'], ['user316@ex.com', 'Name 316'], ['user317@ex.com', 'Name 317'], ['user318@ex.com', 'Name 318'], ['user319@ex.com', 'Name 319'], ['user320@ex.com', 'Name 320'], ['user321@ex.com', 'Name 321'], ['user322@ex.com', 'Name 322'], ['user323@ex.com', 'Name 323'], ['user324@ex.com', 'Name 324'], ['user325@ex.com', 'Name 325'], ['user326@ex.com', 'Name 326'], ['user327@ex.com', 'Name 327'], ['user328@ex.com', 'Name 328'], ['user329@ex.com', 'Name 329'], ['user330@ex.com', 'Name 330'], ['user331@ex.com', 'Name 331'], ['user332@ex.com', 'Name 332'], ['user333@ex.com', 'Name 333'], ['user334@ex.com', 'Name 334'], ['user335@ex.com', 'Name 335'], ['user336@ex.com', 'Name 336'], ['user337@ex.com', 'Name 337'], ['user338@ex.com', 'Name 338'], ['user339@ex.com', 'Name 339'], ['user340@ex.com', 'Name 340'], ['user341@ex.com', 'Name 341'], ['user342@ex.com', 'Name 342'], ['user343@ex.com', 'Name 343'], ['user344@ex.com', 'Name 344'], ['user345@ex.com', 'Name 345'], ['user346@ex.com', 'Name 346'], ['user347@ex.com', 'Name 347'], ['user348@ex.com', 'Name 348'], ['user349@ex.com', 'Name 349'], ['user350@ex.com', 'Name 350'], ['user351@ex.com', 'Name 351'], ['user352@ex.com', 'Name 352'], ['user353@ex.com', 'Name 353'], ['user354@ex.com', 'Name 354'], ['user355@ex.com', 'Name 355'], ['user356@ex.com', 'Name 356'], ['user357@ex.com', 'Name 357'], ['user358@ex.com', 'Name 358'], ['user359@ex.com', 'Name 359'], ['user360@ex.com', 'Name 360'], ['user361@ex.com', 'Name 361'], ['user362@ex.com', 'Name 362'], ['user363@ex.com', 'Name 363'], ['user364@ex.com', 'Name 364'], ['user365@ex.com', 'Name 365'], ['user366@ex.com', 'Name 366'], ['user367@ex.com', 'Name 367'], ['user368@ex.com', 'Name 368'], ['user369@ex.com', 'Name 369'], ['user370@ex.com', 'Name 370'], ['user371@ex.com', 'Name 371'], ['user372@ex.com', 'Name 372'], ['user373@ex.com', 'Name 373'], ['user374@ex.com', 'Name 374'], ['user375@ex.com', 'Name 375'], ['user376@ex.com', 'Name 376'], ['user377@ex.com', 'Name 377'], ['user378@ex.com', 'Name 378'], ['user379@ex.com', 'Name 379'], ['user380@ex.com', 'Name 380'], ['user381@ex.com', 'Name 381'], ['user382@ex.com', 'Name 382'], ['user383@ex.com', 'Name 383'], ['user384@ex.com', 'Name 384'], ['user385@ex.com', 'Name 385'], ['user386@ex.com', 'Name 386'], ['user387@ex.com', 'Name 387'], ['user388@ex.com', 'Name 388'], ['user389@ex.com', 'Name 389'], ['user390@ex.com', 'Name 390'], ['user391@ex.com', 'Name 391'], ['user392@ex.com', 'Name 392'], ['user393@ex.com', 'Name 393'], ['user394@ex.com', 'Name 394'], ['user395@ex.com', 'Name 395'], ['user396@ex.com', 'Name 396'], ['user397@ex.com', 'Name 397'], ['user398@ex.com', 'Name 398'], ['user399@ex.com', 'Name 399'], ['user400@ex.com', 'Name 400'], ['user401@ex.com', 'Name 401'], ['user402@ex.com', 'Name 402'], ['user403@ex.com', 'Name 403'], ['user404@ex.com', 'Name 404'], ['user405@ex.com', 'Name 405'], ['user406@ex.com', 'Name 406'], ['user407@ex.com', 'Name 407'], ['user408@ex.com', 'Name 408'], ['user409@ex.com', 'Name 409'], ['user410@ex.com', 'Name 410'], ['user411@ex.com', 'Name 411'], ['user412@ex.com', 'Name 412'], ['user413@ex.com', 'Name 413'], ['user414@ex.com', 'Name 414'], ['user415@ex.com', 'Name 415'], ['user416@ex.com', 'Name 416'], ['user417@ex.com', 'Name 417'], ['user418@ex.com', 'Name 418'], ['user419@ex.com', 'Name 419'], ['user420@ex.com', 'Name 420'], ['user421@ex.com', 'Name 421'], ['user422@ex.com', 'Name 422'], ['user423@ex.com', 'Name 423'], ['user424@ex.com', 'Name 424'], ['user425@ex.com', 'Name 425'], ['user426@ex.com', 'Name 426'], ['user427@ex.com', 'Name 427'], ['user428@ex.com', 'Name 428'], ['user429@ex.com', 'Name 429'], ['user430@ex.com', 'Name 430'], ['user431@ex.com', 'Name 431'], ['user432@ex.com', 'Name 432'], ['user433@ex.com', 'Name 433'], ['user434@ex.com', 'Name 434'], ['user435@ex.com', 'Name 435'], ['user436@ex.com', 'Name 436'], ['user437@ex.com', 'Name 437'], ['user438@ex.com', 'Name 438'], ['user439@ex.com', 'Name 439'], ['user440@ex.com', 'Name 440'], ['user441@ex.com', 'Name 441'], ['user442@ex.com', 'Name 442'], ['user443@ex.com', 'Name 443'], ['user444@ex.com', 'Name 444'], ['user445@ex.com', 'Name 445'], ['user446@ex.com', 'Name 446'], ['user447@ex.com', 'Name 447'], ['user448@ex.com', 'Name 448'], ['user449@ex.com', 'Name 449'], ['user450@ex.com', 'Name 450'], ['user451@ex.com', 'Name 451'], ['user452@ex.com', 'Name 452'], ['user453@ex.com', 'Name 453'], ['user454@ex.com', 'Name 454'], ['user455@ex.com', 'Name 455'], ['user456@ex.com', 'Name 456'], ['user457@ex.com', 'Name 457'], ['user458@ex.com', 'Name 458'], ['user459@ex.com', 'Name 459'], ['user460@ex.com', 'Name 460'], ['user461@ex.com', 'Name 461'], ['user462@ex.com', 'Name 462'], ['user463@ex.com', 'Name 463'], ['user464@ex.com', 'Name 464'], ['user465@ex.com', 'Name 465'], ['user466@ex.com', 'Name 466'], ['user467@ex.com', 'Name 467'], ['user468@ex.com', 'Name 468'], ['user469@ex.com', 'Name 469'], ['user470@ex.com', 'Name 470'], ['user471@ex.com', 'Name 471'], ['user472@ex.com', 'Name 472'], ['user473@ex.com', 'Name 473'], ['user474@ex.com', 'Name 474'], ['user475@ex.com', 'Name 475'], ['user476@ex.com', 'Name 476'], ['user477@ex.com', 'Name 477'], ['user478@ex.com', 'Name 478'], ['user479@ex.com', 'Name 479'], ['user480@ex.com', 'Name 480'], ['user481@ex.com', 'Name 481'], ['user482@ex.com', 'Name 482'], ['user483@ex.com', 'Name 483'], ['user484@ex.com', 'Name 484'], ['user485@ex.com', 'Name 485'], ['user486@ex.com', 'Name 486'], ['user487@ex.com', 'Name 487'], ['user488@ex.com', 'Name 488'], ['user489@ex.com', 'Name 489'], ['user490@ex.com', 'Name 490'], ['user491@ex.com', 'Name 491'], ['user492@ex.com', 'Name 492'], ['user493@ex.com', 'Name 493'], ['user494@ex.com', 'Name 494'], ['user495@ex.com', 'Name 495'], ['user496@ex.com', 'Name 496'], ['user497@ex.com', 'Name 497'], ['user498@ex.com', 'Name 498'], ['user499@ex.com', 'Name 499']] got [['email', 'name'], ['  User0@EX.com ', 'Name 0'], ['user0@ex.com', 'Duplicate 0'], ['  User1@EX.com ', 'Name 1'], ['user1@ex.com', 'Duplicate 1'], ['  User2@EX.com ', 'Name 2'], ['user2@ex.com', 'Duplicate 2'], ['  User3@EX.com ', 'Name 3'], ['user3@ex.com', 'Duplicate 3'], ['  User4@EX.com ', 'Name 4'], ['user4@ex.com', 'Duplicate 4'], ['  User5@EX.com ', 'Name 5'], ['user5@ex.com', 'Duplicate 5'], ['  User6@EX.com ', 'Name 6'], ['user6@ex.com', 'Duplicate 6'], ['  User7@EX.com ', 'Name 7'], ['user7@ex.com', 'Duplicate 7'], ['  User8@EX.com ', 'Name 8'], ['user8@ex.com', 'Duplicate 8'], ['  User9@EX.com ', 'Name 9'], ['user9@ex.com', 'Duplicate 9'], ['  User10@EX.com ', 'Name 10'], ['user10@ex.com', 'Duplicate 10'], ['  User11@EX.com ', 'Name 11'], ['user11@ex.com', 'Duplicate 11'], ['  User12@EX.com ', 'Name 12'], ['user12@ex.com', 'Duplicate 12'], ['  User13@EX.com ', 'Name 13'], ['user13@ex.com', 'Duplicate 13'], ['  User14@EX.com ', 'Name 14'], ['user14@ex.com', 'Duplicate 14'], ['  User15@EX.com ', 'Name 15'], ['user15@ex.com', 'Duplicate 15'], ['  User16@EX.com ', 'Name 16'], ['user16@ex.com', 'Duplicate 16'], ['  User17@EX.com ', 'Name 17'], ['user17@ex.com', 'Duplicate 17'], ['  User18@EX.com ', 'Name 18'], ['user18@ex.com', 'Duplicate 18'], ['  User19@EX.com ', 'Name 19'], ['user19@ex.com', 'Duplicate 19'], ['  User20@EX.com ', 'Name 20'], ['user20@ex.com', 'Duplicate 20'], ['  User21@EX.com ', 'Name 21'], ['user21@ex.com', 'Duplicate 21'], ['  User22@EX.com ', 'Name 22'], ['user22@ex.com', 'Duplicate 22'], ['  User23@EX.com ', 'Name 23'], ['user23@ex.com', 'Duplicate 23'], ['  User24@EX.com ', 'Name 24'], ['user24@ex.com', 'Duplicate 24'], ['  User25@EX.com ', 'Name 25'], ['user25@ex.com', 'Duplicate 25'], ['  User26@EX.com ', 'Name 26'], ['user26@ex.com', 'Duplicate 26'], ['  User27@EX.com ', 'Name 27'], ['user27@ex.com', 'Duplicate 27'], ['  User28@EX.com ', 'Name 28'], ['user28@ex.com', 'Duplicate 28'], ['  User29@EX.com ', 'Name 29'], ['user29@ex.com', 'Duplicate 29'], ['  User30@EX.com ', 'Name 30'], ['user30@ex.com', 'Duplicate 30'], ['  User31@EX.com ', 'Name 31'], ['user31@ex.com', 'Duplicate 31'], ['  User32@EX.com ', 'Name 32'], ['user32@ex.com', 'Duplicate 32'], ['  User33@EX.com ', 'Name 33'], ['user33@ex.com', 'Duplicate 33'], ['  User34@EX.com ', 'Name 34'], ['user34@ex.com', 'Duplicate 34'], ['  User35@EX.com ', 'Name 35'], ['user35@ex.com', 'Duplicate 35'], ['  User36@EX.com ', 'Name 36'], ['user36@ex.com', 'Duplicate 36'], ['  User37@EX.com ', 'Name 37'], ['user37@ex.com', 'Duplicate 37'], ['  User38@EX.com ', 'Name 38'], ['user38@ex.com', 'Duplicate 38'], ['  User39@EX.com ', 'Name 39'], ['user39@ex.com', 'Duplicate 39'], ['  User40@EX.com ', 'Name 40'], ['user40@ex.com', 'Duplicate 40'], ['  User41@EX.com ', 'Name 41'], ['user41@ex.com', 'Duplicate 41'], ['  User42@EX.com ', 'Name 42'], ['user42@ex.com', 'Duplicate 42'], ['  User43@EX.com ', 'Name 43'], ['user43@ex.com', 'Duplicate 43'], ['  User44@EX.com ', 'Name 44'], ['user44@ex.com', 'Duplicate 44'], ['  User45@EX.com ', 'Name 45'], ['user45@ex.com', 'Duplicate 45'], ['  User46@EX.com ', 'Name 46'], ['user46@ex.com', 'Duplicate 46'], ['  User47@EX.com ', 'Name 47'], ['user47@ex.com', 'Duplicate 47'], ['  User48@EX.com ', 'Name 48'], ['user48@ex.com', 'Duplicate 48'], ['  User49@EX.com ', 'Name 49'], ['user49@ex.com', 'Duplicate 49'], ['  User50@EX.com ', 'Name 50'], ['user50@ex.com', 'Duplicate 50'], ['  User51@EX.com ', 'Name 51'], ['user51@ex.com', 'Duplicate 51'], ['  User52@EX.com ', 'Name 52'], ['user52@ex.com', 'Duplicate 52'], ['  User53@EX.com ', 'Name 53'], ['user53@ex.com', 'Duplicate 53'], ['  User54@EX.com ', 'Name 54'], ['user54@ex.com', 'Duplicate 54'], ['  User55@EX.com ', 'Name 55'], ['user55@ex.com', 'Duplicate 55'], ['  User56@EX.com ', 'Name 56'], ['user56@ex.com', 'Duplicate 56'], ['  User57@EX.com ', 'Name 57'], ['user57@ex.com', 'Duplicate 57'], ['  User58@EX.com ', 'Name 58'], ['user58@ex.com', 'Duplicate 58'], ['  User59@EX.com ', 'Name 59'], ['user59@ex.com', 'Duplicate 59'], ['  User60@EX.com ', 'Name 60'], ['user60@ex.com', 'Duplicate 60'], ['  User61@EX.com ', 'Name 61'], ['user61@ex.com', 'Duplicate 61'], ['  User62@EX.com ', 'Name 62'], ['user62@ex.com', 'Duplicate 62'], ['  User63@EX.com ', 'Name 63'], ['user63@ex.com', 'Duplicate 63'], ['  User64@EX.com ', 'Name 64'], ['user64@ex.com', 'Duplicate 64'], ['  User65@EX.com ', 'Name 65'], ['user65@ex.com', 'Duplicate 65'], ['  User66@EX.com ', 'Name 66'], ['user66@ex.com', 'Duplicate 66'], ['  User67@EX.com ', 'Name 67'], ['user67@ex.com', 'Duplicate 67'], ['  User68@EX.com ', 'Name 68'], ['user68@ex.com', 'Duplicate 68'], ['  User69@EX.com ', 'Name 69'], ['user69@ex.com', 'Duplicate 69'], ['  User70@EX.com ', 'Name 70'], ['user70@ex.com', 'Duplicate 70'], ['  User71@EX.com ', 'Name 71'], ['user71@ex.com', 'Duplicate 71'], ['  User72@EX.com ', 'Name 72'], ['user72@ex.com', 'Duplicate 72'], ['  User73@EX.com ', 'Name 73'], ['user73@ex.com', 'Duplicate 73'], ['  User74@EX.com ', 'Name 74'], ['user74@ex.com', 'Duplicate 74'], ['  User75@EX.com ', 'Name 75'], ['user75@ex.com', 'Duplicate 75'], ['  User76@EX.com ', 'Name 76'], ['user76@ex.com', 'Duplicate 76'], ['  User77@EX.com ', 'Name 77'], ['user77@ex.com', 'Duplicate 77'], ['  User78@EX.com ', 'Name 78'], ['user78@ex.com', 'Duplicate 78'], ['  User79@EX.com ', 'Name 79'], ['user79@ex.com', 'Duplicate 79'], ['  User80@EX.com ', 'Name 80'], ['user80@ex.com', 'Duplicate 80'], ['  User81@EX.com ', 'Name 81'], ['user81@ex.com', 'Duplicate 81'], ['  User82@EX.com ', 'Name 82'], ['user82@ex.com', 'Duplicate 82'], ['  User83@EX.com ', 'Name 83'], ['user83@ex.com', 'Duplicate 83'], ['  User84@EX.com ', 'Name 84'], ['user84@ex.com', 'Duplicate 84'], ['  User85@EX.com ', 'Name 85'], ['user85@ex.com', 'Duplicate 85'], ['  User86@EX.com ', 'Name 86'], ['user86@ex.com', 'Duplicate 86'], ['  User87@EX.com ', 'Name 87'], ['user87@ex.com', 'Duplicate 87'], ['  User88@EX.com ', 'Name 88'], ['user88@ex.com', 'Duplicate 88'], ['  User89@EX.com ', 'Name 89'], ['user89@ex.com', 'Duplicate 89'], ['  User90@EX.com ', 'Name 90'], ['user90@ex.com', 'Duplicate 90'], ['  User91@EX.com ', 'Name 91'], ['user91@ex.com', 'Duplicate 91'], ['  User92@EX.com ', 'Name 92'], ['user92@ex.com', 'Duplicate 92'], ['  User93@EX.com ', 'Name 93'], ['user93@ex.com', 'Duplicate 93'], ['  User94@EX.com ', 'Name 94'], ['user94@ex.com', 'Duplicate 94'], ['  User95@EX.com ', 'Name 95'], ['user95@ex.com', 'Duplicate 95'], ['  User96@EX.com ', 'Name 96'], ['user96@ex.com', 'Duplicate 96'], ['  User97@EX.com ', 'Name 97'], ['user97@ex.com', 'Duplicate 97'], ['  User98@EX.com ', 'Name 98'], ['user98@ex.com', 'Duplicate 98'], ['  User99@EX.com ', 'Name 99'], ['user99@ex.com', 'Duplicate 99'], ['  User100@EX.com ', 'Name 100'], ['user100@ex.com', 'Duplicate 100'], ['  User101@EX.com ', 'Name 101'], ['user101@ex.com', 'Duplicate 101'], ['  User102@EX.com ', 'Name 102'], ['user102@ex.com', 'Duplicate 102'], ['  User103@EX.com ', 'Name 103'], ['user103@ex.com', 'Duplicate 103'], ['  User104@EX.com ', 'Name 104'], ['user104@ex.com', 'Duplicate 104'], ['  User105@EX.com ', 'Name 105'], ['user105@ex.com', 'Duplicate 105'], ['  User106@EX.com ', 'Name 106'], ['user106@ex.com', 'Duplicate 106'], ['  User107@EX.com ', 'Name 107'], ['user107@ex.com', 'Duplicate 107'], ['  User108@EX.com ', 'Name 108'], ['user108@ex.com', 'Duplicate 108'], ['  User109@EX.com ', 'Name 109'], ['user109@ex.com', 'Duplicate 109'], ['  User110@EX.com ', 'Name 110'], ['user110@ex.com', 'Duplicate 110'], ['  User111@EX.com ', 'Name 111'], ['user111@ex.com', 'Duplicate 111'], ['  User112@EX.com ', 'Name 112'], ['user112@ex.com', 'Duplicate 112'], ['  User113@EX.com ', 'Name 113'], ['user113@ex.com', 'Duplicate 113'], ['  User114@EX.com ', 'Name 114'], ['user114@ex.com', 'Duplicate 114'], ['  User115@EX.com ', 'Name 115'], ['user115@ex.com', 'Duplicate 115'], ['  User116@EX.com ', 'Name 116'], ['user116@ex.com', 'Duplicate 116'], ['  User117@EX.com ', 'Name 117'], ['user117@ex.com', 'Duplicate 117'], ['  User118@EX.com ', 'Name 118'], ['user118@ex.com', 'Duplicate 118'], ['  User119@EX.com ', 'Name 119'], ['user119@ex.com', 'Duplicate 119'], ['  User120@EX.com ', 'Name 120'], ['user120@ex.com', 'Duplicate 120'], ['  User121@EX.com ', 'Name 121'], ['user121@ex.com', 'Duplicate 121'], ['  User122@EX.com ', 'Name 122'], ['user122@ex.com', 'Duplicate 122'], ['  User123@EX.com ', 'Name 123'], ['user123@ex.com', 'Duplicate 123'], ['  User124@EX.com ', 'Name 124'], ['user124@ex.com', 'Duplicate 124'], ['  User125@EX.com ', 'Name 125'], ['user125@ex.com', 'Duplicate 125'], ['  User126@EX.com ', 'Name 126'], ['user126@ex.com', 'Duplicate 126'], ['  User127@EX.com ', 'Name 127'], ['user127@ex.com', 'Duplicate 127'], ['  User128@EX.com ', 'Name 128'], ['user128@ex.com', 'Duplicate 128'], ['  User129@EX.com ', 'Name 129'], ['user129@ex.com', 'Duplicate 129'], ['  User130@EX.com ', 'Name 130'], ['user130@ex.com', 'Duplicate 130'], ['  User131@EX.com ', 'Name 131'], ['user131@ex.com', 'Duplicate 131'], ['  User132@EX.com ', 'Name 132'], ['user132@ex.com', 'Duplicate 132'], ['  User133@EX.com ', 'Name 133'], ['user133@ex.com', 'Duplicate 133'], ['  User134@EX.com ', 'Name 134'], ['user134@ex.com', 'Duplicate 134'], ['  User135@EX.com ', 'Name 135'], ['user135@ex.com', 'Duplicate 135'], ['  User136@EX.com ', 'Name 136'], ['user136@ex.com', 'Duplicate 136'], ['  User137@EX.com ', 'Name 137'], ['user137@ex.com', 'Duplicate 137'], ['  User138@EX.com ', 'Name 138'], ['user138@ex.com', 'Duplicate 138'], ['  User139@EX.com ', 'Name 139'], ['user139@ex.com', 'Duplicate 139'], ['  User140@EX.com ', 'Name 140'], ['user140@ex.com', 'Duplicate 140'], ['  User141@EX.com ', 'Name 141'], ['user141@ex.com', 'Duplicate 141'], ['  User142@EX.com ', 'Name 142'], ['user142@ex.com', 'Duplicate 142'], ['  User143@EX.com ', 'Name 143'], ['user143@ex.com', 'Duplicate 143'], ['  User144@EX.com ', 'Name 144'], ['user144@ex.com', 'Duplicate 144'], ['  User145@EX.com ', 'Name 145'], ['user145@ex.com', 'Duplicate 145'], ['  User146@EX.com ', 'Name 146'], ['user146@ex.com', 'Duplicate 146'], ['  User147@EX.com ', 'Name 147'], ['user147@ex.com', 'Duplicate 147'], ['  User148@EX.com ', 'Name 148'], ['user148@ex.com', 'Duplicate 148'], ['  User149@EX.com ', 'Name 149'], ['user149@ex.com', 'Duplicate 149'], ['  User150@EX.com ', 'Name 150'], ['user150@ex.com', 'Duplicate 150'], ['  User151@EX.com ', 'Name 151'], ['user151@ex.com', 'Duplicate 151'], ['  User152@EX.com ', 'Name 152'], ['user152@ex.com', 'Duplicate 152'], ['  User153@EX.com ', 'Name 153'], ['user153@ex.com', 'Duplicate 153'], ['  User154@EX.com ', 'Name 154'], ['user154@ex.com', 'Duplicate 154'], ['  User155@EX.com ', 'Name 155'], ['user155@ex.com', 'Duplicate 155'], ['  User156@EX.com ', 'Name 156'], ['user156@ex.com', 'Duplicate 156'], ['  User157@EX.com ', 'Name 157'], ['user157@ex.com', 'Duplicate 157'], ['  User158@EX.com ', 'Name 158'], ['user158@ex.com', 'Duplicate 158'], ['  User159@EX.com ', 'Name 159'], ['user159@ex.com', 'Duplicate 159'], ['  User160@EX.com ', 'Name 160'], ['user160@ex.com', 'Duplicate 160'], ['  User161@EX.com ', 'Name 161'], ['user161@ex.com', 'Duplicate 161'], ['  User162@EX.com ', 'Name 162'], ['user162@ex.com', 'Duplicate 162'], ['  User163@EX.com ', 'Name 163'], ['user163@ex.com', 'Duplicate 163'], ['  User164@EX.com ', 'Name 164'], ['user164@ex.com', 'Duplicate 164'], ['  User165@EX.com ', 'Name 165'], ['user165@ex.com', 'Duplicate 165'], ['  User166@EX.com ', 'Name 166'], ['user166@ex.com', 'Duplicate 166'], ['  User167@EX.com ', 'Name 167'], ['user167@ex.com', 'Duplicate 167'], ['  User168@EX.com ', 'Name 168'], ['user168@ex.com', 'Duplicate 168'], ['  User169@EX.com ', 'Name 169'], ['user169@ex.com', 'Duplicate 169'], ['  User170@EX.com ', 'Name 170'], ['user170@ex.com', 'Duplicate 170'], ['  User171@EX.com ', 'Name 171'], ['user171@ex.com', 'Duplicate 171'], ['  User172@EX.com ', 'Name 172'], ['user172@ex.com', 'Duplicate 172'], ['  User173@EX.com ', 'Name 173'], ['user173@ex.com', 'Duplicate 173'], ['  User174@EX.com ', 'Name 174'], ['user174@ex.com', 'Duplicate 174'], ['  User175@EX.com ', 'Name 175'], ['user175@ex.com', 'Duplicate 175'], ['  User176@EX.com ', 'Name 176'], ['user176@ex.com', 'Duplicate 176'], ['  User177@EX.com ', 'Name 177'], ['user177@ex.com', 'Duplicate 177'], ['  User178@EX.com ', 'Name 178'], ['user178@ex.com', 'Duplicate 178'], ['  User179@EX.com ', 'Name 179'], ['user179@ex.com', 'Duplicate 179'], ['  User180@EX.com ', 'Name 180'], ['user180@ex.com', 'Duplicate 180'], ['  User181@EX.com ', 'Name 181'], ['user181@ex.com', 'Duplicate 181'], ['  User182@EX.com ', 'Name 182'], ['user182@ex.com', 'Duplicate 182'], ['  User183@EX.com ', 'Name 183'], ['user183@ex.com', 'Duplicate 183'], ['  User184@EX.com ', 'Name 184'], ['user184@ex.com', 'Duplicate 184'], ['  User185@EX.com ', 'Name 185'], ['user185@ex.com', 'Duplicate 185'], ['  User186@EX.com ', 'Name 186'], ['user186@ex.com', 'Duplicate 186'], ['  User187@EX.com ', 'Name 187'], ['user187@ex.com', 'Duplicate 187'], ['  User188@EX.com ', 'Name 188'], ['user188@ex.com', 'Duplicate 188'], ['  User189@EX.com ', 'Name 189'], ['user189@ex.com', 'Duplicate 189'], ['  User190@EX.com ', 'Name 190'], ['user190@ex.com', 'Duplicate 190'], ['  User191@EX.com ', 'Name 191'], ['user191@ex.com', 'Duplicate 191'], ['  User192@EX.com ', 'Name 192'], ['user192@ex.com', 'Duplicate 192'], ['  User193@EX.com ', 'Name 193'], ['user193@ex.com', 'Duplicate 193'], ['  User194@EX.com ', 'Name 194'], ['user194@ex.com', 'Duplicate 194'], ['  User195@EX.com ', 'Name 195'], ['user195@ex.com', 'Duplicate 195'], ['  User196@EX.com ', 'Name 196'], ['user196@ex.com', 'Duplicate 196'], ['  User197@EX.com ', 'Name 197'], ['user197@ex.com', 'Duplicate 197'], ['  User198@EX.com ', 'Name 198'], ['user198@ex.com', 'Duplicate 198'], ['  User199@EX.com ', 'Name 199'], ['user199@ex.com', 'Duplicate 199'], ['  User200@EX.com ', 'Name 200'], ['user200@ex.com', 'Duplicate 200'], ['  User201@EX.com ', 'Name 201'], ['user201@ex.com', 'Duplicate 201'], ['  User202@EX.com ', 'Name 202'], ['user202@ex.com', 'Duplicate 202'], ['  User203@EX.com ', 'Name 203'], ['user203@ex.com', 'Duplicate 203'], ['  User204@EX.com ', 'Name 204'], ['user204@ex.com', 'Duplicate 204'], ['  User205@EX.com ', 'Name 205'], ['user205@ex.com', 'Duplicate 205'], ['  User206@EX.com ', 'Name 206'], ['user206@ex.com', 'Duplicate 206'], ['  User207@EX.com ', 'Name 207'], ['user207@ex.com', 'Duplicate 207'], ['  User208@EX.com ', 'Name 208'], ['user208@ex.com', 'Duplicate 208'], ['  User209@EX.com ', 'Name 209'], ['user209@ex.com', 'Duplicate 209'], ['  User210@EX.com ', 'Name 210'], ['user210@ex.com', 'Duplicate 210'], ['  User211@EX.com ', 'Name 211'], ['user211@ex.com', 'Duplicate 211'], ['  User212@EX.com ', 'Name 212'], ['user212@ex.com', 'Duplicate 212'], ['  User213@EX.com ', 'Name 213'], ['user213@ex.com', 'Duplicate 213'], ['  User214@EX.com ', 'Name 214'], ['user214@ex.com', 'Duplicate 214'], ['  User215@EX.com ', 'Name 215'], ['user215@ex.com', 'Duplicate 215'], ['  User216@EX.com ', 'Name 216'], ['user216@ex.com', 'Duplicate 216'], ['  User217@EX.com ', 'Name 217'], ['user217@ex.com', 'Duplicate 217'], ['  User218@EX.com ', 'Name 218'], ['user218@ex.com', 'Duplicate 218'], ['  User219@EX.com ', 'Name 219'], ['user219@ex.com', 'Duplicate 219'], ['  User220@EX.com ', 'Name 220'], ['user220@ex.com', 'Duplicate 220'], ['  User221@EX.com ', 'Name 221'], ['user221@ex.com', 'Duplicate 221'], ['  User222@EX.com ', 'Name 222'], ['user222@ex.com', 'Duplicate 222'], ['  User223@EX.com ', 'Name 223'], ['user223@ex.com', 'Duplicate 223'], ['  User224@EX.com ', 'Name 224'], ['user224@ex.com', 'Duplicate 224'], ['  User225@EX.com ', 'Name 225'], ['user225@ex.com', 'Duplicate 225'], ['  User226@EX.com ', 'Name 226'], ['user226@ex.com', 'Duplicate 226'], ['  User227@EX.com ', 'Name 227'], ['user227@ex.com', 'Duplicate 227'], ['  User228@EX.com ', 'Name 228'], ['user228@ex.com', 'Duplicate 228'], ['  User229@EX.com ', 'Name 229'], ['user229@ex.com', 'Duplicate 229'], ['  User230@EX.com ', 'Name 230'], ['user230@ex.com', 'Duplicate 230'], ['  User231@EX.com ', 'Name 231'], ['user231@ex.com', 'Duplicate 231'], ['  User232@EX.com ', 'Name 232'], ['user232@ex.com', 'Duplicate 232'], ['  User233@EX.com ', 'Name 233'], ['user233@ex.com', 'Duplicate 233'], ['  User234@EX.com ', 'Name 234'], ['user234@ex.com', 'Duplicate 234'], ['  User235@EX.com ', 'Name 235'], ['user235@ex.com', 'Duplicate 235'], ['  User236@EX.com ', 'Name 236'], ['user236@ex.com', 'Duplicate 236'], ['  User237@EX.com ', 'Name 237'], ['user237@ex.com', 'Duplicate 237'], ['  User238@EX.com ', 'Name 238'], ['user238@ex.com', 'Duplicate 238'], ['  User239@EX.com ', 'Name 239'], ['user239@ex.com', 'Duplicate 239'], ['  User240@EX.com ', 'Name 240'], ['user240@ex.com', 'Duplicate 240'], ['  User241@EX.com ', 'Name 241'], ['user241@ex.com', 'Duplicate 241'], ['  User242@EX.com ', 'Name 242'], ['user242@ex.com', 'Duplicate 242'], ['  User243@EX.com ', 'Name 243'], ['user243@ex.com', 'Duplicate 243'], ['  User244@EX.com ', 'Name 244'], ['user244@ex.com', 'Duplicate 244'], ['  User245@EX.com ', 'Name 245'], ['user245@ex.com', 'Duplicate 245'], ['  User246@EX.com ', 'Name 246'], ['user246@ex.com', 'Duplicate 246'], ['  User247@EX.com ', 'Name 247'], ['user247@ex.com', 'Duplicate 247'], ['  User248@EX.com ', 'Name 248'], ['user248@ex.com', 'Duplicate 248'], ['  User249@EX.com ', 'Name 249'], ['user249@ex.com', 'Duplicate 249'], ['  User250@EX.com ', 'Name 250'], ['user250@ex.com', 'Duplicate 250'], ['  User251@EX.com ', 'Name 251'], ['user251@ex.com', 'Duplicate 251'], ['  User252@EX.com ', 'Name 252'], ['user252@ex.com', 'Duplicate 252'], ['  User253@EX.com ', 'Name 253'], ['user253@ex.com', 'Duplicate 253'], ['  User254@EX.com ', 'Name 254'], ['user254@ex.com', 'Duplicate 254'], ['  User255@EX.com ', 'Name 255'], ['user255@ex.com', 'Duplicate 255'], ['  User256@EX.com ', 'Name 256'], ['user256@ex.com', 'Duplicate 256'], ['  User257@EX.com ', 'Name 257'], ['user257@ex.com', 'Duplicate 257'], ['  User258@EX.com ', 'Name 258'], ['user258@ex.com', 'Duplicate 258'], ['  User259@EX.com ', 'Name 259'], ['user259@ex.com', 'Duplicate 259'], ['  User260@EX.com ', 'Name 260'], ['user260@ex.com', 'Duplicate 260'], ['  User261@EX.com ', 'Name 261'], ['user261@ex.com', 'Duplicate 261'], ['  User262@EX.com ', 'Name 262'], ['user262@ex.com', 'Duplicate 262'], ['  User263@EX.com ', 'Name 263'], ['user263@ex.com', 'Duplicate 263'], ['  User264@EX.com ', 'Name 264'], ['user264@ex.com', 'Duplicate 264'], ['  User265@EX.com ', 'Name 265'], ['user265@ex.com', 'Duplicate 265'], ['  User266@EX.com ', 'Name 266'], ['user266@ex.com', 'Duplicate 266'], ['  User267@EX.com ', 'Name 267'], ['user267@ex.com', 'Duplicate 267'], ['  User268@EX.com ', 'Name 268'], ['user268@ex.com', 'Duplicate 268'], ['  User269@EX.com ', 'Name 269'], ['user269@ex.com', 'Duplicate 269'], ['  User270@EX.com ', 'Name 270'], ['user270@ex.com', 'Duplicate 270'], ['  User271@EX.com ', 'Name 271'], ['user271@ex.com', 'Duplicate 271'], ['  User272@EX.com ', 'Name 272'], ['user272@ex.com', 'Duplicate 272'], ['  User273@EX.com ', 'Name 273'], ['user273@ex.com', 'Duplicate 273'], ['  User274@EX.com ', 'Name 274'], ['user274@ex.com', 'Duplicate 274'], ['  User275@EX.com ', 'Name 275'], ['user275@ex.com', 'Duplicate 275'], ['  User276@EX.com ', 'Name 276'], ['user276@ex.com', 'Duplicate 276'], ['  User277@EX.com ', 'Name 277'], ['user277@ex.com', 'Duplicate 277'], ['  User278@EX.com ', 'Name 278'], ['user278@ex.com', 'Duplicate 278'], ['  User279@EX.com ', 'Name 279'], ['user279@ex.com', 'Duplicate 279'], ['  User280@EX.com ', 'Name 280'], ['user280@ex.com', 'Duplicate 280'], ['  User281@EX.com ', 'Name 281'], ['user281@ex.com', 'Duplicate 281'], ['  User282@EX.com ', 'Name 282'], ['user282@ex.com', 'Duplicate 282'], ['  User283@EX.com ', 'Name 283'], ['user283@ex.com', 'Duplicate 283'], ['  User284@EX.com ', 'Name 284'], ['user284@ex.com', 'Duplicate 284'], ['  User285@EX.com ', 'Name 285'], ['user285@ex.com', 'Duplicate 285'], ['  User286@EX.com ', 'Name 286'], ['user286@ex.com', 'Duplicate 286'], ['  User287@EX.com ', 'Name 287'], ['user287@ex.com', 'Duplicate 287'], ['  User288@EX.com ', 'Name 288'], ['user288@ex.com', 'Duplicate 288'], ['  User289@EX.com ', 'Name 289'], ['user289@ex.com', 'Duplicate 289'], ['  User290@EX.com ', 'Name 290'], ['user290@ex.com', 'Duplicate 290'], ['  User291@EX.com ', 'Name 291'], ['user291@ex.com', 'Duplicate 291'], ['  User292@EX.com ', 'Name 292'], ['user292@ex.com', 'Duplicate 292'], ['  User293@EX.com ', 'Name 293'], ['user293@ex.com', 'Duplicate 293'], ['  User294@EX.com ', 'Name 294'], ['user294@ex.com', 'Duplicate 294'], ['  User295@EX.com ', 'Name 295'], ['user295@ex.com', 'Duplicate 295'], ['  User296@EX.com ', 'Name 296'], ['user296@ex.com', 'Duplicate 296'], ['  User297@EX.com ', 'Name 297'], ['user297@ex.com', 'Duplicate 297'], ['  User298@EX.com ', 'Name 298'], ['user298@ex.com', 'Duplicate 298'], ['  User299@EX.com ', 'Name 299'], ['user299@ex.com', 'Duplicate 299'], ['  User300@EX.com ', 'Name 300'], ['user300@ex.com', 'Duplicate 300'], ['  User301@EX.com ', 'Name 301'], ['user301@ex.com', 'Duplicate 301'], ['  User302@EX.com ', 'Name 302'], ['user302@ex.com', 'Duplicate 302'], ['  User303@EX.com ', 'Name 303'], ['user303@ex.com', 'Duplicate 303'], ['  User304@EX.com ', 'Name 304'], ['user304@ex.com', 'Duplicate 304'], ['  User305@EX.com ', 'Name 305'], ['user305@ex.com', 'Duplicate 305'], ['  User306@EX.com ', 'Name 306'], ['user306@ex.com', 'Duplicate 306'], ['  User307@EX.com ', 'Name 307'], ['user307@ex.com', 'Duplicate 307'], ['  User308@EX.com ', 'Name 308'], ['user308@ex.com', 'Duplicate 308'], ['  User309@EX.com ', 'Name 309'], ['user309@ex.com', 'Duplicate 309'], ['  User310@EX.com ', 'Name 310'], ['user310@ex.com', 'Duplicate 310'], ['  User311@EX.com ', 'Name 311'], ['user311@ex.com', 'Duplicate 311'], ['  User312@EX.com ', 'Name 312'], ['user312@ex.com', 'Duplicate 312'], ['  User313@EX.com ', 'Name 313'], ['user313@ex.com', 'Duplicate 313'], ['  User314@EX.com ', 'Name 314'], ['user314@ex.com', 'Duplicate 314'], ['  User315@EX.com ', 'Name 315'], ['user315@ex.com', 'Duplicate 315'], ['  User316@EX.com ', 'Name 316'], ['user316@ex.com', 'Duplicate 316'], ['  User317@EX.com ', 'Name 317'], ['user317@ex.com', 'Duplicate 317'], ['  User318@EX.com ', 'Name 318'], ['user318@ex.com', 'Duplicate 318'], ['  User319@EX.com ', 'Name 319'], ['user319@ex.com', 'Duplicate 319'], ['  User320@EX.com ', 'Name 320'], ['user320@ex.com', 'Duplicate 320'], ['  User321@EX.com ', 'Name 321'], ['user321@ex.com', 'Duplicate 321'], ['  User322@EX.com ', 'Name 322'], ['user322@ex.com', 'Duplicate 322'], ['  User323@EX.com ', 'Name 323'], ['user323@ex.com', 'Duplicate 323'], ['  User324@EX.com ', 'Name 324'], ['user324@ex.com', 'Duplicate 324'], ['  User325@EX.com ', 'Name 325'], ['user325@ex.com', 'Duplicate 325'], ['  User326@EX.com ', 'Name 326'], ['user326@ex.com', 'Duplicate 326'], ['  User327@EX.com ', 'Name 327'], ['user327@ex.com', 'Duplicate 327'], ['  User328@EX.com ', 'Name 328'], ['user328@ex.com', 'Duplicate 328'], ['  User329@EX.com ', 'Name 329'], ['user329@ex.com', 'Duplicate 329'], ['  User330@EX.com ', 'Name 330'], ['user330@ex.com', 'Duplicate 330'], ['  User331@EX.com ', 'Name 331'], ['user331@ex.com', 'Duplicate 331'], ['  User332@EX.com ', 'Name 332'], ['user332@ex.com', 'Duplicate 332'], ['  User333@EX.com ', 'Name 333'], ['user333@ex.com', 'Duplicate 333'], ['  User334@EX.com ', 'Name 334'], ['user334@ex.com', 'Duplicate 334'], ['  User335@EX.com ', 'Name 335'], ['user335@ex.com', 'Duplicate 335'], ['  User336@EX.com ', 'Name 336'], ['user336@ex.com', 'Duplicate 336'], ['  User337@EX.com ', 'Name 337'], ['user337@ex.com', 'Duplicate 337'], ['  User338@EX.com ', 'Name 338'], ['user338@ex.com', 'Duplicate 338'], ['  User339@EX.com ', 'Name 339'], ['user339@ex.com', 'Duplicate 339'], ['  User340@EX.com ', 'Name 340'], ['user340@ex.com', 'Duplicate 340'], ['  User341@EX.com ', 'Name 341'], ['user341@ex.com', 'Duplicate 341'], ['  User342@EX.com ', 'Name 342'], ['user342@ex.com', 'Duplicate 342'], ['  User343@EX.com ', 'Name 343'], ['user343@ex.com', 'Duplicate 343'], ['  User344@EX.com ', 'Name 344'], ['user344@ex.com', 'Duplicate 344'], ['  User345@EX.com ', 'Name 345'], ['user345@ex.com', 'Duplicate 345'], ['  User346@EX.com ', 'Name 346'], ['user346@ex.com', 'Duplicate 346'], ['  User347@EX.com ', 'Name 347'], ['user347@ex.com', 'Duplicate 347'], ['  User348@EX.com ', 'Name 348'], ['user348@ex.com', 'Duplicate 348'], ['  User349@EX.com ', 'Name 349'], ['user349@ex.com', 'Duplicate 349'], ['  User350@EX.com ', 'Name 350'], ['user350@ex.com', 'Duplicate 350'], ['  User351@EX.com ', 'Name 351'], ['user351@ex.com', 'Duplicate 351'], ['  User352@EX.com ', 'Name 352'], ['user352@ex.com', 'Duplicate 352'], ['  User353@EX.com ', 'Name 353'], ['user353@ex.com', 'Duplicate 353'], ['  User354@EX.com ', 'Name 354'], ['user354@ex.com', 'Duplicate 354'], ['  User355@EX.com ', 'Name 355'], ['user355@ex.com', 'Duplicate 355'], ['  User356@EX.com ', 'Name 356'], ['user356@ex.com', 'Duplicate 356'], ['  User357@EX.com ', 'Name 357'], ['user357@ex.com', 'Duplicate 357'], ['  User358@EX.com ', 'Name 358'], ['user358@ex.com', 'Duplicate 358'], ['  User359@EX.com ', 'Name 359'], ['user359@ex.com', 'Duplicate 359'], ['  User360@EX.com ', 'Name 360'], ['user360@ex.com', 'Duplicate 360'], ['  User361@EX.com ', 'Name 361'], ['user361@ex.com', 'Duplicate 361'], ['  User362@EX.com ', 'Name 362'], ['user362@ex.com', 'Duplicate 362'], ['  User363@EX.com ', 'Name 363'], ['user363@ex.com', 'Duplicate 363'], ['  User364@EX.com ', 'Name 364'], ['user364@ex.com', 'Duplicate 364'], ['  User365@EX.com ', 'Name 365'], ['user365@ex.com', 'Duplicate 365'], ['  User366@EX.com ', 'Name 366'], ['user366@ex.com', 'Duplicate 366'], ['  User367@EX.com ', 'Name 367'], ['user367@ex.com', 'Duplicate 367'], ['  User368@EX.com ', 'Name 368'], ['user368@ex.com', 'Duplicate 368'], ['  User369@EX.com ', 'Name 369'], ['user369@ex.com', 'Duplicate 369'], ['  User370@EX.com ', 'Name 370'], ['user370@ex.com', 'Duplicate 370'], ['  User371@EX.com ', 'Name 371'], ['user371@ex.com', 'Duplicate 371'], ['  User372@EX.com ', 'Name 372'], ['user372@ex.com', 'Duplicate 372'], ['  User373@EX.com ', 'Name 373'], ['user373@ex.com', 'Duplicate 373'], ['  User374@EX.com ', 'Name 374'], ['user374@ex.com', 'Duplicate 374'], ['  User375@EX.com ', 'Name 375'], ['user375@ex.com', 'Duplicate 375'], ['  User376@EX.com ', 'Name 376'], ['user376@ex.com', 'Duplicate 376'], ['  User377@EX.com ', 'Name 377'], ['user377@ex.com', 'Duplicate 377'], ['  User378@EX.com ', 'Name 378'], ['user378@ex.com', 'Duplicate 378'], ['  User379@EX.com ', 'Name 379'], ['user379@ex.com', 'Duplicate 379'], ['  User380@EX.com ', 'Name 380'], ['user380@ex.com', 'Duplicate 380'], ['  User381@EX.com ', 'Name 381'], ['user381@ex.com', 'Duplicate 381'], ['  User382@EX.com ', 'Name 382'], ['user382@ex.com', 'Duplicate 382'], ['  User383@EX.com ', 'Name 383'], ['user383@ex.com', 'Duplicate 383'], ['  User384@EX.com ', 'Name 384'], ['user384@ex.com', 'Duplicate 384'], ['  User385@EX.com ', 'Name 385'], ['user385@ex.com', 'Duplicate 385'], ['  User386@EX.com ', 'Name 386'], ['user386@ex.com', 'Duplicate 386'], ['  User387@EX.com ', 'Name 387'], ['user387@ex.com', 'Duplicate 387'], ['  User388@EX.com ', 'Name 388'], ['user388@ex.com', 'Duplicate 388'], ['  User389@EX.com ', 'Name 389'], ['user389@ex.com', 'Duplicate 389'], ['  User390@EX.com ', 'Name 390'], ['user390@ex.com', 'Duplicate 390'], ['  User391@EX.com ', 'Name 391'], ['user391@ex.com', 'Duplicate 391'], ['  User392@EX.com ', 'Name 392'], ['user392@ex.com', 'Duplicate 392'], ['  User393@EX.com ', 'Name 393'], ['user393@ex.com', 'Duplicate 393'], ['  User394@EX.com ', 'Name 394'], ['user394@ex.com', 'Duplicate 394'], ['  User395@EX.com ', 'Name 395'], ['user395@ex.com', 'Duplicate 395'], ['  User396@EX.com ', 'Name 396'], ['user396@ex.com', 'Duplicate 396'], ['  User397@EX.com ', 'Name 397'], ['user397@ex.com', 'Duplicate 397'], ['  User398@EX.com ', 'Name 398'], ['user398@ex.com', 'Duplicate 398'], ['  User399@EX.com ', 'Name 399'], ['user399@ex.com', 'Duplicate 399'], ['  User400@EX.com ', 'Name 400'], ['user400@ex.com', 'Duplicate 400'], ['  User401@EX.com ', 'Name 401'], ['user401@ex.com', 'Duplicate 401'], ['  User402@EX.com ', 'Name 402'], ['user402@ex.com', 'Duplicate 402'], ['  User403@EX.com ', 'Name 403'], ['user403@ex.com', 'Duplicate 403'], ['  User404@EX.com ', 'Name 404'], ['user404@ex.com', 'Duplicate 404'], ['  User405@EX.com ', 'Name 405'], ['user405@ex.com', 'Duplicate 405'], ['  User406@EX.com ', 'Name 406'], ['user406@ex.com', 'Duplicate 406'], ['  User407@EX.com ', 'Name 407'], ['user407@ex.com', 'Duplicate 407'], ['  User408@EX.com ', 'Name 408'], ['user408@ex.com', 'Duplicate 408'], ['  User409@EX.com ', 'Name 409'], ['user409@ex.com', 'Duplicate 409'], ['  User410@EX.com ', 'Name 410'], ['user410@ex.com', 'Duplicate 410'], ['  User411@EX.com ', 'Name 411'], ['user411@ex.com', 'Duplicate 411'], ['  User412@EX.com ', 'Name 412'], ['user412@ex.com', 'Duplicate 412'], ['  User413@EX.com ', 'Name 413'], ['user413@ex.com', 'Duplicate 413'], ['  User414@EX.com ', 'Name 414'], ['user414@ex.com', 'Duplicate 414'], ['  User415@EX.com ', 'Name 415'], ['user415@ex.com', 'Duplicate 415'], ['  User416@EX.com ', 'Name 416'], ['user416@ex.com', 'Duplicate 416'], ['  User417@EX.com ', 'Name 417'], ['user417@ex.com', 'Duplicate 417'], ['  User418@EX.com ', 'Name 418'], ['user418@ex.com', 'Duplicate 418'], ['  User419@EX.com ', 'Name 419'], ['user419@ex.com', 'Duplicate 419'], ['  User420@EX.com ', 'Name 420'], ['user420@ex.com', 'Duplicate 420'], ['  User421@EX.com ', 'Name 421'], ['user421@ex.com', 'Duplicate 421'], ['  User422@EX.com ', 'Name 422'], ['user422@ex.com', 'Duplicate 422'], ['  User423@EX.com ', 'Name 423'], ['user423@ex.com', 'Duplicate 423'], ['  User424@EX.com ', 'Name 424'], ['user424@ex.com', 'Duplicate 424'], ['  User425@EX.com ', 'Name 425'], ['user425@ex.com', 'Duplicate 425'], ['  User426@EX.com ', 'Name 426'], ['user426@ex.com', 'Duplicate 426'], ['  User427@EX.com ', 'Name 427'], ['user427@ex.com', 'Duplicate 427'], ['  User428@EX.com ', 'Name 428'], ['user428@ex.com', 'Duplicate 428'], ['  User429@EX.com ', 'Name 429'], ['user429@ex.com', 'Duplicate 429'], ['  User430@EX.com ', 'Name 430'], ['user430@ex.com', 'Duplicate 430'], ['  User431@EX.com ', 'Name 431'], ['user431@ex.com', 'Duplicate 431'], ['  User432@EX.com ', 'Name 432'], ['user432@ex.com', 'Duplicate 432'], ['  User433@EX.com ', 'Name 433'], ['user433@ex.com', 'Duplicate 433'], ['  User434@EX.com ', 'Name 434'], ['user434@ex.com', 'Duplicate 434'], ['  User435@EX.com ', 'Name 435'], ['user435@ex.com', 'Duplicate 435'], ['  User436@EX.com ', 'Name 436'], ['user436@ex.com', 'Duplicate 436'], ['  User437@EX.com ', 'Name 437'], ['user437@ex.com', 'Duplicate 437'], ['  User438@EX.com ', 'Name 438'], ['user438@ex.com', 'Duplicate 438'], ['  User439@EX.com ', 'Name 439'], ['user439@ex.com', 'Duplicate 439'], ['  User440@EX.com ', 'Name 440'], ['user440@ex.com', 'Duplicate 440'], ['  User441@EX.com ', 'Name 441'], ['user441@ex.com', 'Duplicate 441'], ['  User442@EX.com ', 'Name 442'], ['user442@ex.com', 'Duplicate 442'], ['  User443@EX.com ', 'Name 443'], ['user443@ex.com', 'Duplicate 443'], ['  User444@EX.com ', 'Name 444'], ['user444@ex.com', 'Duplicate 444'], ['  User445@EX.com ', 'Name 445'], ['user445@ex.com', 'Duplicate 445'], ['  User446@EX.com ', 'Name 446'], ['user446@ex.com', 'Duplicate 446'], ['  User447@EX.com ', 'Name 447'], ['user447@ex.com', 'Duplicate 447'], ['  User448@EX.com ', 'Name 448'], ['user448@ex.com', 'Duplicate 448'], ['  User449@EX.com ', 'Name 449'], ['user449@ex.com', 'Duplicate 449'], ['  User450@EX.com ', 'Name 450'], ['user450@ex.com', 'Duplicate 450'], ['  User451@EX.com ', 'Name 451'], ['user451@ex.com', 'Duplicate 451'], ['  User452@EX.com ', 'Name 452'], ['user452@ex.com', 'Duplicate 452'], ['  User453@EX.com ', 'Name 453'], ['user453@ex.com', 'Duplicate 453'], ['  User454@EX.com ', 'Name 454'], ['user454@ex.com', 'Duplicate 454'], ['  User455@EX.com ', 'Name 455'], ['user455@ex.com', 'Duplicate 455'], ['  User456@EX.com ', 'Name 456'], ['user456@ex.com', 'Duplicate 456'], ['  User457@EX.com ', 'Name 457'], ['user457@ex.com', 'Duplicate 457'], ['  User458@EX.com ', 'Name 458'], ['user458@ex.com', 'Duplicate 458'], ['  User459@EX.com ', 'Name 459'], ['user459@ex.com', 'Duplicate 459'], ['  User460@EX.com ', 'Name 460'], ['user460@ex.com', 'Duplicate 460'], ['  User461@EX.com ', 'Name 461'], ['user461@ex.com', 'Duplicate 461'], ['  User462@EX.com ', 'Name 462'], ['user462@ex.com', 'Duplicate 462'], ['  User463@EX.com ', 'Name 463'], ['user463@ex.com', 'Duplicate 463'], ['  User464@EX.com ', 'Name 464'], ['user464@ex.com', 'Duplicate 464'], ['  User465@EX.com ', 'Name 465'], ['user465@ex.com', 'Duplicate 465'], ['  User466@EX.com ', 'Name 466'], ['user466@ex.com', 'Duplicate 466'], ['  User467@EX.com ', 'Name 467'], ['user467@ex.com', 'Duplicate 467'], ['  User468@EX.com ', 'Name 468'], ['user468@ex.com', 'Duplicate 468'], ['  User469@EX.com ', 'Name 469'], ['user469@ex.com', 'Duplicate 469'], ['  User470@EX.com ', 'Name 470'], ['user470@ex.com', 'Duplicate 470'], ['  User471@EX.com ', 'Name 471'], ['user471@ex.com', 'Duplicate 471'], ['  User472@EX.com ', 'Name 472'], ['user472@ex.com', 'Duplicate 472'], ['  User473@EX.com ', 'Name 473'], ['user473@ex.com', 'Duplicate 473'], ['  User474@EX.com ', 'Name 474'], ['user474@ex.com', 'Duplicate 474'], ['  User475@EX.com ', 'Name 475'], ['user475@ex.com', 'Duplicate 475'], ['  User476@EX.com ', 'Name 476'], ['user476@ex.com', 'Duplicate 476'], ['  User477@EX.com ', 'Name 477'], ['user477@ex.com', 'Duplicate 477'], ['  User478@EX.com ', 'Name 478'], ['user478@ex.com', 'Duplicate 478'], ['  User479@EX.com ', 'Name 479'], ['user479@ex.com', 'Duplicate 479'], ['  User480@EX.com ', 'Name 480'], ['user480@ex.com', 'Duplicate 480'], ['  User481@EX.com ', 'Name 481'], ['user481@ex.com', 'Duplicate 481'], ['  User482@EX.com ', 'Name 482'], ['user482@ex.com', 'Duplicate 482'], ['  User483@EX.com ', 'Name 483'], ['user483@ex.com', 'Duplicate 483'], ['  User484@EX.com ', 'Name 484'], ['user484@ex.com', 'Duplicate 484'], ['  User485@EX.com ', 'Name 485'], ['user485@ex.com', 'Duplicate 485'], ['  User486@EX.com ', 'Name 486'], ['user486@ex.com', 'Duplicate 486'], ['  User487@EX.com ', 'Name 487'], ['user487@ex.com', 'Duplicate 487'], ['  User488@EX.com ', 'Name 488'], ['user488@ex.com', 'Duplicate 488'], ['  User489@EX.com ', 'Name 489'], ['user489@ex.com', 'Duplicate 489'], ['  User490@EX.com ', 'Name 490'], ['user490@ex.com', 'Duplicate 490'], ['  User491@EX.com ', 'Name 491'], ['user491@ex.com', 'Duplicate 491'], ['  User492@EX.com ', 'Name 492'], ['user492@ex.com', 'Duplicate 492'], ['  User493@EX.com ', 'Name 493'], ['user493@ex.com', 'Duplicate 493'], ['  User494@EX.com ', 'Name 494'], ['user494@ex.com', 'Duplicate 494'], ['  User495@EX.com ', 'Name 495'], ['user495@ex.com', 'Duplicate 495'], ['  User496@EX.com ', 'Name 496'], ['user496@ex.com', 'Duplicate 496'], ['  User497@EX.com ', 'Name 497'], ['user497@ex.com', 'Duplicate 497'], ['  User498@EX.com ', 'Name 498'], ['user498@ex.com', 'Duplicate 498'], ['  User499@EX.com ', 'Name 499'], ['user499@ex.com', 'Duplicate 499']]
+E       assert [['email', 'n...Name 2'], ...] == [['user0@ex.c...Name 5'], ...]
+E         
+E         At index 0 diff: ['email', 'name'] != ['user0@ex.com', 'Name 0']
+E         Left contains 501 more items, first extra item: ['user249@ex.com', 'Duplicate 249']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+_______________________ test_r4_input_file_not_modified ________________________
+
+    def test_r4_input_file_not_modified():
+        text = (
+            "email,name\r\n"
+            "  Alice@Example.com ,  Alice Chen\r\n"
+            'bob@example.com,"Doe, Bob"\r\n'
+            "ALICE@example.com,Alice Chen (dup)\r\n"
+        )
+        workdir = tempfile.mkdtemp(dir="/tmp", prefix="cleantest_")
+        try:
+            in_path = os.path.join(workdir, "input.csv")
+            out_path = os.path.join(workdir, "output.csv")
+            with open(in_path, "wb") as handle:
+                handle.write(text.encode("utf-8"))
+            before = open(in_path, "rb").read()
+            try:
+                proc = subprocess.run(
+                    [sys.executable, CLEAN, in_path, out_path],
+                    cwd=workdir,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    timeout=TIMEOUT,
+                )
+            except subprocess.TimeoutExpired:
+                raise AssertionError("CLI timed out after %ss" % TIMEOUT)
+            assert proc.returncode == 0, (
+                "expected exit code 0, got %s; stderr=%r"
+                % (proc.returncode, proc.stderr.decode("utf-8", "replace"))
+            )
+            after = open(in_path, "rb").read()
+            assert after == before, "input file was modified by the tool"
+            rows, _ = parse_output(out_path)
+>           assert_rows_equal(
+                rows,
+                [["alice@example.com", "Alice Chen"], ["bob@example.com", "Doe, Bob"]],
+            )
+
+test_clean.py:347: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['bob@example.com', ' Bob"'], ['ALICE@example.com', 'Alice Chen (dup)']]
+expected = [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Doe, Bob']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Doe, Bob']] got [['email', 'name'], ['  Alice@Example.com ', '  Alice Chen'], ['bob@example.com', ' Bob"'], ['ALICE@example.com', 'Alice Chen (dup)']]
+E       assert [['email', 'n... Chen (dup)']] == [['alice@exam..., 'Doe, Bob']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['alice@example.com', 'Alice Chen']
+E         Left contains 2 more items, first extra item: ['bob@example.com', ' Bob"']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+_______________ test_r4_output_uses_csv_quoting_not_naive_concat _______________
+
+    def test_r4_output_uses_csv_quoting_not_naive_concat():
+        text = (
+            "email,name\n"
+            'x@y.com,"A, B"\n'
+            'q@y.com,"Has ""inner"" quotes"\n'
+        )
+        rows, raw, _, _, workdir = expect_ok(text)
+        try:
+>           assert_rows_equal(
+                rows,
+                [["x@y.com", "A, B"], ["q@y.com", 'Has "inner" quotes']],
+            )
+
+test_clean.py:394: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [['email', 'name'], ['email', 'name'], ['x@y.com', ' B"'], ['q@y.com', 'Has "inner" quotes']]
+expected = [['x@y.com', 'A, B'], ['q@y.com', 'Has "inner" quotes']]
+
+    def assert_rows_equal(actual, expected):
+        assert actual[:1] == [HEADER], "first output row must be header email,name, got %r" % (
+            actual[:1],
+        )
+>       assert actual[1:] == expected, "rows mismatch: expected %r got %r" % (
+            expected,
+            actual[1:],
+        )
+E       AssertionError: rows mismatch: expected [['x@y.com', 'A, B'], ['q@y.com', 'Has "inner" quotes']] got [['email', 'name'], ['x@y.com', ' B"'], ['q@y.com', 'Has "inner" quotes']]
+E       assert [['email', 'n...ner" quotes']] == [['x@y.com', ...ner" quotes']]
+E         
+E         At index 0 diff: ['email', 'name'] != ['x@y.com', 'A, B']
+E         Left contains one more item: ['q@y.com', 'Has "inner" quotes']
+E         Use -v to get more diff
+
+test_clean.py:77: AssertionError
+=========================== short test summary info ============================
+FAILED test_challenge_r2.py::test_challenge_first_quoted_duplicate_wins_over_later_plain
+FAILED test_challenge_r2.py::test_challenge_later_duplicates_are_discarded_not_merged
+FAILED test_challenge_r2.py::test_challenge_first_seen_order_preserved_with_mixed_quoting
+FAILED test_challenge_r2.py::test_challenge_multiline_quoted_name_preserved
+FAILED test_challenge_r2.py::test_challenge_output_written_to_second_positional_argument
+FAILED test_clean.py::test_r1_success_exit_code_and_output_file - AssertionEr...
+FAILED test_clean.py::test_r1_output_path_is_user_supplied_second_arg - Asser...
+FAILED test_clean.py::test_r1_output_header_and_csv_written_to_spec - Asserti...
+FAILED test_clean.py::test_r2_normalizes_email_whitespace_and_case - Assertio...
+FAILED test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved
+FAILED test_clean.py::test_r2_output_reparses_to_same_values - assert 'Name, ...
+FAILED test_clean.py::test_r2_stable_order_first_occurrence_kept - AssertionE...
+FAILED test_clean.py::test_r2_first_duplicate_name_with_quotes_kept - Asserti...
+FAILED test_clean.py::test_r3_header_only_input - AssertionError: expected on...
+FAILED test_clean.py::test_r3_header_only_without_trailing_newline - Assertio...
+FAILED test_clean.py::test_r3_other_input_not_hardcoded_sample - AssertionErr...
+FAILED test_clean.py::test_r3_no_duplicates_all_kept - AssertionError: rows m...
+FAILED test_clean.py::test_r3_max_size_input_within_time - AssertionError: ro...
+FAILED test_clean.py::test_r4_input_file_not_modified - AssertionError: rows ...
+FAILED test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat - Asse...
+20 failed, 2 passed in 0.76s

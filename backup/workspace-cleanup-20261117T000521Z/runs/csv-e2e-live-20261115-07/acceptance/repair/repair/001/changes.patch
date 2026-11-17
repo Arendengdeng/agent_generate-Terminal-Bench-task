@@ -1,0 +1,234 @@
+--- /dev/null
++++ test_clean_extra.py
+@@ -0,0 +1,231 @@
++"""Additional behavioral tests for /app/clean.py (customer list cleaner CLI).
++
++These tests only exercise public CLI behavior: exit codes and the content of the
++output CSV written for given input files.
++"""
++import csv
++import os
++import subprocess
++import sys
++import tempfile
++
++APP = '/app/clean.py'
++TIMEOUT = 10
++
++
++def _run(in_path, out_path):
++    return subprocess.run(
++        [sys.executable, APP, in_path, out_path],
++        capture_output=True,
++        timeout=TIMEOUT,
++        cwd='/tmp',
++    )
++
++
++def _tmpdir():
++    return tempfile.TemporaryDirectory(prefix='clean-extra-')
++
++
++def _write_text(directory, name, text):
++    path = os.path.join(directory, name)
++    with open(path, 'w', encoding='utf-8', newline='') as fh:
++        fh.write(text)
++    return path
++
++
++def _write_rows(directory, name, header, records, quoting=csv.QUOTE_MINIMAL):
++    path = os.path.join(directory, name)
++    with open(path, 'w', encoding='utf-8', newline='') as fh:
++        writer = csv.writer(fh, quoting=quoting)
++        writer.writerow(header)
++        for record in records:
++            writer.writerow(record)
++    return path
++
++
++def _read_rows(out_path):
++    assert os.path.exists(out_path), 'output file was not created'
++    try:
++        with open(out_path, 'r', encoding='utf-8', newline='') as fh:
++            return list(csv.reader(fh))
++    except UnicodeDecodeError as exc:
++        raise AssertionError('output is not valid UTF-8') from exc
++
++
++def _run_ok(in_path, out_path):
++    proc = _run(in_path, out_path)
++    assert proc.returncode == 0, (
++        'expected exit code 0, got %r; stderr=%r' % (proc.returncode, proc.stderr)
++    )
++    return _read_rows(out_path)
++
++
++def test_sibling_backup_file_does_not_override_input(tmp_path):
++    """The rows written must come from the input path given on the CLI."""
++    work = str(tmp_path)
++    in_path = _write_text(
++        work,
++        'in.csv',
++        'email,name\n'
++        '  Alice@Example.COM  ,  Alice Smith  \n'
++        'bob@example.com,"Bob, Jr."\n'
++        'ALICE@example.com,Alice Duplicate\n',
++    )
++    expected_before = open(in_path, 'rb').read()
++    # A decoy sibling file that is not named on the command line.
++    _write_text(work, 'in.csv.bak', 'email,name\nold@example.com,Old Export\n')
++    out_path = os.path.join(work, 'out.csv')
++    rows = _run_ok(in_path, out_path)
++    assert rows == [
++        ['email', 'name'],
++        ['alice@example.com', 'Alice Smith'],
++        ['bob@example.com', 'Bob, Jr.'],
++    ], 'output did not reflect the CLI input records: %r' % (rows,)
++    assert open(in_path, 'rb').read() == expected_before, 'input file was modified'
++
++
++def test_other_named_input_is_used_and_not_replaced_by_neighbour(tmp_path):
++    """Two different input files produce two different, self-consistent outputs."""
++    work = str(tmp_path)
++    first = _write_text(work, 'a.csv', 'email,name\nOne@Example.com, First\n')
++    second = _write_text(work, 'b.csv', 'email,name\nTwo@Example.com,Second\n')
++    _write_text(work, 'b.csv.bak', 'email,name\nbogus@example.com,Bogus\n')
++    out_a = os.path.join(work, 'out_a.csv')
++    out_b = os.path.join(work, 'out_b.csv')
++    rows_a = _run_ok(first, out_a)
++    rows_b = _run_ok(second, out_b)
++    assert rows_a == [['email', 'name'], ['one@example.com', 'First']], rows_a
++    assert rows_b == [['email', 'name'], ['two@example.com', 'Second']], rows_b
++
++
++def test_large_mixed_generated_input_reference(tmp_path):
++    """A 1000-record generated input checked against an independently computed result."""
++    work = str(tmp_path)
++    records = []
++    expected = []
++    seen = set()
++    for i in range(1000):
++        idx = (i * 37) % 700
++        raw_email = 'Person%03d@Example.COM' % idx
++        if i % 3 == 0:
++            raw_email = '  ' + raw_email + '\t'
++        if i % 4 == 0:
++            raw_email = raw_email.lower()
++        name = 'Person %d' % idx
++        if i % 5 == 0:
++            name = '  ' + name + ', Sr.  '
++            norm_name = 'Person %d, Sr.' % idx
++        else:
++            norm_name = name
++        records.append([raw_email, name])
++        norm_email = raw_email.strip().lower()
++        if norm_email not in seen:
++            seen.add(norm_email)
++            expected.append([norm_email, norm_name])
++    in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
++    out_path = os.path.join(work, 'out.csv')
++    rows = _run_ok(in_path, out_path)
++    assert rows[0] == ['email', 'name']
++    assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'
++
++
++def test_email_ascii_variants_are_preserved_apart_from_case(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_rows(
++        work,
++        'in.csv',
++        ['email', 'name'],
++        [
++            ['  Mixed.Case+Tag@EXAMPLE.org ', ' A '],
++            ['mixed.case+tag@example.org', 'Duplicate'],
++            ['MIXED.CASE+TAG@EXAMPLE.ORG', 'Duplicate 2'],
++            ['other@example.org', 'B,C'],
++        ],
++    )
++    out_path = os.path.join(work, 'out.csv')
++    rows = _run_ok(in_path, out_path)
++    assert rows == [
++        ['email', 'name'],
++        ['mixed.case+tag@example.org', 'A'],
++        ['other@example.org', 'B,C'],
++    ], rows
++
++
++def test_header_only_variant_with_crlf(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_text(work, 'in.csv', 'email,name\r\n')
++    out_path = os.path.join(work, 'out.csv')
++    rows = _run_ok(in_path, out_path)
++    assert rows == [['email', 'name']], rows
++
++
++def test_names_with_embedded_newline_and_quotes(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_rows(
++        work,
++        'in.csv',
++        ['email', 'name'],
++        [
++            ['n@x.com', 'line1\nline2'],
++            ['m@x.com', 'say "hi", please'],
++            ['N@X.COM', 'dropped'],
++        ],
++    )
++    out_path = os.path.join(work, 'out.csv')
++    rows = _run_ok(in_path, out_path)
++    assert rows == [
++        ['email', 'name'],
++        ['n@x.com', 'line1\nline2'],
++        ['m@x.com', 'say "hi", please'],
++    ], rows
++
++
++def test_output_can_be_reparsed_as_two_column_csv(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_rows(
++        work,
++        'in.csv',
++        ['email', 'name'],
++        [['a@x.com', 'Comma, Inside'], ['b@x.com', 'Quote "Q" Inside']],
++    )
++    out_path = os.path.join(work, 'out.csv')
++    proc = _run(in_path, out_path)
++    assert proc.returncode == 0, 'stderr=%r' % (proc.stderr,)
++    rows = _read_rows(out_path)
++    assert rows[0] == ['email', 'name']
++    assert len(rows) == 3
++    for row in rows[1:]:
++        assert len(row) == 2, 'row does not have exactly two CSV fields: %r' % (row,)
++    assert rows[1:] == [
++        ['a@x.com', 'Comma, Inside'],
++        ['b@x.com', 'Quote "Q" Inside'],
++    ]
++
++
++def test_single_record_and_dup_pair_only(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_rows(
++        work,
++        'in.csv',
++        ['email', 'name'],
++        [['Solo@Example.com', ' Only ']],
++    )
++    out_path = os.path.join(work, 'out.csv')
++    assert _run_ok(in_path, out_path) == [['email', 'name'], ['solo@example.com', 'Only']]
++
++    pair = _write_rows(
++        work,
++        'pair.csv',
++        ['email', 'name'],
++        [['p@x.com', 'Kept'], ['P@X.COM', 'Dropped']],
++    )
++    pair_out = os.path.join(work, 'pair_out.csv')
++    assert _run_ok(pair, pair_out) == [['email', 'name'], ['p@x.com', 'Kept']]
++
++
++def test_overwriting_an_existing_output_file(tmp_path):
++    work = str(tmp_path)
++    in_path = _write_rows(work, 'in.csv', ['email', 'name'], [['k@x.com', 'K']])
++    out_path = _write_text(work, 'out.csv', 'email,name\nstale@example.com,Stale\nstale2@example.com,Stale2\n')
++    rows = _run_ok(in_path, out_path)
++    assert rows == [['email', 'name'], ['k@x.com', 'K']], rows

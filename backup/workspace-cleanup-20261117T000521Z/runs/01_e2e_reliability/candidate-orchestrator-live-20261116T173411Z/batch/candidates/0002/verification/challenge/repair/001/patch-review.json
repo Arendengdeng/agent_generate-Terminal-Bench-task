@@ -1,0 +1,6 @@
+{
+  "verdict": "confirmed",
+  "reason": "The after-state leaves test_clean.py byte-for-byte identical to the original (no weakening, no rewrites) and adds a new test_challenge_r2.py that only drives the documented CLI `python /app/clean.py <input.csv> <output.csv>` via subprocess and asserts observable CSV behavior: header email,name, email trimming+lowercasing, name trimming only, stable first-occurrence dedup keeping the first name, CSV quoting/escaping, UTF-8 output, exit code 0, and input file unchanged. All cases are derived from the contract's input/output specs (commas, quotes, whitespace, case, max size) and use generic fixtures that are not hardcoded sample-specific. No source inspection, no identity/hash or implementation-detail checks, no candidate-specific branches, no skips/xfails, no monkeypatching of the program under test, no new requirements, and no changes to scoring. The single pre-existing import-blocker test is unchanged. Changes are purely additive and consistent with Contract generality.",
+  "before_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "after_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70"
+}

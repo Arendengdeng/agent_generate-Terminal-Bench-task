@@ -1,0 +1,63 @@
+{
+  "dependencies": {
+    "docker": {
+      "status": "available",
+      "process": {
+        "argv": [
+          "docker",
+          "info",
+          "--format",
+          "{{.OSType}}"
+        ],
+        "exit_code": 0,
+        "error": null,
+        "stdout_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/docker-info.stdout.log",
+        "stderr_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/docker-info.stderr.log",
+        "wall_sec": 0.706
+      }
+    },
+    "harbor": {
+      "status": "available",
+      "version": "0.25.0"
+    },
+    "harbor_network_mode": "public",
+    "status": "ready"
+  },
+  "missing_configuration": [],
+  "images": {
+    "task": {
+      "image": "python:3.11-slim",
+      "status": "available",
+      "process": {
+        "argv": [
+          "docker",
+          "image",
+          "inspect",
+          "python:3.11-slim"
+        ],
+        "exit_code": 0,
+        "error": null,
+        "stdout_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/task-image.stdout.log",
+        "stderr_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/task-image.stderr.log",
+        "wall_sec": 0.304
+      }
+    },
+    "verifier": {
+      "image": "independent-verifier:pytest-9.2.0",
+      "status": "available",
+      "process": {
+        "argv": [
+          "docker",
+          "image",
+          "inspect",
+          "independent-verifier:pytest-9.2.0"
+        ],
+        "exit_code": 0,
+        "error": null,
+        "stdout_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/verifier-image.stdout.log",
+        "stderr_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/verifier-image.stderr.log",
+        "wall_sec": 0.203
+      }
+    }
+  }
+}

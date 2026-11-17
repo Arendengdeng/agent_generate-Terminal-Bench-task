@@ -1,0 +1,11 @@
+{
+  "id": "000",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/search/candidates/000/solution",
+  "solution_digest": "d5c345769c8f5ce330e01282e86ccd2d4071d75d82df1e3f3b7a51f716107925",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/search/candidates/000/witness.json",
+  "tests_digest": "349d36605832c9829793fde8c2da33f80ba621179b782c51a5bd512323cb23fa",
+  "reason": "The witness invokes the program with only one positional argument (`$WORK/only.csv`), which is not the contracted invocation `python /app/clean.py <input.csv> <output.csv>`. R1 only specifies behavior for the contracted two-positional-argument CLI; it does not state the exit code for a malformed usage, nor does it require that the input file be truncated/modified to `email,name\\n`, nor that no output be written. Assertion `exit_code == 2` is an arbitrary specific value not derivable from the Contract (the Contract says nothing about usage-error exit codes). Worse, assertion that `only.csv` equals `email,name\\n` contradicts R4 (\"不修改输入文件\"): the fixture input file ends with a data row and a trailing newline, so requiring it to become a header-only file is actually prohibited behavior. Thus these expected assertions do not follow from R1 (or any Contract requirement); the witness over-specifies and even conflicts with R4. Cannot confirm."
+}

@@ -1,0 +1,38 @@
+{
+  "objective": "修复目录摘要 CLI，递归生成每个普通文件的相对路径、字节数和 SHA-256。",
+  "workspace": "/app",
+  "command": "python /app/src/manifest.py <input_dir> <output.json>",
+  "input_spec": "input_dir 是存在的目录，包含至多 100 个普通文件以及任意空目录，嵌套深度最多 8。文件可为空或为二进制，每个文件至多 1 MiB；名称是合法 Unicode，不含换行。无符号链接或特殊文件。output.json 位于输入目录外。",
+  "output_spec": "UTF-8 JSON 数组，每项恰含 path、size、sha256。path 是相对 input_dir 的 POSIX 路径，size 为内容字节数，sha256 为内容摘要的 64 位小写十六进制字符串。按 path 的 Python 字符串升序排列，忽略目录；空目录输出 []。",
+  "deliverables": {
+    "artifact_paths": [
+      "/app/src"
+    ],
+    "allowed_dependencies": "python-stdlib",
+    "allow_additional_files": true
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+    },
+    {
+      "id": "R2",
+      "description": "递归遍历全部普通文件，保留相对路径，正确处理嵌套同名文件、空格和 Unicode 文件名。"
+    },
+    {
+      "id": "R3",
+      "description": "size 与 SHA-256 根据实际二进制内容计算，正确处理空文件和非 UTF-8 字节；输出稳定排序，空目录输出 []。"
+    },
+    {
+      "id": "R4",
+      "description": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+    }
+  ],
+  "limits": {
+    "command_timeout_sec": 10,
+    "max_files": 100,
+    "max_depth": 8,
+    "max_file_bytes": 1048576
+  }
+}

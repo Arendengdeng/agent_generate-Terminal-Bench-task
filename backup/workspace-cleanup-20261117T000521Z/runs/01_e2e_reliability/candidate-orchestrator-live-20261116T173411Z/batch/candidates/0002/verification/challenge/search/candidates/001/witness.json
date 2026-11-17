@@ -1,0 +1,48 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "Per the Contract output_spec, the e-mail field is trimmed and lowercased and used for stable dedup keeping the first record's name; the record whose normalized e-mail appears first must be the one kept, including its name. In this input `  Bob@Example.COM  ,\"Doe, Bob\"` comes first and ` bob@example.com ,Bob Doe` (same normalized e-mail `bob@example.com`) comes later, so only the first record may appear, with the quoted name `Doe, Bob`. The candidate is a deliberately planted defect: it keeps duplicate names glued together with ' | ' (only on a later duplicate) instead of discarding later duplicates, producing `Doe, Bob | Bob Doe`. R1 side conditions hold: exit 0, output at the second positional argument, input untouched.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/people.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Bob@Example.COM  ,\"Doe, Bob\"\n bob@example.com ,Bob Doe\n  Alice@Example.com ,  Alice Chen\nALICE@example.com,Alice Chen (dup)\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "parsed_file",
+      "path": [
+        "people.csv",
+        "csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "bob@example.com",
+          "Doe, Bob"
+        ],
+        [
+          "alice@example.com",
+          "Alice Chen"
+        ]
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

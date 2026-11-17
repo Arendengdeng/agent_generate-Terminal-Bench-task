@@ -1,0 +1,102 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_r1_success_exit_code_and_output_contract",
+        "test_clean.py::test_r1_wrong_arity_does_not_succeed",
+        "test_clean.py::test_r1_existing_output_overwritten"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_r2_last_name_wins_first_order",
+        "test_clean.py::test_r2_whitespace_and_case_normalization",
+        "test_clean.py::test_r2_quoted_fields_with_commas_and_quotes",
+        "test_clean.py::test_r2_empty_name_trimmed_and_last_wins",
+        "test_clean.py::test_r2_empty_name_replaced_by_later_name",
+        "test_clean.py::test_r2_crlf_input"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_r3_header_only_input",
+        "test_clean.py::test_r3_header_only_fixture",
+        "test_clean.py::test_r3_order_not_derived_from_sample",
+        "test_clean.py::test_r3_many_records",
+        "test_clean.py::test_r3_single_record"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_r4_input_file_unmodified",
+        "test_clean.py::test_r4_runs_without_preexisting_bytecode_or_extra_modules"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "bfc83c17d26a6371eafdf7369d76333794f70df07a284c0f31a4c7a4241407fa",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "98c2a9a042c073abebf6ae4feac9cd28a849f299794e64fcd85a440c80212455",
+    "inputs/environment/app/sample.csv": "50ce0ddfe2444355d7e5c34198a80ba6540729b43bad0806fdf7821415702732",
+    "inputs/instruction.md": "ad06e2028ea8d2d7e7a9e393c64a4490a07aacb5c8699defbabca3c57a879b86"
+  },
+  "nodeids": [
+    "test_clean.py::test_r1_success_exit_code_and_output_contract",
+    "test_clean.py::test_r1_wrong_arity_does_not_succeed",
+    "test_clean.py::test_r1_existing_output_overwritten",
+    "test_clean.py::test_r2_last_name_wins_first_order",
+    "test_clean.py::test_r2_whitespace_and_case_normalization",
+    "test_clean.py::test_r2_quoted_fields_with_commas_and_quotes",
+    "test_clean.py::test_r2_empty_name_trimmed_and_last_wins",
+    "test_clean.py::test_r2_empty_name_replaced_by_later_name",
+    "test_clean.py::test_r2_crlf_input",
+    "test_clean.py::test_r3_header_only_input",
+    "test_clean.py::test_r3_header_only_fixture",
+    "test_clean.py::test_r3_order_not_derived_from_sample",
+    "test_clean.py::test_r3_many_records",
+    "test_clean.py::test_r3_single_record",
+    "test_clean.py::test_r4_input_file_unmodified",
+    "test_clean.py::test_r4_runs_without_preexisting_bytecode_or_extra_modules"
+  ],
+  "manifest": {
+    "fixtures/empty_name.csv": "754a6a9510006947c776489a4da72db23b99546aec8dd669a611bae95e1ef136",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/last_wins.csv": "e86f45abd48dbda3b47fe4e9f61d00f2e936473be6b1222fa3ab3e6be591915b",
+    "fixtures/mixed.csv": "cb5531fc40344eab32092f0546c80b7931eb7c8ff81a7cf5c9b05a68acb96220",
+    "fixtures/mixed_expected.csv": "dc5df5d38b1cc475b2e2090679e671303ae0dde7c218074e6c3850cb5a3623d0",
+    "test_clean.py": "86d722e6534cc417dabcf34b39d0370bf623dc08a4b6d5f9389d70099990f2e5"
+  },
+  "digest": "228ddda29a3cfdc6937566d7abcc5b99f7c81eef0ec9b591c12a5c49bde54c9b",
+  "budget_used": {
+    "model_calls": 8,
+    "tool_calls": 16
+  },
+  "workflow_budget_used": {
+    "model_calls": 8,
+    "tool_calls": 16,
+    "token_usage": {
+      "prompt_tokens": 49852,
+      "completion_tokens": 6666,
+      "total_tokens": 56518
+    }
+  },
+  "cost": {
+    "wall_sec": 40.029,
+    "token_usage": {
+      "prompt_tokens": 49852,
+      "completion_tokens": 6666,
+      "total_tokens": 56518
+    }
+  }
+}

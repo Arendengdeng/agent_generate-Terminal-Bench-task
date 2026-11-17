@@ -1,0 +1,187 @@
+..FF.F..F...F..                                                          [100%]
+=================================== FAILURES ===================================
+________________ test_dedupe_case_and_whitespace_normalization _________________
+
+    def test_dedupe_case_and_whitespace_normalization():
+        d = make_temp()
+        inp = os.path.join(d, "in.csv")
+        out = os.path.join(d, "out.csv")
+        write_text(
+            inp,
+            "email,name\n"
+            "  Alice@Example.COM  ,  Alice Smith  \n"
+            "bob@example.com,Bob\n"
+            "alice@example.com,Alice Duplicate\n"
+            "BOB@EXAMPLE.COM ,Bob Dup\n"
+            "carol@example.com,  Carol  \n",
+        )
+        proc = run_clean(inp, out)
+        assert proc.returncode == 0, proc.stderr
+>       assert_output(
+            out,
+            [
+                ("alice@example.com", "Alice Smith"),
+                ("bob@example.com", "Bob"),
+                ("carol@example.com", "Carol"),
+            ],
+        )
+
+test_clean.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output_path = '/tmp/clean_test__qvxk0br/out.csv'
+expected_pairs = [('alice@example.com', 'Alice Smith'), ('bob@example.com', 'Bob'), ('carol@example.com', 'Carol')]
+
+    def assert_output(output_path, expected_pairs):
+        rows = read_output_rows(output_path)
+        assert rows[0] == ["email", "name"], "header must be exactly email,name: %r" % (rows[0],)
+        body = [r for r in rows[1:] if r != []]
+        for r in body:
+            assert len(r) == 2, "each output row must have exactly 2 fields: %r" % (r,)
+>       assert body == [list(p) for p in expected_pairs], "unexpected body: %r" % (body,)
+E       AssertionError: unexpected body: [['alice@example.com', '  Alice Smith  '], ['bob@example.com', 'Bob'], ['carol@example.com', '  Carol  ']]
+E       assert [['alice@exam... '  Carol  ']] == [['alice@exam...om', 'Carol']]
+E         
+E         At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']
+E         Use -v to get more diff
+
+test_clean.py:46: AssertionError
+________________ test_quoted_fields_with_commas_quotes_newlines ________________
+
+    def test_quoted_fields_with_commas_quotes_newlines():
+        d = make_temp()
+        inp = os.path.join(d, "in.csv")
+        out = os.path.join(d, "out.csv")
+        write_text(
+            inp,
+            'email,name\n'
+            '"a@example.com","Smith, John"\n'
+            '"b@example.com","He said ""hi"" to me"\n'
+            '"c@example.com","Line1\nLine2"\n'
+            '" a@example.com ","Another, Name"\n',
+        )
+        proc = run_clean(inp, out)
+>       assert proc.returncode == 0, proc.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/clean.py", line 63, in <module>
+E             sys.exit(main(sys.argv))
+E                      ^^^^^^^^^^^^^^
+E           File "/app/clean.py", line 56, in main
+E             cleaned = normalize(rows)
+E                       ^^^^^^^^^^^^^^^
+E           File "/app/clean.py", line 34, in normalize
+E             name = row["name"]
+E                    ~~~^^^^^^^^
+E         KeyError: 'name'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/clean_test_oenw_jie/in.csv', '/tmp/clean_test_...\n  File "/app/clean.py", line 34, in normalize\n    name = row["name"]\n           ~~~^^^^^^^^\nKeyError: \'name\'\n').returncode
+
+test_clean.py:117: AssertionError
+_______________ test_output_value_requiring_escaping_roundtrips ________________
+
+    def test_output_value_requiring_escaping_roundtrips():
+        d = make_temp()
+        inp = os.path.join(d, "in.csv")
+        out = os.path.join(d, "out.csv")
+        write_text(
+            inp,
+            "email,name\n"
+            '"u@example.com","  Tab, and ""quote"" here  "\n',
+        )
+        proc = run_clean(inp, out)
+        assert proc.returncode == 0, proc.stderr
+>       assert_output(out, [("u@example.com", 'Tab, and "quote" here')])
+
+test_clean.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output_path = '/tmp/clean_test_wq4ixp8j/out.csv'
+expected_pairs = [('u@example.com', 'Tab, and "quote" here')]
+
+    def assert_output(output_path, expected_pairs):
+        rows = read_output_rows(output_path)
+        assert rows[0] == ["email", "name"], "header must be exactly email,name: %r" % (rows[0],)
+        body = [r for r in rows[1:] if r != []]
+        for r in body:
+            assert len(r) == 2, "each output row must have exactly 2 fields: %r" % (r,)
+>       assert body == [list(p) for p in expected_pairs], "unexpected body: %r" % (body,)
+E       AssertionError: unexpected body: [['u@example.com', '  Tab\n']]
+E       assert [['u@example.com', '  Tab\n']] == [['u@example....quote" here']]
+E         
+E         At index 0 diff: ['u@example.com', '  Tab\n'] != ['u@example.com', 'Tab, and "quote" here']
+E         Use -v to get more diff
+
+test_clean.py:46: AssertionError
+_______________________ test_varied_inputs_no_hardcoding _______________________
+
+    def test_varied_inputs_no_hardcoding():
+        d = make_temp()
+        out = os.path.join(d, "out.csv")
+        cases = [
+            ("email,name\nq@q.org,X\n", [("q@q.org", "X")]),
+            (
+                "email,name\np@a.io,P\nr@a.io,Q\nQ@p.io,R\n",
+                [("p@a.io", "P"), ("r@a.io", "Q"), ("q@p.io", "R")],
+            ),
+            (
+                'email,name\n"e@e.e","Doe, Jane"\nf@f.f,"O""Neil"\n',
+                [("e@e.e", "Doe, Jane"), ("f@f.f", 'O"Neil')],
+            ),
+        ]
+        for idx, (content, expected) in enumerate(cases):
+            inp = os.path.join(d, "in%d.csv" % idx)
+            write_text(inp, content)
+            proc = run_clean(inp, out)
+            assert proc.returncode == 0, proc.stderr
+>           assert_output(out, expected)
+
+test_clean.py:214: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+output_path = '/tmp/clean_test_phpukfua/out.csv'
+expected_pairs = [('e@e.e', 'Doe, Jane'), ('f@f.f', 'O"Neil')]
+
+    def assert_output(output_path, expected_pairs):
+        rows = read_output_rows(output_path)
+        assert rows[0] == ["email", "name"], "header must be exactly email,name: %r" % (rows[0],)
+        body = [r for r in rows[1:] if r != []]
+        for r in body:
+            assert len(r) == 2, "each output row must have exactly 2 fields: %r" % (r,)
+>       assert body == [list(p) for p in expected_pairs], "unexpected body: %r" % (body,)
+E       AssertionError: unexpected body: [['e@e.e', 'Doe\nf@f.f,O""Neil"']]
+E       assert [['e@e.e', 'D....f,O""Neil"']] == [['e@e.e', 'D...f', 'O"Neil']]
+E         
+E         At index 0 diff: ['e@e.e', 'Doe\nf@f.f,O""Neil"'] != ['e@e.e', 'Doe, Jane']
+E         Right contains one more item: ['f@f.f', 'O"Neil']
+E         Use -v to get more diff
+
+test_clean.py:46: AssertionError
+____________________ test_cli_accepts_positional_arguments _____________________
+
+    def test_cli_accepts_positional_arguments():
+        d = make_temp()
+        inp = os.path.join(d, "in.csv")
+        out = os.path.join(d, "out.csv")
+        with open(inp, "w", encoding="utf-8", newline="") as fh:
+            fh.write("email,name\n  Mixed@Case.COM ,  Mixed  \n")
+        proc = run_clean(inp, out)
+        assert proc.returncode == 0, proc.stderr
+        assert os.path.exists(out), "output file not written"
+        with open(out, "r", encoding="utf-8", newline="") as fh:
+            rows = list(csv.reader(fh))
+        assert rows[0] == ["email", "name"]
+>       assert rows[1:] == [["mixed@case.com", "Mixed"]]
+E       AssertionError: assert [['mixed@case... '  Mixed  ']] == [['mixed@case.com', 'Mixed']]
+E         
+E         At index 0 diff: ['mixed@case.com', '  Mixed  '] != ['mixed@case.com', 'Mixed']
+E         Use -v to get more diff
+
+test_cli_args.py:37: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_dedupe_case_and_whitespace_normalization - Asserti...
+FAILED test_clean.py::test_quoted_fields_with_commas_quotes_newlines - Assert...
+FAILED test_clean.py::test_output_value_requiring_escaping_roundtrips - Asser...
+FAILED test_clean.py::test_varied_inputs_no_hardcoding - AssertionError: unex...
+FAILED test_cli_args.py::test_cli_accepts_positional_arguments - AssertionErr...
+5 failed, 10 passed in 0.48s

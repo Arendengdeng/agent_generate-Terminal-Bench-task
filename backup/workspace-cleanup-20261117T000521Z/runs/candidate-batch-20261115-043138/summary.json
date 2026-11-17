@@ -1,0 +1,312 @@
+{
+  "status": "incomplete",
+  "planned": 6,
+  "generated": 1,
+  "accepted": 0,
+  "rejected": 0,
+  "unresolved": 6,
+  "all_accepted": false,
+  "cancelled": true,
+  "model_calls": 54,
+  "tool_calls": 69,
+  "tasks": [
+    {
+      "id": "csv-original",
+      "family": "csv",
+      "variant": "original",
+      "outcome": "unresolved",
+      "detail": "error",
+      "failure_stage": "synthesis",
+      "responsible_module": "synthesis_agent",
+      "candidate_generated": false,
+      "stages": {
+        "synthesis": {
+          "status": "error",
+          "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-043138/tasks/csv-original/candidate/synthesis.json"
+        },
+        "controls": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "independent_test": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 40,
+        "tool_calls": 43,
+        "wall_sec": 187.81,
+        "synthesis": {
+          "model_calls": 40,
+          "tool_calls": 43,
+          "token_usage": {
+            "prompt_tokens": 533176,
+            "completion_tokens": 11194,
+            "total_tokens": 544370
+          }
+        },
+        "verification": {
+          "model_calls": 0,
+          "tool_calls": 0
+        }
+      },
+      "repair_count": 0,
+      "error": {
+        "type": "BudgetExceeded",
+        "message": "model call budget exhausted"
+      }
+    },
+    {
+      "id": "csv-variant",
+      "family": "csv",
+      "variant": "variant",
+      "outcome": "unresolved",
+      "detail": "cancelled",
+      "failure_stage": "independent_test",
+      "responsible_module": "unknown",
+      "candidate_generated": true,
+      "stages": {
+        "synthesis": {
+          "status": "passed",
+          "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-043138/tasks/csv-variant/candidate/synthesis.json"
+        },
+        "controls": {
+          "status": "passed",
+          "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-043138/tasks/csv-variant/controls/manifest.json"
+        },
+        "independent_test": {
+          "status": "cancelled",
+          "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-043138/tasks/csv-variant/verification/test-agent/tests.json"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 14,
+        "tool_calls": 26,
+        "wall_sec": 122.759,
+        "synthesis": {
+          "model_calls": 6,
+          "tool_calls": 10,
+          "token_usage": {
+            "prompt_tokens": 21496,
+            "completion_tokens": 3066,
+            "total_tokens": 24562
+          }
+        },
+        "verification": {
+          "model_calls": 8,
+          "tool_calls": 16,
+          "token_usage": {
+            "prompt_tokens": 49852,
+            "completion_tokens": 6666,
+            "total_tokens": 56518
+          }
+        }
+      },
+      "repair_count": 0,
+      "controller_decision": "error",
+      "native_stage": "test_execution",
+      "error": {
+        "type": "KeyboardInterrupt",
+        "message": ""
+      }
+    },
+    {
+      "id": "jsonl-original",
+      "family": "jsonl",
+      "variant": "original",
+      "outcome": "unresolved",
+      "detail": "cancelled",
+      "failure_stage": "batch",
+      "responsible_module": "unknown",
+      "candidate_generated": false,
+      "stages": {
+        "synthesis": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "controls": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "independent_test": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 0,
+        "tool_calls": 0,
+        "wall_sec": 0
+      },
+      "repair_count": 0,
+      "reason": "batch interrupted before this task"
+    },
+    {
+      "id": "jsonl-variant",
+      "family": "jsonl",
+      "variant": "variant",
+      "outcome": "unresolved",
+      "detail": "cancelled",
+      "failure_stage": "batch",
+      "responsible_module": "unknown",
+      "candidate_generated": false,
+      "stages": {
+        "synthesis": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "controls": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "independent_test": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 0,
+        "tool_calls": 0,
+        "wall_sec": 0
+      },
+      "repair_count": 0,
+      "reason": "batch interrupted before this task"
+    },
+    {
+      "id": "manifest-original",
+      "family": "manifest",
+      "variant": "original",
+      "outcome": "unresolved",
+      "detail": "cancelled",
+      "failure_stage": "batch",
+      "responsible_module": "unknown",
+      "candidate_generated": false,
+      "stages": {
+        "synthesis": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "controls": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "independent_test": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 0,
+        "tool_calls": 0,
+        "wall_sec": 0
+      },
+      "repair_count": 0,
+      "reason": "batch interrupted before this task"
+    },
+    {
+      "id": "manifest-variant",
+      "family": "manifest",
+      "variant": "variant",
+      "outcome": "unresolved",
+      "detail": "cancelled",
+      "failure_stage": "batch",
+      "responsible_module": "unknown",
+      "candidate_generated": false,
+      "stages": {
+        "synthesis": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "controls": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "independent_test": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "challenge": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "repair": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        },
+        "reverification": {
+          "status": "not_run",
+          "reason": "upstream_not_completed"
+        }
+      },
+      "cost": {
+        "model_calls": 0,
+        "tool_calls": 0,
+        "wall_sec": 0
+      },
+      "repair_count": 0,
+      "reason": "batch interrupted before this task"
+    }
+  ],
+  "limitation": "Finite task/control evidence; blocked input specifications are not generated task packages."
+}

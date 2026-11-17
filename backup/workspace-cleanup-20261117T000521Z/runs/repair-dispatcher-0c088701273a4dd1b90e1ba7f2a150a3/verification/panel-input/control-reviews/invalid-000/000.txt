@@ -1,0 +1,5 @@
+Handwritten fixture source review; no execution result is asserted.
+solve.sh writes exactly this Python source to /app/clean.py:
+print(43)
+The shell exits successfully after writing the file. Python stdlib semantics give stdout '43\n' and exit 0 with no input. R1 requires exactly 42 followed by newline.
+This violates R1.

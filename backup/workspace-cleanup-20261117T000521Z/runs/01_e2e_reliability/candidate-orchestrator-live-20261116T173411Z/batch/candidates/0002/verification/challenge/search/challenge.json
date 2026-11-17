@@ -1,0 +1,127 @@
+{
+  "status": "completed",
+  "attempts": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/solution",
+      "solution_digest": "0ad3af56e575919c121876c0c42a2ea30c1bb65c81d806e8e9b651833ef7a059",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/witness.json",
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "reason": "Ambiguity: the fixture writes to \"$WORK/out/target.csv\", but the output directory \"out\" is only created implicitly through a fixture entry (\"out/.keep\"). The Contract/observation semantics do not state that parent directories of fixture paths are created, nor does any Requirement obligate clean.py to create missing parent directories. Thus the exit_code assertion (0) and the file assertion depend on an unguaranteed precondition; a correct implementation that expects an existing output directory could fail, and the witness provides no guaranteed mechanism to create it. (The dedup/normalization expectations themselves are consistent with R1/R2, and the unchanged-input assertion follows from R4, but the directory-creation uncertainty makes the whole witness unconfirmed.)"
+    },
+    {
+      "id": "001",
+      "status": "confirmed",
+      "violation_status": "confirmed",
+      "requirement_id": "R2",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/solution",
+      "solution_digest": "cdc4b0d60d23883989ed342c9b846836e675a923966fce71df61279e932c6edd",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/witness.json",
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "parsed_file",
+              "path": [
+                "people.csv",
+                "csv"
+              ],
+              "value": [
+                [
+                  "email",
+                  "name"
+                ],
+                [
+                  "bob@example.com",
+                  "Doe, Bob"
+                ],
+                [
+                  "alice@example.com",
+                  "Alice Chen"
+                ]
+              ]
+            },
+            "actual_error": "FileNotFoundError",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 1
+        }
+      ],
+      "scoring_feedback": [
+        {
+          "repeat": 0,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        },
+        {
+          "repeat": 1,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        }
+      ],
+      "decision": {
+        "decision": "repair",
+        "responsible_module": "tests",
+        "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_digest": "94d14c9d6e9771abfeaf2b3b0dbb2b584101a4b199777586209d30466fec2158"
+      },
+      "evidence_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/evidence.json"
+    }
+  ],
+  "stop_reason": "Witness 001 confirmed a real coverage gap under requirement R2: solve.sh installs /app/clean.py which is correct on all frozen tests but merges a later duplicate's name into the first record (\"Doe, Bob | Bob Doe\") instead of discarding duplicates, violating stable dedup keeping the first name. The Contract-derived witness (in.csv with a later e-mail duplicate differing only in whitespace/case) fails with FileNotFoundError/row mismatch while oracle and known-000 controls pass 2/2 scoring runs, so this is a confirmed false acceptance rather than an over-strict witness. Earlier R1 attempts were rejected for unguaranteed fixture directory creation and for wrong target requirement.",
+  "public_input_digest": "151e5da82848c4c57e33332c977e2d374850e114b8cda95ec78e53381d651fe7",
+  "max_attempts": 4,
+  "budget_used": {
+    "model_calls": 47,
+    "tool_calls": 58,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 321098,
+      "completion_tokens": 24974,
+      "total_tokens": 346072
+    }
+  },
+  "wall_sec": 85.863
+}

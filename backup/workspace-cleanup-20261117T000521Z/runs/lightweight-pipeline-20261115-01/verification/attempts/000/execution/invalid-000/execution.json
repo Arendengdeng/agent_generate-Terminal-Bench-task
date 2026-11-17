@@ -1,0 +1,945 @@
+{
+  "label": "invalid-000",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_clean.py::test_basic_dedupe_and_normalization",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0028761730000042007,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_basic_dedupe_and_normalization",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['alice@example.com', 'Alice Dup'], ['bob@example.com', 'Bobby'], ['carol@example.com', 'Carol']]\nassert [('alice@exam...om', 'Carol')] == [('alice@exam...om', 'Carol')]\n  \n  At index 0 diff: ('alice@example.com', 'Alice Dup') != ('alice@example.com', 'Alice')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 77,
+            "source": "    data = check(tmp_path, records)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03638208499978646,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_basic_dedupe_and_normalization",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_basic_dedupe_and_normalization",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001612269998076954,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_commas_and_quotes",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007929980001790682,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_commas_and_quotes",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...e said \"hi\"']] == [['email', 'n...e said \"hi\"']]\n  \n  At index 1 diff: ['a@x.com', 'Other, Name'] != ['a@x.com', 'Smith, John']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 97,
+            "source": "    assert rows == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03430907199981448,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_commas_and_quotes",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_commas_and_quotes",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019337899993843166,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_multiline_quoted_field",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005023670000809943,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_multiline_quoted_field",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [['email', 'n...com', 'keep']] == [['email', 'n...com', 'keep']]\n  \n  At index 1 diff: ['m@x.com', 'Other'] != ['m@x.com', 'Line1\\nLine2']\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 116,
+            "source": "    assert rows == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04500852999990457,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_multiline_quoted_field",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_multiline_quoted_field",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002050989996860153,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008676020006532781,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert '\\r\\n' not in 'email,name\\r\\n'\n  \n  '\\r\\n' is contained here:\n    email,name\n  ?           ++",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 128,
+            "source": "    assert \"\\r\\n\" not in text"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03396522800085222,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021507500059669837,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_crlf",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004560880006465595,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_crlf",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.028379206999488815,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_crlf",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_crlf",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003069439999308088,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_blank_email_records_skipped",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006553589992108755,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_blank_email_records_skipped",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['', 'Tab'], ['real@example.com', 'Real Again'], ['second@example.com', 'Second']]\nassert [('', 'Tab'),...m', 'Second')] == [('real@examp...m', 'Second')]\n  \n  At index 0 diff: ('', 'Tab') != ('real@example.com', 'Real')\n  Left contains one more item: ('second@example.com', 'Second')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 146,
+            "source": "    rows = parse_output(check(tmp_path, records))"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03233376999924076,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_blank_email_records_skipped",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_blank_email_records_skipped",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001526039995951578,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_empty_name_preserved_as_empty",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009696170000097482,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_empty_name_preserved_as_empty",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['a@example.com', 'later'], ['b@example.com', '']]\nassert [('a@example....ple.com', '')] == [('a@example....ple.com', '')]\n  \n  At index 0 diff: ('a@example.com', 'later') != ('a@example.com', '')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 160,
+            "source": "    rows = parse_output(check(tmp_path, records))"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022018415999809804,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_empty_name_preserved_as_empty",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_empty_name_preserved_as_empty",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012217700077599147,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_first_occurrence_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00036750000072061084,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_first_occurrence_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['z@example.com', 'Z2'], ['a@example.com', 'A2'], ['y@example.com', 'Y']]\nassert [('z@example....le.com', 'Y')] == [('z@example....le.com', 'Y')]\n  \n  At index 0 diff: ('z@example.com', 'Z2') != ('z@example.com', 'Z')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 176,
+            "source": "    rows = parse_output(check(tmp_path, records))"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022768060000089463,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_first_occurrence_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_first_occurrence_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015681500008213334,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00037763499949505785,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_not_modified",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.019941362000281515,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 9.348599996883422e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_stray_files_created_in_cwd",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002965200001199264,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_stray_files_created_in_cwd",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02139062200058106,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_stray_files_created_in_cwd",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_stray_files_created_in_cwd",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 9.831399984250311e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_stdlib_only_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 5.671400049322983e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_stdlib_only_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03584474400031468,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_stdlib_only_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "['csv']\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_clean.py::test_stdlib_only_imports",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n              ~~~~~~~~^^^\nIndexError: list index out of range\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_stdlib_only_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.772400022076908e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records0]",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003486949999569333,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records0]",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.021683193999706418,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_varied_inputs[records0]",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records0]",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010319200009689666,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records1]",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00033436900048400275,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records1]",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['mixed@case.com', 'Second']]\nassert [('mixed@case.com', 'Second')] == [('mixed@case...'Mixed Name')]\n  \n  At index 0 diff: ('mixed@case.com', 'Second') != ('mixed@case.com', 'Mixed Name')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 255,
+            "source": "    check(tmp_path, records)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.026211240000520775,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_varied_inputs[records1]",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records1]",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012650700045924168,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records2]",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00035257600029581226,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records2]",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['a+b@x.com', 'Dup']]\nassert [('a+b@x.com', 'Dup')] == [('a+b@x.com', 'Plus')]\n  \n  At index 0 diff: ('a+b@x.com', 'Dup') != ('a+b@x.com', 'Plus')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 255,
+            "source": "    check(tmp_path, records)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.022458776000348735,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_varied_inputs[records2]",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_varied_inputs[records2]",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012474100003601052,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_large_input_1000_records",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00043151600038981996,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_large_input_1000_records",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "[['email', 'name'], ['user000@example.com', 'Dup 0'], ['user001@example.com', 'Dup 1'], ['user002@example.com', 'Dup 2'], ['user003@example.com', 'Dup 3'], ['user004@example.com', 'Dup 4'], ...]\nassert [('user000@ex...'Dup 5'), ...] == [('user000@ex...Name 5'), ...]\n  \n  At index 0 diff: ('user000@example.com', 'Dup 0') != ('user000@example.com', 'Name 0')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 264,
+            "source": "    rows = parse_output(check(tmp_path, base))"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    assert [tuple(r) for r in rows[1:]] == exp[1:], rows"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.024117534999277268,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_large_input_1000_records",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_large_input_1000_records",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012428199988789856,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_only_stdlib_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010280300011800136,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_only_stdlib_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00041338000028190436,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_only_stdlib_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 7.249600002978696e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_runs_isolated_without_site_packages",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00039306799953919835,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_runs_isolated_without_site_packages",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert b'email,name\\...x.com,Bob\\r\\n' == b'email,name\\nb@x.com,Bob\\n'\n  \n  At index 10 diff: b'\\r' != b'\\n'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_stdlib_only.py",
+            "line": 37,
+            "source": "    assert out.read_bytes() == b\"email,name\\nb@x.com,Bob\\n\""
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.018256334999932733,
+      "commands": [
+        {
+          "nodeid": "test_stdlib_only.py::test_runs_isolated_without_site_packages",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_stdlib_only.py::test_runs_isolated_without_site_packages",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042071200005011633,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/lightweight-pipeline-20261115-01/verification/attempts/000/execution/invalid-000/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "b217d68163fef01888dcb5050277639ef48afff28ac22f0f0b50c1121792079d",
+    "/solution/solve.sh": "78fb3c3b32b59767bf41c95a8dd953b79f6ada6c6ca77d2461b9359f341f9fed"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "dcc8139a453a6982e2938e76c3b77d377cdae88d2ae515ee60e511ce309f2379",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_clean.py": "9032fce273a49cec2f424470b08426ab62db60998b1850b0ef1b98af9ab66a9b",
+    "test_stdlib_only.py": "848e6364abaa42160b3b3ac2de834992ad4ec2cfc3f694fdd934ac4abc1bc7b7"
+  },
+  "stdout": "FFFF.FFF....FFF.F                                                        [100%]\n=================================== FAILURES ===================================\n_____________________ test_basic_dedupe_and_normalization ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_dedupe_and_normaliz0')\n\n    def test_basic_dedupe_and_normalization(tmp_path):\n        records = [\n            (\"Alice@Example.com\", \"Alice\"),\n            (\"  alice@example.com  \", \"Alice Dup\"),\n            (\"bob@example.com\", \"Bob\"),\n            (\"BOB@EXAMPLE.COM\", \"Bobby\"),\n            (\"carol@example.com\", \"  Carol  \"),\n        ]\n>       data = check(tmp_path, records)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_dedupe_and_normaliz0')\nrecords = [('Alice@Example.com', 'Alice'), ('  alice@example.com  ', 'Alice Dup'), ('bob@example.com', 'Bob'), ('BOB@EXAMPLE.COM', 'Bobby'), ('carol@example.com', '  Carol  ')]\ncsv_text = 'email,name\\r\\nAlice@Example.com,Alice\\r\\n  alice@example.com  ,Alice Dup\\r\\nbob@example.com,Bob\\r\\nBOB@EXAMPLE.COM,Bobby\\r\\ncarol@example.com,  Carol  \\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['alice@example.com', 'Alice Dup'], ['bob@example.com', 'Bobby'], ['carol@example.com', 'Carol']]\nE       assert [('alice@exam...om', 'Carol')] == [('alice@exam...om', 'Carol')]\nE         \nE         At index 0 diff: ('alice@example.com', 'Alice Dup') != ('alice@example.com', 'Alice')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n________________________ test_quoted_commas_and_quotes _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_commas_and_quotes0')\n\n    def test_quoted_commas_and_quotes(tmp_path):\n        csv_text = (\n            'email,name\\r\\n'\n            '\"a@x.com\",\"Smith, John\"\\r\\n'\n            '\"A@X.COM\",\"Other, Name\"\\r\\n'\n            'b@x.com,\"He said \"\"hi\"\"\"\\r\\n'\n        )\n        records = [\n            (\"a@x.com\", 'Smith, John'),\n            (\"A@X.COM\", \"Other, Name\"),\n            (\"b@x.com\", 'He said \"hi\"'),\n        ]\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n>       assert rows == [\n            [\"email\", \"name\"],\n            [\"a@x.com\", \"Smith, John\"],\n            [\"b@x.com\", 'He said \"hi\"'],\n        ]\nE       assert [['email', 'n...e said \"hi\"']] == [['email', 'n...e said \"hi\"']]\nE         \nE         At index 1 diff: ['a@x.com', 'Other, Name'] != ['a@x.com', 'Smith, John']\nE         Use -v to get more diff\n\ntest_clean.py:97: AssertionError\n_________________________ test_multiline_quoted_field __________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_multiline_quoted_field0')\n\n    def test_multiline_quoted_field(tmp_path):\n        csv_text = (\n            \"email,name\\r\\n\"\n            '\"m@x.com\",\"Line1\\nLine2\"\\r\\n'\n            '\"M@X.COM\",\"Other\"\\r\\n'\n            'n@x.com,\"keep\"\\r\\n'\n        )\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n>       assert rows == [\n            [\"email\", \"name\"],\n            [\"m@x.com\", \"Line1\\nLine2\"],\n            [\"n@x.com\", \"keep\"],\n        ]\nE       AssertionError: assert [['email', 'n...com', 'keep']] == [['email', 'n...com', 'keep']]\nE         \nE         At index 1 diff: ['m@x.com', 'Other'] != ['m@x.com', 'Line1\\nLine2']\nE         Use -v to get more diff\n\ntest_clean.py:116: AssertionError\n_______________________________ test_header_only _______________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only0')\n\n    def test_header_only(tmp_path):\n        data = check(tmp_path, [], csv_text=\"email,name\\n\")\n        rows = parse_output(data)\n        assert rows == [[\"email\", \"name\"]]\n        text = data.decode(\"utf-8\")\n>       assert \"\\r\\n\" not in text\nE       AssertionError: assert '\\r\\n' not in 'email,name\\r\\n'\nE         \nE         '\\r\\n' is contained here:\nE           email,name\nE         ?           ++\n\ntest_clean.py:128: AssertionError\n_______________________ test_blank_email_records_skipped _______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_blank_email_records_skipp0')\n\n    def test_blank_email_records_skipped(tmp_path):\n        records = [\n            (\"   \", \"Nobody\"),\n            (\"\", \"Empty\"),\n            (\"real@example.com\", \"Real\"),\n            (\" real@example.com\", \"Real Again\"),\n            (\"\\t\", \"Tab\"),\n            (\"second@example.com\", \"Second\"),\n        ]\n>       rows = parse_output(check(tmp_path, records))\n                            ^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:146: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_blank_email_records_skipp0')\nrecords = [('   ', 'Nobody'), ('', 'Empty'), ('real@example.com', 'Real'), (' real@example.com', 'Real Again'), ('\\t', 'Tab'), ('second@example.com', 'Second')]\ncsv_text = 'email,name\\r\\n   ,Nobody\\r\\n,Empty\\r\\nreal@example.com,Real\\r\\n real@example.com,Real Again\\r\\n\\t,Tab\\r\\nsecond@example.com,Second\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['', 'Tab'], ['real@example.com', 'Real Again'], ['second@example.com', 'Second']]\nE       assert [('', 'Tab'),...m', 'Second')] == [('real@examp...m', 'Second')]\nE         \nE         At index 0 diff: ('', 'Tab') != ('real@example.com', 'Real')\nE         Left contains one more item: ('second@example.com', 'Second')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n______________________ test_empty_name_preserved_as_empty ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_name_preserved_as_e0')\n\n    def test_empty_name_preserved_as_empty(tmp_path):\n        records = [\n            (\"a@example.com\", \"\"),\n            (\"b@example.com\", \"   \"),\n            (\"A@EXAMPLE.COM\", \"later\"),\n        ]\n>       rows = parse_output(check(tmp_path, records))\n                            ^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:160: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_name_preserved_as_e0')\nrecords = [('a@example.com', ''), ('b@example.com', '   '), ('A@EXAMPLE.COM', 'later')]\ncsv_text = 'email,name\\r\\na@example.com,\\r\\nb@example.com,   \\r\\nA@EXAMPLE.COM,later\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['a@example.com', 'later'], ['b@example.com', '']]\nE       assert [('a@example....ple.com', '')] == [('a@example....ple.com', '')]\nE         \nE         At index 0 diff: ('a@example.com', 'later') != ('a@example.com', '')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n_________________________ test_first_occurrence_order __________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')\n\n    def test_first_occurrence_order(tmp_path):\n        records = [\n            (\"z@example.com\", \"Z\"),\n            (\"a@example.com\", \"A\"),\n            (\"y@example.com\", \"Y\"),\n            (\"Z@example.com\", \"Z2\"),\n            (\" a@Example.com \", \"A2\"),\n        ]\n>       rows = parse_output(check(tmp_path, records))\n                            ^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:176: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')\nrecords = [('z@example.com', 'Z'), ('a@example.com', 'A'), ('y@example.com', 'Y'), ('Z@example.com', 'Z2'), (' a@Example.com ', 'A2')]\ncsv_text = 'email,name\\r\\nz@example.com,Z\\r\\na@example.com,A\\r\\ny@example.com,Y\\r\\nZ@example.com,Z2\\r\\n a@Example.com ,A2\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['z@example.com', 'Z2'], ['a@example.com', 'A2'], ['y@example.com', 'Y']]\nE       assert [('z@example....le.com', 'Y')] == [('z@example....le.com', 'Y')]\nE         \nE         At index 0 diff: ('z@example.com', 'Z2') != ('z@example.com', 'Z')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n_________________________ test_varied_inputs[records1] _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records1_0')\nrecords = [('Mixed@CASE.com', ' Mixed Name '), ('mixed@case.com', 'Second')]\n\n    @pytest.mark.parametrize(\"records\", [\n        [(\"single@example.com\", \"Only\")],\n        [(\"Mixed@CASE.com\", \" Mixed Name \"), (\"mixed@case.com\", \"Second\")],\n        [(\"a+b@x.com\", \"Plus\"), (\"A+B@X.com\", \"Dup\")],\n    ])\n    def test_varied_inputs(tmp_path, records):\n>       check(tmp_path, records)\n\ntest_clean.py:255: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records1_0')\nrecords = [('Mixed@CASE.com', ' Mixed Name '), ('mixed@case.com', 'Second')]\ncsv_text = 'email,name\\r\\nMixed@CASE.com, Mixed Name \\r\\nmixed@case.com,Second\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['mixed@case.com', 'Second']]\nE       assert [('mixed@case.com', 'Second')] == [('mixed@case...'Mixed Name')]\nE         \nE         At index 0 diff: ('mixed@case.com', 'Second') != ('mixed@case.com', 'Mixed Name')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n_________________________ test_varied_inputs[records2] _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records2_0')\nrecords = [('a+b@x.com', 'Plus'), ('A+B@X.com', 'Dup')]\n\n    @pytest.mark.parametrize(\"records\", [\n        [(\"single@example.com\", \"Only\")],\n        [(\"Mixed@CASE.com\", \" Mixed Name \"), (\"mixed@case.com\", \"Second\")],\n        [(\"a+b@x.com\", \"Plus\"), (\"A+B@X.com\", \"Dup\")],\n    ])\n    def test_varied_inputs(tmp_path, records):\n>       check(tmp_path, records)\n\ntest_clean.py:255: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records2_0')\nrecords = [('a+b@x.com', 'Plus'), ('A+B@X.com', 'Dup')]\ncsv_text = 'email,name\\r\\na+b@x.com,Plus\\r\\nA+B@X.com,Dup\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['a+b@x.com', 'Dup']]\nE       assert [('a+b@x.com', 'Dup')] == [('a+b@x.com', 'Plus')]\nE         \nE         At index 0 diff: ('a+b@x.com', 'Dup') != ('a+b@x.com', 'Plus')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n________________________ test_large_input_1000_records _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_records0')\n\n    def test_large_input_1000_records(tmp_path):\n        base = []\n        for i in range(600):\n            base.append((\"user%03d@example.com\" % i, \"Name %d\" % i))\n        for i in range(400):\n            base.append((\"USER%03d@EXAMPLE.COM\" % i, \"Dup %d\" % i))\n>       rows = parse_output(check(tmp_path, base))\n                            ^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:264: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_records0')\nrecords = [('user000@example.com', 'Name 0'), ('user001@example.com', 'Name 1'), ('user002@example.com', 'Name 2'), ('user003@example.com', 'Name 3'), ('user004@example.com', 'Name 4'), ('user005@example.com', 'Name 5'), ...]\ncsv_text = 'email,name\\r\\nuser000@example.com,Name 0\\r\\nuser001@example.com,Name 1\\r\\nuser002@example.com,Name 2\\r\\nuser003@examp...6@EXAMPLE.COM,Dup 396\\r\\nUSER397@EXAMPLE.COM,Dup 397\\r\\nUSER398@EXAMPLE.COM,Dup 398\\r\\nUSER399@EXAMPLE.COM,Dup 399\\r\\n'\n\n    def check(tmp_path, records, csv_text=None):\n        if csv_text is None:\n            buf = io.StringIO()\n            writer = csv.writer(buf, lineterminator=\"\\r\\n\")\n            writer.writerow([\"email\", \"name\"])\n            for r in records:\n                writer.writerow(list(r))\n            csv_text = buf.getvalue()\n        _, data = run_cli(tmp_path, csv_text.encode(\"utf-8\"))\n        rows = parse_output(data)\n        exp = expected(records)\n        assert rows[0] == [\"email\", \"name\"], rows[0]\n>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows\nE       AssertionError: [['email', 'name'], ['user000@example.com', 'Dup 0'], ['user001@example.com', 'Dup 1'], ['user002@example.com', 'Dup 2'], ['user003@example.com', 'Dup 3'], ['user004@example.com', 'Dup 4'], ...]\nE       assert [('user000@ex...'Dup 5'), ...] == [('user000@ex...Name 5'), ...]\nE         \nE         At index 0 diff: ('user000@example.com', 'Dup 0') != ('user000@example.com', 'Name 0')\nE         Use -v to get more diff\n\ntest_clean.py:65: AssertionError\n___________________ test_runs_isolated_without_site_packages ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_runs_isolated_without_sit0')\n\n    def test_runs_isolated_without_site_packages(tmp_path):\n        inp = tmp_path / \"in.csv\"\n        inp.write_bytes(b\"email,name\\nb@x.com,Bob\\n\")\n        out = tmp_path / \"out.csv\"\n        proc = subprocess.run(\n            [sys.executable, \"-I\", \"-S\", SCRIPT, str(inp), str(out)],\n            cwd=str(tmp_path),\n            capture_output=True,\n            timeout=TIMEOUT,\n        )\n        assert proc.returncode == 0, proc.stderr\n>       assert out.read_bytes() == b\"email,name\\nb@x.com,Bob\\n\"\nE       AssertionError: assert b'email,name\\...x.com,Bob\\r\\n' == b'email,name\\nb@x.com,Bob\\n'\nE         \nE         At index 10 diff: b'\\r' != b'\\n'\nE         Use -v to get more diff\n\ntest_stdlib_only.py:37: AssertionError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_basic_dedupe_and_normalization - AssertionError: [...\nFAILED test_clean.py::test_quoted_commas_and_quotes - assert [['email', 'n......\nFAILED test_clean.py::test_multiline_quoted_field - AssertionError: assert [[...\nFAILED test_clean.py::test_header_only - AssertionError: assert '\\r\\n' not in...\nFAILED test_clean.py::test_blank_email_records_skipped - AssertionError: [['e...\nFAILED test_clean.py::test_empty_name_preserved_as_empty - AssertionError: [[...\nFAILED test_clean.py::test_first_occurrence_order - AssertionError: [['email'...\nFAILED test_clean.py::test_varied_inputs[records1] - AssertionError: [['email...\nFAILED test_clean.py::test_varied_inputs[records2] - AssertionError: [['email...\nFAILED test_clean.py::test_large_input_1000_records - AssertionError: [['emai...\nFAILED test_stdlib_only.py::test_runs_isolated_without_site_packages - Assert...\n11 failed, 6 passed in 0.59s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_clean.py::test_basic_dedupe_and_normalization",
+    "test_clean.py::test_quoted_commas_and_quotes",
+    "test_clean.py::test_multiline_quoted_field",
+    "test_clean.py::test_header_only",
+    "test_clean.py::test_header_only_crlf",
+    "test_clean.py::test_blank_email_records_skipped",
+    "test_clean.py::test_empty_name_preserved_as_empty",
+    "test_clean.py::test_first_occurrence_order",
+    "test_clean.py::test_input_not_modified",
+    "test_clean.py::test_no_stray_files_created_in_cwd",
+    "test_clean.py::test_stdlib_only_imports",
+    "test_clean.py::test_varied_inputs[records0]",
+    "test_clean.py::test_varied_inputs[records1]",
+    "test_clean.py::test_varied_inputs[records2]",
+    "test_clean.py::test_large_input_1000_records",
+    "test_stdlib_only.py::test_only_stdlib_imports",
+    "test_stdlib_only.py::test_runs_isolated_without_site_packages"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "933c621672a69b9ab1c5714fa17f40b5c2c0020b23a372a6496e323e1b783387",
+  "outcome": "fail",
+  "wall_sec": 5.811,
+  "attribution": "uncertain"
+}

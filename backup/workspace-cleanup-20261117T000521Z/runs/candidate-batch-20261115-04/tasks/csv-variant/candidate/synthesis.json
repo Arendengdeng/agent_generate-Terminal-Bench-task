@@ -1,0 +1,75 @@
+{
+  "status": "candidate_generated",
+  "independent_validation": false,
+  "model": "deepseek-flash",
+  "client": "OpenAICompatibleClient",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 40,
+    "max_tool_calls": 120,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 8000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "error": null,
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "image_reference": "python@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "status_label": "候选已生成",
+  "model_calls": 8,
+  "tool_calls": 10,
+  "digest": "8ec4c904208ff4592ce14c2288d4020f53c2a89e67a31a8c65b8f01dd1c61c81",
+  "manifest": {
+    "checks/probe.py": "de0b32bcd5870f55214f145e43140fa48b11f78a5af911c0a2a0859415b6f9a2",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "4f45f1a8add32fd93f5630fb8ef9008269452da30c978865823e1ddf8c33b295",
+    "draft/environment/app/sample_customers.csv": "4a2faf1bacdbd7f276a48a7eec0909f1df3fdcb954f4ff9fe506107cc17a2906",
+    "draft/instruction.md": "5eae46e437fe7337297c9773edd43db9ec1683c0aa209de28d0e7837f292def3",
+    "draft/solution/solve.sh": "0b308f1c49c028540f01542936796123faecf724ab5742928ed774858581d76b"
+  },
+  "instruction_path": "draft/instruction.md",
+  "environment_dir": "draft/environment",
+  "dockerfile_path": "draft/environment/Dockerfile",
+  "solution_dir": "draft/solution",
+  "solution_entrypoint": "draft/solution/solve.sh",
+  "self_check_path": "self_check.json",
+  "trace_path": "trace.jsonl",
+  "budget_used": {
+    "model_calls": {
+      "used": 8,
+      "limit": 40
+    },
+    "tool_calls": {
+      "used": 10,
+      "limit": 120
+    },
+    "files": {
+      "used": 6,
+      "limit": 100
+    },
+    "file_bytes": {
+      "used": 14417,
+      "limit": 2000000
+    },
+    "elapsed_sec": 36.811
+  },
+  "workflow_budget_used": {
+    "model_calls": 8,
+    "tool_calls": 10,
+    "token_usage": {
+      "prompt_tokens": 28925,
+      "completion_tokens": 3845,
+      "total_tokens": 32770
+    }
+  }
+}

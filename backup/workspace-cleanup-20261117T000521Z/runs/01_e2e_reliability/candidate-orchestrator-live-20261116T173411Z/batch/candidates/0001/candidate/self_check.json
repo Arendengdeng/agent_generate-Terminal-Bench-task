@@ -1,0 +1,88 @@
+{
+  "status": "failed",
+  "digest": "fdf45bf52c287ef3c19d26e63878ae811e981d9ee2085d03c37827d881536f2a",
+  "manifest": {
+    "checks/probe.py": "073b1c2cd40671255ba91d7f81d18b282fe6371d4c741f092052fb30120d404a",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "a49415b4bffc709b48a8327a4fd12e2420b72c7f9916871057baa46c1fd6b050",
+    "draft/environment/app/samples/customers_sample.csv": "ea1a9aa6ec14e94708e55a674074869be0f1bc539b4cacfd0f84c31cbeaf1235",
+    "draft/instruction.md": "8626b6a932dddd5710b6d7b0f090b4f8c730bef4075187e1ef4374035aa1a465",
+    "draft/solution/clean.py": "e632a81a0739e84eae6fa37f5b1397305c187bdfd562347b88ce2c6bae838a0b",
+    "draft/solution/solve.sh": "0fc61b0ca01158cc27ade20fa76018fa40139dffcfbe7e98b2d8158d1cacd3f4"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "expected rows [['alice@example.com', 'Alice Chen'], ['bob@example.com', 'Bob Lee, Jr.'], ['carol@example.org', 'Carol']], got [['alice@example.com', 'Alice Chen'], ['  BOB@Example.com ', 'Bob Lee\\ncarol@example.org,  Carol  \\nbob@example.com,Bob Second\\n']]"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "expected rows [['zed@example.com', 'Zed  One, Sr.'], ['amy@example.com', 'Amy'], ['bea@example.net', 'quote \"inside\" name'], ['cid@example.com', 'Cid\\tTabbed'], ['dan@example.com', 'Dan, 中文, x'], ['eve@example.com', 'Eve']], got [['  Zed@Example.COM', '  Zed  One\\namy@example.com,Amy\\nzed@example.com,Zed Duplicate\\n  ZED@example.com  ,Zed Third\\nbea@example.net,quote \"\"\"\"inside\"\"\"\" name\"'], [' cid@example.com\\t', 'Cid\\tTabbed '], ['dan@Example.com', 'Dan\\neve@example.com,  Eve  \\nEVE@EXAMPLE.COM,Eve Duplicate\\n']]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "expected rows [['user0@example.com', 'Name \"Q\" 0'], ['user1@example.com', 'User 1'], ['user2@example.com', 'User 2'], ['user3@example.com', 'User 3'], ['user4@example.com', 'User 4'], ['user5@example.com', 'Name \"Q\" 5'], ['user6@example.com', 'User 6'], ['user7@example.com', 'Doe, Jane 7'], ['user8@example.com', 'User 8'], ['user9@example.com', 'User 9'], ['user10@example.com', 'Name \"Q\" 10'], ['user11@example.com', 'User 11'], ['user12@example.com', 'User 12'], ['user13@example.com', 'User 13'], ['user14@example.com', 'Doe, Jane 14'], ['user15@example.com', 'Name \"Q\" 15'], ['user16@example.com', 'User 16'], ['user17@example.com', 'User 17'], ['user18@example.com', 'User 18'], ['user19@example.com', 'User 19'], ['user20@example.com', 'Name \"Q\" 20'], ['user21@example.com', 'Doe, Jane 21'], ['user22@example.com', 'User 22'], ['user23@example.com', 'User 23'], ['user24@example.com', 'User 24'], ['user25@example.com', 'Name \"Q\" 25'], ['user26@example.com', 'User 26'], ['user27@example.com', 'User 27'], ['user28@example.com', 'Doe, Jane 28'], ['user29@example.com', 'User 29'], ['user30@example.com', 'Name \"Q\" 30'], ['user31@example.com', 'User 31'], ['user32@example.com', 'User 32'], ['user33@example.com', 'User 33'], ['user34@example.com', 'User 34'], ['user35@example.com', 'Name \"Q\" 35'], ['user36@example.com', 'User 36'], ['user37@example.com', 'User 37'], ['user38@example.com', 'User 38'], ['user39@example.com', 'User 39'], ['user40@example.com', 'Name \"Q\" 40'], ['user41@example.com', 'User 41'], ['user42@example.com', 'Doe, Jane 42'], ['user43@example.com', 'User 43'], ['user44@example.com', 'User 44'], ['user45@example.com', 'Name \"Q\" 45'], ['user46@example.com', 'User 46'], ['user47@example.com', 'User 47'], ['user48@example.com', 'User 48'], ['user49@example.com', 'Doe, Jane 49'], ['user50@example.com', 'Name \"Q\" 50'], ['user51@example.com', 'User 51'], ['user52@example.com', 'User 52'], ['user53@example.com', 'User 53'], ['user54@example.com', 'User 54'], ['user"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "expected rows [['alice@example.com', 'Alice, Jr.'], ['bob@example.com', 'Bob']], got [[' alice@example.com ', 'Alice\\nALICE@example.com,Bob\\n']]"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "expected rows [['zed@example.com', 'Zed  One, Sr.'], ['amy@example.com', 'Amy'], ['bea@example.net', 'quote \"inside\" name'], ['cid@example.com', 'Cid\\tTabbed'], ['dan@example.com', 'Dan, 中文, x'], ['eve@example.com', 'Eve']], got [['zed@example.com', 'Zed  One, Sr.'], ['amy@example.com', 'Amy'], ['bea@example.net', 'quote \"\"inside\"\" name'], ['cid@example.com', 'Cid\\tTabbed'], ['dan@example.com', 'Dan, 中文, x'], ['eve@example.com', 'Eve']]"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "expected rows [['alice@example.com', 'Alice, Jr.'], ['bob@example.com', 'Bob']], got [['alice@example.com', 'Alice, Jr.']]"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "error": "requires initial failure and all repaired requirements passing",
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "a49415b4bffc709b48a8327a4fd12e2420b72c7f9916871057baa46c1fd6b050",
+      "draft/environment/app/samples/customers_sample.csv": "ea1a9aa6ec14e94708e55a674074869be0f1bc539b4cacfd0f84c31cbeaf1235"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "a49415b4bffc709b48a8327a4fd12e2420b72c7f9916871057baa46c1fd6b050",
+      "draft/environment/app/samples/customers_sample.csv": "ea1a9aa6ec14e94708e55a674074869be0f1bc539b4cacfd0f84c31cbeaf1235"
+    },
+    "unchanged": true
+  }
+}

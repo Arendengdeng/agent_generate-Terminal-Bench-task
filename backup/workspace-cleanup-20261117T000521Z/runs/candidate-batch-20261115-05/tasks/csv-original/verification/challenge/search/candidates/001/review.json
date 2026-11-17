@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Input fixture is in scope: it is a valid UTF-8 CSV with header exactly `email,name`, standard quoting (a quoted empty field `\"\"`), records whose emails, after stripping surrounding whitespace, are non-empty ASCII (`b@x.com`, `B@X.COM`), and two data records well under the 1001-line / 1000-record limits. The command form matches R1's contract CLI (two positionals, python stdlib). Every expected assertion follows directly from the Contract: normalization lowercases + trims email and only trims name (R2 / output_spec), so `B@X.COM` normalizes to the same email as `b@x.com`, and stable dedup \"keep first record and its name\" preserves the first record's name, which is the empty string from `\"\"`. Output must therefore be the header plus exactly one row `[\"b@x.com\",\"\"]`, matching the asserted exit code 0 and parsed out.csv contents; total 2 lines is implied by writing the header plus one deduped record. Nothing here relies on implementation identity, hard-coded examples, or non-contract constraints; no additional or ambiguous requirements are added. The asserted behavior is the unique correct outcome per the Contract, so the witness is confirmed.",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "f9f9dbe7340e79ae85889b8e7a28db74a8e572bf4b1fccbd8841e07844310fc1",
+  "method": "isolated-contract-model-review-v1"
+}

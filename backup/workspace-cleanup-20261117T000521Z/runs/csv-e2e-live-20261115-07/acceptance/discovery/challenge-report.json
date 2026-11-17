@@ -1,0 +1,597 @@
+{
+  "status": "discovered",
+  "samples": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/000/solution",
+      "solution_digest": "4f36969de064d2921d8ad0eddee2907f9349de3368b90422098ecb88b5890395",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/000/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The json_file assertion uses a JSON parser on out.csv, but the Contract specifies CSV output. Per the observation-operator semantics, parsers are not interchangeable and json_file is for JSON output files; a CSV file cannot be parsed by the JSON parser. The assertion should use parsed_file with csv parser (or file comparison) to verify the CSV. As written, the assertion does not parse the Contract's specified format, so it does not validly follow from the Requirement. Additionally, the witness implicitly requires the tool to create the missing output subdirectory (newdir/), which the Contract does not state—this is an extra constraint beyond the Contract. The exit_code, unchanged assertions, and the substantive expected content (header, trimmed/lowercased email, trimmed name, dedup keeping first, CSV quoting of \"Bob, Jr.\") do follow from R1/R2, but the file-format assertion is invalid."
+    },
+    {
+      "id": "001",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R2",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/001/solution",
+      "solution_digest": "b46ec45067ff4a24efad771aa4568a3dee5a27e4475605f3fec92be034bc1a80",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/001/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "wrote 2 rows to /tmp/witness-p3vk5wv2/out.csv\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nada@example.com,\"Ada   Lovelace, Countess\"\nbob@example.com,Bob  Jr\n"
+            },
+            "actual": "email,name\nada@example.com,Ada Lovelace\nbob@example.com,Bob Jr\n",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 0
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 0
+        }
+      ],
+      "reason": "No definite violation, or witness rejected a correct control."
+    },
+    {
+      "id": "002",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R3",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/002/solution",
+      "solution_digest": "4f36969de064d2921d8ad0eddee2907f9349de3368b90422098ecb88b5890395",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/002/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The fixture input header is \"email,name\" preceded by a UTF-8 BOM (\\ufeff). The Contract's input_spec states the header is exactly \"email,name\" and describes the file as UTF-8 CSV; it says nothing about a BOM. A correct implementation could legitimately treat \"﻿email,name\" as not the exact header (invalid input) or preserve the BOM, so neither exit_code 0 nor exactly \"email,name\\n\" output follows directly from the Contract. The witness is outside the specified in-scope input format (BOM not mentioned), so the expected assertion of exactly the header-only output is not derivable. Additionally, the \"unchanged\" assertion for in.csv is fine but doesn't rescue the ambiguity. Reject as out-of-scope/ambiguous rather than confirmed."
+    },
+    {
+      "id": "003",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R4",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/003/solution",
+      "solution_digest": "5dda7c05ecdc1d7fd011080ca67c67f582d558972508c8831cb8b3f91b5a89ff",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/003/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "wrote 1 rows to /tmp/witness-4hxi60_c/out.csv\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nfirst@mail.com,First Name\n"
+            },
+            "actual": "email,name\nfirst@mail.com,First Name\n",
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": ".cache/names.json",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 1
+        }
+      ],
+      "reason": "No definite violation, or witness rejected a correct control."
+    },
+    {
+      "id": "004",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/004/solution",
+      "solution_digest": "5dda7c05ecdc1d7fd011080ca67c67f582d558972508c8831cb8b3f91b5a89ff",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/004/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "wrote 2 rows to /tmp/witness-3pdsuiq3/out.txt\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.txt",
+              "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+            },
+            "actual": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n",
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 1
+        }
+      ],
+      "reason": "No definite violation, or witness rejected a correct control."
+    },
+    {
+      "id": "005",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R2",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/005/solution",
+      "solution_digest": "3720487ab18b94a167b6c6954e75c5b4e95f2c048951e8776368bed78121daaf",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/005/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The witness violates the Contract's input scope. input_spec states emails \"只含 ASCII 字符\" (ASCII only), and the fixture's name field is \"François Ⅳ\" — that's non-ASCII, but the constraint is on email, so names may be non-ASCII; however the assertion is still questionable. Let me focus on the concrete problems:\n\n1) The fixture email \"  Zoe@Example.COM \" is ASCII, fine. The name \"  François Ⅳ  \" is quoted and trimmed to \"François Ⅳ\" — name only requires stripping whitespace, so that is defensible.\n\nThe real issue: the expected output assertion does not follow with certainty from the Contract because the name value \"François Ⅳ\" in the *quoted* field. Actually stripping gives \"François Ⅳ\", which is correct.\n\nThe decisive flaw: the input_spec requires \"email 去掉首尾空白后非空，只含 ASCII 字符\" — this constrains input emails, not output. So the input is in scope.\n\nHowever, the output file assertion uses raw `file` comparison with expected exact text \"email,name\\nzoe@example.com,François Ⅳ\\n\". Per output_spec, output uses CSV escaping rules; the name \"François Ⅳ\" contains no comma/quote, so no escaping needed — exact text is derivable. But the trailing newline convention is not specified by the Contract (\"UTF-8 CSV，表头为 email,name\"). The Contract does not mandate a trailing newline or absence thereof; the witness's raw file comparison pins an exact byte layout (including whether the last record ends with a newline) that is not specified. The observation-operator guidance says to use json/parsed_file where formatting is unrestricted; here CSV row structure is specified but trailing-newline/line-ending is not, making the raw `file` equality under-determined and thus not strictly \"follows directly from the Contract\".\n\n2) More importantly, the witness does not actually exercise the \"带引号和逗号的字段\" (quoted fields with commas) requirement it cites — the quoted name has no comma. The quote is claimed but the behavior is not exercised. This makes the witness a weak/ambiguous check of the cited requirement rather than a firm derivation, and the exact-byte file assertion is not guaranteed by the Contract.\n\nTherefore unconfirmed."
+    },
+    {
+      "id": "006",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R3",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/006/solution",
+      "solution_digest": "d340f3989278c411a66d925cc05aa71942a535ad07aac08598547129fbd6ea17",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/006/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The witness writes output to `out-summary.json` but asserts it using `parsed_file` with parser `csv`. The Contract's output_spec mandates an output CSV (`UTF-8 CSV，表头为 email,name`), not a JSON file. Using parser `csv` on a `.json` filename is incoherent: if a correct implementation follows Contract (writing CSV), the parser would still parse it as CSV, but the fixture/argv naming as JSON and the `parsed_file` parser choice do not match the Contract's specified format. The Contract requires output to be CSV; the observation operator must parse the Contract-specified format (csv) at a filename that is actually the CSV output. The document instructs: \"Verify that observation operators actually parse the Contract's specified format.\" While the parser is `csv`, attaching it to a `.json` filename is ambiguous/misleading and does not cleanly reflect the Contract-specified CSV output. Additionally, R3 states \"仅有表头的输入产生仅有表头的输出\" — asserting an empty-output only, which the witness does correctly at value `[[\"email\",\"name\"]]`, and exit_code 0 and unchanged input follow from R1/R4. However, the mismatch between argv output filename (`.json`) and Contract's CSV output requirement introduces uncertainty; the witness does not unambiguously demonstrate that the evaluator parses the CSV output. Therefore verdict is unconfirmed due to the format/operator ambiguity."
+    },
+    {
+      "id": "007",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R4",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/007/solution",
+      "solution_digest": "0559e4f07f92d4e1c3831e8ddd2c632926dc1a9fb1158c769ce0f5e40b129377",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/007/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "candidate_observation": {
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/app/clean.py\", line 18, in <module>\n    [chr(c) for c in range(0x110000) if chr(c).isspace()]\nTypeError: unsupported operand type(s) for -: 'list' and 'set'\n",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 1,
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+            },
+            "actual_error": "FileNotFoundError",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 0
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 0
+        }
+      ],
+      "reason": "No definite violation, or witness rejected a correct control."
+    },
+    {
+      "id": "008",
+      "status": "confirmed",
+      "violation_status": "confirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/solution",
+      "solution_digest": "8984c4ac6399b3848f5128c4e864bc294547b6cbc28612b6727df174dce43093",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "wrote 1 rows to /tmp/witness-utt6is1h/out.csv\n",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "file",
+              "path": "out.csv",
+              "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+            },
+            "actual": "email,name\nold@example.com,Old Export\n",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": false,
+            "passed": false
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 1
+        }
+      ],
+      "scoring_feedback": [
+        {
+          "repeat": 0,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        },
+        {
+          "repeat": 1,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        }
+      ],
+      "decision": {
+        "decision": "repair",
+        "responsible_module": "tests",
+        "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_digest": "affdbe79a435f5703ccf0cdef01a06da4d86a98fbf9fa5d6c1b4c5fbbf10af94"
+      },
+      "evidence_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/008/evidence.json"
+    }
+  ],
+  "unresolved": [
+    "008"
+  ],
+  "repairs": 0,
+  "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/frozen-tests",
+  "initial_tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/frozen-tests",
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/candidate",
+  "comparison_matrix": [],
+  "supplied_invalid_count": 0,
+  "search_status": "completed",
+  "evidence_manifest": {
+    "controls/known-000/solve.sh": "83a48bd14d11a0819b6a89ab08041da573a2167b7914e451522980234058edf9",
+    "frozen-tests/tests/fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "frozen-tests/tests/fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "frozen-tests/tests/test_clean.py": "132d52e6ca90b7f82c9c48b859ef1666e432b410b42fd88a5e74ddcdeaf8a025",
+    "frozen-tests/tests.json": "1368ea42a2dc7207b8b6d6a7df003f526ccd7f4d6db4784c768a92d2bbbf38a7",
+    "search/candidates/000/result.json": "c26d0c116d81a9387ce702aa885b054874c46396308cd516815bb6cdae5d7105",
+    "search/candidates/000/review.json": "8011628383f11608045c448324ae0feb970136547603ed4d372e13de8e47ac12",
+    "search/candidates/000/solution/helpers/cli.py": "06bf27f8b9116e5e3062d59d8277a4cf047b799dc582e12188377bf79bb5d561",
+    "search/candidates/000/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/000/witness.json": "4440aa8369ab9b230d315d017cec28eaa37c269af0cd30d24a2f2175ef16d8af",
+    "search/candidates/001/observations.json": "64f977843ceb4249e3673f235f9edd8edefd3b7d34c9f6cc95cf6fdf33327e0b",
+    "search/candidates/001/result.json": "61e32f82bd0c1fdccc72a101c389bb77484b9af11646188e52080dbce711ba2d",
+    "search/candidates/001/review.json": "6113c31050442a18a93ba42aae9a813af899f8ea793f2762211cbbdde0ec1c25",
+    "search/candidates/001/solution/helpers/cli.py": "932c6a0701ed5deae4499ab4399f7b69fb5b1c3404e847b2190cd1de53b862ae",
+    "search/candidates/001/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/001/witness/invalid-challenge/execution.json": "23bdfc3172e943203acc7e6ed8ea4e40d89a5697a9ae27825bab5153d3f6b8a7",
+    "search/candidates/001/witness/invalid-challenge/pytest.json": "071a24fb0d553aa7c0da8cf04c59fc1a5cbe3f341ce90c48464d33f04c6a4769",
+    "search/candidates/001/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/invalid-challenge/stdout.log": "27b3a636884d99385e7230f4a35aeae32a9cb6acadab1522c0a56608c8605d9d",
+    "search/candidates/001/witness/known-000/execution.json": "e878c230d052b41dc30172cad75bfc55e6c71d806aef2200966d93996a965265",
+    "search/candidates/001/witness/known-000/pytest.json": "09d0422e5f8c780a182de4a7d000b17606cca8f69873bd6cdc005ebd5abc4956",
+    "search/candidates/001/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/known-000/stdout.log": "0e0cd00988dd365dd6850476671a2ac6e594efb4230f15d0f9c4601c7cf37520",
+    "search/candidates/001/witness/oracle/execution.json": "bf56166cbef915d893308d8a6f65755bb157b8d885f88d1181ee21a4850963ff",
+    "search/candidates/001/witness/oracle/pytest.json": "37c5f90863ece1529a34966173fa442b218954b8abb1b80caf8dc510b4fb4fc5",
+    "search/candidates/001/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/oracle/stdout.log": "fe1c7cb267a5d053be3ed1cd201accf2232a068df6d4c1e827d7406744016ec9",
+    "search/candidates/001/witness.json": "f6a4c1c8275001abaeb3a25be394ea08642a3fc034a8c038afb1396a9a6c4f69",
+    "search/candidates/002/result.json": "8ec886fe9f470f3fa35162648ec0473fe6e38fa2c6327df1b57678938e59c42a",
+    "search/candidates/002/review.json": "e963618c5d996e20464be2588c25897f6e1f6d2bc1a94348d1c2778a18735358",
+    "search/candidates/002/solution/helpers/cli.py": "06bf27f8b9116e5e3062d59d8277a4cf047b799dc582e12188377bf79bb5d561",
+    "search/candidates/002/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/002/witness.json": "a49562b557ebf1d88ad94dd02d95646a8994f103145ab7d07e457a9e6dea4181",
+    "search/candidates/003/observations.json": "36cab3b7ece059189b495e7f674cf51a1b9d1dbc4c6e8abdb6ee8bc7e8f4c0c4",
+    "search/candidates/003/result.json": "adfcebd32d467fc0f6c0eadc9f696675952679ff56e7c8bc9a37af3bcd49ce77",
+    "search/candidates/003/review.json": "45cded527c64505ac3421a250678229e8a9dfd803238b3e53cd112e3929a9353",
+    "search/candidates/003/solution/helpers/cli.py": "8a158f8f3ad61e51ddf8946d7ef258170e26ebf3c41c5f70c36e33650b1c63a9",
+    "search/candidates/003/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/003/witness/invalid-challenge/execution.json": "8f2f89026e2f9da17b907777de0ef577acc1180e57d041b3510fb3d95911812e",
+    "search/candidates/003/witness/invalid-challenge/pytest.json": "bd837560266bab0b0f054c80996a85bc0fccd49d1e40dde9e55b6e874a42228e",
+    "search/candidates/003/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/invalid-challenge/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/003/witness/known-000/execution.json": "744336f9fac42415452b29b31d25b199e3d16d45b873ce5529461984d8f4b772",
+    "search/candidates/003/witness/known-000/pytest.json": "ec596ed2b80fb056a29a1fc7f4848a6ad26f55189081dbd3119dff792d8bf3ee",
+    "search/candidates/003/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/known-000/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/003/witness/oracle/execution.json": "9616bb7ed6367c617d48419ac0f3d77bdd2ea7a6077a265ec852e1a5e2a36811",
+    "search/candidates/003/witness/oracle/pytest.json": "36b4aa68a4be44e7c15e428d7e286dd1117af893ad94fa2ece4612ee68e612b9",
+    "search/candidates/003/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/oracle/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/003/witness.json": "05dda4d034a6f3d67a8e86100e452a38712f3179abc4b747cdb3dc90b04600f2",
+    "search/candidates/004/observations.json": "a3548bfea25e0e32cd981ceb666199c4f8b7a692cc439d8db49b9f862e4d95c3",
+    "search/candidates/004/result.json": "67d21af1dda68d99a3d1d084871fdbc999a8affbeae2411287d8ec259b23c117",
+    "search/candidates/004/review.json": "c38a70c24a680829e1d326e6e1f2f6495faffa12a224ed281eaf5bbd0e05c520",
+    "search/candidates/004/solution/helpers/cli.py": "8a158f8f3ad61e51ddf8946d7ef258170e26ebf3c41c5f70c36e33650b1c63a9",
+    "search/candidates/004/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/004/witness/invalid-challenge/execution.json": "fe3e9589760ce2bf0e5566cba8911b9d27321a91f19ce1c74818cad76b54db10",
+    "search/candidates/004/witness/invalid-challenge/pytest.json": "a79506c0fa8099c5621cef8b0b0aba58a0f053c46393c5751c7a1ff7a7bf8366",
+    "search/candidates/004/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/004/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/004/witness/invalid-challenge/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/004/witness/known-000/execution.json": "4dbd5927ed7a665d3021b7df7f7677c6f040ad2510d7cb845e66e2d582bbbeaa",
+    "search/candidates/004/witness/known-000/pytest.json": "2f38aa2ffce4da489a4ebe0610905f6e07b21ebf6acfdc9f6eef8464ded29bed",
+    "search/candidates/004/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/004/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/004/witness/known-000/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/004/witness/oracle/execution.json": "2bf9b5ed6b080da3d2e764a712f253e5867ca671fd92f390bed30f9d83eacb77",
+    "search/candidates/004/witness/oracle/pytest.json": "fe345ba2b0909577ac48392cac49f53acbff55a172a91d7c4a508d800e81f467",
+    "search/candidates/004/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/004/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/004/witness/oracle/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/004/witness.json": "0001475a58d2e27616dd9663ac7e15a37ffed19155afafe0742301fac0033673",
+    "search/candidates/005/result.json": "238147afc06f6134bd6ddfb995f88742ea53f496e84f8461a8f2d458349f13d2",
+    "search/candidates/005/review.json": "c6c96b38d5873a548121aefff77b3bf5ae0ccfba8fcc7c09bbd14cb5404f883d",
+    "search/candidates/005/solution/helpers/cli.py": "4cd82647f1fb72614552c952e6b0dd8028b00ef047cb57c3fb7289ed68f3285f",
+    "search/candidates/005/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/005/witness.json": "8e61a09100d8c7fc26588a496ec19aff2d2fbd36e0e04c22a6cb390c6b2d6f11",
+    "search/candidates/006/result.json": "a55d681d2886eea1e5003bdd7f396d2a5b8327273cc2c0025b0e330ca6b2adb7",
+    "search/candidates/006/review.json": "b24529487ef237796e6c8a059bf0247c722fd88625c69cc955fe16eb2e7be1f0",
+    "search/candidates/006/solution/helpers/cli.py": "5ba731a4da114e2ea56152e79915cf46635e02e195985260c4189d01a538257b",
+    "search/candidates/006/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/006/witness.json": "97bdcc699229c07b0f2d656ffa7321cbe70a4f6e4d0c6ba5675452c24cfa8260",
+    "search/candidates/007/observations.json": "872c1850bf4b58ca5f7f14cdb4a9adb2375ed15f4ac6a01138ba323de24d6322",
+    "search/candidates/007/result.json": "f6de08524c1a79d5b15b7cbe95cbb94c749b0df86c99402809f5ccc3d24b4e85",
+    "search/candidates/007/review.json": "c5f437cddceb08d0a61ecaf9e53862c32e61434e7ffae5d87ec76a18d47e9f68",
+    "search/candidates/007/solution/helpers/cli.py": "5af838c8605a6a0b3b7ff1a1032686c7e73391c21eed721acc7c56c289b77be6",
+    "search/candidates/007/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/007/witness/invalid-challenge/execution.json": "1c64b825651ee53b1bb0527688160b635a8b5de7e431858e0106c511121af639",
+    "search/candidates/007/witness/invalid-challenge/pytest.json": "1d65de23f097ed551b3f793e7cb3290d495a4b4da680c6cc5322833d25e2c84d",
+    "search/candidates/007/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/007/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/007/witness/invalid-challenge/stdout.log": "7fabf82763c8d565b43f6193fefdb0334fb15c739c4b6372d02ac5ef372f6347",
+    "search/candidates/007/witness/known-000/execution.json": "eaeb3da2eeb66590cfdd2bb32ff43e7c30333ede51feb4c40212d921268c012c",
+    "search/candidates/007/witness/known-000/pytest.json": "2a6c660eaa42654ff8660d9fb6ebe4f72dfacc0aa09c86bd4b4faaf4d393d896",
+    "search/candidates/007/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/007/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/007/witness/known-000/stdout.log": "386bf225cad7a55b211eb6bbe8561465cb98b09a9eb6b299622466696e6912c0",
+    "search/candidates/007/witness/oracle/execution.json": "5e3a93bbf817226eaf4c21edfe5987ac9fd6d9f8bd6796016ac221ca29dd30a7",
+    "search/candidates/007/witness/oracle/pytest.json": "d8a022acef5cdd89cec0afcac4dc6c050bacb288a66db5785ea4b43f0bd55b96",
+    "search/candidates/007/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/007/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/007/witness/oracle/stdout.log": "2b5f365d797620bc9602c999e6684fe3d07c65a884fbcfab83cadc8616d33e6a",
+    "search/candidates/007/witness.json": "bb57260e5b78c7c88647e91163fb3c5b1272bec722172bb78c5b41cc961afdec",
+    "search/candidates/008/decision.json": "108b056d9fc36b12a8471afbfc0577ba28caf55214ad1b6ed0fe053b31bf3037",
+    "search/candidates/008/evidence.json": "9fd09c918633db04d4f4ac3006cbaf121baa39e7e7ab21f8f7b4ac97d4bba1f7",
+    "search/candidates/008/observations.json": "d71d5c09537ef970bc6add8cae46544e3fdf411f3bd4dd3355d4c5a979473856",
+    "search/candidates/008/result.json": "bcb5de898df69f48ae49437e7227525051472bbe726ff0043f0ff8022b2c3ffd",
+    "search/candidates/008/review.json": "e7799d2721db1756f8c472b14ceda020d56f4e57b0a3c1bc2c954292b62ce0f1",
+    "search/candidates/008/scoring-0/execution.json": "f15186f6c24cdbd3cb2a0d9cb654e4eb2c0d435116ab97b95d2f163d09fd327d",
+    "search/candidates/008/scoring-0/pytest.json": "0641f80ac59f70b9893850926c1845256c9663eafce2672f351b77a499db40ae",
+    "search/candidates/008/scoring-0/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/008/scoring-0/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/008/scoring-0/stdout.log": "3d982959a6d0ad327e4c2ff7cfedf579823ee4d0c00b0aff1195763fb428a921",
+    "search/candidates/008/scoring-1/execution.json": "74832443bd8d55472353d380547704ab86f59f21552e47250c589bb3b0916398",
+    "search/candidates/008/scoring-1/pytest.json": "3a6f20a34264416d6b98f1f881df91d880ab9290ed48d0a703bfa4cfadc6d60d",
+    "search/candidates/008/scoring-1/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/008/scoring-1/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/008/scoring-1/stdout.log": "7c10d89a29772cd0dac2641d18bb131ab5281218256747c16e0cdead96a919e8",
+    "search/candidates/008/solution/helpers/cli.py": "4e4f19c305acd21efb3a275465cd82f535f557a663760329f63f89c31064baf7",
+    "search/candidates/008/solution/solve.sh": "77cfa6dd524cf28268d80f6d0666c3017cacd2d6736b0e065256f500a07c9b74",
+    "search/candidates/008/witness/invalid-challenge/execution.json": "710827c6ff941facd8625cd0b5ff147e83d32e53eba540306befedf2eda78e2e",
+    "search/candidates/008/witness/invalid-challenge/pytest.json": "02260971476eb8e55a9fdd475507a1c04f04f226a17523ea1613f1b4f37dd189",
+    "search/candidates/008/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/008/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/008/witness/invalid-challenge/stdout.log": "5ee2c49441b5af39f296607fc8fc9f017ca6b0b0b28ee9b2dcb1a029a0639ba9",
+    "search/candidates/008/witness/known-000/execution.json": "c58b65c007cdf8d761c6744fcf62a9f3b3d983e1acc674d627a1a39e05f6dc80",
+    "search/candidates/008/witness/known-000/pytest.json": "0a8395a651a6c38112a716965a2a1b8be10d9a908eddb1d2e3d141bd91bc2b06",
+    "search/candidates/008/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/008/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/008/witness/known-000/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/008/witness/oracle/execution.json": "f4cfd7b5b61c345d5c817452796f9d76ae94e03160090669011d3f67885b3ebb",
+    "search/candidates/008/witness/oracle/pytest.json": "3c51a6b6977145fadb05fa7e85f0910b767a4d30ea7750b484a1dce7e9114629",
+    "search/candidates/008/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/008/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/008/witness/oracle/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/008/witness.json": "f2d7490a9055effd601fc9c58d9741f001ca17d98b5ba52fae0088fb6830d98e",
+    "search/challenge.json": "cab4ca176cad6f50e81cd0cfd6423c4d251ad1578e0ec48e103a058d86ae108d",
+    "search/trace.jsonl": "38edadb88d9ebffcbe76980c4ad8f4735060a7a64506ad0db16cfc4ced82e505"
+  },
+  "known_correct": [
+    {
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/controls/known-000",
+      "manifest": {
+        "solve.sh": "83a48bd14d11a0819b6a89ab08041da573a2167b7914e451522980234058edf9"
+      }
+    }
+  ],
+  "stop_reason": "search_only",
+  "budget_used": {
+    "model_calls": 35,
+    "tool_calls": 41,
+    "token_usage": {
+      "prompt_tokens": 369733,
+      "completion_tokens": 14514,
+      "total_tokens": 384247
+    }
+  },
+  "review_queue": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "reason": "The json_file assertion uses a JSON parser on out.csv, but the Contract specifies CSV output. Per the observation-operator semantics, parsers are not interchangeable and json_file is for JSON output files; a CSV file cannot be parsed by the JSON parser. The assertion should use parsed_file with csv parser (or file comparison) to verify the CSV. As written, the assertion does not parse the Contract's specified format, so it does not validly follow from the Requirement. Additionally, the witness implicitly requires the tool to create the missing output subdirectory (newdir/), which the Contract does not state—this is an extra constraint beyond the Contract. The exit_code, unchanged assertions, and the substantive expected content (header, trimmed/lowercased email, trimmed name, dedup keeping first, CSV quoting of \"Bob, Jr.\") do follow from R1/R2, but the file-format assertion is invalid.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/000/witness.json"
+    },
+    {
+      "id": "001",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/001/witness.json"
+    },
+    {
+      "id": "002",
+      "status": "unconfirmed",
+      "reason": "The fixture input header is \"email,name\" preceded by a UTF-8 BOM (\\ufeff). The Contract's input_spec states the header is exactly \"email,name\" and describes the file as UTF-8 CSV; it says nothing about a BOM. A correct implementation could legitimately treat \"﻿email,name\" as not the exact header (invalid input) or preserve the BOM, so neither exit_code 0 nor exactly \"email,name\\n\" output follows directly from the Contract. The witness is outside the specified in-scope input format (BOM not mentioned), so the expected assertion of exactly the header-only output is not derivable. Additionally, the \"unchanged\" assertion for in.csv is fine but doesn't rescue the ambiguity. Reject as out-of-scope/ambiguous rather than confirmed.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/002/witness.json"
+    },
+    {
+      "id": "003",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/003/witness.json"
+    },
+    {
+      "id": "004",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/004/witness.json"
+    },
+    {
+      "id": "005",
+      "status": "unconfirmed",
+      "reason": "The witness violates the Contract's input scope. input_spec states emails \"只含 ASCII 字符\" (ASCII only), and the fixture's name field is \"François Ⅳ\" — that's non-ASCII, but the constraint is on email, so names may be non-ASCII; however the assertion is still questionable. Let me focus on the concrete problems:\n\n1) The fixture email \"  Zoe@Example.COM \" is ASCII, fine. The name \"  François Ⅳ  \" is quoted and trimmed to \"François Ⅳ\" — name only requires stripping whitespace, so that is defensible.\n\nThe real issue: the expected output assertion does not follow with certainty from the Contract because the name value \"François Ⅳ\" in the *quoted* field. Actually stripping gives \"François Ⅳ\", which is correct.\n\nThe decisive flaw: the input_spec requires \"email 去掉首尾空白后非空，只含 ASCII 字符\" — this constrains input emails, not output. So the input is in scope.\n\nHowever, the output file assertion uses raw `file` comparison with expected exact text \"email,name\\nzoe@example.com,François Ⅳ\\n\". Per output_spec, output uses CSV escaping rules; the name \"François Ⅳ\" contains no comma/quote, so no escaping needed — exact text is derivable. But the trailing newline convention is not specified by the Contract (\"UTF-8 CSV，表头为 email,name\"). The Contract does not mandate a trailing newline or absence thereof; the witness's raw file comparison pins an exact byte layout (including whether the last record ends with a newline) that is not specified. The observation-operator guidance says to use json/parsed_file where formatting is unrestricted; here CSV row structure is specified but trailing-newline/line-ending is not, making the raw `file` equality under-determined and thus not strictly \"follows directly from the Contract\".\n\n2) More importantly, the witness does not actually exercise the \"带引号和逗号的字段\" (quoted fields with commas) requirement it cites — the quoted name has no comma. The quote is claimed but the behavior is not exercised. This makes the witness a weak/ambiguous check of the cited requirement rather than a firm derivation, and the exact-byte file assertion is not guaranteed by the Contract.\n\nTherefore unconfirmed.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/005/witness.json"
+    },
+    {
+      "id": "006",
+      "status": "unconfirmed",
+      "reason": "The witness writes output to `out-summary.json` but asserts it using `parsed_file` with parser `csv`. The Contract's output_spec mandates an output CSV (`UTF-8 CSV，表头为 email,name`), not a JSON file. Using parser `csv` on a `.json` filename is incoherent: if a correct implementation follows Contract (writing CSV), the parser would still parse it as CSV, but the fixture/argv naming as JSON and the `parsed_file` parser choice do not match the Contract's specified format. The Contract requires output to be CSV; the observation operator must parse the Contract-specified format (csv) at a filename that is actually the CSV output. The document instructs: \"Verify that observation operators actually parse the Contract's specified format.\" While the parser is `csv`, attaching it to a `.json` filename is ambiguous/misleading and does not cleanly reflect the Contract-specified CSV output. Additionally, R3 states \"仅有表头的输入产生仅有表头的输出\" — asserting an empty-output only, which the witness does correctly at value `[[\"email\",\"name\"]]`, and exit_code 0 and unchanged input follow from R1/R4. However, the mismatch between argv output filename (`.json`) and Contract's CSV output requirement introduces uncertainty; the witness does not unambiguously demonstrate that the evaluator parses the CSV output. Therefore verdict is unconfirmed due to the format/operator ambiguity.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/006/witness.json"
+    },
+    {
+      "id": "007",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-07/acceptance/discovery/search/candidates/007/witness.json"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+        "test_behavior.py::test_output_is_json_object_with_exact_keys",
+        "test_behavior.py::test_value_equals_n",
+        "test_behavior.py::test_probe_n_three",
+        "test_behavior.py::test_boundary_zero",
+        "test_behavior.py::test_boundary_ten"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_behavior.py::test_double_equals_twice_n",
+        "test_behavior.py::test_probe_n_three",
+        "test_behavior.py::test_boundary_zero",
+        "test_behavior.py::test_boundary_ten"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "e0a0fde90c93bb86985287f6bbe8647d5d5f9b992fc6d9fce4d111299262fcec",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "c45a21e8f954eb68c235b907e7d782800123b68d32248b929840c7fde45539ee"
+  },
+  "parent_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223",
+  "diagnosis": {
+    "explanation": "test_double only asserts isinstance(double,int) and never checks double==2*n, so the faulty initial implementation (double always 0) and the invalid control (double=n) both pass. Tests must check double == 2*n across permitted n and the exact key set.",
+    "evidence_id": "nop:outcome",
+    "line": "12",
+    "requirement_id": "R2",
+    "contract_quote": "For every permitted n, double equals 2*n.",
+    "test_path": "tests/test_behavior.py",
+    "parent_digest": "de9b104b314caa3db305ac72312c15ca9e38102996a708e9aa6cff31a0ed3223"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_behavior.py::test_exit_code_zero_for_each_permitted_n",
+    "test_behavior.py::test_output_is_json_object_with_exact_keys",
+    "test_behavior.py::test_value_equals_n",
+    "test_behavior.py::test_double_equals_twice_n",
+    "test_behavior.py::test_probe_n_three",
+    "test_behavior.py::test_boundary_zero",
+    "test_behavior.py::test_boundary_ten"
+  ],
+  "manifest": {
+    "test_behavior.py": "5eb1f5f19674dc2a68e13b6f920e8d9028e0a3a63622ca0efff95e082176ebf0"
+  },
+  "digest": "b5fa1de0f02537eb7c0703ab98bf0694e888e903b39e292afb439668a1ae6a4e",
+  "budget_used": {
+    "model_calls": 10,
+    "tool_calls": 12
+  },
+  "workflow_budget_used": {
+    "model_calls": 10,
+    "tool_calls": 12,
+    "token_usage": {
+      "prompt_tokens": 62143,
+      "completion_tokens": 1700,
+      "total_tokens": 63843
+    }
+  },
+  "cost": {
+    "wall_sec": 20.877,
+    "token_usage": {
+      "prompt_tokens": 62143,
+      "completion_tokens": 1700,
+      "total_tokens": 63843
+    }
+  }
+}

@@ -9,6 +9,7 @@ import re
 from synthesis_agent.config import Config
 from synthesis_agent.errors import SynthesisError
 from synthesis_agent.files import load_seed, read_json, read_regular, relative_path, safe_ancestors
+from synthesis_agent.consistency import check_instruction
 from synthesis_agent.inputs import validate_inputs
 from .common import digest
 
@@ -74,12 +75,15 @@ class CandidateTask:
                        **{'inputs/environment/' + p: s for p, s in self.environment.items()}})
 
 
-def check_candidate(candidate):
+def check_candidate(candidate, config=None):
     """Conservative checks for the existing single-container stdlib CLI format.
 
     This is not a semantic specification checker or proof of absence of leakage.
     """
-    errors = []
+    consistency = check_instruction(candidate.contract, candidate.instruction,
+                                    rules=(config or Config()).consistency_rules)
+    errors = [{'path': 'instruction.md', 'message': f['code'], **f}
+              for f in consistency['findings']]
     def fail(path, message):
         errors.append({'path': path, 'message': message})
     if not candidate.instruction.strip():
@@ -120,6 +124,7 @@ def check_candidate(candidate):
         if p != 'Dockerfile' and content.strip() and any(content == s for s in solution.values()):
             fail('environment/' + p, 'identical reference-solution file in initial environment')
     return {'status': 'failed' if errors else 'passed', 'errors': errors,
+            'instruction_consistency': consistency,
             'source': str(candidate.source), 'input_manifest': candidate.input_manifest(),
             'candidate_manifest': candidate.metadata['manifest'],
             'independent_validation': False,

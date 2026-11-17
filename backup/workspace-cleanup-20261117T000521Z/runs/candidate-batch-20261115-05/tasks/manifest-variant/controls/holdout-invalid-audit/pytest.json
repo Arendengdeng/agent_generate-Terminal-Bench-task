@@ -1,0 +1,72 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_control_audit.py::test_independent_control_audit"
+  ],
+  "results": [
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014375299997482216,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'size': 3, ...': ['a.txt']}] == [{'size': 2, ...': ['a.txt']}]\n  \n  At index 0 diff: {'size': 3, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']} != {'size': 2, 'sha256': '06eb7d6a69ee19e5fbdf749018d3d2abfa04bcbd1365db312eb86dc7169389b8', 'paths': ['nested/a.txt', '中文 space.bin']}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_control_audit.py",
+            "line": 14,
+            "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.046496308999849134,
+      "commands": [
+        {
+          "nodeid": "test_control_audit.py::test_independent_control_audit",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_control_audit.py::test_independent_control_audit",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014541000018652994,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/src/digest.py": "5259f4d1791b3db4664f4b72c5a75b1ac1811cf641b2d6855debbf2e91d4e857",
+    "/app/src/groups.py": "68e7f29b4481247126de3936708a19fc5700b47fbcd68665e1b07d732d1c2971",
+    "/app/src/manifest.py": "b58ab8aa4fa7a1af11a2473d2805fe12086f8743b6fff3173efc83cc8acf87a8",
+    "/app/src/walker.py": "e128ab091cc63abccad53a55f1032188daf0f65eb57150e11744c286fa011f6c"
+  },
+  "wall_sec": 0.190611
+}

@@ -1,0 +1,37 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "R4 第一条明确要求「不修改输入文件」。构造合法输入 in.csv（含大写邮箱与首尾空白，规范化后内容与原始字节不同）。规范实现只读取输入、只写输出，输入文件必须逐字节保持不变。本实现在去重后会先以规范化内容重写输入文件，因此运行后 in.csv 内容被改写，违反 R4；同时输出文件按规范写出、退出码为 0，说明该缺陷不被现有输出断言覆盖。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "in.csv",
+      "value": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\na@b.c,\"Last, First\"\n"
+    }
+  ]
+}

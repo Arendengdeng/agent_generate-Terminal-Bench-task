@@ -1,0 +1,773 @@
+{
+  "label": "split_csv",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0022416459978558123,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/tests/fixtures/mixed.csv', '/tmp/pytest-of-unk... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 53,
+            "source": "    rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03812692500650883,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018763700063573197,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006647690024692565,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.036732692999066785,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019376500131329522,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007761939996271394,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04511967100552283,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001477839978178963,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007126429991330951,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 90,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.045443604001775384,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003833580049104057,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004752590029966086,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04181894999783253,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019159300427418202,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0010046430033980869,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 134,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03958483200403862,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015651299327146262,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007536670018453151,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_cs... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 146,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03931293499772437,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020268099615350366,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00060989499615971,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_wit... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 161,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.039978160995815415,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001887280013761483,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000609431997872889,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 176,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04188789900217671,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015219300257740542,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042980800208169967,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.042369643997517414,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001332909960183315,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005346640027710237,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 207,
+            "source": "    run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 40,
+            "source": "    assert proc.returncode == 0, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03720214400527766,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n        ^^^^^^^^^^^\nValueError: too many values to unpack (expected 2)\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020314400171628222,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007702209986746311,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03850292800052557,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021514599939109758,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000721617994713597,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.036102924997976515,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015318400255637243,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005995350002194755,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03701754599751439,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023237300047185272,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/split_csv/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "/solution/clean.py": "7d84a0d8305e6611d8a7d3b0eead3500673e962eae70aee1ba183a4dbdd11383",
+    "/solution/solve.sh": "02ebd4d115f3f8677dad2d68c7b25251dcac1d169035a0758832758e58676a2c"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "7d84a0d8305e6611d8a7d3b0eead3500673e962eae70aee1ba183a4dbdd11383"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "7d84a0d8305e6611d8a7d3b0eead3500673e962eae70aee1ba183a4dbdd11383"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "39aaf6b6c40a4eee0d69385c9e4b88df08a4ac7ac96f78327b461405acf38588",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_clean.py": "dcb43b9c06908eabec9f94d1c3992e4bcbe9675a83d8c1fdaacf0c42077b23ea"
+  },
+  "stdout": "F..F.FFFF.F...                                                           [100%]\n=================================== FAILURES ===================================\n__________________ test_mixed_fixture_normalization_and_dedup __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')\n\n    def test_mixed_fixture_normalization_and_dedup(tmp_path):\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:53: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/tests/fixtures/mixed.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/tests/fixtures/mixed.csv', '/tmp/pytest-of-unk... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')\n\n    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"a@x.com\", 'Doe, \"John\"'],\n                [\"b@x.com\", \"Plain\"],\n                [\"c@x.com\", \"\"],\n            ],\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:90: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n_________________________ test_all_fields_quoted_input _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')\n\n    def test_all_fields_quoted_input(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"X@Y.COM\", \"One, Two\"],\n                [\"x@y.com\", \"Duplicate\"],\n                [\"z@y.com\", \"Three\"],\n            ],\n            quoting=csv.QUOTE_ALL,\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:134: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_all_fields_quo... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n________________________ test_output_uses_csv_escaping _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')\n\n    def test_output_uses_csv_escaping(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(in_path, [\"email\", \"name\"], [[\"q@x.com\", 'Smith, J \"Q\"']])\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:146: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_output_uses_cs... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n______________________ test_crlf_input_with_quoted_commas ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')\n\n    def test_crlf_input_with_quoted_commas(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        data = 'email,name\\r\\nA@B.C,\"Last, First\"\\r\\na@b.c,\"Other, Name\"\\r\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(data)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:161: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_crlf_input_wit... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n_____________ test_generated_large_distinct_input_preserves_order ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')\n\n    def test_generated_large_distinct_input_preserves_order(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        expected = []\n        records = []\n        for i in range(1000):\n            email = \"user%04d@example.com\" % i\n            name = \"User %d, Esq.\" % i if i % 3 == 0 else \"User %d\" % i\n            records.append([email, name])\n            expected.append([email, name])\n        write_csv(in_path, [\"email\", \"name\"], records)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:176: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_generated_larg... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n_______________________ test_input_file_is_not_modified ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0')\n\n    def test_input_file_is_not_modified(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        content = 'email,name\\nA@B.C,\"Last, First\"\\na@b.c,Other\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(content)\n        before = open(in_path, \"rb\").read()\n        out = str(tmp_path / \"out.csv\")\n>       run_and_check(in_path, out)\n\ntest_clean.py:207: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nin_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/in.csv'\nout_path = '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0/out.csv'\n\n    def run_and_check(in_path, out_path):\n        proc = run_cli(in_path, out_path)\n>       assert proc.returncode == 0, (\n            \"expected exit code 0, got %r; stderr=%r\" % (proc.returncode, proc.stderr)\n        )\nE       AssertionError: expected exit code 0, got 1; stderr=b'Traceback (most recent call last):\\n  File \"/app/clean.py\", line 9, in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/usr/local/bin/python3', '/app/clean.py', '/tmp/pytest-of-unknown/pytest-0/test_input_file_is_... in <module>\\n    for email, name in rows:\\n        ^^^^^^^^^^^\\nValueError: too many values to unpack (expected 2)\\n').returncode\n\ntest_clean.py:40: AssertionError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...\nFAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names\nFAILED test_clean.py::test_all_fields_quoted_input - AssertionError: expected...\nFAILED test_clean.py::test_output_uses_csv_escaping - AssertionError: expecte...\nFAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: ex...\nFAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...\nFAILED test_clean.py::test_input_file_is_not_modified - AssertionError: expec...\n7 failed, 7 passed in 0.69s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "72aac00828defd2aca44df441d361a946d8a6c5a7c61a713ba4ad2db7b1d931e",
+  "outcome": "fail",
+  "wall_sec": 6.666,
+  "attribution": "uncertain"
+}

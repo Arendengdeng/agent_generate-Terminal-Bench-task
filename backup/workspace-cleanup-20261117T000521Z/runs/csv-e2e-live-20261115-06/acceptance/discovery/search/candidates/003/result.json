@@ -1,0 +1,11 @@
+{
+  "id": "003",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R4",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/003/solution",
+  "solution_digest": "4de0bc81cb1f9ff678bf89b596e26e217443d2ca1e96e251617c53edf7a7faf9",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/003/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "reason": "The rationale is self-contradictory and the witness does not test what it claims. R4 says only that the input file must not be modified and that the runtime dependency is stdlib-only. The rationale admits (§ \"不写输出文件\") that the program's behavior in the described isolated environment is just an ordinary successful invocation that must produce a normalized CSV; nothing in it actually establishes a stdlib-only environment (there is no evidence that site-packages are disabled, and the argv is a plain `python3 /app/clean.py ...` call — a bare \"-E\"/HOME note in the rationale is not reflected in argv and would not disable site-packages anyway). So the witness is an R1/R2/R3 correctness check dressed up as an R4 check, not a derivation from R4.\n\nMoreover, the concrete assertions largely restate R1/R2 requirements (exit_code 0, output CSV content with lowercased deduped email \"a@b.c\" and preserved name \"Last, First\"), which are not the assertions \"expected\" from the cited R4 quote. Only the `unchanged: in.csv` assertion actually follows from R4's first clause, and even that is a partial check. Nothing in the witness verifies the \"只交付 clean.py\" / stdlib-only clause in a way that follows directly from the Contract.\n\nSince not every expected assertion follows directly from the cited Requirement (and the rationale's isolated-interpreter premise is not realized by the argv/assertions), the witness must be rejected as ambiguous/out-of-scope for R4."
+}

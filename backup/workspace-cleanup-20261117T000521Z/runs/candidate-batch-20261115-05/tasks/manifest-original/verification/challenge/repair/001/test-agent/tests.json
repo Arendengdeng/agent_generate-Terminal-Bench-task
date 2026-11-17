@@ -1,0 +1,62 @@
+{
+  "status": "error",
+  "error": {
+    "type": "BudgetExceeded",
+    "message": "Test Agent shared model call budget exhausted"
+  },
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "8922b24de5006054fddbc6a7cf0f5c898a8c98fdd757306a46c13800d4bb9433",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/sample/release/README.txt": "b67d0928909b90767a3be258e96348c4d1391efb998202ca82bf45d886f391a6",
+    "inputs/environment/app/sample/release/assets/fonts/readme.md": "0abbd0c0884225cc0e5b417a8123a196e2ed9317b7003daf0e4679ad1d779817",
+    "inputs/environment/app/sample/release/notes.txt": "a3a60d91a8c8a8cc8e6cf6b65959d2894b5c8c86bc7fbeb13fce7b731cc03ea5",
+    "inputs/environment/app/sample/release/patch notes.txt": "2bde51b7e799e9604b6ab436ccfaaca102b109446b91551c2bc226c09e4f693a",
+    "inputs/environment/app/sample/release/readme.md": "f7b8f6b4939711c973888537901df445c2bf4f38866e5646274c7484ba9f9cbb",
+    "inputs/environment/app/sample/release/Überblick.md": "a1f4b3b4c74dfd93dcbda1e88506d7b70335997456cffcb4ddff4c1532d015cc",
+    "inputs/environment/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+    "inputs/environment/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371",
+    "inputs/instruction.md": "cc14de8a6379a27ed972a9e319a10a9e9678ba06414f103d7cecef36d33cb557"
+  },
+  "parent_digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "递归遍历全部普通文件，保留相对路径，正确处理嵌套同名文件、空格和 Unicode 文件名。",
+    "test_path": "tests/test_manifest.py",
+    "line": "1",
+    "evidence_id": "challenge:001",
+    "explanation": "Controller confirmed a missing Contract behavior assertion; see independent witness.",
+    "parent_digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5"
+  },
+  "attribution": "test_defect",
+  "manifest": {
+    "test_manifest.py": "a6a85798a07849de67354241382f7261c7c0d52a3c4149ac5bfcfc17c964eb02"
+  },
+  "digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 6
+  },
+  "workflow_budget_used": {
+    "model_calls": 40,
+    "tool_calls": 47,
+    "token_usage": {
+      "prompt_tokens": 530825,
+      "completion_tokens": 15985,
+      "total_tokens": 546810
+    }
+  },
+  "cost": {
+    "wall_sec": 8.487,
+    "token_usage": {
+      "prompt_tokens": 530825,
+      "completion_tokens": 15985,
+      "total_tokens": 546810
+    }
+  }
+}

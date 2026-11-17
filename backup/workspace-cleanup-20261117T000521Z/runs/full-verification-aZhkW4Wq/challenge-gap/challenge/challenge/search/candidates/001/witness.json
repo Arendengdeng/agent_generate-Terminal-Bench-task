@@ -1,0 +1,33 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every integer n in [0,1000000], the JSON double field equals 2*n.",
+  "rationale": "R2 requires the JSON 'double' field to equal 2*n for every integer n in [0,1000000]. The frozen baseline test only exercises n=3, where the contract demands double=6; the provided stub hardcodes double=0 and therefore fails R2 even for n=3. The candidate deliberately preserves that defect (emitting double=0) while satisfying R1's value field, so the missing behavioral check is the double field for any input. Using n=3 (inside the range) the contract requires exit 0 and JSON with value=3 and double=6.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "3"
+  ],
+  "stdin": "",
+  "fixtures": {},
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [
+        "value"
+      ],
+      "value": 3
+    },
+    {
+      "source": "json",
+      "path": [
+        "double"
+      ],
+      "value": 6
+    }
+  ]
+}

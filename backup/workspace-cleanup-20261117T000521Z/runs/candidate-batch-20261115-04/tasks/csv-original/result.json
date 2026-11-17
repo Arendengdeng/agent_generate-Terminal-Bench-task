@@ -1,0 +1,89 @@
+{
+  "id": "csv-original",
+  "family": "csv",
+  "variant": "original",
+  "outcome": "unresolved",
+  "detail": "needs_review",
+  "failure_stage": "challenge",
+  "responsible_module": "unknown",
+  "candidate_generated": true,
+  "stages": {
+    "synthesis": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/candidate/synthesis.json"
+    },
+    "controls": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/manifest.json"
+    },
+    "independent_test": {
+      "status": "passed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/run_result.json"
+    },
+    "challenge": {
+      "status": "completed",
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/challenge-report.json",
+      "confirmed_violations": 1,
+      "already_rejected": 0,
+      "review_queue": [
+        {
+          "id": "000",
+          "status": "unconfirmed",
+          "reason": "The witness invokes the program with only one positional argument (`$WORK/only.csv`), which is not the contracted invocation `python /app/clean.py <input.csv> <output.csv>`. R1 only specifies behavior for the contracted two-positional-argument CLI; it does not state the exit code for a malformed usage, nor does it require that the input file be truncated/modified to `email,name\\n`, nor that no output be written. Assertion `exit_code == 2` is an arbitrary specific value not derivable from the Contract (the Contract says nothing about usage-error exit codes). Worse, assertion that `only.csv` equals `email,name\\n` contradicts R4 (\"不修改输入文件\"): the fixture input file ends with a data row and a trailing newline, so requiring it to become a header-only file is actually prohibited behavior. Thus these expected assertions do not follow from R1 (or any Contract requirement); the witness over-specifies and even conflicts with R4. Cannot confirm.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/search/candidates/000/witness.json"
+        },
+        {
+          "id": "001",
+          "status": "unconfirmed",
+          "reason": "No definite violation, or witness rejected a correct control.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/search/candidates/001/witness.json"
+        },
+        {
+          "id": "002",
+          "status": "unconfirmed",
+          "reason": "The witness's concrete input is in scope (header-only CSV, which the input_spec explicitly permits: \"可以仅有表头\"), and the expected assertions (exit 0, out.csv == \"email,name\\n\") do follow from R1+R3 read literally: R3 says \"仅有表头的输入产生仅有表头的输出\", and output_spec fixes the header as \"email,name\". However, the witness's central claim — that the output file already existing and being empty is a *valid* contract situation with a well-defined canonical result — is NOT derivable from the Contract. The Contract specifies nothing about pre-existing output files: it does not say the tool must truncate, overwrite, or append; it only says to write a canonical CSV to the second positional argument. Whether a pre-existing empty out.csv must be replaced (vs. appended to) is an unaddressed implementation detail, not something the Contract resolves. The rationale openly admits the reference \"frozen suite always uses fresh, non-existent output paths and never exercises this situation,\" i.e., the witness is manufacturing a scenario the Contract does not govern and inferring a specific required behavior (no duplication) for it. That inference is an extra constraint supplied by the witness, not the Contract.\n\nAdditional defects: (1) The assertion \"out.csv value == 'email,name\\n'\" hardcodes the header, but the header content is only implied to be the same as input; that part is defensible, yet combined with the pre-existing-file ambiguity the concrete expected byte string is not uniquely determined by the Contract. (2) The witness attributes behavior to \"the replacement app\" (\"appends an extra header line ... skips cleaning\") which is an implementation-identity/behavioral claim external to the Contract and untrusted. (3) The rationale's framing that this is a genuine scope of R3 is contradicted by its own admission that the test suite never exercises it, indicating a carved-out case rather than a Contract requirement.\n\nBecause the decisive condition (what must happen when the output path already exists) is not specified anywhere in the Contract, the assertion set is ambiguous: a compliant implementation could reasonably open the file in truncate mode (yielding the expected \"email,name\\n\") OR could be judged under append semantics that the Contract does not forbid or address. The expected assertion therefore does not follow *solely* from the cited R3 and the Contract; it depends on a witness-invented precondition and an unstated overwrite requirement. Hence reject.",
+          "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/search/candidates/002/witness.json"
+        }
+      ]
+    },
+    "repair": {
+      "status": "needs_review",
+      "attempts": 1,
+      "evidence": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/verification/challenge/challenge-report.json"
+    },
+    "reverification": {
+      "status": "not_run",
+      "reason": "upstream_not_completed"
+    }
+  },
+  "cost": {
+    "model_calls": 47,
+    "tool_calls": 58,
+    "wall_sec": 337.654,
+    "synthesis": {
+      "model_calls": 10,
+      "tool_calls": 10,
+      "token_usage": {
+        "prompt_tokens": 37336,
+        "completion_tokens": 4559,
+        "total_tokens": 41895
+      }
+    },
+    "verification": {
+      "model_calls": 37,
+      "tool_calls": 48,
+      "token_usage": {
+        "prompt_tokens": 286126,
+        "completion_tokens": 12985,
+        "total_tokens": 299111
+      }
+    }
+  },
+  "repair_count": 1,
+  "controller_decision": "needs_review",
+  "native_stage": "challenge",
+  "error": {
+    "type": "CHALLENGE_INCOMPLETE",
+    "message": "patch_not_general_contract_behavior"
+  }
+}

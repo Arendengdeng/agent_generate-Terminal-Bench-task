@@ -1,0 +1,14 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+__________________________________ test_value __________________________________
+
+    def test_value():
+>       assert json.loads(run(3).stdout)['value'] == 99
+E       assert 3 == 99
+
+test_behavior.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 3, "double": 6}
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_value - assert 3 == 99
+1 failed, 1 passed in 0.09s

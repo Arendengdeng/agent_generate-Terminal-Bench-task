@@ -1,0 +1,28 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "R3 requires that a header-only input produce a header-only output, for every valid input. The output path given by the CLI may already exist (the operator pre-created out.csv, here empty); the Contract makes no exception, so the canonical CSV written to the second positional argument must be exactly `email,name\\n` and nothing more. The replacement appends an extra header line to the pre-existing file and skips cleaning, so the output is not canonical and the header is duplicated; the frozen suite always uses fresh, non-existent output paths and never exercises this situation.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/header_only.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "header_only.csv": "email,name\n",
+    "out.csv": ""
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\n"
+    }
+  ]
+}

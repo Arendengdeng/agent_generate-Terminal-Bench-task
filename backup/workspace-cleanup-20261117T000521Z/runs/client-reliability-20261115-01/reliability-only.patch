@@ -1,0 +1,525 @@
+--- before/synthesis_agent/client.py
++++ after/synthesis_agent/client.py
+@@ -1,5 +1,9 @@
+ """Small replaceable OpenAI-compatible Chat Completions client (stdlib only)."""
+ import json
++import errno
++import logging
++import socket
++import time
+ import re
+ from typing import Protocol
+ import urllib.error
+@@ -7,10 +11,13 @@
+ from urllib.parse import urlsplit, quote
+ 
+ from .errors import BudgetExceeded, SynthesisError
++from .trace import redact
+ 
+ 
+ def transient_transport_error(error):
+     """Retry only transport failures with their original cause; never parse messages."""
++    if getattr(error, 'retry_handled', False):
++        return False
+     seen = set()
+     while error is not None and id(error) not in seen:
+         seen.add(id(error))
+@@ -59,21 +66,119 @@
+     return " " + json.dumps(fields, ensure_ascii=True) if fields else ""
+ 
+ 
++def retryable_network_error(error):
++    """Retry typed temporary transport failures only, never HTTP or string guesses."""
++    seen = set()
++    while isinstance(error, BaseException) and id(error) not in seen:
++        seen.add(id(error))
++        if isinstance(error, urllib.error.HTTPError):
++            return False
++        if isinstance(error, urllib.error.URLError):
++            error = error.reason
++            continue
++        if isinstance(error, (TimeoutError, ConnectionResetError, ConnectionAbortedError, BrokenPipeError)):
++            return True
++        if isinstance(error, socket.gaierror):
++            return error.errno == socket.EAI_AGAIN
++        if isinstance(error, OSError) and error.errno in {
++                errno.ETIMEDOUT, errno.ECONNRESET, errno.ECONNABORTED,
++                errno.EPIPE, errno.EAGAIN, errno.EINTR}:
++            return True
++        error = error.__cause__
++    return False
++
++
++def exception_details(error, api_key='', secrets=()):
++    """Bounded structured chain without traceback locals, headers or request bodies."""
++    seen = set()
++    def describe(exc, depth=0):
++        if depth >= 8 or id(exc) in seen:
++            return {'type': type(exc).__name__, 'truncated': True}
++        seen.add(id(exc))
++        message = str(exc)
++        for secret in secrets:
++            if secret:
++                message = message.replace(secret, '[REDACTED]')
++        message = redact(message, api_key)[:1000]
++        result = {'type': type(exc).__name__, 'message': message}
++        number = getattr(exc, 'errno', None)
++        if type(number) is int:
++            result['errno'] = number
++        if isinstance(exc, urllib.error.HTTPError):
++            result['http_status'] = exc.code
++        if isinstance(exc, urllib.error.URLError):
++            result['reason'] = describe(exc.reason, depth + 1)
++        cause = getattr(exc, '__cause__', None)
++        context = getattr(exc, '__context__', None)
++        if cause is not None:
++            result['cause'] = describe(cause, depth + 1)
++        elif context is not None and not getattr(exc, '__suppress_context__', False):
++            result['context'] = describe(context, depth + 1)
++        return result
++    return describe(error)
++
++
++def complete_accounted(client, messages, tools, *, budget, config, on_retry, on_event):
++    """Transport accounting only. Caller has already counted the first attempt."""
++    reserve = len(json.dumps({'messages': messages, 'tools': tools}).encode()) + 4096 + config.max_completion_tokens
++    def check_tokens():
++        limit = budget.get('max_total_tokens')
++        known = budget.get('token_usage', {}).get('total_tokens', 0)
++        if limit is not None and known + budget.get('unknown_token_reserve', 0) + reserve > limit:
++            raise BudgetExceeded('shared token budget cannot reserve next model attempt')
++
++    def retry():
++        check_tokens()
++        if budget['model_calls'] >= config.max_model_calls:
++            raise BudgetExceeded('shared model budget exhausted before transport retry')
++        budget['model_calls'] += 1
++        on_retry()
++
++    def usage(value):
++        if not isinstance(value, dict) or (type(value.get('total_tokens')) is not int or value['total_tokens'] < 0):
++            budget['token_usage_complete'] = False
++            budget.setdefault('usage_unknown_attempts', []).append(budget['model_calls'])
++            budget['unknown_token_reserve'] = budget.get('unknown_token_reserve', 0) + reserve
++        else:
++            budget.setdefault('token_usage_complete', True)
++        if isinstance(value, dict):
++            totals = budget.setdefault('token_usage', {})
++            for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
++                if type(value.get(key)) is int and value[key] >= 0:
++                    totals[key] = totals.get(key, 0) + value[key]
++
++    check_tokens()
++    if isinstance(client, OpenAICompatibleClient):
++        return client.complete(messages, tools, before_retry=retry,
++            on_event=lambda event: on_event({**event, 'model_call': budget['model_calls']}), on_usage=usage)
++    # Injected/scripted clients retain their interface; no hidden retries here.
++    try:
++        return client.complete(messages, tools)
++    finally:
++        usage(getattr(client, 'last_usage', None))
++
++
+ class OpenAICompatibleClient:
+     def __init__(self, config):
+         self.config = config
+         self.last_usage = None
++        self.last_attempts = []
++        self.attempt_count = 0
+         if not config.model:
+             raise SynthesisError("configure SYNTHESIS_MODEL or --model")
+         self.opener = urllib.request.build_opener(NoRedirect())
+-
+-    def complete(self, messages, tools):
++        self._proxies = {}
++        for handler in self.opener.handlers:
++            if isinstance(handler, urllib.request.ProxyHandler):
++                self._proxies.update(handler.proxies)
++
++    def complete(self, messages, tools, *, before_retry=None, on_event=None, on_usage=None):
+         self.last_usage = None
++        self.last_attempts = []
+         c = self.config
+         payload = {"model": c.model, "messages": messages, "tools": tools,
+                    "tool_choice": "required", "parallel_tool_calls": False}
+         if urlsplit(c.base_url).hostname == "api.deepseek.com":
+-            # Required tool choice is incompatible with DeepSeek thinking mode.
+             payload.update(thinking={"type": "disabled"}, max_tokens=c.max_completion_tokens)
+             payload.pop("parallel_tool_calls")
+         else:
+@@ -85,33 +190,96 @@
+         if c.api_key:
+             headers["Authorization"] = "Bearer " + c.api_key
+         request = urllib.request.Request(c.base_url.rstrip("/") + "/chat/completions", data=data, headers=headers)
+-        try:
+-            with self.opener.open(request, timeout=c.api_timeout_sec) as response:
+-                raw = response.read(c.max_response_bytes + 1)
+-            if len(raw) > c.max_response_bytes:
+-                raise BudgetExceeded("model response byte budget exceeded")
+-            result = json.loads(raw)
+-            usage = result.get('usage')
+-            if isinstance(usage, dict):
+-                self.last_usage = {k: v for k, v in usage.items()
+-                                   if k in {'prompt_tokens', 'completion_tokens', 'total_tokens',
+-                                            'prompt_tokens_details', 'completion_tokens_details'}}
+-            if result["choices"][0].get("finish_reason") == "length":
+-                raise SynthesisError("model response truncated by token limit")
+-            message = result["choices"][0]["message"]
+-            if not isinstance(message, dict):
+-                raise ValueError("expected assistant message")
+-            return message
+-        except urllib.error.HTTPError as exc:
++        endpoint = urlsplit(c.base_url)
++        proxy_configured = bool(self._proxies.get(endpoint.scheme))
++        bypass = urllib.request.proxy_bypass(endpoint.hostname)
++        proxy = {'configured': proxy_configured, 'bypassed': bool(bypass),
++                 'used': proxy_configured and not bypass}
++        secrets = []
++        from urllib.parse import unquote
++        for scheme, value in self._proxies.items():
++            if scheme != 'no' and isinstance(value, str):
++                try:
++                    parsed = urlsplit(value if '://' in value else '//' + value)
++                except ValueError:
++                    continue
++                secrets.extend(v for v in (parsed.username, parsed.password,
++                               unquote(parsed.username or ''), unquote(parsed.password or '')) if v)
++        for attempt in range(2):
++            if self.attempt_count >= c.max_model_calls:
++                raise BudgetExceeded('client model attempt budget exhausted')
++            if attempt:
++                if before_retry is not None:
++                    before_retry()
++                time.sleep(0.5)
++            self.attempt_count += 1
++            self.last_usage = None
++            started = phase_started = time.monotonic()
++            phase = 'open'
++            record = {'attempt': attempt + 1, 'timeout_sec': c.api_timeout_sec, 'proxy': proxy}
+             try:
+-                raw = exc.read(min(c.max_response_bytes, 16_384) + 1)
+-                detail = api_error_detail(raw, c.api_key) if len(raw) <= min(c.max_response_bytes, 16_384) else ""
+-            except (OSError, ValueError):
+-                detail = ""
++                with self.opener.open(request, timeout=c.api_timeout_sec) as response:
++                    record['http_status'] = getattr(response, 'status', None)
++                    record['open_wall_sec'] = round(time.monotonic() - phase_started, 6)
++                    phase, phase_started = 'read_body', time.monotonic()
++                    raw = response.read(c.max_response_bytes + 1)
++                    record['read_body_wall_sec'] = round(time.monotonic() - phase_started, 6)
++                if len(raw) > c.max_response_bytes:
++                    raise BudgetExceeded("model response byte budget exceeded")
++                phase, phase_started = 'parse_response', time.monotonic()
++                result = json.loads(raw)
++                usage = result.get('usage')
++                if isinstance(usage, dict):
++                    self.last_usage = {k: v for k, v in usage.items()
++                                       if k in {'prompt_tokens', 'completion_tokens', 'total_tokens',
++                                                'prompt_tokens_details', 'completion_tokens_details'}}
++                if result["choices"][0].get("finish_reason") == "length":
++                    raise SynthesisError("model response truncated by token limit")
++                message = result["choices"][0]["message"]
++                if not isinstance(message, dict):
++                    raise ValueError("expected assistant message")
++                record.update(event='api_success', phase=phase)
++                return message
++            except Exception as exc:
++                retrying = attempt == 0 and retryable_network_error(exc)
++                record.update(event='api_failure', phase=phase, retry_scheduled=retrying,
++                              exception=exception_details(exc, c.api_key, secrets))
++                if retrying:
++                    continue
++                if isinstance(exc, urllib.error.HTTPError):
++                    try:
++                        raw = exc.read(min(c.max_response_bytes, 16_384) + 1)
++                        detail = api_error_detail(raw, c.api_key) if len(raw) <= min(c.max_response_bytes, 16_384) else ''
++                    except (OSError, ValueError):
++                        detail = ''
++                    finally:
++                        exc.close()
++                    failure = SynthesisError(f'model API HTTP {exc.code}{detail}')
++                elif isinstance(exc, (urllib.error.URLError, OSError)):
++                    failure = SynthesisError(f'model API unavailable ({type(exc).__name__})')
++                elif isinstance(exc, (ValueError, KeyError, IndexError, TypeError)):
++                    failure = SynthesisError('malformed model API response')
++                elif isinstance(exc, SynthesisError):
++                    failure = exc
++                else:
++                    failure = SynthesisError(f'model API request failed ({type(exc).__name__})')
++                failure.retry_handled = True
++                if failure is exc:
++                    raise failure from None
++                failure.api_failure = record
++                raise failure from None
+             finally:
+-                exc.close()
+-            raise SynthesisError(f"model API HTTP {exc.code}{detail}") from None
+-        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+-            raise SynthesisError(f"model API unavailable ({type(exc).__name__})") from exc
+-        except (ValueError, KeyError, IndexError, TypeError) as exc:
+-            raise SynthesisError("malformed model API response") from exc
++                finished = time.monotonic()
++                record.update(wall_sec=round(finished - started, 6),
++                              phase_wall_sec=round(finished - phase_started, 6),
++                              usage=redact(self.last_usage, c.api_key),
++                              usage_status='known' if isinstance(self.last_usage, dict)
++                                  and type(self.last_usage.get('total_tokens')) is int
++                                  and self.last_usage['total_tokens'] >= 0 else 'unknown')
++                self.last_attempts.append(record)
++                if on_usage is not None:
++                    on_usage(self.last_usage)
++                if on_event is not None:
++                    on_event(record)
++                elif record.get('event') == 'api_failure':
++                    logging.getLogger(__name__).warning('model_api_attempt %s', json.dumps(record))
+--- before/synthesis_agent/agent.py
++++ after/synthesis_agent/agent.py
+@@ -5,7 +5,7 @@
+ from pathlib import Path
+ import time
+ 
+-from .client import OpenAICompatibleClient
++from .client import OpenAICompatibleClient, complete_accounted
+ from .config import Config
+ from .errors import BudgetExceeded, SandboxError, SynthesisError
+ from .files import FileSet, load_seed, read_json, relative_path, safe_ancestors
+@@ -318,13 +318,13 @@
+                 shared_budget['model_calls'] += 1
+                 trace("model_request", context_bytes=len(json.dumps(messages).encode()),
+                       context_limit=c.max_context_bytes)
+-                message = client.complete(copy.deepcopy(messages), copy.deepcopy(TOOLS))
+-                usage = getattr(client, 'last_usage', None)
+-                if isinstance(usage, dict):
+-                    totals = shared_budget.setdefault('token_usage', {})
+-                    for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+-                        if type(usage.get(key)) is int and usage[key] >= 0:
+-                            totals[key] = totals.get(key, 0) + usage[key]
++                def retry_count():
++                    nonlocal model_calls
++                    model_calls += 1
++                    trace('model_request', transport_retry=True)
++                message = complete_accounted(client, copy.deepcopy(messages), copy.deepcopy(TOOLS),
++                    budget=shared_budget, config=c, on_retry=retry_count,
++                    on_event=lambda event: trace('api_attempt', details=event))
+                 if len(json.dumps(message).encode()) > c.max_response_bytes:
+                     raise BudgetExceeded("model response byte budget exceeded")
+                 calls = message.get("tool_calls")
+--- before/independent_verification/agent.py
++++ after/independent_verification/agent.py
+@@ -5,7 +5,7 @@
+ import time
+ 
+ from synthesis_agent.agent import tool, STRING
+-from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error
++from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error, complete_accounted
+ from synthesis_agent.config import Config
+ from synthesis_agent.errors import BudgetExceeded, SandboxError, SynthesisError
+ from synthesis_agent.files import FileSet, relative_path, load_seed, read_json
+@@ -365,7 +365,13 @@
+                 trace("model_request")
+                 requested_at = time.monotonic()
+                 try:
+-                    message = model.complete(copy.deepcopy(messages), copy.deepcopy(tools))
++                    def retry_count():
++                        nonlocal model_calls
++                        model_calls += 1
++                        trace('model_request', transport_retry=True)
++                    message = complete_accounted(model, copy.deepcopy(messages), copy.deepcopy(tools),
++                        budget=shared_budget, config=c, on_retry=retry_count,
++                        on_event=lambda event: trace('api_attempt', details=event))
+                 except SynthesisError as exc:
+                     if not transient_transport_error(exc) or transport_failures >= (1 if diagnose_only else 2):
+                         raise
+@@ -376,11 +382,6 @@
+                 transport_failures = 0
+                 usage = getattr(model, 'last_usage', None)
+                 trace('model_usage', usage=usage, wall_sec=round(time.monotonic() - requested_at, 6))
+-                if isinstance(usage, dict):
+-                    totals = shared_budget.setdefault('token_usage', {})
+-                    for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+-                        if type(usage.get(key)) is int and usage[key] >= 0:
+-                            totals[key] = totals.get(key, 0) + usage[key]
+                 if len(json.dumps(message).encode()) > c.max_response_bytes:
+                     raise BudgetExceeded("model response budget exceeded")
+                 proposed = message.get("tool_calls")
+--- before/independent_verification/challenge.py
++++ after/independent_verification/challenge.py
+@@ -7,7 +7,7 @@
+ import time
+ 
+ from synthesis_agent.agent import tool, STRING
+-from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error
++from synthesis_agent.client import OpenAICompatibleClient, transient_transport_error, complete_accounted
+ from synthesis_agent.config import Config
+ from synthesis_agent.errors import BudgetExceeded, SynthesisError
+ from synthesis_agent.files import FileSet, load_seed, read_json, relative_path
+@@ -43,7 +43,9 @@
+             if self.client is None:
+                 self.client = OpenAICompatibleClient(c)
+             try:
+-                message = self.client.complete(copy.deepcopy(messages), copy.deepcopy(tools))
++                message = complete_accounted(self.client, copy.deepcopy(messages), copy.deepcopy(tools),
++                    budget=budget, config=c, on_retry=lambda: None,
++                    on_event=lambda event: self.record('api_attempt', details=event))
+                 break
+             except SynthesisError as exc:
+                 if not transient_transport_error(exc) or attempt == 2:
+@@ -51,11 +53,6 @@
+                 self.record('model_transport_retry', attempt=attempt + 1, error_type=type(exc).__name__)
+                 time.sleep(attempt + 1)
+         usage = getattr(self.client, 'last_usage', None)
+-        if isinstance(usage, dict):
+-            totals = budget.setdefault('token_usage', {})
+-            for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+-                if type(usage.get(key)) is int and usage[key] >= 0:
+-                    totals[key] = totals.get(key, 0) + usage[key]
+         if len(json.dumps(message).encode()) > c.max_response_bytes:
+             raise BudgetExceeded('Challenge response budget exhausted')
+         self.record('model_response', message=message, usage=usage)
+--- /dev/null
++++ after/tests/test_client_reliability.py
+@@ -0,0 +1,144 @@
++"""Fault injection only; no external model or network access."""
++import errno
++import io
++import json
++from pathlib import Path
++import socket
++import ssl
++import tempfile
++import traceback
++import unittest
++from unittest.mock import patch
++import urllib.error
++
++from synthesis_agent.client import OpenAICompatibleClient, complete_accounted, retryable_network_error
++from synthesis_agent.config import Config
++from synthesis_agent.errors import BudgetExceeded, SynthesisError
++from independent_verification.challenge import Calls
++
++
++def response():
++    return io.BytesIO(json.dumps({'choices':[{'message': {'role':'assistant','content':None,
++        'tool_calls':[{'id':'r','type':'function','function':{'name':'review','arguments':'{"verdict":"confirmed","reason":"fixture"}'}}]}}],
++        'usage':{'prompt_tokens':10,'completion_tokens':4,'total_tokens':14}}).encode())
++
++
++class ClientReliabilityTests(unittest.TestCase):
++    def client(self, **overrides):
++        return OpenAICompatibleClient(Config(model='offline-fixture', **overrides))
++
++    def accounted(self, client, budget, events, retries):
++        return complete_accounted(client, [], [], config=client.config, budget=budget,
++                                  on_retry=lambda: retries.append(True), on_event=events.append)
++
++    def test_timeout_retry_counts_unknown_and_known_usage(self):
++        client=self.client(); events=[]; retries=[]; budget={'model_calls':1,'tool_calls':0}
++        with patch.object(client.opener,'open',side_effect=[urllib.error.URLError(TimeoutError(errno.ETIMEDOUT,'timed out')),response()]) as op, patch('synthesis_agent.client.time.sleep') as sleep:
++            self.accounted(client,budget,events,retries)
++        self.assertEqual(op.call_count,2); sleep.assert_called_once_with(.5)
++        self.assertEqual(budget['model_calls'],2); self.assertEqual(retries,[True])
++        self.assertEqual(budget['token_usage']['total_tokens'],14)
++        self.assertFalse(budget['token_usage_complete']); self.assertEqual(budget['usage_unknown_attempts'],[1])
++        self.assertGreater(budget['unknown_token_reserve'],0)
++        self.assertEqual(events[0]['phase'],'open')
++        reason=events[0]['exception']['reason']
++        self.assertEqual(reason['type'],'TimeoutError'); self.assertEqual(reason['errno'],errno.ETIMEDOUT)
++        self.assertEqual(events[0]['usage_status'],'unknown'); self.assertEqual(events[1]['usage_status'],'known')
++        self.assertEqual([e['model_call'] for e in events],[1,2])
++        self.assertIn('phase_wall_sec',events[0]); self.assertEqual(events[0]['timeout_sec'],90)
++
++    def test_retry_never_exceeds_shared_budget(self):
++        client=self.client(max_model_calls=1); budget={'model_calls':1,'tool_calls':0}
++        with patch.object(client.opener,'open',side_effect=TimeoutError('timeout')) as op, patch('synthesis_agent.client.time.sleep') as sleep, self.assertRaises(BudgetExceeded):
++            self.accounted(client,budget,[],[])
++        self.assertEqual(op.call_count,1); sleep.assert_not_called()
++        self.assertEqual(budget['model_calls'],1); self.assertEqual(budget['usage_unknown_attempts'],[1])
++
++    def test_client_standalone_max_attempts_and_no_nested_challenge_retry(self):
++        client=self.client(); budget={'model_calls':0,'tool_calls':0}
++        with tempfile.TemporaryDirectory() as tmp, patch.object(client.opener,'open',side_effect=urllib.error.URLError(ConnectionResetError(errno.ECONNRESET,'reset'))) as op, patch('synthesis_agent.client.time.sleep'), self.assertRaises(SynthesisError):
++            Calls(client.config,client,budget,Path(tmp)).complete([],[])
++        self.assertEqual(op.call_count,2); self.assertEqual(budget['model_calls'],2)
++        self.assertEqual(budget['usage_unknown_attempts'],[1,2]); self.assertNotIn('token_usage',budget)
++
++    def test_http_auth_payment_and_server_errors_never_retry(self):
++        for code in (400,401,402,403,429,500,503):
++            with self.subTest(code=code):
++                client=self.client(api_key='PRIVATE-API-KEY'); events=[]
++                error=urllib.error.HTTPError('https://user:password@host/?token=secret',code,'PRIVATE-API-KEY',{},io.BytesIO(b'{}'))
++                with patch.object(client.opener,'open',side_effect=error) as op, self.assertRaises(SynthesisError) as ctx:
++                    client.complete([],[],on_event=events.append)
++                self.assertEqual(op.call_count,1)
++                self.assertEqual(events[0]['exception']['http_status'],code)
++                rendered=''.join(traceback.format_exception(ctx.exception))
++                self.assertNotIn('PRIVATE-API-KEY',rendered); self.assertNotIn('password',rendered)
++                self.assertNotIn('PRIVATE-API-KEY',json.dumps(events))
++                self.assertFalse(events[0]['retry_scheduled'])
++
++    def test_read_failure_has_its_own_phase_and_one_retry(self):
++        class Broken(io.BytesIO):
++            def read(self,*args): raise TimeoutError('body timed out')
++        client=self.client(); events=[]
++        with patch.object(client.opener,'open',side_effect=[Broken(),response()]) as op, patch('synthesis_agent.client.time.sleep'):
++            client.complete([],[],on_event=events.append)
++        self.assertEqual(op.call_count,2); self.assertEqual(events[0]['phase'],'read_body')
++        self.assertIn('open_wall_sec',events[0]); self.assertEqual(events[0]['exception']['type'],'TimeoutError')
++
++    def test_parse_error_is_not_retried(self):
++        client=self.client(); events=[]
++        with patch.object(client.opener,'open',return_value=io.BytesIO(b'not-json')) as op, self.assertRaisesRegex(SynthesisError,'malformed'):
++            client.complete([],[],on_event=events.append)
++        self.assertEqual(op.call_count,1); self.assertEqual(events[0]['phase'],'parse_response')
++        self.assertEqual(events[0]['exception']['type'],'JSONDecodeError')
++
++    def test_proxy_and_exception_chain_are_redacted(self):
++        proxies={'https':'http://proxy-user:proxy-password@proxy.invalid:8080'}
++        with patch('urllib.request.getproxies',return_value=proxies),patch('urllib.request.proxy_bypass',return_value=False):
++            client=self.client(api_key='PRIVATE-API-KEY')
++            cause=OSError(errno.ECONNRESET,'api_key=OTHER-SECRET proxy-password PRIVATE-API-KEY https://user:secret@host/?q=private')
++            error=urllib.error.URLError(cause)
++            events=[]
++            with patch.object(client.opener,'open',side_effect=error),patch('synthesis_agent.client.time.sleep'),self.assertRaises(SynthesisError):
++                client.complete([],[],on_event=events.append)
++        self.assertTrue(events[0]['proxy']['used'])
++        rendered=json.dumps(events)
++        for secret in ('OTHER-SECRET','proxy-password','PRIVATE-API-KEY','q=private','user:secret'):
++            self.assertNotIn(secret,rendered)
++        self.assertEqual(events[0]['exception']['reason']['errno'],errno.ECONNRESET)
++
++    def test_permanent_dns_tls_and_untyped_url_errors_do_not_retry(self):
++        for error in (urllib.error.URLError(socket.gaierror(socket.EAI_NONAME,'no such host')),
++                      urllib.error.URLError(ssl.SSLCertVerificationError('certificate verification failed')),
++                      urllib.error.URLError('unknown transport problem')):
++            with self.subTest(error=type(error.reason).__name__):
++                self.assertFalse(retryable_network_error(error))
++                client=self.client()
++                with patch.object(client.opener,'open',side_effect=error) as op,self.assertRaises(SynthesisError):
++                    client.complete([],[],on_event=lambda e:None)
++                self.assertEqual(op.call_count,1)
++        self.assertTrue(retryable_network_error(urllib.error.URLError(socket.gaierror(socket.EAI_AGAIN,'try again'))))
++        self.assertTrue(retryable_network_error(ConnectionResetError('reset')))
++
++    def test_synthesis_retry_is_counted_without_replaying_tools(self):
++        from synthesis_agent.agent import SynthesisAgent
++        from tests.helpers import FakeSandbox, candidate_calls, call, example
++        client=self.client(); budget={'model_calls':0,'tool_calls':0}
++        messages=candidate_calls()+[call('self_check'),call('finish')]
++        bodies=[io.BytesIO(json.dumps({'choices':[{'message':m}],
++            'usage':{'prompt_tokens':10,'completion_tokens':4,'total_tokens':14}}).encode()) for m in messages]
++        with tempfile.TemporaryDirectory() as tmp, patch('synthesis_agent.agent.DockerSandbox',FakeSandbox), \
++             patch.object(client.opener,'open',side_effect=[TimeoutError('timeout'),*bodies]) as op, \
++             patch('synthesis_agent.client.time.sleep'):
++            result=SynthesisAgent(client.config,client).generate(*example(),Path(tmp)/'candidate',budget=budget)
++        self.assertEqual(result['status'],'candidate_generated')
++        self.assertEqual(op.call_count,7); self.assertEqual(budget['model_calls'],7)
++        self.assertEqual(result['budget_used']['model_calls']['used'],7)
++        self.assertEqual(budget['tool_calls'],6); self.assertEqual(budget['usage_unknown_attempts'],[1])
++        self.assertEqual(budget['token_usage']['total_tokens'],84)
++
++    def test_token_reservation_blocks_call_and_preserves_unknown(self):
++        client=self.client(); budget={'model_calls':1,'tool_calls':0,'max_total_tokens':1,
++                                     'token_usage_complete':False,'usage_unknown_attempts':[0],'unknown_token_reserve':1}
++        with patch.object(client.opener,'open') as op,self.assertRaises(BudgetExceeded):
++            self.accounted(client,budget,[],[])
++        op.assert_not_called(); self.assertFalse(budget['token_usage_complete'])

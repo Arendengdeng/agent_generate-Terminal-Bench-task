@@ -1,0 +1,8 @@
+--- before/test_behavior.py
++++ after/test_behavior.py
+@@ -11,4 +11,4 @@
+ def test_double():
+     result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)
+     assert result.returncode == 0
+-    assert isinstance(json.loads(result.stdout)['double'], int)
++    assert json.loads(result.stdout) == {'value': 3, 'double': 6}

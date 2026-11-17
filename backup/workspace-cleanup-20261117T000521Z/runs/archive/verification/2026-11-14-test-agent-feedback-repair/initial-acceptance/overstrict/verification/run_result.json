@@ -1,0 +1,237 @@
+{
+  "status": "completed",
+  "stage": "execution",
+  "independent_validation": true,
+  "end_to_end_validated": true,
+  "error": null,
+  "network_mode": "public",
+  "oracle": {
+    "status": "completed",
+    "reward": 1,
+    "process_exit_code": 0,
+    "trial_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/oracle/task__sHNVaqu",
+    "result_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/oracle/task__sHNVaqu/result.json",
+    "verifier_report_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/oracle/task__sHNVaqu/verifier/execution.json",
+    "log_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/oracle.stdout.log",
+    "error": null,
+    "wall_sec": 32.789
+  },
+  "nop": {
+    "status": "completed",
+    "reward": 0,
+    "process_exit_code": 0,
+    "trial_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/nop/task__GHjwzdu",
+    "result_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/nop/task__GHjwzdu/result.json",
+    "verifier_report_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/nop/task__GHjwzdu/verifier/execution.json",
+    "log_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/nop.stdout.log",
+    "error": null,
+    "wall_sec": 28.623
+  },
+  "known_correct": [
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/controls/correct",
+      "status": "completed",
+      "reward": 1,
+      "process_exit_code": 0,
+      "trial_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/known-000/known-000__exCCvBs",
+      "result_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/known-000/known-000__exCCvBs/result.json",
+      "verifier_report_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/known-000/known-000__exCCvBs/verifier/execution.json",
+      "log_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/known-000.stdout.log",
+      "error": null,
+      "wall_sec": 29.87
+    }
+  ],
+  "known_invalid": [
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/controls/invalid",
+      "status": "completed",
+      "reward": 0,
+      "process_exit_code": 0,
+      "trial_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/invalid-000/invalid-000__XRQkgrB",
+      "result_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/invalid-000/invalid-000__XRQkgrB/result.json",
+      "verifier_report_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/invalid-000/invalid-000__XRQkgrB/verifier/execution.json",
+      "log_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/invalid-000.stdout.log",
+      "error": null,
+      "wall_sec": 29.884
+    }
+  ],
+  "critical_issues": [],
+  "test_loop": {
+    "status": "passed",
+    "stop_reason": "docker_checks_passed",
+    "repairs": 1,
+    "max_repairs": 2,
+    "attempts": [
+      {
+        "index": 0,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/initial-tests",
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/000/execution/execution.json",
+        "status": "failed",
+        "repair_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+        "attribution": "test_defect",
+        "analysis": {
+          "requirement_id": "R2",
+          "contract_quote": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+          "test_path": "tests/test_behavior.py",
+          "line": "14",
+          "evidence_id": "known-000:test_behavior.py::test_double:call",
+          "explanation": "test_double compares the raw stdout to a fixed string with a particular field order and spacing, explicitly rejected by the Contract; the correct known-000 implementation outputs '{\"double\":6,\"value\":3}' and fails. The test must parse JSON and assert double==2*n for all n in [0,10], plus the 'exactly' keys constraint.",
+          "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+        },
+        "changes_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/changes.patch"
+      },
+      {
+        "index": 1,
+        "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/execution/execution.json",
+        "status": "passed"
+      }
+    ],
+    "comparison_matrix": [
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 1,
+        "outcome": "fail"
+      },
+      {
+        "version": 0,
+        "tests_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "oracle",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "nop",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "known-000",
+        "status": "completed",
+        "reward": 1,
+        "expected_reward": 1,
+        "outcome": "pass"
+      },
+      {
+        "version": 1,
+        "tests_digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+        "implementation": "invalid-000",
+        "status": "completed",
+        "reward": 0,
+        "expected_reward": 0,
+        "outcome": "fail"
+      }
+    ],
+    "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+    "budget_used": {
+      "model_calls": 8,
+      "tool_calls": 11,
+      "token_usage": {
+        "prompt_tokens": 56736,
+        "completion_tokens": 873,
+        "total_tokens": 57609
+      }
+    },
+    "cost": {
+      "wall_sec": 58.274,
+      "token_usage": {
+        "prompt_tokens": 56736,
+        "completion_tokens": 873,
+        "total_tokens": 57609
+      },
+      "executions": 8
+    }
+  },
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/attempts/001/test-agent",
+  "task_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/export/task",
+  "harbor_gate": "passed",
+  "harbor_version": "0.25.0",
+  "basic_checks_passed": true,
+  "limitation": "Oracle/Nop and supplied correct controls only; test repairs do not prove semantic correctness, difficulty or robustness.",
+  "controller_decision": {
+    "decision": "accept",
+    "action": "accept",
+    "reason_code": "BASIC_CHECKS_PASSED",
+    "reasons": [
+      "All current basic checks passed."
+    ],
+    "responsible_module": null,
+    "investigate_modules": [],
+    "diagnostics": [],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/run_result.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/static_check.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/preflight.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/export/package.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/export/export.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/test-loop.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/oracle/task__sHNVaqu/result.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/oracle/task__sHNVaqu/verifier/execution.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/oracle.stdout.log",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/nop/task__GHjwzdu/result.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/nop/task__GHjwzdu/verifier/execution.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/nop.stdout.log",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/known-000/known-000__exCCvBs/result.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/known-000/known-000__exCCvBs/verifier/execution.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/known-000.stdout.log",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/invalid-000/invalid-000__XRQkgrB/result.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/jobs/invalid-000/invalid-000__XRQkgrB/verifier/execution.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/invalid-000.stdout.log"
+    ],
+    "task_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/export/task",
+    "limitation": "Acceptance covers current basic checks only, not test sufficiency, difficulty or publication readiness."
+  },
+  "decision_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/decision.json",
+  "cost": {
+    "wall_sec": 182.005,
+    "model_calls": 8,
+    "tool_calls": 11,
+    "token_usage": {
+      "prompt_tokens": 56736,
+      "completion_tokens": 873,
+      "total_tokens": 57609
+    }
+  },
+  "comparison_matrix_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step1-acceptance-20261114/overstrict/verification/comparison-matrix.json"
+}

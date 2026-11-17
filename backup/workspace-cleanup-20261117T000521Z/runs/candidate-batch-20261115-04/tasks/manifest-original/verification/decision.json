@@ -1,0 +1,96 @@
+{
+  "decision": "error",
+  "action": "investigate",
+  "reason_code": "CHALLENGE_INCOMPLETE",
+  "reasons": [
+    "Challenge search, attribution or regression has not completed.",
+    "Pipeline failed or was cancelled."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "CHALLENGE_INCOMPLETE",
+      "message": "Challenge search, attribution or regression has not completed.",
+      "details": {
+        "status": "error",
+        "samples": [],
+        "unresolved": [],
+        "repairs": 0,
+        "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/challenge/frozen-tests",
+        "initial_tests_digest": "c13e2a64dd1d081005ce920abfd79b800d4e9ddc7c86c6101c9427a57c4450b5",
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/challenge/frozen-tests",
+        "input_manifest": {
+          "inputs/contract.json": "8922b24de5006054fddbc6a7cf0f5c898a8c98fdd757306a46c13800d4bb9433",
+          "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+          "inputs/environment/app/sample/release/README.txt": "b67d0928909b90767a3be258e96348c4d1391efb998202ca82bf45d886f391a6",
+          "inputs/environment/app/sample/release/assets/fonts/readme.md": "0abbd0c0884225cc0e5b417a8123a196e2ed9317b7003daf0e4679ad1d779817",
+          "inputs/environment/app/sample/release/notes.txt": "a3a60d91a8c8a8cc8e6cf6b65959d2894b5c8c86bc7fbeb13fce7b731cc03ea5",
+          "inputs/environment/app/sample/release/patch notes.txt": "2bde51b7e799e9604b6ab436ccfaaca102b109446b91551c2bc226c09e4f693a",
+          "inputs/environment/app/sample/release/readme.md": "f7b8f6b4939711c973888537901df445c2bf4f38866e5646274c7484ba9f9cbb",
+          "inputs/environment/app/sample/release/Überblick.md": "a1f4b3b4c74dfd93dcbda1e88506d7b70335997456cffcb4ddff4c1532d015cc",
+          "inputs/environment/app/src/manifest.py": "2810024db4f3083ec5c0b365b27ab7d8797200396797a391c27371b55df25790",
+          "inputs/environment/app/src/walker.py": "aff3c0ac84d2486e1cac1ab9d7ac5b281cbeffd840defba509e70dbdb9b16371",
+          "inputs/instruction.md": "cc14de8a6379a27ed972a9e319a10a9e9678ba06414f103d7cecef36d33cb557"
+        },
+        "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/candidate",
+        "comparison_matrix": [],
+        "supplied_invalid_count": 1,
+        "search_status": "error",
+        "evidence_manifest": {
+          "controls/known-000/solve.sh": "da60a1918352d1af051b99ad84595c0fd8d9a0052c2373d0703ba3b3669242f8",
+          "frozen-tests/tests/test_manifest.py": "a6a85798a07849de67354241382f7261c7c0d52a3c4149ac5bfcfc17c964eb02",
+          "frozen-tests/tests.json": "fcd89c875f74e6ff94227b867212f0e16d3d1a880a1a6837be8e54dd3cfdf6ed",
+          "search/challenge.json": "e004cb492a8f59a8274f37a18d12541f16b909df329e4b87d284c060965e724c",
+          "search/trace.jsonl": "99fbf9cfe66332a2890565b91fe60f28fc4e36259f189140aec2890582d94bcd"
+        },
+        "known_correct": [
+          {
+            "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/challenge/controls/known-000",
+            "manifest": {
+              "solve.sh": "da60a1918352d1af051b99ad84595c0fd8d9a0052c2373d0703ba3b3669242f8"
+            }
+          }
+        ],
+        "stop_reason": "BudgetExceeded",
+        "budget_used": {
+          "model_calls": 40,
+          "tool_calls": 49,
+          "token_usage": {
+            "prompt_tokens": 439890,
+            "completion_tokens": 10233,
+            "total_tokens": 450123
+          }
+        },
+        "review_queue": []
+      },
+      "investigate_modules": []
+    },
+    {
+      "code": "PIPELINE_ERROR",
+      "message": "Pipeline failed or was cancelled.",
+      "details": {
+        "stage": "challenge",
+        "status": "error",
+        "error": {
+          "type": "CHALLENGE_INCOMPLETE",
+          "message": "BudgetExceeded"
+        }
+      },
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/control-panel.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/manifest-original/verification/challenge/challenge-report.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

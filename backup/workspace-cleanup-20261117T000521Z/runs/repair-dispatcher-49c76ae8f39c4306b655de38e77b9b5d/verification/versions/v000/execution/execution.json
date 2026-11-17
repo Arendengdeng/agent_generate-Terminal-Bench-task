@@ -1,0 +1,270 @@
+{
+  "status": "failed",
+  "error": null,
+  "trials": [
+    {
+      "label": "oracle",
+      "expected_reward": 1,
+      "status": "completed",
+      "reward": 0,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00011133400039398111,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_behavior.py",
+                "line": 6,
+                "source": "    assert result.stdout == b'43\\n'"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.019470483999612043,
+          "commands": [
+            {
+              "nodeid": "test_behavior.py::test_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "42\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00018178699974669144,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/step2-2/runs/repair-dispatcher-49c76ae8f39c4306b655de38e77b9b5d/verification/versions/v000/execution/oracle/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+        "/solution/solve.sh": "c20af87cc90be56fae585f844e4a95c5e73e9dc94fe45512e0c588b649404758"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "58a44735ffdfa6b14977516ad6e6e642d477999cd361537028f2d6b99e07ad68"
+      },
+      "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________________ test_output __________________________________\n\n    def test_output():\n        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == b'43\\n'\nE       AssertionError: assert b'42\\n' == b'43\\n'\nE         \nE         At index 1 diff: b'2' != b'3'\nE         Use -v to get more diff\n\ntest_behavior.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_output - AssertionError: assert b'42\\n' == b'43\\n'\n1 failed in 0.05s\n",
+      "stderr": "",
+      "pytest_exit_code": 1,
+      "outcome": "fail",
+      "wall_sec": 4.278,
+      "attribution": "uncertain"
+    },
+    {
+      "label": "nop",
+      "expected_reward": 0,
+      "status": "completed",
+      "reward": 0,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00010133100113307592,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert b'broken\\n' == b'43\\n'\n  \n  At index 0 diff: b'b' != b'4'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_behavior.py",
+                "line": 6,
+                "source": "    assert result.stdout == b'43\\n'"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.02095302500129037,
+          "commands": [
+            {
+              "nodeid": "test_behavior.py::test_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "broken\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00013692200082005002,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/step2-2/runs/repair-dispatcher-49c76ae8f39c4306b655de38e77b9b5d/verification/versions/v000/execution/nop/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13"
+      },
+      "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________________ test_output __________________________________\n\n    def test_output():\n        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == b'43\\n'\nE       AssertionError: assert b'broken\\n' == b'43\\n'\nE         \nE         At index 0 diff: b'b' != b'4'\nE         Use -v to get more diff\n\ntest_behavior.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_output - AssertionError: assert b'broken\\n' == ...\n1 failed in 0.05s\n",
+      "stderr": "",
+      "pytest_exit_code": 1,
+      "outcome": "fail",
+      "wall_sec": 4.094,
+      "attribution": "uncertain"
+    },
+    {
+      "label": "known-000",
+      "expected_reward": 1,
+      "status": "completed",
+      "reward": 0,
+      "error": null,
+      "reports": [
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "setup",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.0001317530004598666,
+          "commands": [],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "call",
+          "outcome": "failed",
+          "task_assertion": true,
+          "exception": {
+            "type": "AssertionError",
+            "message": "assert b'42\\n' == b'43\\n'\n  \n  At index 1 diff: b'2' != b'3'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_behavior.py",
+                "line": 6,
+                "source": "    assert result.stdout == b'43\\n'"
+              }
+            ]
+          },
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.020627678000892047,
+          "commands": [
+            {
+              "nodeid": "test_behavior.py::test_output",
+              "status": "completed",
+              "returncode": 0,
+              "stdout": "42\n",
+              "stderr": ""
+            }
+          ],
+          "xfail": false
+        },
+        {
+          "nodeid": "test_behavior.py::test_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "task_assertion": false,
+          "exception": null,
+          "stdout": "",
+          "stderr": "",
+          "duration_sec": 0.00020904099983454216,
+          "commands": [],
+          "xfail": false
+        }
+      ],
+      "execution_path": "/home/zyl/projects/step2-2/runs/repair-dispatcher-49c76ae8f39c4306b655de38e77b9b5d/verification/versions/v000/execution/known-000/execution.json",
+      "implementation_manifest": {
+        "/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+        "/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+        "/solution/solve.sh": "898c37d13c8b557071ab255d3948d4f0f08f7225775865b9ac8bf20138d4b4e7"
+      },
+      "artifact_manifest": {
+        "/app/clean.py": "58a44735ffdfa6b14977516ad6e6e642d477999cd361537028f2d6b99e07ad68"
+      },
+      "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________________ test_output __________________________________\n\n    def test_output():\n        result = subprocess.run(['python3', '/app/clean.py'], capture_output=True, timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == b'43\\n'\nE       AssertionError: assert b'42\\n' == b'43\\n'\nE         \nE         At index 1 diff: b'2' != b'3'\nE         Use -v to get more diff\n\ntest_behavior.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_output - AssertionError: assert b'42\\n' == b'43\\n'\n1 failed in 0.05s\n",
+      "stderr": "",
+      "pytest_exit_code": 1,
+      "outcome": "fail",
+      "wall_sec": 4.239,
+      "attribution": "uncertain"
+    }
+  ],
+  "input_manifest": {
+    "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+    "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+    "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+  },
+  "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+  "nodeids": [
+    "test_behavior.py::test_output"
+  ],
+  "suite_timeout_sec": 120,
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Print 42 and exit successfully."
+    }
+  ],
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_output"
+      ]
+    }
+  ],
+  "images": {
+    "task": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+    "verifier": "sha256:91dc2a8b5d5f5158c728bdd70dc7462f45db9d74e438a8a1b8a4a09dabd5ed35"
+  },
+  "wall_sec": 17.259
+}

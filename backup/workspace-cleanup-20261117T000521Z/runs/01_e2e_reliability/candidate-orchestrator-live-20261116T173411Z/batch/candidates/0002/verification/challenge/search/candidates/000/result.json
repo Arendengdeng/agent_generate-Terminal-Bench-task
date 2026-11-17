@@ -1,0 +1,11 @@
+{
+  "id": "000",
+  "status": "unconfirmed",
+  "violation_status": "unconfirmed",
+  "requirement_id": "R1",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/solution",
+  "solution_digest": "0ad3af56e575919c121876c0c42a2ea30c1bb65c81d806e8e9b651833ef7a059",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/witness.json",
+  "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "reason": "Ambiguity: the fixture writes to \"$WORK/out/target.csv\", but the output directory \"out\" is only created implicitly through a fixture entry (\"out/.keep\"). The Contract/observation semantics do not state that parent directories of fixture paths are created, nor does any Requirement obligate clean.py to create missing parent directories. Thus the exit_code assertion (0) and the file assertion depend on an unguaranteed precondition; a correct implementation that expects an existing output directory could fail, and the witness provides no guaranteed mechanism to create it. (The dedup/normalization expectations themselves are consistent with R1/R2, and the unchanged-input assertion follows from R4, but the directory-creation uncertainty makes the whole witness unconfirmed.)"
+}

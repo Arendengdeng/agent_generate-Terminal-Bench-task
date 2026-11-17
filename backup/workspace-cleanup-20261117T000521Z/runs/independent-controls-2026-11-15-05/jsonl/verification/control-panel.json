@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+  "controls": [
+    {
+      "id": "known-000",
+      "group": "feedback",
+      "role": "correct",
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/feedback-correct",
+      "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/controls/known-000",
+      "implementation_digest": "92d545b6e1a6f0fe2ff9d3db95bd3970e3f3fe5e078d39fd238db7d35be2afd0",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 0 violations.",
+        "requirement_ids": [
+          "R1",
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/feedback-correct-review.json"
+        ]
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/control-reviews/known-000/000.txt",
+          "sha256": "d3848844dbd990b300a11df7372ecd16a80ecd22d6b43f4981760abbab0f92bf"
+        }
+      ]
+    },
+    {
+      "id": "holdout-correct-000",
+      "group": "holdout",
+      "role": "correct",
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/holdout-correct",
+      "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/controls/holdout-correct-000",
+      "implementation_digest": "cb4efbfdb5ebc0f647fb1c14eac2a850ba89259431f8f25839dfd14716f4e9c8",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 0 violations.",
+        "requirement_ids": [
+          "R1",
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/holdout-correct-review.json"
+        ]
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/control-reviews/holdout-correct-000/000.txt",
+          "sha256": "0d7070d89a627c8c49d30d3da1dffe29b485757264f3c77aa9bce61cfe362b2b"
+        }
+      ]
+    },
+    {
+      "id": "invalid-000",
+      "group": "feedback",
+      "role": "invalid",
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/feedback-invalid",
+      "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/controls/invalid-000",
+      "implementation_digest": "b80d4781837fa03061c0ac92060ef84b3983348c3a7a2df0af9106aa51b352c3",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 39 violations.",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/feedback-invalid-review.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py"
+          ],
+          "stdin": "-1\n",
+          "expected": {
+            "count": 1,
+            "sum": -1
+          },
+          "observed": {
+            "count": 0,
+            "sum": -1
+          }
+        }
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/control-reviews/invalid-000/000.txt",
+          "sha256": "4b3e354cffd32d0d085eb901b7eef948cadd39f5e6968b131d3c73c217b5321a"
+        }
+      ]
+    },
+    {
+      "id": "holdout-invalid-000",
+      "group": "holdout",
+      "role": "invalid",
+      "source": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/holdout-invalid",
+      "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/controls/holdout-invalid-000",
+      "implementation_digest": "9dd86f562afd45e27b3d3f26f6783d09ce3115e4870e8062995404b0b031b512",
+      "contract_digest": "c05830d0bdb012e00d7917918ebde694f5c2aa4cb162651c4c325777272fa593",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex Contract source inspection",
+        "method": "contract-source-review-and-exhaustive-reference-check",
+        "rationale": "Checked 40 inputs independently of evaluated tests and Oracle; 25 violations.",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/reviews/holdout-invalid-review.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py"
+          ],
+          "stdin": "-1\n",
+          "expected": {
+            "count": 1,
+            "sum": -1
+          },
+          "observed": {
+            "count": 1,
+            "sum": 1
+          }
+        }
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/jsonl/verification/control-reviews/holdout-invalid-000/000.txt",
+          "sha256": "a6d5fd757e2e3d20dae6ab5f79897129e693656a4c91c0e79a943aa3c38cfeec"
+        }
+      ]
+    }
+  ]
+}

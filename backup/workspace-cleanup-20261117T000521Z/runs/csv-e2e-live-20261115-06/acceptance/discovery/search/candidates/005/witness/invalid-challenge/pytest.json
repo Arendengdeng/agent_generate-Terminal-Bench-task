@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "results": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012637300005735597,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x7fa6992a02b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 47,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-wmyp_wo0/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"json_file\", \"path\": [\"out.csv\"], \"value\": [[\"email\", \"name\"], [\"a@b.c\", \"Solo, One\"]]}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.03646846099991308,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/witness-wmyp_wo0/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-wmyp_wo0/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"json_file\", \"path\": [\"out.csv\"], \"value\": [[\"email\", \"name\"], [\"a@b.c\", \"Solo, One\"]]}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00018453999996381754,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "a5a1d2de30fb580faa502f91e9fedc0638daa80080c5051b2f597b528edb32d0"
+  },
+  "wall_sec": 0.200698
+}

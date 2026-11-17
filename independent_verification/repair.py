@@ -16,7 +16,7 @@ from .attribution import UnconfirmedAttribution, verify_test_diagnosis, verify_t
 from .candidate import CandidateTask, check_candidate
 from .common import new_directory, write_json
 from .controller import decide, report_paths
-from .docker_test_runner import DockerTestRunner, model_feedback
+from .docker_test_runner import DockerTestRunner
 from .exporter import load_tests
 
 
@@ -78,11 +78,11 @@ class RepairDispatcher:
 
     def run(self, candidate_path, output, *, tests_output=None, max_repairs=2,
             known_correct=(), known_invalid=(), critical_issues=(), harbor_python=None,
-            holdout_correct=(), holdout_invalid=(), controls_manifest=None):
+            holdout_correct=(), holdout_invalid=(), controls_manifest=None, budget=None):
         if type(max_repairs) is not int or max_repairs < 0:
             raise ValueError('max_repairs must be a nonnegative integer')
         root = new_directory(output)
-        budget = {'model_calls': 0, 'tool_calls': 0}
+        budget = budget if budget is not None else {'model_calls': 0, 'tool_calls': 0}
         history = {'status': 'running', 'stop_reason': None, 'repairs': 0,
                    'max_repairs': max_repairs, 'versions': [], 'attempts': [],
                    'unresolved_issues': copy.deepcopy(list(critical_issues)), 'resolved_issues': [],
@@ -141,7 +141,7 @@ class RepairDispatcher:
                 write_json(current_tests / 'tests.json', metadata)
             while True:
                 work = root / 'versions' / f'v{version:03d}'
-                static = check_candidate(candidate)
+                static = check_candidate(candidate, self.config)
                 write_json(work / 'static_check.json', static)
                 if static['status'] == 'passed':
                     for issue in history['unresolved_issues']:
@@ -182,21 +182,18 @@ class RepairDispatcher:
                         if execution['status'] != 'failed':
                             stop('execution_error', 'cancelled' if execution['status'] == 'cancelled' else 'error')
                             break
-                        feedback = model_feedback(execution)
-                        from .json_attribution import supported_diagnoses
-                        supported_locations = supported_diagnoses(candidate, current_tests, execution, self.config)
-                        if supported_locations:
-                            feedback['host_supported_diagnoses'] = supported_locations
+                        history['unresolved_issues'] = [{'id': 'execution', 'message': 'Execution failure has no confirmed attribution',
+                                                         'evidence_paths': [row['execution_path']]}]
                         if not known_correct or not known_invalid:
                             stop('test_repair_requires_legal_and_invalid_controls')
                             break
+                        from .diagnosis import prepare_feedback
+                        feedback = prepare_feedback(candidate, current_tests, execution, self.config)
                         if feedback['repair_permission'] == 'analysis_only' and not issues:
                             stop('unattributed_execution_failure')
                             history['unresolved_issues'] = [{'id': 'execution', 'message': 'Oracle failure alone has no attribution',
                                                             'evidence_paths': [row['execution_path']]}]
                             break
-                        history['unresolved_issues'] = [{'id': 'execution', 'message': 'Execution failure has no confirmed attribution',
-                                                         'evidence_paths': [row['execution_path']]}]
                         if not issues:
                             self._check_budget(budget)
                             if history['repairs'] >= max_repairs:

@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "R1 要求 CLI 用两个位置参数，成功时退出码为 0，并写出规范 CSV。用两个合法位置参数调用、输入是合法 UTF-8 CSV（表头 email,name，email 去空白后非空且仅 ASCII），进程必须退出码 0 并写出规范 CSV。输入含内嵌引号与逗号的姓名、大小写/空白不同的重复邮箱。规范输出：表头加去重后的首条记录，姓名按标准 CSV 转义写出（内嵌双引号翻倍），即 \"He said \"\"hi\"\", ok\" 与 \"A\\\\tB\" 等内部空白保持。本断言完全由 Contract 的 output_spec 推导，不硬编码样例。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C,\"He said \"\"hi\"\", ok\"\n a@b.c,Dup\nZ@Y.com,  A\tB  \n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\na@b.c,\"He said \"\"hi\"\", ok\"\nz@y.com,A\tB\n"
+    }
+  ]
+}

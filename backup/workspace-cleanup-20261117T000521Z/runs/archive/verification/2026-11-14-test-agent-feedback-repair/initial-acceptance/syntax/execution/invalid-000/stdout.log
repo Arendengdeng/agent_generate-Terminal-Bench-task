@@ -1,0 +1,27 @@
+..FF..                                                                   [100%]
+=================================== FAILURES ===================================
+_________________________ test_r2_double_all_permitted _________________________
+
+    def test_r2_double_all_permitted():
+        for n in range(0, 11):
+            obj = run(n)
+            assert "double" in obj, f"missing 'double' for n={n}: {obj!r}"
+>           assert obj["double"] == 2 * n, f"double mismatch for n={n}: {obj!r}"
+E           AssertionError: double mismatch for n=1: {'value': 1, 'double': 1}
+E           assert 1 == (2 * 1)
+
+test_behavior.py:51: AssertionError
+__________________________ test_r2_double_boundaries ___________________________
+
+    def test_r2_double_boundaries():
+        for n in (0, 10):
+            obj = run(n)
+>           assert obj["double"] == 2 * n, f"double mismatch for n={n}: {obj!r}"
+E           AssertionError: double mismatch for n=10: {'value': 10, 'double': 10}
+E           assert 10 == (2 * 10)
+
+test_behavior.py:57: AssertionError
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_r2_double_all_permitted - AssertionError: doubl...
+FAILED test_behavior.py::test_r2_double_boundaries - AssertionError: double m...
+2 failed, 4 passed in 0.87s

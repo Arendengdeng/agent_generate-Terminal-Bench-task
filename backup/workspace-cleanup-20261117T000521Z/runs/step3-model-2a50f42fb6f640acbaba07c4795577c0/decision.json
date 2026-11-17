@@ -1,0 +1,93 @@
+{
+  "decision": "needs_review",
+  "action": "investigate",
+  "reason_code": "TEST_LOOP_NEEDS_REVIEW",
+  "reasons": [
+    "Test repair stopped without passing the Docker gate."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [
+    "tests",
+    "solution",
+    "environment",
+    "contract"
+  ],
+  "diagnostics": [
+    {
+      "code": "TEST_LOOP_NEEDS_REVIEW",
+      "message": "Test repair stopped without passing the Docker gate.",
+      "details": {
+        "status": "needs_review",
+        "stop_reason": "test_repair_requires_legal_and_invalid_controls",
+        "repairs": 0,
+        "max_repairs": 2,
+        "attempts": [
+          {
+            "index": 0,
+            "tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/test-agent",
+            "tests_digest": "270d2bda79ec5fa7b05e855ea5ee2c0d891c453c9070ec624e80adc414e6310d",
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/attempts/000/execution/execution.json",
+            "status": "failed"
+          }
+        ],
+        "comparison_matrix": [
+          {
+            "version": 0,
+            "tests_digest": "270d2bda79ec5fa7b05e855ea5ee2c0d891c453c9070ec624e80adc414e6310d",
+            "implementation": "oracle",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 1,
+            "outcome": "fail"
+          },
+          {
+            "version": 0,
+            "tests_digest": "270d2bda79ec5fa7b05e855ea5ee2c0d891c453c9070ec624e80adc414e6310d",
+            "implementation": "nop",
+            "status": "completed",
+            "reward": 0,
+            "expected_reward": 0,
+            "outcome": "fail"
+          }
+        ],
+        "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/test-agent",
+        "budget_used": {
+          "model_calls": 6,
+          "tool_calls": 9,
+          "token_usage": {
+            "prompt_tokens": 23203,
+            "completion_tokens": 2371,
+            "total_tokens": 25574
+          }
+        },
+        "cost": {
+          "wall_sec": 16.169,
+          "token_usage": {
+            "prompt_tokens": 23203,
+            "completion_tokens": 2371,
+            "total_tokens": 25574
+          },
+          "executions": 2
+        }
+      },
+      "investigate_modules": [
+        "tests",
+        "solution",
+        "environment",
+        "contract"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/test-loop.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/step3-model-2a50f42fb6f640acbaba07c4795577c0/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

@@ -1,0 +1,27 @@
+{
+  "objective": "Compute a value and its double.",
+  "workspace": "/app",
+  "command": "python /app/clean.py <n>",
+  "input_spec": "Integer n in [0,1000000].",
+  "output_spec": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+  "deliverables": {
+    "artifact_paths": [
+      "/app/clean.py"
+    ],
+    "allowed_dependencies": "python-stdlib",
+    "allow_additional_files": false
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "For every integer n in [0,1000000], exit 0 and output JSON with value equal to n."
+    },
+    {
+      "id": "R2",
+      "description": "For every integer n in [0,1000000], the JSON double field equals 2*n."
+    }
+  ],
+  "limits": {
+    "command_timeout_sec": 5
+  }
+}

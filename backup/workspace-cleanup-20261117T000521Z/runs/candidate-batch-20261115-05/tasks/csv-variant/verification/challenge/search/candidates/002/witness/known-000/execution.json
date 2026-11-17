@@ -1,0 +1,91 @@
+{
+  "label": "known-000",
+  "expected_reward": 1,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 9.61540008574957e-05,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x74cbd14182b0>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 47,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"json_file\", \"path\": [\"out.csv\"], \"value\": [[\"email\", \"name\"], [\"a@e.com\", \"Ann\"], [\"b@e.com\", \"Bee\"]]}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.026839823999580403,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"json_file\", \"path\": [\"out.csv\"], \"value\": [[\"email\", \"name\"], [\"a@e.com\", \"Ann\"], [\"b@e.com\", \"Bee\"]]}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00014375699993252056,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/csv-variant/verification/challenge/search/candidates/002/witness/known-000/execution.json",
+  "implementation_manifest": {
+    "/app/sample_customers.csv": "4a2faf1bacdbd7f276a48a7eec0909f1df3fdcb954f4ff9fe506107cc17a2906",
+    "/app/clean.py": "4f45f1a8add32fd93f5630fb8ef9008269452da30c978865823e1ddf8c33b295",
+    "/solution/solve.sh": "78fb3c3b32b59767bf41c95a8dd953b79f6ada6c6ca77d2461b9359f341f9fed"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_contract_witness.py": "d1dcf9ab07cadc1784c4ff259e1f92c1df11a15c80749a114d211064d579168b"
+  },
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________________________ test_contract_witness _____________________________\n\n    def test_contract_witness():\n        with tempfile.TemporaryDirectory(prefix='witness-') as directory:\n            root = pathlib.Path(directory)\n            for name, content in SPEC['fixtures'].items():\n                path = root / name\n                path.parent.mkdir(parents=True, exist_ok=True)\n                path.write_text(content)\n            proc = subprocess.run([a.replace('$WORK', directory) for a in SPEC['argv']],\n                                  input=SPEC['stdin'], capture_output=True, text=True, timeout=TIMEOUT)\n            observed = {'exit_code': proc.returncode, 'stdout': proc.stdout, 'stderr': proc.stderr}\n            checks = []\n            for assertion in SPEC['assertions']:\n                source, path = assertion['source'], assertion['path']\n                try:\n                    if source == 'json':\n                        actual = json.loads(proc.stdout)\n                        for key in path:\n                            actual = actual[key]\n                    elif source == 'json_file':\n                        target = root / path[0]\n                        if not target.resolve().is_relative_to(root.resolve()):\n                            raise ValueError('output escaped fixture directory')\n                        actual = json.loads(target.read_text(encoding='utf-8'))\n                        for key in path[1:]:\n                            actual = actual[key]\n                    elif source in ('file', 'unchanged'):\n                        target = root / path\n                        if not target.resolve().is_relative_to(root.resolve()):\n                            raise ValueError('output escaped fixture directory')\n                        actual = target.read_text()\n                        if source == 'unchanged':\n                            actual = actual == SPEC['fixtures'][path]\n                    else:\n                        actual = observed[source]\n                    checks.append({'assertion': assertion, 'actual': actual,\n                                   'passed': type(actual) is type(assertion['value']) and actual == assertion['value']})\n                except (ValueError, KeyError, IndexError, TypeError, OSError) as exc:\n                    checks.append({'assertion': assertion, 'actual_error': type(exc).__name__, 'passed': False})\n            observed['checks'] = checks\n            print('WITNESS_OBSERVATION=' + json.dumps(observed))\n>           assert all(c['passed'] for c in checks), 'Contract behavior witness failed'\nE           AssertionError: Contract behavior witness failed\nE           assert False\nE            +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x74cbd14182b0>)\n\ntest_contract_witness.py:47: AssertionError\n----------------------------- Captured stdout call -----------------------------\nWITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"json_file\", \"path\": [\"out.csv\"], \"value\": [[\"email\", \"name\"], [\"a@e.com\", \"Ann\"], [\"b@e.com\", \"Bee\"]]}, \"actual_error\": \"JSONDecodeError\", \"passed\": false}]}\n=========================== short test summary info ============================\nFAILED test_contract_witness.py::test_contract_witness - AssertionError: Cont...\n1 failed in 0.05s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "20a0c394fc3b1bfade75381c9c8db1395ef784123163d672e4790c771badbc45",
+  "outcome": "fail",
+  "wall_sec": 4.798,
+  "attribution": "uncertain"
+}

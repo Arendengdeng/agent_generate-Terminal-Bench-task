@@ -1,0 +1,28 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "R2 requires dedup on the normalized email and preservation of that normalized email in the output; per output_spec the email is only stripped of leading/trailing whitespace and lowercased, with no other character removal (input emails are ASCII). The replacement additionally strips zero-width characters from the email, so an input email containing U+200B is emitted shortened and, worse, two distinct emails ('a@x.com' and 'a\\u200b@x.com' after trimming) collapse into one record, dropping a legitimate customer. The expected canonical output therefore keeps both records with their emails unchanged apart from strip/lower; the frozen suite never exercises zero-width characters.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\na@x.com,Plain\na\\u200b@x.com,Zero Width\n",
+    "out.csv": ""
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\na@x.com,Plain\na​@x.com,Zero Width\n"
+    }
+  ]
+}

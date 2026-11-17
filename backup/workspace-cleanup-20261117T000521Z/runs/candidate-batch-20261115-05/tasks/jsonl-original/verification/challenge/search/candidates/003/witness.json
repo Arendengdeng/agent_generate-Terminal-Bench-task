@@ -1,0 +1,53 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。",
+  "rationale": "R4 requires the input file not be modified and limits the deliverable to summarize.py using only the standard library. Using only the Contract command form and standard-library Python, the run over an input file must leave that input file byte-identical. The assertions check exit code 0, the Contract-mandated JSON output for the given records, and that the input fixture is unchanged after the run.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"b\", \"level\": \"INFO\", \"duration_ms\": 0}\n{\"service\": \"a\", \"level\": \"ERROR\", \"duration_ms\": 5}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 2}\n{\"service\": \"a\", \"level\": \"INFO\", \"duration_ms\": 3}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.json"
+      ],
+      "value": [
+        {
+          "service": "a",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "a",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 5
+        },
+        {
+          "service": "b",
+          "level": "INFO",
+          "count": 1,
+          "total_duration_ms": 0
+        }
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.jsonl",
+      "value": true
+    }
+  ]
+}

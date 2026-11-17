@@ -1,0 +1,38 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "Contract R4 requires that the tool not modify input files; the input_spec defines the input as a CSV file with header email,name and data records, and output_spec defines the only required output as the normalized CSV at the output path. Any other input-side file (e.g. a name sidecar JSON in the input directory) is part of the input dataset and must be left byte-identical; the tool must only read the input CSV and write the output CSV. The delivered CLI additionally rewrites/creates .cache/names.json inside the working directory, so the input dataset is modified, violating R4. Expected behavior: exit 0, the normalized output CSV is written, and the pre-existing sidecar file and the input CSV remain byte-for-byte unchanged (and no extra files appear).",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  First@Mail.COM ,  First Name  \nfirst@mail.com,Other\n",
+    ".cache/names.json": "[\"stale\"]\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nfirst@mail.com,First Name\n"
+    },
+    {
+      "source": "unchanged",
+      "path": ".cache/names.json",
+      "value": true
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

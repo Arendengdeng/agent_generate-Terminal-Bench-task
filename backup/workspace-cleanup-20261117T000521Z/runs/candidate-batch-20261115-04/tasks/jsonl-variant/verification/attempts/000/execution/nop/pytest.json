@@ -1,0 +1,1238 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_summarize.py::test_r1_instruction_sample",
+    "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+    "test_summarize.py::test_r1_output_parses_as_utf8_json",
+    "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+    "test_summarize.py::test_r2_grouping_across_levels",
+    "test_summarize.py::test_r2_identical_duplicate_records_counted",
+    "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+    "test_summarize.py::test_r2_group_by_service_not_level",
+    "test_summarize.py::test_r2_zero_durations",
+    "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+    "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+    "test_summarize.py::test_r2_large_durations_exact",
+    "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+    "test_summarize.py::test_r3_only_present_groups",
+    "test_summarize.py::test_r3_empty_file_returns_empty_array",
+    "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+    "test_summarize.py::test_r3_repeat_runs_identical_output",
+    "test_summarize.py::test_r3_input_without_trailing_newline",
+    "test_summarize.py::test_r3_single_line_input",
+    "test_summarize.py::test_r4_input_file_unmodified",
+    "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+    "test_summarize.py::test_r4_runs_without_site_packages",
+    "test_summarize.py::test_r4_no_extra_deliverable_files_in_app"
+  ],
+  "results": [
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.003521380996971857,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 9, ...}] == [{'service': ...ation_ms': 9}]\n  \n  At index 0 diff: {'service': 'alpha', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7} != {'service': 'alpha', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7}\n  Left contains one more item: {'service': 'beta', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 9, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 108,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05232998900464736,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_instruction_sample",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_instruction_sample",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019543999951565638,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0010033759972429834,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert (True and 3 == 1)\n +  where True = isinstance([{'service': 'svc', 'level': 'INFO', 'count': 1, 'total_duration_ms': 3, ...}, {'service': 'svc', 'level': 'WARN', 'count': 1, 'total_duration_ms': 4, ...}, {'service': 'svc', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0, ...}], list)\n +  and   3 = len([{'service': 'svc', 'level': 'INFO', 'count': 1, 'total_duration_ms': 3, ...}, {'service': 'svc', 'level': 'WARN', 'count': 1, 'total_duration_ms': 4, ...}, {'service': 'svc', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0, ...}])",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 119,
+            "source": "    assert isinstance(data, list) and len(data) == 1"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.047827285998209845,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_exact_keys_and_integer_types",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002761709984042682,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009984819989767857,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: 'alpha' != '服务-乙'\n  Left contains 2 more items, first extra item: '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 141,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.053681022000091616,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_output_parses_as_utf8_json",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001878019975265488,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007154780032578856,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]\n  \n  At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'api', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 158,
+            "source": "    assert json.loads(out.read_text(encoding=\"utf-8\")) == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04996290700364625,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004698590055340901,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006612200013478287,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "duplicate service entry: 'a'\nassert 'a' not in {'a': {'service': 'a', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, ...}}",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 177,
+            "source": "    got = by_service(data)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 82,
+            "source": "        assert obj[\"service\"] not in result, f\"duplicate service entry: {obj['service']!r}\""
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.053099969001777936,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_grouping_across_levels",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00025247499434044585,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008104369990178384,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...ms': 28, ...}] == [{'service': ...ation_ms': 7}]\n  \n  At index 0 diff: {'service': 'dup', 'level': 'INFO', 'count': 4, 'total_duration_ms': 28, 'max_duration_ms': 7} != {'service': 'dup', 'count': 4, 'total_duration_ms': 28, 'max_duration_ms': 7}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 195,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.048278169000695925,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_identical_duplicate_records_counted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00032163300056708977,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.001077736000297591,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 5}]\n  \n  At index 0 diff: {'service': 'm', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'm', 'count': 3, 'total_duration_ms': 9, 'max_duration_ms': 5}\n  Left contains 2 more items, first extra item: {'service': 'm', 'level': 'WARN', 'count': 1, 'total_duration_ms': 1, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 205,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06120351600111462,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008145600004354492,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007860690020606853,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {'service': '...n_ms': 4, ...} == {'service': '...ration_ms': 3}\n  \n  Omitting 4 identical items, use -vv to show\n  Left contains 1 more item:\n  {'level': 'INFO'}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 217,
+            "source": "    assert got[\"s1\"] == {"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.054429900003015064,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_group_by_service_not_level",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002572029989096336,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008333179939654656,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "duplicate service entry: 'z'\nassert 'z' not in {'y': {'service': 'y', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0, ...}, 'z': {'service': 'z', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, ...}}",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 236,
+            "source": "    got = by_service(data)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 82,
+            "source": "        assert obj[\"service\"] not in result, f\"duplicate service entry: {obj['service']!r}\""
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05450101199676283,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_zero_durations",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_zero_durations",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016297100228257477,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007274649979081005,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...40, ...}, ...] == [{'service': ...ation_ms': 9}]\n  \n  At index 0 diff: {'service': 'Api', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'Api', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}\n  Left contains 5 more items, first extra item: {'service': 'db', 'level': 'WARN', 'count': 1, 'total_duration_ms': 40, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 254,
+            "source": "    assert data == agg(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05506705700099701,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00026163299480685964,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009531410032650456,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...01, ...}, ...] == [{'service': ...ion_ms': 990}]\n  \n  At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 67, 'total_duration_ms': 31702, 'max_duration_ms': 954} != {'service': 'api', 'count': 200, 'total_duration_ms': 100276, 'max_duration_ms': 996}\n  Left contains 10 more items, first extra item: {'service': 'cache', 'level': 'ERROR', 'count': 66, 'total_duration_ms': 32901, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 272,
+            "source": "    assert data == agg(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07844848300010199,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_maximum_input_size_1000_lines",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020870899606961757,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000789475001511164,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 1, ...}] == [{'service': ...000000000000}]\n  \n  At index 0 diff: {'service': 'big', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1000000000000000, 'max_duration_ms': 1000000000000000} != {'service': 'big', 'count': 3, 'total_duration_ms': 2000000000000001, 'max_duration_ms': 1000000000000000}\n  Left contains 2 more items, first extra item: {'service': 'big', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 1000000000000000, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 281,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07176497700129403,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r2_large_durations_exact",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003103259950876236,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008140190038830042,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06350588900386356,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_sorted_ascending_python_string_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002020090032601729,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008237399961217307,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 3}]\n  \n  At index 0 diff: {'service': 'only', 'level': 'WARN', 'count': 1, 'total_duration_ms': 3, 'max_duration_ms': 3} != {'service': 'only', 'count': 1, 'total_duration_ms': 3, 'max_duration_ms': 3}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 320,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04413344700151356,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_only_present_groups",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_only_present_groups",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023965699801919982,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006973919953452423,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04374414199992316,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_empty_file_returns_empty_array",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00025299299886683,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0009229089992004447,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: 'alpha' != '服务-乙'\n  Left contains 2 more items, first extra item: '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 333,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06847419199766591,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_unicode_fixture_grouping_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00026653800159692764,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008733239956200123,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.10007661299459869,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_repeat_runs_identical_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015025299944682047,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007471089993487112,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]\n  \n  At index 0 diff: {'service': 'noeol', 'level': 'INFO', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2} != {'service': 'noeol', 'count': 2, 'total_duration_ms': 7, 'max_duration_ms': 5}\n  Left contains one more item: {'service': 'noeol', 'level': 'WARN', 'count': 1, 'total_duration_ms': 5, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 384,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06920343099773163,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_input_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00026325400540372357,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000948136999795679,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...ms': 42, ...}] == [{'service': ...tion_ms': 42}]\n  \n  At index 0 diff: {'service': 'solo', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 42, 'max_duration_ms': 42} != {'service': 'solo', 'count': 1, 'total_duration_ms': 42, 'max_duration_ms': 42}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 391,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06117860799713526,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r3_single_line_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r3_single_line_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0003935830027330667,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0018273790046805516,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05432910299714422,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_file_unmodified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020213000243529677,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007703640003455803,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']\n  \n  At index 2 diff: 'alpha' != '服务-乙'\n  Left contains 2 more items, first extra item: '服务-乙'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 434,
+            "source": "    assert [o[\"service\"] for o in data] == [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"]"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.054906530000153,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_input_bytes_crlf_and_utf8",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002480890034348704,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0026215729958494194,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]\n  \n  At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'api', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 459,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04793441299989354,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_runs_without_site_packages",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019163799879606813,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007449600016116165,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00022738999541616067,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_r4_no_extra_deliverable_files_in_app",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00022952900326345116,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309"
+  },
+  "wall_sec": 2.03143
+}

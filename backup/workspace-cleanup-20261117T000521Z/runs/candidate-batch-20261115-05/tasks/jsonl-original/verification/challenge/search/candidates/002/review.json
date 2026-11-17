@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "The witness input is in scope: 4 JSONL lines, each with non-empty string service, level in {INFO,ERROR}, and non-negative integer duration_ms; well under 1000 lines. The command form matches the contract command (python summarize.py <in> <out>). The expected output follows directly from the output_spec and R2/R3: only occurring (service,level) groups are emitted — (a,ERROR), (a,INFO), (b,INFO); grouping and summation are correct (a/ERROR count 1 total 5; a/INFO count 2 total 2+3=5; b/INFO count 1 total 0); objects contain exactly the four required keys; ordering is by service then level in Python string ascending ('a'<'b'; within a, 'ERROR'<'INFO'), matching the specified order. Exit code 0 and exact JSON at the output path are within R1/R3. The assertions do not impose implementation identity or extra formatting (JSON array compared structurally), and stdlib-only is compatible. No ambiguity that would invalidate the expected output.",
+  "contract_digest": "a6e97f6594790fa6c168c70778792fec751f899353e487288cab7aa446473911",
+  "witness_digest": "fdd5e55b840232fd9ab960dd4a5965391d5192b5ee2d738a3f92cdc0b69df8a3",
+  "method": "isolated-contract-model-review-v1"
+}

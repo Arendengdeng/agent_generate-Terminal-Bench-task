@@ -1,0 +1,43 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "R4 的第二条是「运行依赖仅限 Python 标准库」，即程序在隔离的解释器环境下（不加载 site-packages）仍应正常完成：退出码 0 并写出规范 CSV。本实现完全依赖标准库，但在没有任何数据记录剩余时不写输出文件；利用 PYTHONPATH/隔离环境验证「仅标准库」时，由于输出文件缺失这一缺陷，可观察到与规范不符的文件状态。标准库-only 的最小环境通过环境变量清空 site 目录实现，argv 普通调用 public CLI：以 -E 忽略 PYTHON* 环境并显式设置 HOME 到 /tmp。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C,\"Last, First\"\na@b.c,Other\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@b.c",
+          "Last, First"
+        ]
+      ]
+    }
+  ]
+}

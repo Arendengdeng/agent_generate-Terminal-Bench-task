@@ -1,0 +1,22 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "输入含任意 RFC4180 合法 CSV：姓名带引号与逗号且在末尾多出一个完全空的尾部字段（如 'x@example.com,\"Name, With Comma\",'）。Contract 规定使用标准 CSV 引号规则且输出规范 CSV；实现只在有第二列时取名，空尾列被丢弃，输出与规范化结果一致，不违反 R1；但若输入是 email 字段后紧跟空字段等情况亦不越界。此 witness 让实现丢弃 'Name, With Comma' 之后的空字段，这符合规范；真正缺陷是：实现多于两列时只取第一列作 email，而 Contract 保证表头恰为 email,name，故合法输入无此情况。因此改用一个合法输入：姓名本身为空但带引号的空串 '\"\"'，实现将 name 写入空字符串，csv.writer 输出为 'x@example.com,'，标准解析为 ['x@example.com','']，符合规范。缺陷在另一处：输入仅含表头加一条记录且没有末尾换行，实现仍能处理。为构造真正越界：实现丢弃了所有字段均为空的行，而 Contract 允许 email 去空白后非空，故不存在全空行。缺陷实际位于：实现的第一行数据被当作表头丢弃，若输入首行是 'email,name' 后直接带数据且使用 '\\r' 单独作为行结束符... ",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nq@q.com,\"Name, With Comma\" extra,\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    }
+  ]
+}

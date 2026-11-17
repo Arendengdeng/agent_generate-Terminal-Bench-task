@@ -1,0 +1,31 @@
+commit a050158efa5b5c33dc85acbb47de58888b6676ce
+Author:     Ardendengdeng <zs2320880467@gmail.com>
+AuthorDate: Sun Nov 15 14:32:16 2026 -0800
+Commit:     Ardendengdeng <zs2320880467@gmail.com>
+CommitDate: Sun Nov 15 14:32:16 2026 -0800
+
+    feat: add multi-task CLI synthesis batches and verification fixes
+    
+    Six distinct task specifications; reviewed controls, bounded verification, evidence manifests and reports. Improve Challenge solution paths, JSON-file witnesses, additive patch review and probe guidance.
+
+ .gitignore                                     |   6 +
+ README.md                                      |   2 +
+ docs/README.md                                 |  33 +++
+ docs/guides/candidate-batch.md                 |  85 ++++++++
+ examples/jsonl-repair/contract.json            |  19 ++
+ examples/jsonl-repair/plan.json                |  11 +
+ examples/manifest-repair/contract.json         |  19 ++
+ examples/manifest-repair/plan.json             |  11 +
+ independent_verification/agent.py              |   2 +
+ independent_verification/challenge.py          |  42 +++-
+ independent_verification/challenge_workflow.py |  11 +-
+ scripts/README.md                              |   2 +
+ synthesis_agent/agent.py                       |   8 +-
+ synthesis_agent/candidate_batch/__init__.py    |   1 +
+ synthesis_agent/candidate_batch/__main__.py    |  64 ++++++
+ synthesis_agent/candidate_batch/controls.py    | 221 +++++++++++++++++++
+ synthesis_agent/candidate_batch/runner.py      | 286 +++++++++++++++++++++++++
+ synthesis_agent/candidate_batch/specs.py       |  65 ++++++
+ tests/test_candidate_batch.py                  | 267 +++++++++++++++++++++++
+ tests/test_challenge_agent.py                  |  76 ++++++-
+ 20 files changed, 1217 insertions(+), 14 deletions(-)

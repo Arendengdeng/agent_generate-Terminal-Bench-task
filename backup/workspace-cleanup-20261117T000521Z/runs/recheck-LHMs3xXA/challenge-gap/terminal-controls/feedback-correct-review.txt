@@ -1,0 +1,6 @@
+Source review of handwritten integer control; no model discovery or execution is claimed.
+import json,sys
+x=int(sys.argv[1])
+print(json.dumps(dict(double=x+x,value=x),separators=(',',':')))
+
+For every valid integer v, int parses the input exactly. x+x equals 2*v without overflow in Python. JSON contains exactly value and double; normal interpreter completion exits 0. Field order and whitespace are unrestricted. solve.sh writes this exact source to /app/clean.py. R1 and R2 hold.

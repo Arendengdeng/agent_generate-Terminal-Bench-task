@@ -1,0 +1,112 @@
+{
+  "id": "007",
+  "status": "rejected",
+  "violation_status": "confirmed",
+  "requirement_id": "R4",
+  "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/007/solution",
+  "solution_digest": "79185b36fb498c763da7cefa7bd100b7844ebe0544b463c1762df6cb86e94bb5",
+  "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/007/witness.json",
+  "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "candidate_observation": {
+    "exit_code": 0,
+    "stdout": "wrote 1 rows to /tmp/witness-r_d5_4ot/out.csv\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "unchanged",
+          "path": "in.csv",
+          "value": true
+        },
+        "actual": false,
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "in.csv",
+          "value": "email,name\nA@B.C ,\"Last, First\"\na@b.c,Other\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": false
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.csv",
+          "value": "email,name\na@b.c,\"Last, First\"\n"
+        },
+        "actual": "email,name\na@b.c,\"Last, First\"\n",
+        "passed": true
+      }
+    ]
+  },
+  "witness_controls": [
+    {
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1
+    },
+    {
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1
+    }
+  ],
+  "scoring_feedback": [
+    {
+      "repeat": 0,
+      "status": "completed",
+      "reward": 0,
+      "failures": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "exception": {
+            "type": "AssertionError",
+            "message": "input file was modified\nassert b'email,name\\...t, First\"\\r\\n' == b'email,name\\...a@b.c,Other\\n'\n  \n  At index 10 diff: b'\\r' != b'\\n'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 140,
+                "source": "    assert after == before, 'input file was modified'"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "status": "completed",
+      "reward": 0,
+      "failures": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "when": "call",
+          "exception": {
+            "type": "AssertionError",
+            "message": "input file was modified\nassert b'email,name\\...t, First\"\\r\\n' == b'email,name\\...a@b.c,Other\\n'\n  \n  At index 10 diff: b'\\r' != b'\\n'\n  Use -v to get more diff",
+            "test_traceback": [
+              {
+                "path": "test_clean.py",
+                "line": 140,
+                "source": "    assert after == before, 'input file was modified'"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "reason": "Frozen suite already rejects this confirmed incorrect solution."
+}

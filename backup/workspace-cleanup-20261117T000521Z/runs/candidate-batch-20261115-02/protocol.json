@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-15T12:19:45.620597+00:00",
+  "tasks": [
+    {
+      "id": "csv-original",
+      "family": "csv",
+      "variant": "original",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/csv-repair",
+      "plan": {
+        "title": "修复客户 CSV 去重与字段归一化工具",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "修复 CSV 清洗工具，使其按规范归一化字段并稳定去重。",
+        "skills": [
+          "CSV 解析",
+          "稳定去重",
+          "字符与空白处理",
+          "CLI 调试"
+        ],
+        "scenario": "运营导出的客户名单包含重复邮箱、首尾空白和带逗号的姓名。",
+        "initial_state": "提供有缺陷的 clean.py 和用于理解格式的示例 CSV。"
+      },
+      "contract": {
+        "objective": "修复客户名单清洗工具，正确解析 CSV、归一化字段并按邮箱去重。",
+        "workspace": "/app",
+        "command": "python /app/clean.py <input.csv> <output.csv>",
+        "input_spec": "UTF-8 CSV，表头恰为 email,name；使用标准 CSV 引号规则，字段可能包含逗号；email 去掉首尾空白后非空，只含 ASCII 字符。输入最多 1000 条数据记录，可以仅有表头。",
+        "output_spec": "UTF-8 CSV，表头为 email,name。邮箱去掉首尾空白后转小写；姓名仅去掉首尾空白。按归一化邮箱去重，保留首次记录及其姓名，输出顺序为首次出现顺序；使用 CSV 转义规则。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/clean.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+          },
+          {
+            "id": "R2",
+            "description": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。"
+          },
+          {
+            "id": "R3",
+            "description": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1001
+        }
+      }
+    },
+    {
+      "id": "csv-variant",
+      "family": "csv",
+      "variant": "variant",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/csv-repair",
+      "plan": {
+        "title": "修复 CSV 清洗工具，按归一化邮箱保留最后一次姓名，按邮箱首次出现顺序输出。",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "修复 CSV 清洗工具，按归一化邮箱保留最后一次姓名，按邮箱首次出现顺序输出。",
+        "skills": [
+          "CSV 解析",
+          "稳定去重",
+          "字符与空白处理",
+          "CLI 调试"
+        ],
+        "scenario": "运营导出的客户名单包含重复邮箱、首尾空白和带逗号的姓名。",
+        "initial_state": "提供有缺陷的 clean.py 和用于理解格式的示例 CSV。"
+      },
+      "contract": {
+        "objective": "修复 CSV 清洗工具，按归一化邮箱保留最后一次姓名，按邮箱首次出现顺序输出。",
+        "workspace": "/app",
+        "command": "python /app/clean.py <input.csv> <output.csv>",
+        "input_spec": "UTF-8 CSV，表头恰为 email,name；使用标准 CSV 引号规则，字段可能包含逗号；email 去掉首尾空白后非空，只含 ASCII 字符。输入最多 1000 条数据记录，可以仅有表头。",
+        "output_spec": "UTF-8 CSV，表头为 email,name。邮箱去掉首尾空白后转小写；姓名仅去掉首尾空白。按归一化邮箱去重，姓名使用该邮箱最后一条记录的姓名；输出顺序为各邮箱首次出现顺序；使用 CSV 转义规则。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/clean.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。"
+          },
+          {
+            "id": "R2",
+            "description": "归一化邮箱后去重，保留最后一次姓名，但按邮箱首次出现顺序输出；正确处理空白、大小写以及带引号和逗号的字段。"
+          },
+          {
+            "id": "R3",
+            "description": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1001
+        }
+      }
+    },
+    {
+      "id": "jsonl-original",
+      "family": "jsonl",
+      "variant": "original",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/jsonl-repair",
+      "plan": {
+        "title": "修复 JSONL 日志的分组聚合工具",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "正确按服务与级别汇总日志条数和耗时。",
+        "skills": [
+          "流式 JSONL 读取",
+          "复合键聚合",
+          "边界条件处理"
+        ],
+        "scenario": "离线运维报表将不同服务的日志混在同一输入文件，需要可复现的分组统计。",
+        "initial_state": "提供分组统计有缺陷的 summarize.py 及少量格式示例。"
+      },
+      "contract": {
+        "objective": "修复 JSONL 聚合工具，按 service 和 level 统计条数及 duration_ms 之和。",
+        "workspace": "/app",
+        "command": "python /app/summarize.py <input.jsonl> <output.json>",
+        "input_spec": "UTF-8 JSONL，每行对象包含非空字符串 service、级别 INFO/WARN/ERROR 和非负整数 duration_ms。最多 1000 行；允许空文件，不包含空行或非法 JSON。",
+        "output_spec": "UTF-8 JSON 数组；每个实际出现的 (service, level) 对应一个对象，恰含 service、level、count、total_duration_ms。按 service 再按 level 的 Python 字符串升序排列；空输入输出 []。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/summarize.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON。"
+          },
+          {
+            "id": "R2",
+            "description": "同时按服务与级别分组，准确累计条数和非负整数耗时，不丢失重复记录。"
+          },
+          {
+            "id": "R3",
+            "description": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1000
+        }
+      }
+    },
+    {
+      "id": "jsonl-variant",
+      "family": "jsonl",
+      "variant": "variant",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/jsonl-repair",
+      "plan": {
+        "title": "修复 JSONL 聚合工具，仅按 service 分组，统计条数、总耗时及最大耗时。",
+        "category": "cli_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "修复 JSONL 聚合工具，仅按 service 分组，统计条数、总耗时及最大耗时。",
+        "skills": [
+          "流式 JSONL 读取",
+          "复合键聚合",
+          "边界条件处理"
+        ],
+        "scenario": "离线运维报表将不同服务的日志混在同一输入文件，需要可复现的分组统计。",
+        "initial_state": "提供分组统计有缺陷的 summarize.py 及少量格式示例。"
+      },
+      "contract": {
+        "objective": "修复 JSONL 聚合工具，仅按 service 分组，统计条数、总耗时及最大耗时。",
+        "workspace": "/app",
+        "command": "python /app/summarize.py <input.jsonl> <output.json>",
+        "input_spec": "UTF-8 JSONL，每行对象包含非空字符串 service、级别 INFO/WARN/ERROR 和非负整数 duration_ms。最多 1000 行；允许空文件，不包含空行或非法 JSON。",
+        "output_spec": "UTF-8 JSON 数组；每个实际出现的 service 对应一个对象，恰含 service、count、total_duration_ms、max_duration_ms。统计该服务所有级别的记录数、耗时之和及最大耗时。按 service 的 Python 字符串升序排列；空输入输出 []。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/summarize.py"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": false
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON。"
+          },
+          {
+            "id": "R2",
+            "description": "仅按 service 分组，跨 level 统计条数、总耗时与最大耗时，不丢失重复记录。"
+          },
+          {
+            "id": "R3",
+            "description": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。"
+          },
+          {
+            "id": "R4",
+            "description": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_input_lines": 1000
+        }
+      }
+    },
+    {
+      "id": "manifest-original",
+      "family": "manifest",
+      "variant": "original",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/manifest-repair",
+      "plan": {
+        "title": "修复目录递归遍历与文件摘要清单",
+        "category": "code_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "修复目录清单 CLI，正确递归发现文件并计算内容摘要。",
+        "skills": [
+          "文件系统遍历",
+          "二进制 I/O",
+          "SHA-256",
+          "路径排序",
+          "模块协作"
+        ],
+        "scenario": "本地归档流程用摘要清单核对交付内容，嵌套目录和同名文件会触发当前实现的问题。",
+        "initial_state": "提供 src 下的缺陷程序和用于展示目录结构的少量数据。"
+      },
+      "contract": {
+        "objective": "修复目录摘要 CLI，递归生成每个普通文件的相对路径、字节数和 SHA-256。",
+        "workspace": "/app",
+        "command": "python /app/src/manifest.py <input_dir> <output.json>",
+        "input_spec": "input_dir 是存在的目录，包含至多 100 个普通文件以及任意空目录，嵌套深度最多 8。文件可为空或为二进制，每个文件至多 1 MiB；名称是合法 Unicode，不含换行。无符号链接或特殊文件。output.json 位于输入目录外。",
+        "output_spec": "UTF-8 JSON 数组，每项恰含 path、size、sha256。path 是相对 input_dir 的 POSIX 路径，size 为内容字节数，sha256 为内容摘要的 64 位小写十六进制字符串。按 path 的 Python 字符串升序排列，忽略目录；空目录输出 []。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/src"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": true
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+          },
+          {
+            "id": "R2",
+            "description": "递归遍历全部普通文件，保留相对路径，正确处理嵌套同名文件、空格和 Unicode 文件名。"
+          },
+          {
+            "id": "R3",
+            "description": "size 与 SHA-256 根据实际二进制内容计算，正确处理空文件和非 UTF-8 字节；输出稳定排序，空目录输出 []。"
+          },
+          {
+            "id": "R4",
+            "description": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_files": 100,
+          "max_depth": 8,
+          "max_file_bytes": 1048576
+        }
+      }
+    },
+    {
+      "id": "manifest-variant",
+      "family": "manifest",
+      "variant": "variant",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/examples/manifest-repair",
+      "plan": {
+        "title": "修复目录摘要 CLI，递归按文件内容分组并输出各组路径、字节数和 SHA-256。",
+        "category": "code_repair",
+        "language": "python",
+        "environment": "linux-docker",
+        "task_kind": "cli_data_processing",
+        "goal": "修复目录摘要 CLI，递归按文件内容分组并输出各组路径、字节数和 SHA-256。",
+        "skills": [
+          "文件系统遍历",
+          "二进制 I/O",
+          "SHA-256",
+          "路径排序",
+          "模块协作"
+        ],
+        "scenario": "本地归档流程用摘要清单核对交付内容，嵌套目录和同名文件会触发当前实现的问题。",
+        "initial_state": "提供 src 下的缺陷程序和用于展示目录结构的少量数据。"
+      },
+      "contract": {
+        "objective": "修复目录摘要 CLI，递归按文件内容分组并输出各组路径、字节数和 SHA-256。",
+        "workspace": "/app",
+        "command": "python /app/src/manifest.py <input_dir> <output.json>",
+        "input_spec": "input_dir 是存在的目录，包含至多 100 个普通文件以及任意空目录，嵌套深度最多 8。文件可为空或为二进制，每个文件至多 1 MiB；名称是合法 Unicode，不含换行。无符号链接或特殊文件。output.json 位于输入目录外。",
+        "output_spec": "UTF-8 JSON 数组，每个不同 SHA-256 摘要对应一个对象，恰含 size、sha256、paths。size 为该组文件内容字节数，sha256 为 64 位小写十六进制 SHA-256；paths 包含该摘要所有普通文件相对 input_dir 的 POSIX 路径，按 Python 字符串升序排列。各对象按 sha256 升序排列；忽略目录，空目录输出 []。本任务按 SHA-256 相等定义同组。",
+        "deliverables": {
+          "artifact_paths": [
+            "/app/src"
+          ],
+          "allowed_dependencies": "python-stdlib",
+          "allow_additional_files": true
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "description": "CLI 接受目录和输出路径，成功时正常退出并生成指定 JSON。"
+          },
+          {
+            "id": "R2",
+            "description": "递归遍历全部普通文件，按 SHA-256 分组，保留全部相对路径，包括嵌套同名、空格和 Unicode 文件名。"
+          },
+          {
+            "id": "R3",
+            "description": "按实际二进制内容计算字节数和 SHA-256；空文件和非 UTF-8 内容正确；组内路径与组间摘要分别升序，空目录输出 []。"
+          },
+          {
+            "id": "R4",
+            "description": "不得修改输入目录树；所有交付模块都位于 /app/src，运行依赖仅限标准库。"
+          }
+        ],
+        "limits": {
+          "command_timeout_sec": 10,
+          "max_files": 100,
+          "max_depth": 8,
+          "max_file_bytes": 1048576
+        }
+      }
+    }
+  ],
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 40,
+    "max_tool_calls": 120,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 90,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 4000000,
+    "max_completion_tokens": 8000,
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "max_challenge_attempts": 4,
+  "max_repairs": 2,
+  "repair_policy": "only_controller_confirmed_defects; otherwise not_needed",
+  "budget_policy": "Synthesis and verification each use Config call limits; verification shares its budget across all stages.",
+  "execution": "serial; live model only; no fallback to scripted generation; holdouts terminal-only"
+}

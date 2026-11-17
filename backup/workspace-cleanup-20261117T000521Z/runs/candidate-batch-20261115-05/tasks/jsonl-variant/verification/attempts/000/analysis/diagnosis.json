@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "仅按 service 分组，跨 level 统计条数、总耗时与最大耗时，不丢失重复记录。",
+  "test_path": "tests/test_summarize.py",
+  "line": "219",
+  "evidence_id": "oracle:test_summarize.py::test_unicode_service_names_sorted:call",
+  "explanation": "The test fixture adds a third record for service \"服务-甲\" (duration_ms=30) on top of two records of 3 (WARN) and 11 (INFO). Grouping only by service, as R2 and output_spec require (\"统计该服务所有级别的记录数、耗时之和及最大耗时\"), gives count=3, total_duration_ms=3+11+30=44, max_duration_ms=30. The test asserts total_duration_ms == 55, an arithmetic error in the expected value. The Oracle's reported total 44 is exactly the Contract-correct value, so the defect is in the test's expected total, not in the implementation. Fix: expected total 44, keeping the sorted-order, count and max assertions intact. (The same test's 日本語 assertion, 3+11=14 with max 11, is correct.)",
+  "parent_digest": "5a402e7695d5d68f3c7ddaceb06642fc09cfac4fcb2e546944dd66e2cc7d6765"
+}

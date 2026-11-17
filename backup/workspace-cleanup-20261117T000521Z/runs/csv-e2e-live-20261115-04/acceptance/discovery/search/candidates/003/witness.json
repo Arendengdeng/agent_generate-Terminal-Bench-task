@@ -1,0 +1,43 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "R4 forbids modifying the input file. The provided CSV is a fully legal input for this tool (header exactly 'email,name', two data records, one name containing a comma handled by standard CSV quoting, ASCII emails, well under 1000 records). The Contract's required behavior for such a run is: exit code 0 and output CSV [['email','name'],['a@b.c','Last, First']] with the input file left untouched. A tool that opens the input for writing and rewrites its bytes violates R4 even though a byte-for-byte comparison of the content still matches: the file is modified (its contents are rewritten by the process, and other metadata such as mtime/inode may change). For a non-modifying tool the file is never opened in a write mode, so the behavior is distinguishable.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nA@B.C,\"Last, First\"\na@b.c,Other\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json_file",
+      "path": [
+        "out.csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ],
+        [
+          "a@b.c",
+          "Last, First"
+        ]
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

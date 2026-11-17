@@ -1,0 +1,77 @@
+[
+  {
+    "exit_code": 0,
+    "stdout": "service report (1 group(s))\ntotal records: 1\nsvc/INFO\n",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.json",
+          "value": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]"
+        },
+        "actual_error": "FileNotFoundError",
+        "passed": false
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.json",
+          "value": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]"
+        },
+        "actual": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]\n",
+        "passed": false
+      }
+    ]
+  },
+  {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "checks": [
+      {
+        "assertion": {
+          "source": "exit_code",
+          "path": [],
+          "value": 0
+        },
+        "actual": 0,
+        "passed": true
+      },
+      {
+        "assertion": {
+          "source": "file",
+          "path": "out.json",
+          "value": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]"
+        },
+        "actual": "[{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 5}]",
+        "passed": true
+      }
+    ]
+  }
+]

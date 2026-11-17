@@ -1,0 +1,92 @@
+--- before/test_behavior.py
++++ after/test_behavior.py
+@@ -1,14 +1,81 @@
+-import json, subprocess, sys
++import json
++import subprocess
++import sys
++
++import pytest
++
++A = 0
++PROBE = 3
++MAXI = 10
++
++
++def run_raw(n):
++    return subprocess.run(
++        [sys.executable, '/app/clean.py', str(n)],
++        capture_output=True,
++        text=True,
++        timeout=5,
++    )
++
+ 
+ def run(n):
+-    p = subprocess.run(['python3','/app/clean.py',str(n)], capture_output=True, text=True, timeout=5)
++    try:
++        p = run_raw(n)
++    except subprocess.TimeoutExpired:
++        pytest.fail('task command timed out for n=%r' % (n,))
+     print(p.stdout, end='')
+     print(p.stderr, end='', file=sys.stderr)
+-    assert p.returncode == 0
+-    return p
++    assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)
++    try:
++        obj = json.loads(p.stdout)
++    except ValueError:
++        pytest.fail('stdout is not JSON for n=%r: %r' % (n, p.stdout))
++    assert isinstance(obj, dict), 'output is not a JSON object for n=%r: %r' % (n, obj)
++    return obj
+ 
+-def test_value():
+-    assert json.loads(run(3).stdout)['value'] == 3
+ 
+-def test_double():
+-    assert isinstance(json.loads(run(3).stdout)['double'], int)
++def test_exit_code_zero_for_each_permitted_n():
++    for n in range(A, MAXI + 1):
++        p = run_raw(n)
++        assert p.returncode == 0, 'nonzero exit for n=%r: %r' % (n, p.returncode)
++
++
++def test_output_is_json_object_with_exact_keys():
++    for n in range(A, MAXI + 1):
++        obj = run(n)
++        assert set(obj.keys()) == {'value', 'double'}, (
++            'unexpected keys for n=%r: %r' % (n, sorted(obj.keys()))
++        )
++
++
++def test_value_equals_n():
++    for n in range(A, MAXI + 1):
++        obj = run(n)
++        assert obj['value'] == n, 'value mismatch for n=%r: %r' % (n, obj.get('value'))
++        assert isinstance(obj['value'], int) and not isinstance(obj['value'], bool)
++
++
++def test_double_equals_twice_n():
++    for n in range(A, MAXI + 1):
++        obj = run(n)
++        assert obj['double'] == 2 * n, (
++            'double mismatch for n=%r: %r' % (n, obj.get('double'))
++        )
++        assert isinstance(obj['double'], int) and not isinstance(obj['double'], bool)
++
++
++def test_probe_n_three():
++    obj = run(PROBE)
++    assert obj['value'] == PROBE
++    assert obj['double'] == 6
++    assert set(obj.keys()) == {'value', 'double'}
++
++
++def test_boundary_zero():
++    obj = run(A)
++    assert obj == {'value': 0, 'double': 0}
++
++
++def test_boundary_ten():
++    obj = run(MAXI)
++    assert obj == {'value': 10, 'double': 20}

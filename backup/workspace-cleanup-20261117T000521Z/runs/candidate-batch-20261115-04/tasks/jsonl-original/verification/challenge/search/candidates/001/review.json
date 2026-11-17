@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Input is in scope: UTF-8 JSONL, two lines, each object has non-empty string service (\"svc\"), level INFO, and non-negative integer duration_ms (3, 4); no blank lines, ≤1000 lines.\n\nEvery assertion follows directly from the Contract:\n- exit_code 0: R1/command require normal exit producing JSON.\n- [0].service = \"svc\", [0].level = \"INFO\": output_spec keys each object to the actual (service, level) group; here the only group present is (svc, INFO).\n- [0].count = 2: R2 requires accurate count without losing duplicate records; two records in the group.\n- [0].total_duration_ms = 7: output_spec defines total_duration_ms as the sum of duration_ms for the group and R2 mandates accurate accumulation; 3+4=7.\n- Array index 0 is the sole object: output_spec says one object per actually-occurring pair, and only one pair occurs; no ordering ambiguity arises with a single element.\n\nThe witness's negative claim (candidate emitting 0) is irrelevant to whether the expected assertions follow from the Contract, which they do. Each assertion is a concrete value derivable from the aggregate, with no extra formatting, implementation-identity, or out-of-Contract requirement imposed and no ambiguity.",
+  "contract_digest": "a6e97f6594790fa6c168c70778792fec751f899353e487288cab7aa446473911",
+  "witness_digest": "0aa01f110e3d4638099585a7743fae8c18fb3c19d12ec4952fcf452638412d55",
+  "method": "isolated-contract-model-review-v1"
+}

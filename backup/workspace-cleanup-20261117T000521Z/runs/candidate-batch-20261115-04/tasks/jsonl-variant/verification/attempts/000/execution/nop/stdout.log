@@ -1,0 +1,411 @@
+FFFFFFFFFFFF.F.F.FF.FF.                                                  [100%]
+=================================== FAILURES ===================================
+__________________________ test_r1_instruction_sample __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_instruction_sample0')
+
+    def test_r1_instruction_sample(tmp_path):
+        data, _ = summarize(
+            [
+                rec("beta", "INFO", 5),
+                rec("alpha", "ERROR", 7),
+                rec("beta", "ERROR", 9),
+                rec("beta", "INFO", 9),
+            ],
+            tmp_path,
+        )
+>       assert data == [
+            {"service": "alpha", "count": 1, "total_duration_ms": 7, "max_duration_ms": 7},
+            {"service": "beta", "count": 3, "total_duration_ms": 23, "max_duration_ms": 9},
+        ]
+E       AssertionError: assert [{'service': ..._ms': 9, ...}] == [{'service': ...ation_ms': 9}]
+E         
+E         At index 0 diff: {'service': 'alpha', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7} != {'service': 'alpha', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7}
+E         Left contains one more item: {'service': 'beta', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 9, ...}
+E         Use -v to get more diff
+
+test_summarize.py:108: AssertionError
+_________________ test_r1_output_exact_keys_and_integer_types __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_output_exact_keys_and_0')
+
+    def test_r1_output_exact_keys_and_integer_types(tmp_path):
+        data, _ = summarize(
+            [rec("svc", "INFO", 3), rec("svc", "WARN", 4), rec("svc", "ERROR", 0)],
+            tmp_path,
+        )
+>       assert isinstance(data, list) and len(data) == 1
+E       AssertionError: assert (True and 3 == 1)
+E        +  where True = isinstance([{'service': 'svc', 'level': 'INFO', 'count': 1, 'total_duration_ms': 3, ...}, {'service': 'svc', 'level': 'WARN', 'count': 1, 'total_duration_ms': 4, ...}, {'service': 'svc', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0, ...}], list)
+E        +  and   3 = len([{'service': 'svc', 'level': 'INFO', 'count': 1, 'total_duration_ms': 3, ...}, {'service': 'svc', 'level': 'WARN', 'count': 1, 'total_duration_ms': 4, ...}, {'service': 'svc', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0, ...}])
+
+test_summarize.py:119: AssertionError
+______________________ test_r1_output_parses_as_utf8_json ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_output_parses_as_utf8_0')
+
+    def test_r1_output_parses_as_utf8_json(tmp_path):
+        data, out = run_cli(tmp_path, text=load_fixture("unicode.jsonl"))
+        text = out.read_bytes().decode("utf-8")
+        assert json.loads(text) == data
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: 'alpha' != '服务-乙'
+E         Left contains 2 more items, first extra item: '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:141: AssertionError
+___________ test_r1_accepts_output_path_in_nested_relative_location ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r1_accepts_output_path_in0')
+
+    def test_r1_accepts_output_path_in_nested_relative_location(tmp_path):
+        (tmp_path / "sub").mkdir()
+        src = tmp_path / "in.jsonl"
+        src.write_text(json.dumps(rec("api", "INFO", 5)) + "\n", encoding="utf-8")
+        out = tmp_path / "sub" / "report.json"
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT), str(src), str(out)],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            cwd=str(tmp_path),
+        )
+        assert proc.returncode == 0, proc.stderr
+        assert out.exists()
+>       assert json.loads(out.read_text(encoding="utf-8")) == [
+            {"service": "api", "count": 1, "total_duration_ms": 5, "max_duration_ms": 5}
+        ]
+E       AssertionError: assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]
+E         
+E         At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'api', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5}
+E         Use -v to get more diff
+
+test_summarize.py:158: AssertionError
+________________________ test_r2_grouping_across_levels ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_grouping_across_levels0')
+
+    def test_r2_grouping_across_levels(tmp_path):
+        data, _ = summarize(
+            [
+                rec("a", "INFO", 1),
+                rec("a", "WARN", 10),
+                rec("a", "ERROR", 100),
+                rec("b", "WARN", 2),
+                rec("b", "ERROR", 2),
+            ],
+            tmp_path,
+        )
+>       got = by_service(data)
+              ^^^^^^^^^^^^^^^^
+
+test_summarize.py:177: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'a', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, ...}, {'service': 'a', 'level': 'WARN', 'count'... 'count': 1, 'total_duration_ms': 2, ...}, {'service': 'b', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 2, ...}]
+
+    def by_service(data):
+        assert isinstance(data, list), f"expected JSON array, got {type(data)}: {data!r}"
+        result = {}
+        for obj in data:
+            assert isinstance(obj, dict), f"array element not an object: {obj!r}"
+            assert "service" in obj
+>           assert obj["service"] not in result, f"duplicate service entry: {obj['service']!r}"
+E           AssertionError: duplicate service entry: 'a'
+E           assert 'a' not in {'a': {'service': 'a', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, ...}}
+
+test_summarize.py:82: AssertionError
+_________________ test_r2_identical_duplicate_records_counted __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_identical_duplicate_re0')
+
+    def test_r2_identical_duplicate_records_counted(tmp_path):
+        r = rec("dup", "INFO", 7)
+        data, _ = summarize([r, r, r, r], tmp_path)
+>       assert data == [
+            {"service": "dup", "count": 4, "total_duration_ms": 28, "max_duration_ms": 7}
+        ]
+E       AssertionError: assert [{'service': ...ms': 28, ...}] == [{'service': ...ation_ms': 7}]
+E         
+E         At index 0 diff: {'service': 'dup', 'level': 'INFO', 'count': 4, 'total_duration_ms': 28, 'max_duration_ms': 7} != {'service': 'dup', 'count': 4, 'total_duration_ms': 28, 'max_duration_ms': 7}
+E         Use -v to get more diff
+
+test_summarize.py:195: AssertionError
+___________________ test_r2_max_is_maximum_not_last_nor_sum ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_max_is_maximum_not_las0')
+
+    def test_r2_max_is_maximum_not_last_nor_sum(tmp_path):
+        data, _ = summarize(
+            [rec("m", "INFO", 5), rec("m", "WARN", 1), rec("m", "ERROR", 3)],
+            tmp_path,
+        )
+>       assert data == [
+            {"service": "m", "count": 3, "total_duration_ms": 9, "max_duration_ms": 5}
+        ]
+E       AssertionError: assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 5}]
+E         
+E         At index 0 diff: {'service': 'm', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'm', 'count': 3, 'total_duration_ms': 9, 'max_duration_ms': 5}
+E         Left contains 2 more items, first extra item: {'service': 'm', 'level': 'WARN', 'count': 1, 'total_duration_ms': 1, ...}
+E         Use -v to get more diff
+
+test_summarize.py:205: AssertionError
+______________________ test_r2_group_by_service_not_level ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_group_by_service_not_l0')
+
+    def test_r2_group_by_service_not_level(tmp_path):
+        data, _ = summarize(
+            [rec("s1", "INFO", 1), rec("s2", "INFO", 2), rec("s1", "INFO", 3)],
+            tmp_path,
+        )
+        assert [o["service"] for o in data] == ["s1", "s2"]
+        got = by_service(data)
+>       assert got["s1"] == {
+            "service": "s1",
+            "count": 2,
+            "total_duration_ms": 4,
+            "max_duration_ms": 3,
+        }
+E       AssertionError: assert {'service': '...n_ms': 4, ...} == {'service': '...ration_ms': 3}
+E         
+E         Omitting 4 identical items, use -vv to show
+E         Left contains 1 more item:
+E         {'level': 'INFO'}
+E         Use -v to get more diff
+
+test_summarize.py:217: AssertionError
+____________________________ test_r2_zero_durations ____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_zero_durations0')
+
+    def test_r2_zero_durations(tmp_path):
+        data, _ = summarize(
+            [rec("z", "INFO", 0), rec("z", "ERROR", 0), rec("y", "WARN", 0)],
+            tmp_path,
+        )
+>       got = by_service(data)
+              ^^^^^^^^^^^^^^^^
+
+test_summarize.py:236: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = [{'service': 'y', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0, ...}, {'service': 'z', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, ...}, {'service': 'z', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 0, ...}]
+
+    def by_service(data):
+        assert isinstance(data, list), f"expected JSON array, got {type(data)}: {data!r}"
+        result = {}
+        for obj in data:
+            assert isinstance(obj, dict), f"array element not an object: {obj!r}"
+            assert "service" in obj
+>           assert obj["service"] not in result, f"duplicate service entry: {obj['service']!r}"
+E           AssertionError: duplicate service entry: 'z'
+E           assert 'z' not in {'y': {'service': 'y', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0, ...}, 'z': {'service': 'z', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, ...}}
+
+test_summarize.py:82: AssertionError
+____________ test_r2_mixed_fixture_matches_independent_aggregation _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_mixed_fixture_matches_0')
+
+    def test_r2_mixed_fixture_matches_independent_aggregation(tmp_path):
+        records = parse_fixture_records("mixed.jsonl")
+        data, _ = run_cli(tmp_path, text=load_fixture("mixed.jsonl"))
+>       assert data == agg(records)
+E       AssertionError: assert [{'service': ...40, ...}, ...] == [{'service': ...ation_ms': 9}]
+E         
+E         At index 0 diff: {'service': 'Api', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'Api', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}
+E         Left contains 5 more items, first extra item: {'service': 'db', 'level': 'WARN', 'count': 1, 'total_duration_ms': 40, ...}
+E         Use -v to get more diff
+
+test_summarize.py:254: AssertionError
+____________________ test_r2_maximum_input_size_1000_lines _____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_maximum_input_size_1000')
+
+    def test_r2_maximum_input_size_1000_lines(tmp_path):
+        records = []
+        services = ["api", "db", "cache", "worker", "gateway"]
+        levels = ["INFO", "WARN", "ERROR"]
+        for i in range(1000):
+            records.append(
+                rec(services[(i * 7) % len(services)], levels[i % 3], (i * 37) % 997)
+            )
+        data, _ = summarize(records, tmp_path)
+>       assert data == agg(records)
+E       AssertionError: assert [{'service': ...01, ...}, ...] == [{'service': ...ion_ms': 990}]
+E         
+E         At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 67, 'total_duration_ms': 31702, 'max_duration_ms': 954} != {'service': 'api', 'count': 200, 'total_duration_ms': 100276, 'max_duration_ms': 996}
+E         Left contains 10 more items, first extra item: {'service': 'cache', 'level': 'ERROR', 'count': 66, 'total_duration_ms': 32901, ...}
+E         Use -v to get more diff
+
+test_summarize.py:272: AssertionError
+________________________ test_r2_large_durations_exact _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r2_large_durations_exact0')
+
+    def test_r2_large_durations_exact(tmp_path):
+        big = 10 ** 15
+        data, _ = summarize(
+            [rec("big", "INFO", big), rec("big", "ERROR", big), rec("big", "WARN", 1)],
+            tmp_path,
+        )
+>       assert data == [
+            {
+                "service": "big",
+                "count": 3,
+                "total_duration_ms": 2 * big + 1,
+                "max_duration_ms": big,
+            }
+        ]
+E       AssertionError: assert [{'service': ..._ms': 1, ...}] == [{'service': ...000000000000}]
+E         
+E         At index 0 diff: {'service': 'big', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1000000000000000, 'max_duration_ms': 1000000000000000} != {'service': 'big', 'count': 3, 'total_duration_ms': 2000000000000001, 'max_duration_ms': 1000000000000000}
+E         Left contains 2 more items, first extra item: {'service': 'big', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 1000000000000000, ...}
+E         Use -v to get more diff
+
+test_summarize.py:281: AssertionError
+_________________________ test_r3_only_present_groups __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_only_present_groups0')
+
+    def test_r3_only_present_groups(tmp_path):
+        data, _ = summarize([rec("only", "WARN", 3)], tmp_path)
+>       assert data == [
+            {"service": "only", "count": 1, "total_duration_ms": 3, "max_duration_ms": 3}
+        ]
+E       AssertionError: assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 3}]
+E         
+E         At index 0 diff: {'service': 'only', 'level': 'WARN', 'count': 1, 'total_duration_ms': 3, 'max_duration_ms': 3} != {'service': 'only', 'count': 1, 'total_duration_ms': 3, 'max_duration_ms': 3}
+E         Use -v to get more diff
+
+test_summarize.py:320: AssertionError
+__________________ test_r3_unicode_fixture_grouping_and_order __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_unicode_fixture_groupi0')
+
+    def test_r3_unicode_fixture_grouping_and_order(tmp_path):
+        data, _ = run_cli(tmp_path, text=load_fixture("unicode.jsonl"))
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: 'alpha' != '服务-乙'
+E         Left contains 2 more items, first extra item: '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:333: AssertionError
+____________________ test_r3_input_without_trailing_newline ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_input_without_trailing0')
+
+    def test_r3_input_without_trailing_newline(tmp_path):
+        text = json.dumps(rec("noeol", "INFO", 2)) + "\n" + json.dumps(
+            rec("noeol", "WARN", 5)
+        )
+        data, _ = run_cli(tmp_path, text=text)
+>       assert data == [
+            {"service": "noeol", "count": 2, "total_duration_ms": 7, "max_duration_ms": 5}
+        ]
+E       AssertionError: assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]
+E         
+E         At index 0 diff: {'service': 'noeol', 'level': 'INFO', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2} != {'service': 'noeol', 'count': 2, 'total_duration_ms': 7, 'max_duration_ms': 5}
+E         Left contains one more item: {'service': 'noeol', 'level': 'WARN', 'count': 1, 'total_duration_ms': 5, ...}
+E         Use -v to get more diff
+
+test_summarize.py:384: AssertionError
+__________________________ test_r3_single_line_input ___________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r3_single_line_input0')
+
+    def test_r3_single_line_input(tmp_path):
+        data, _ = run_cli(tmp_path, text=json.dumps(rec("solo", "ERROR", 42)) + "\n")
+>       assert data == [
+            {"service": "solo", "count": 1, "total_duration_ms": 42, "max_duration_ms": 42}
+        ]
+E       AssertionError: assert [{'service': ...ms': 42, ...}] == [{'service': ...tion_ms': 42}]
+E         
+E         At index 0 diff: {'service': 'solo', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 42, 'max_duration_ms': 42} != {'service': 'solo', 'count': 1, 'total_duration_ms': 42, 'max_duration_ms': 42}
+E         Use -v to get more diff
+
+test_summarize.py:391: AssertionError
+______________________ test_r4_input_bytes_crlf_and_utf8 _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r4_input_bytes_crlf_and_u0')
+
+    def test_r4_input_bytes_crlf_and_utf8(tmp_path):
+        payload = load_fixture("unicode.jsonl").replace("\n", "\r\n").encode("utf-8")
+        src = tmp_path / "crlf.jsonl"
+        src.write_bytes(payload)
+        out = tmp_path / "o.json"
+        proc = subprocess.run(
+            [sys.executable, str(SCRIPT), str(src), str(out)],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            cwd=str(tmp_path),
+        )
+        assert proc.returncode == 0, proc.stderr
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert [o["service"] for o in data] == ["Zebra", "alpha", "服务-乙", "日本"]
+E       AssertionError: assert ['Zebra', 'al...服务-乙', '服务-乙'] == ['Zebra', 'al... '服务-乙', '日本']
+E         
+E         At index 2 diff: 'alpha' != '服务-乙'
+E         Left contains 2 more items, first extra item: '服务-乙'
+E         Use -v to get more diff
+
+test_summarize.py:434: AssertionError
+______________________ test_r4_runs_without_site_packages ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_r4_runs_without_site_pack0')
+
+    def test_r4_runs_without_site_packages(tmp_path):
+        src = tmp_path / "in.jsonl"
+        src.write_text(json.dumps(rec("api", "INFO", 5)) + "\n", encoding="utf-8")
+        out = tmp_path / "out.json"
+        env = {
+            "PATH": os.environ.get("PATH", "/usr/local/bin:/usr/bin:/bin"),
+            "HOME": str(tmp_path),
+            "PYTHONDONTWRITEBYTECODE": "1",
+        }
+        proc = subprocess.run(
+            [sys.executable, "-S", "-I", str(SCRIPT), str(src), str(out)],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            cwd="/",
+            env=env,
+        )
+        assert proc.returncode == 0, (
+            f"CLI failed without site-packages (non-stdlib dependency?): {proc.stderr}"
+        )
+        data = json.loads(out.read_text(encoding="utf-8"))
+>       assert data == [
+            {"service": "api", "count": 1, "total_duration_ms": 5, "max_duration_ms": 5}
+        ]
+E       AssertionError: assert [{'service': ..._ms': 5, ...}] == [{'service': ...ation_ms': 5}]
+E         
+E         At index 0 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5} != {'service': 'api', 'count': 1, 'total_duration_ms': 5, 'max_duration_ms': 5}
+E         Use -v to get more diff
+
+test_summarize.py:459: AssertionError
+=========================== short test summary info ============================
+FAILED test_summarize.py::test_r1_instruction_sample - AssertionError: assert...
+FAILED test_summarize.py::test_r1_output_exact_keys_and_integer_types - Asser...
+FAILED test_summarize.py::test_r1_output_parses_as_utf8_json - AssertionError...
+FAILED test_summarize.py::test_r1_accepts_output_path_in_nested_relative_location
+FAILED test_summarize.py::test_r2_grouping_across_levels - AssertionError: du...
+FAILED test_summarize.py::test_r2_identical_duplicate_records_counted - Asser...
+FAILED test_summarize.py::test_r2_max_is_maximum_not_last_nor_sum - Assertion...
+FAILED test_summarize.py::test_r2_group_by_service_not_level - AssertionError...
+FAILED test_summarize.py::test_r2_zero_durations - AssertionError: duplicate ...
+FAILED test_summarize.py::test_r2_mixed_fixture_matches_independent_aggregation
+FAILED test_summarize.py::test_r2_maximum_input_size_1000_lines - AssertionEr...
+FAILED test_summarize.py::test_r2_large_durations_exact - AssertionError: ass...
+FAILED test_summarize.py::test_r3_only_present_groups - AssertionError: asser...
+FAILED test_summarize.py::test_r3_unicode_fixture_grouping_and_order - Assert...
+FAILED test_summarize.py::test_r3_input_without_trailing_newline - AssertionE...
+FAILED test_summarize.py::test_r3_single_line_input - AssertionError: assert ...
+FAILED test_summarize.py::test_r4_input_bytes_crlf_and_utf8 - AssertionError:...
+FAILED test_summarize.py::test_r4_runs_without_site_packages - AssertionError...
+18 failed, 5 passed in 1.83s

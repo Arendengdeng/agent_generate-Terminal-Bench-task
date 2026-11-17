@@ -1,0 +1,107 @@
+F...FF.F......                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+        assert_header(rows)
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.org", 'Carol "C" Jones'],
+            ["dave@example.net", ""],
+        ]
+E       assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 2 diff: ['alice@example.com', 'Alice Duplicate'] != ['carol@example.org', 'Carol "C" Jones']
+E         Left contains 2 more items, first extra item: ['bob@example.com', 'Bob Again']
+E         Use -v to get more diff
+
+test_clean.py:55: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["  First@Mail.COM ", "  First Name  "],
+                ["second@mail.com", "Second"],
+                ["FIRST@MAIL.COM", "Other Name"],
+                ["first@mail.com", "Third"],
+                ["\tsecond@MAIL.com", "Second Again"],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["first@mail.com", "First Name"],
+            ["second@mail.com", "Second"],
+        ]
+E       AssertionError: assert [['email', 'n...econd Again']] == [['email', 'n...m', 'Second']]
+E         
+E         Left contains 3 more items, first extra item: ['first@mail.com', 'Other Name']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["X@Y.COM", "One, Two"],
+                ["x@y.com", "Duplicate"],
+                ["z@y.com", "Three"],
+            ],
+            quoting=csv.QUOTE_ALL,
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["x@y.com", "One, Two"],
+            ["z@y.com", "Three"],
+        ]
+E       AssertionError: assert [['email', 'n...om', 'Three']] == [['email', 'n...om', 'Three']]
+E         
+E         At index 2 diff: ['x@y.com', 'Duplicate'] != ['z@y.com', 'Three']
+E         Left contains one more item: ['z@y.com', 'Three']
+E         Use -v to get more diff
+
+test_clean.py:135: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(data)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"], ["a@b.c", "Last, First"]]
+E       AssertionError: assert [['email', 'n...Other, Name']] == [['email', 'n...Last, First']]
+E         
+E         Left contains one more item: ['a@b.c', 'Other, Name']
+E         Use -v to get more diff
+
+test_clean.py:162: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - assert [['...
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: assert [...
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: as...
+4 failed, 10 passed in 0.76s

@@ -1,0 +1,169 @@
+{
+  "status": "error",
+  "samples": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/000/solution",
+      "solution_digest": "ac4208ba4c5c92d46307be152b92544717df9ea4d52d15ef6b7c442a374798ab",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/000/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The witness cannot be confirmed from the Contract. (1) The \"out/out.csv\" assertion is described as a \"json_file\" check but the output is a CSV, and the Contract never specifies that the output's parent directory must be auto-created. The witness's premise that a conforming implementation \"must create the output subdirectory\" is an extra constraint not present in R1 or the output spec; the Contract only states the command takes two positionals, exits 0, and writes a well-formed CSV to the given path. Ambiguity about a nonexistent output directory means the assertion does not follow directly from the Contract. (2) The rationale's core claim — that this candidate calls os.utime on the input, making it fail on read-only input — is implementation-specific behavior that is not visible in the supplied Contract or witness data; the review cannot assume that rationale is true, and it is not derivable from the cited Requirement. The fixture's read-only input is untrusted data and does not itself prove a nonzero exit. (3) The exact expected data content (lowercased/deduped [\"a@b.c\",\"Last, First\"]) is consistent with R2, but the failure mode hinges on unverified implementation specifics and an unspecified directory-creation requirement. Therefore neither the exit_code=0 nor the file assertion follows directly from the cited Requirement and Contract; no implementation identity or extra constraints may be used to confirm. Verdict: unconfirmed."
+    },
+    {
+      "id": "001",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R2",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/001/solution",
+      "solution_digest": "8fbb90254b7caa26dfb9f8f7210e91b785a5a6a81419d0f97993c5dbfbf1b89b",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/001/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "No definite violation, or witness rejected a correct control."
+    },
+    {
+      "id": "002",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R3",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/002/solution",
+      "solution_digest": "be3e2e53c7fe02903e614a5bf87da5fa24c54ac2bddcf245e2d9a9b13173d5fd",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/002/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "The concrete input is in scope: UTF-8 CSV with header exactly \"email,name\", one legal data row using standard quoting, ASCII email, and expected output [[\"email\",\"name\"],[\"zoe@example.com\",\"Zoe\"]] follows directly from R2/R3 and the output spec (boundary whitespace stripped, email lowercased, name only trimmed). However, the witness's \"rationale\" is incoherent and does not establish that the implementation actually produces this output. It claims \"a file whose header is not consumed correctly (e.g. blank first line skipped later) misaligns rows\" and that \"an implementation that mishandles a quoted first data row (skipping the header unconditionally, including on files where the first line is a quoted record)\" would break this requirement — but none of that applies here, since the first line IS the header \"email,name\" (not a quoted record) and there is no blank first line. The rationale also misdescribes behavior: \"the implementation never uses the header to locate columns,\" and \"writes... including nothing normalized only if strip fails.\" No concrete defect tying the given fixture to a failing behavior is demonstrated; the witness conditionally speculates about unrelated scenarios rather than showing the assertion holds or fails via the cited Requirement. The Contract alone (not the rationale) would make these assertions follow from the spec, but the witness's supplied reasoning is contradictory and ambiguous, so it cannot be confirmed as a valid behavioral witness for R3."
+    },
+    {
+      "id": "003",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R4",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/003/solution",
+      "solution_digest": "7361c9bd4e6f91635635ece9d4618b053fbc47bd6dc6efe8f16f38b6bf9ccb79",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/003/witness.json",
+      "tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+      "reason": "No definite violation, or witness rejected a correct control."
+    }
+  ],
+  "unresolved": [],
+  "repairs": 0,
+  "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/frozen-tests",
+  "initial_tests_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/frozen-tests",
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/candidate",
+  "comparison_matrix": [],
+  "supplied_invalid_count": 0,
+  "search_status": "error",
+  "evidence_manifest": {
+    "controls/known-000/solve.sh": "83a48bd14d11a0819b6a89ab08041da573a2167b7914e451522980234058edf9",
+    "frozen-tests/tests/fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "frozen-tests/tests/fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "frozen-tests/tests/test_clean.py": "132d52e6ca90b7f82c9c48b859ef1666e432b410b42fd88a5e74ddcdeaf8a025",
+    "frozen-tests/tests.json": "1368ea42a2dc7207b8b6d6a7df003f526ccd7f4d6db4784c768a92d2bbbf38a7",
+    "search/candidates/000/result.json": "bd7cd2c960385dcb837b652f57ea17fb2b36f0aef91dcbc84bd137499ffcee78",
+    "search/candidates/000/review.json": "d378b7e8144cc013f9ab5dfe7905e90645585363d109a7c5bf36466b0ffea85f",
+    "search/candidates/000/solution/clean.py": "32ce66f5e90633ecd7caaad5f5c2f590a5ff536f4f436f8d8df03a852503a454",
+    "search/candidates/000/solution/solve.sh": "e2973830383a7b01f60a4173b99c5c37217ea048866aa1c45d1d404cd3b4263e",
+    "search/candidates/000/witness.json": "0fa34c267d9229e5b7c6397b68d9dd590501fa4276108c8dd6bb288c6672bd21",
+    "search/candidates/001/observations.json": "21ec871170e55c418ce5b1a9b046c573b84ef18f1d33d9e72e143295ced4b585",
+    "search/candidates/001/result.json": "bd512b5e1a8a1bd78cda00ee66960e09f4c02e1dafd7e9f70f97d0c002e05f23",
+    "search/candidates/001/review.json": "a6194fc4f7205297a28017469f13d3b8c70b350145dff9d6037e104e5df37d96",
+    "search/candidates/001/solution/clean.py": "e989185446c8778400636330846443fd34b142db1383d182019b56317a26e42f",
+    "search/candidates/001/solution/solve.sh": "e2973830383a7b01f60a4173b99c5c37217ea048866aa1c45d1d404cd3b4263e",
+    "search/candidates/001/witness/invalid-challenge/execution.json": "70ebaeb426fecbc89b8e8a9a25c5290571a79516d0d7b69ca61a1709fe0e1796",
+    "search/candidates/001/witness/invalid-challenge/pytest.json": "0643983fb3fb12b717f62cf68877839dd39c764cb3bf2f83909094bd65e0f592",
+    "search/candidates/001/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/invalid-challenge/stdout.log": "c2bc78dc6351a30938b7899b46f477c9b51b8561a5df0981aec719db7a4dbbac",
+    "search/candidates/001/witness/known-000/execution.json": "c51d4293b24eaf299511309573150249bc3f430816636fc35383babf00f58225",
+    "search/candidates/001/witness/known-000/pytest.json": "e943cc071d9906a59e61dbc5a47653cb111b8ed4bd348187ed8ad14035e66c95",
+    "search/candidates/001/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/known-000/stdout.log": "ba2a74b60802e465b0af928a23661f595e72d93d55b9f20b11c023bbaf2edaa6",
+    "search/candidates/001/witness/oracle/execution.json": "a9c9ffae02433bf61f88d3dfba88dc7565b6441750473b578be0414bbdbd2e07",
+    "search/candidates/001/witness/oracle/pytest.json": "82b1246e00153bed89ace135bd42fa97b9aa1dd623e79a9c06f532af4db9ca70",
+    "search/candidates/001/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/oracle/stdout.log": "100e8f18bb049fff23e1c4ed44f8c9e27ce43572c601e8f6b3f1e1007450274c",
+    "search/candidates/001/witness.json": "1e73e57721b773b35ef34730b9672bedbe37dfc452d58b5db677274b5b224ea4",
+    "search/candidates/002/result.json": "353f4ce853cd801132770d19be0539f42c0f9820252ef2b1e78052bc4aa37e36",
+    "search/candidates/002/review.json": "324da7698e80ad71bcd86ec4d81ce814e700879d1a60f6d0c94a8131cdbbf70c",
+    "search/candidates/002/solution/clean.py": "0462153170277e7d3bd9c739729698019e8bc2ac552fbe9a62fa8efbdde4777b",
+    "search/candidates/002/solution/solve.sh": "e2973830383a7b01f60a4173b99c5c37217ea048866aa1c45d1d404cd3b4263e",
+    "search/candidates/002/witness.json": "ac51dad9aac41d32d56f732a85c67ac19f64d0ead35c4bac8e4cbab6640b3fde",
+    "search/candidates/003/observations.json": "0819a2d60effbc535e74eaa75219972f8edf5a53415a8fb34f12ba66592e3c4d",
+    "search/candidates/003/result.json": "3e5f89dc3c7ee638fa3de51d6cd9e269d8c8bb2b21abfc9419b04786c6041929",
+    "search/candidates/003/review.json": "c1ccff226f35c1d9a2f150866b9aafc194900d676fd54a7b01796eb9adb2541a",
+    "search/candidates/003/solution/clean.py": "8f46299beca962e3fc3242aba21105692920a649a5bca51c2a1715b17f9ba211",
+    "search/candidates/003/solution/solve.sh": "e2973830383a7b01f60a4173b99c5c37217ea048866aa1c45d1d404cd3b4263e",
+    "search/candidates/003/witness/invalid-challenge/execution.json": "a81cece4ca328fd1a5875c94e1b0a4cacdd02d5cc0549efa4ceb8429eaf4ce28",
+    "search/candidates/003/witness/invalid-challenge/pytest.json": "8946e6c1bf25c1dc49001998d1fd30c2043a334ef6ffc517c77d874beeea7439",
+    "search/candidates/003/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/invalid-challenge/stdout.log": "7b3a06b7665931476854ccf02a2137592064ce63fa27f64b7630930185c7452b",
+    "search/candidates/003/witness/known-000/execution.json": "f3c6f99d637f20f79d0370f60f0a337c30f0c7f598ea04bdf2b1b672df995887",
+    "search/candidates/003/witness/known-000/pytest.json": "0645e81b862a786438c79c51516768f894ea65b9890aa7b1798503db6fbbd16f",
+    "search/candidates/003/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/known-000/stdout.log": "6aad94f5ec7321301fda03871f0d2a078ac51f06d674bf9e4f8d1a9c41b3d8ea",
+    "search/candidates/003/witness/oracle/execution.json": "ee52962cba5b18ebb1472762151931304262943d3accb4341288b4eb5e442c14",
+    "search/candidates/003/witness/oracle/pytest.json": "932843f25922f55c035834fc4de728508a15842ac47ed12c61cddf33863cba3b",
+    "search/candidates/003/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/003/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/003/witness/oracle/stdout.log": "6e45d3f9f5f16406e6723cb9eefc5e97c9925d60147cbcca198c25570b256e1e",
+    "search/candidates/003/witness.json": "85b16b27427a94af38c64854fa52c8361bcd11a6115d7606c3f779d88eddb892",
+    "search/challenge.json": "dad52ed97afbd06ba780922e67875c545647bf3bb4bc0e31604502afa3271318",
+    "search/trace.jsonl": "7cd22c4989ebc6527b4ef5cef32e2f0fe26b44dd79778bfb75ae7983c9da6641"
+  },
+  "known_correct": [
+    {
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/controls/known-000",
+      "manifest": {
+        "solve.sh": "83a48bd14d11a0819b6a89ab08041da573a2167b7914e451522980234058edf9"
+      }
+    }
+  ],
+  "stop_reason": "SynthesisError",
+  "budget_used": {
+    "model_calls": 21,
+    "tool_calls": 25,
+    "token_usage": {
+      "prompt_tokens": 140020,
+      "completion_tokens": 8016,
+      "total_tokens": 148036
+    }
+  },
+  "review_queue": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "reason": "The witness cannot be confirmed from the Contract. (1) The \"out/out.csv\" assertion is described as a \"json_file\" check but the output is a CSV, and the Contract never specifies that the output's parent directory must be auto-created. The witness's premise that a conforming implementation \"must create the output subdirectory\" is an extra constraint not present in R1 or the output spec; the Contract only states the command takes two positionals, exits 0, and writes a well-formed CSV to the given path. Ambiguity about a nonexistent output directory means the assertion does not follow directly from the Contract. (2) The rationale's core claim — that this candidate calls os.utime on the input, making it fail on read-only input — is implementation-specific behavior that is not visible in the supplied Contract or witness data; the review cannot assume that rationale is true, and it is not derivable from the cited Requirement. The fixture's read-only input is untrusted data and does not itself prove a nonzero exit. (3) The exact expected data content (lowercased/deduped [\"a@b.c\",\"Last, First\"]) is consistent with R2, but the failure mode hinges on unverified implementation specifics and an unspecified directory-creation requirement. Therefore neither the exit_code=0 nor the file assertion follows directly from the cited Requirement and Contract; no implementation identity or extra constraints may be used to confirm. Verdict: unconfirmed.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/000/witness.json"
+    },
+    {
+      "id": "001",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/001/witness.json"
+    },
+    {
+      "id": "002",
+      "status": "unconfirmed",
+      "reason": "The concrete input is in scope: UTF-8 CSV with header exactly \"email,name\", one legal data row using standard quoting, ASCII email, and expected output [[\"email\",\"name\"],[\"zoe@example.com\",\"Zoe\"]] follows directly from R2/R3 and the output spec (boundary whitespace stripped, email lowercased, name only trimmed). However, the witness's \"rationale\" is incoherent and does not establish that the implementation actually produces this output. It claims \"a file whose header is not consumed correctly (e.g. blank first line skipped later) misaligns rows\" and that \"an implementation that mishandles a quoted first data row (skipping the header unconditionally, including on files where the first line is a quoted record)\" would break this requirement — but none of that applies here, since the first line IS the header \"email,name\" (not a quoted record) and there is no blank first line. The rationale also misdescribes behavior: \"the implementation never uses the header to locate columns,\" and \"writes... including nothing normalized only if strip fails.\" No concrete defect tying the given fixture to a failing behavior is demonstrated; the witness conditionally speculates about unrelated scenarios rather than showing the assertion holds or fails via the cited Requirement. The Contract alone (not the rationale) would make these assertions follow from the spec, but the witness's supplied reasoning is contradictory and ambiguous, so it cannot be confirmed as a valid behavioral witness for R3.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/002/witness.json"
+    },
+    {
+      "id": "003",
+      "status": "unconfirmed",
+      "reason": "No definite violation, or witness rejected a correct control.",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-04/acceptance/discovery/search/candidates/003/witness.json"
+    }
+  ]
+}

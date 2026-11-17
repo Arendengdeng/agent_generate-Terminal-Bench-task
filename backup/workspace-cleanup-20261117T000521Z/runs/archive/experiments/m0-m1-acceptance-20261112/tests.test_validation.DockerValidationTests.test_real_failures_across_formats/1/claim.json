@@ -1,0 +1,36 @@
+{
+  "claim_id": "execution-reliability",
+  "property": "execution_reliability",
+  "source": "supplied-tests",
+  "tests_manifest": {
+    "test_behavior.py": "4b3d30bb83909e5e2c6c28a1acf16b91f44f9c2d7a00d451f7286a23055b08d2"
+  },
+  "contract_digest": "fbfb41c0b2bcb2ec67ac2ffeed4e4d7091a013f0c5ddd43b93be91321fccb715",
+  "nodeids": [
+    "test_behavior.py::test_behavior"
+  ],
+  "implementation_manifest": {
+    "/app/task.py": "834074c727187dbb98978e320357ecdd358fced45728f9f4b080d7439f729bd4"
+  },
+  "requirement_ids": [
+    "R1"
+  ],
+  "contract_version": null,
+  "adapter": "python-cli-pytest-v1",
+  "policy": {
+    "repeats": 3,
+    "suite_timeout_sec": 10,
+    "total_timeout_sec": 90,
+    "command": {
+      "argv_prefix": [
+        "python3",
+        "/app/task.py"
+      ],
+      "input_arg": 2,
+      "output_arg": 3
+    },
+    "checker": "declared-io-v1",
+    "image": "independent-verifier:pytest-9.2.0"
+  },
+  "schema_version": 1
+}

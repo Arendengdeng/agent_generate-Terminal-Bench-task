@@ -1,0 +1,54 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "同时按服务与级别分组，准确累计条数和非负整数耗时，不丢失重复记录。",
+  "rationale": "The Contract output_spec states each object's total_duration_ms is the sum of duration_ms for that (service, level) group, and R2 requires the durations to be accumulated accurately. For the provided input there is exactly one group, (svc, INFO), with two records of duration 3 and 4, so the output JSON array must be exactly [{\"service\": \"svc\", \"level\": \"INFO\", \"count\": 2, \"total_duration_ms\": 7}] written to the output path (the candidate still exits 0 and writes a JSON file, but its duration summation is wrong: it emits 0 for total_duration_ms). This violates R2's accumulation clause for the count-and-sum contract.",
+  "argv": [
+    "python3",
+    "/app/summarize.py",
+    "$WORK/in.jsonl",
+    "$WORK/out.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.jsonl": "{\"service\": \"svc\", \"level\": \"INFO\", \"duration_ms\": 3}\n{\"service\": \"svc\", \"level\": \"INFO\", \"duration_ms\": 4}\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "json",
+      "path": [
+        0,
+        "service"
+      ],
+      "value": "svc"
+    },
+    {
+      "source": "json",
+      "path": [
+        0,
+        "level"
+      ],
+      "value": "INFO"
+    },
+    {
+      "source": "json",
+      "path": [
+        0,
+        "count"
+      ],
+      "value": 2
+    },
+    {
+      "source": "json",
+      "path": [
+        0,
+        "total_duration_ms"
+      ],
+      "value": 7
+    }
+  ]
+}

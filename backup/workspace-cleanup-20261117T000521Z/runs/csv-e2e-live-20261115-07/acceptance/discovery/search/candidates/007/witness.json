@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "Contract R4 requires the input file to remain unmodified. The Contract also fixes the CLI as 'python /app/clean.py <input.csv> <output.csv>' with exactly two positional arguments, so a correct implementation must read the given input path only. The delivered CLI is defective in argument handling: when the input path is given as './in.csv' it rewrites/creates a different file in the working directory instead of reading './in.csv' itself, so the file designated as the input is never processed and its normalized content is loaded from (and written to) an unintended path. Per R4 and the documented command, './in.csv' must be read (header email,name; emails trimmed and lowercased; names trimmed; first occurrence kept) and left byte-identical, producing out.csv with header email,name and rows [alice@example.com, Alice Smith] and [bob@example.com, Bob, Jr.].",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "./in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Alice@Example.COM  ,  Alice Smith  \nbob@example.com,\"Bob, Jr.\"\nALICE@example.com,Alice Duplicate\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nalice@example.com,Alice Smith\nbob@example.com,\"Bob, Jr.\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

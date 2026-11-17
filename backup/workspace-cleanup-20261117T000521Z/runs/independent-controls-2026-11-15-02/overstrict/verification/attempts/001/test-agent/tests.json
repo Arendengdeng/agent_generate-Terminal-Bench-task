@@ -1,0 +1,73 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_value"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_behavior.py::test_double",
+        "test_behavior.py::test_both_fields_all_permitted",
+        "test_behavior.py::test_boundaries"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "64e1f89965df91572ca475260a39a94810e1239155850e09afe7746826a9d3e8",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "7edd1bde67517aa7279edf54ff52897e726ba976d9730e1908df7d11593cd4b3"
+  },
+  "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "For every permitted n, double equals 2*n.",
+    "test_path": "tests/test_behavior.py",
+    "line": "14",
+    "evidence_id": "known-000:test_behavior.py::test_double:call",
+    "explanation": "R2 requires only that the JSON field double equals 2*n; the Contract's output_spec explicitly states \"field order and whitespace are unrestricted\", and the input spec scopes behavior to n in [0,10] (n=3 is a valid input). The current test_double calls the CLI with n=3 and asserts exact byte equality against '{\"value\": 3, \"double\": 6}\\n'. Evidence known-000 (expected reward 1) outputs {\"double\":6,\"value\":3} — value=3 and double=6, semantically exactly what the Contract requires — yet the test fails only because of field order and whitespace. That is a test defect, not an implementation defect. Related defect: test_value at line 7-9 exempts n==3 from the full-object check, i.e. skips the double check for a permitted input. Fix: parse stdout as JSON, assert return code 0, and assert the parsed object equals {\"value\": n, \"double\": 2*n} for all n in [0,10], and structure the suite so R1 (value equals n, successful exit) and R2 (double equals 2*n) are both checked on parsed JSON for all permitted inputs.",
+    "parent_digest": "3a043967308dc25830069cbcf3f6583db3faa897a6270e9bac1bfe3c07e72c52"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_behavior.py::test_value",
+    "test_behavior.py::test_double",
+    "test_behavior.py::test_both_fields_all_permitted",
+    "test_behavior.py::test_boundaries"
+  ],
+  "manifest": {
+    "test_behavior.py": "e5fa2831a1c0d750a61362b63cc9a67354e668f4089bdeae149561f404aaad0f"
+  },
+  "digest": "b9d7f0c972580309bac571445e66b1b67a465561c5bf5e2bf5ef862938717a17",
+  "budget_used": {
+    "model_calls": 7,
+    "tool_calls": 10
+  },
+  "workflow_budget_used": {
+    "model_calls": 15,
+    "tool_calls": 20,
+    "token_usage": {
+      "prompt_tokens": 110808,
+      "completion_tokens": 1711,
+      "total_tokens": 112519
+    }
+  },
+  "cost": {
+    "wall_sec": 18.06,
+    "token_usage": {
+      "prompt_tokens": 110808,
+      "completion_tokens": 1711,
+      "total_tokens": 112519
+    }
+  }
+}

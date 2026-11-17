@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "digest": "fca9855940f22c18b3c8d52eb2a9ebb3b2b637689ba98eb57f848021b3cd8084",
+  "manifest": {
+    "checks/probe.py": "cfd5e14107415ff81a2966a4a88127d1c2d42bbc1a05dad51030889c79d653fc",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309",
+    "draft/instruction.md": "c71965129aa88a1f40aece23527dcee93c7f0c76229949e51b4a8ab72f814d0e",
+    "draft/solution/solve.sh": "5ac1001dc3eb52b73044f9a52125c4de41e2059aebf35e1eb83e9656f4946f12"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "r1-small: wrong keys ['count', 'level', 'max_duration_ms', 'service', 'total_duration_ms']"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "r2-multi-level: wrong keys ['count', 'level', 'max_duration_ms', 'service', 'total_duration_ms']"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "r3-unicode-order: wrong keys ['count', 'level', 'max_duration_ms', 'service', 'total_duration_ms']"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/summarize.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309"
+    },
+    "unchanged": true
+  }
+}

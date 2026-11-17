@@ -1,0 +1,131 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_success_with_input_in_readonly_like_paths",
+        "test_clean.py::test_wrong_argument_count_is_not_success",
+        "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+        "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+        "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+        "test_clean_extra.py::test_overwriting_an_existing_output_file"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+        "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+        "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+        "test_clean.py::test_all_fields_quoted_input",
+        "test_clean.py::test_output_uses_csv_escaping",
+        "test_clean.py::test_crlf_input_with_quoted_commas",
+        "test_clean.py::test_generated_large_duplicates",
+        "test_clean_extra.py::test_large_mixed_generated_input_reference",
+        "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+        "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+        "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+        "test_clean_extra.py::test_single_record_and_dup_pair_only"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input_produces_header_only_output",
+        "test_clean.py::test_header_only_without_trailing_newline",
+        "test_clean.py::test_generated_large_distinct_input_preserves_order",
+        "test_clean.py::test_generated_large_duplicates",
+        "test_clean_extra.py::test_header_only_variant_with_crlf",
+        "test_clean_extra.py::test_large_mixed_generated_input_reference",
+        "test_clean_extra.py::test_single_record_and_dup_pair_only"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_is_not_modified",
+        "test_clean.py::test_no_third_party_imports",
+        "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+        "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "inputs/instruction.md": "b4facb335c846caab5501f4710db162bdf90a8c289510be36c7dd33c0dad7560"
+  },
+  "parent_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd",
+  "diagnosis": {
+    "requirement_id": "R1",
+    "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+    "test_path": "tests/test_clean.py",
+    "line": "1",
+    "evidence_id": "challenge:008",
+    "explanation": "Controller confirmed a missing Contract behavior assertion; see independent witness.",
+    "parent_digest": "340a0aeebf3af631ea33adf730ddb028381867f339bf662845ef374bdea4dcdd"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success",
+    "test_clean_extra.py::test_sibling_backup_file_does_not_override_input",
+    "test_clean_extra.py::test_other_named_input_is_used_and_not_replaced_by_neighbour",
+    "test_clean_extra.py::test_large_mixed_generated_input_reference",
+    "test_clean_extra.py::test_email_ascii_variants_are_preserved_apart_from_case",
+    "test_clean_extra.py::test_header_only_variant_with_crlf",
+    "test_clean_extra.py::test_names_with_embedded_newline_and_quotes",
+    "test_clean_extra.py::test_output_can_be_reparsed_as_two_column_csv",
+    "test_clean_extra.py::test_single_record_and_dup_pair_only",
+    "test_clean_extra.py::test_overwriting_an_existing_output_file"
+  ],
+  "manifest": {
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "test_clean.py": "132d52e6ca90b7f82c9c48b859ef1666e432b410b42fd88a5e74ddcdeaf8a025",
+    "test_clean_extra.py": "e4d809cc1b3a3c734b1cb81b7950e303086c24a1e500ac4401e91a6e10abbe9a"
+  },
+  "digest": "af76cc8d3b0dc2f6f86d96c056bbc99b196c74beb52479d0897e09c85638ffc5",
+  "budget_used": {
+    "model_calls": 11,
+    "tool_calls": 13
+  },
+  "workflow_budget_used": {
+    "model_calls": 46,
+    "tool_calls": 54,
+    "token_usage": {
+      "prompt_tokens": 506554,
+      "completion_tokens": 18491,
+      "total_tokens": 525045
+    }
+  },
+  "cost": {
+    "wall_sec": 29.957,
+    "token_usage": {
+      "prompt_tokens": 506554,
+      "completion_tokens": 18491,
+      "total_tokens": 525045
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "verdict": "unconfirmed",
+  "reason": "Fixture 与预期输出不一致。out.csv 的期望值有两行数据（grace 与 ada），但 rationale 声称“three rows”。更关键的是，按契约归一化后，'Grace@Example.com'、'grace@example.com'、' GRACE@EXAMPLE.COM ' 三条均为同一归一化邮箱 grace@example.com，保留首次记录 name='Grace'，三者归一后确应只输出一条，故断言里的两行数据部分其实与契约推导一致（grace 行 + ada 行）。但断言中的期望输出与 rationale 描述存在矛盾（“three rows” vs 两行），且 rationale 称引号逗号记录“the email lowercased”，而断言与推导一致。存在明确歧义：rationale 自述行数与给定断言值不符，无法确认断言“直接”由契约得出。另外，'Ada@Example.ORG' 去除空白并小写为 ada@example.org，姓名 'Lovelace, Ada' 需 CSV 引号转义，断言值正是如此——这一部分合规。但由于 rationale 与断言内部矛盾，且契约未明确规定输出 CSV 是否必须使用最短引号（是否允许对非必需字段加引号），断言要求精确字节匹配可能超出契约保证，故判定 unconfirmed。",
+  "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+  "witness_digest": "6acd80d46e89e76ce8933d059b3f143e7f778927994c08ee7de65dc67b45c981",
+  "method": "isolated-contract-model-review-v1"
+}

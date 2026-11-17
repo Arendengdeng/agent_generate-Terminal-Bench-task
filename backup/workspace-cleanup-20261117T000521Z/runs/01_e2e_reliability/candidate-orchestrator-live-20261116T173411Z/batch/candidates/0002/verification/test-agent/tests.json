@@ -1,0 +1,99 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_r1_success_exit_code_and_output_file",
+        "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+        "test_clean.py::test_r1_output_header_and_csv_written_to_spec"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+        "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+        "test_clean.py::test_r2_output_reparses_to_same_values",
+        "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+        "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_r3_header_only_input",
+        "test_clean.py::test_r3_header_only_without_trailing_newline",
+        "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+        "test_clean.py::test_r3_no_duplicates_all_kept",
+        "test_clean.py::test_r3_max_size_input_within_time"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_r4_input_file_not_modified",
+        "test_clean.py::test_r4_stdlib_only_imports",
+        "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "inputs/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "inputs/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84"
+  },
+  "nodeids": [
+    "test_clean.py::test_r1_success_exit_code_and_output_file",
+    "test_clean.py::test_r1_output_path_is_user_supplied_second_arg",
+    "test_clean.py::test_r1_output_header_and_csv_written_to_spec",
+    "test_clean.py::test_r2_normalizes_email_whitespace_and_case",
+    "test_clean.py::test_r2_quoted_names_with_commas_and_quotes_preserved",
+    "test_clean.py::test_r2_output_reparses_to_same_values",
+    "test_clean.py::test_r2_stable_order_first_occurrence_kept",
+    "test_clean.py::test_r2_first_duplicate_name_with_quotes_kept",
+    "test_clean.py::test_r3_header_only_input",
+    "test_clean.py::test_r3_header_only_without_trailing_newline",
+    "test_clean.py::test_r3_other_input_not_hardcoded_sample",
+    "test_clean.py::test_r3_no_duplicates_all_kept",
+    "test_clean.py::test_r3_max_size_input_within_time",
+    "test_clean.py::test_r4_input_file_not_modified",
+    "test_clean.py::test_r4_stdlib_only_imports",
+    "test_clean.py::test_r4_output_uses_csv_quoting_not_naive_concat"
+  ],
+  "manifest": {
+    "test_clean.py": "55e05a64da8227450274cf0180c47f8f4850a00913f7682073a9147b6514e85e"
+  },
+  "digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "budget_used": {
+    "model_calls": 5,
+    "tool_calls": 7
+  },
+  "workflow_budget_used": {
+    "model_calls": 32,
+    "tool_calls": 38,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 193685,
+      "completion_tokens": 19795,
+      "total_tokens": 213480
+    }
+  },
+  "cost": {
+    "wall_sec": 28.778,
+    "token_usage": {
+      "prompt_tokens": 193685,
+      "completion_tokens": 19795,
+      "total_tokens": 213480
+    }
+  }
+}

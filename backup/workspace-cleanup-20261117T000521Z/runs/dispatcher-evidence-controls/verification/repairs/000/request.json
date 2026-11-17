@@ -1,0 +1,66 @@
+{
+  "task_version": "v000",
+  "issue_ids": [
+    "test-diagnosis"
+  ],
+  "responsible_module": "tests",
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Print 42 and exit successfully."
+    }
+  ],
+  "evidence": [
+    {
+      "message": "The test expects 43 but R1 explicitly requires 42.",
+      "evidence_paths": [
+        "/home/zyl/projects/step2-2/runs/dispatcher-evidence-controls/verification/versions/v000/attribution.json"
+      ],
+      "details": {
+        "status": "confirmed",
+        "source": "host_contract_assertion_check",
+        "rule": "literal-stdout-v1",
+        "requirement_id": "R1",
+        "contract_quote": "Print 42 and exit successfully.",
+        "expected_stdout": "42\n",
+        "test_path": "tests/test_behavior.py",
+        "line": 6,
+        "nodeid": "test_behavior.py::test_output",
+        "command": [
+          "python3",
+          "/app/clean.py"
+        ],
+        "observed_literal": "b'43\\n'",
+        "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+        "input_manifest": {
+          "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+          "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+          "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+          "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+          "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+        },
+        "evidence_ids": [
+          "oracle:test_behavior.py::test_output:call",
+          "nop:test_behavior.py::test_output:call",
+          "known-000:test_behavior.py::test_output:call"
+        ]
+      }
+    }
+  ],
+  "candidate_manifest": {
+    "checks/probe.py": "298c86dda084f673cd981962baafddaee2ada3e43e815c2cf5de8473a7cc11c2",
+    "draft/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+    "draft/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+    "draft/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af",
+    "draft/solution/solve.sh": "c20af87cc90be56fae585f844e4a95c5e73e9dc94fe45512e0c588b649404758",
+    "draft/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999"
+  },
+  "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+  "allowed_paths": [
+    "tests/"
+  ],
+  "remaining_budget": {
+    "model_calls": 36,
+    "tool_calls": 116
+  }
+}

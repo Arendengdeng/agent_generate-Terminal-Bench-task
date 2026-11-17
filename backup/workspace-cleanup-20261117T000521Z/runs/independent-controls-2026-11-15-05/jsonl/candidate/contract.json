@@ -1,0 +1,27 @@
+{
+  "objective": "jsonl public CLI behavior.",
+  "workspace": "/app",
+  "command": "python /app/clean.py",
+  "input_spec": "Zero to three JSONL integer lines, each integer in [-1,1].",
+  "output_spec": "JSON with exactly count and sum; field order and whitespace are unrestricted.",
+  "deliverables": {
+    "artifact_paths": [
+      "/app/clean.py"
+    ],
+    "allowed_dependencies": "python-stdlib",
+    "allow_additional_files": false
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Exit successfully and output count equal to the number of input records."
+    },
+    {
+      "id": "R2",
+      "description": "Output sum equal to the arithmetic sum of all input integers."
+    }
+  ],
+  "limits": {
+    "command_timeout_sec": 5
+  }
+}

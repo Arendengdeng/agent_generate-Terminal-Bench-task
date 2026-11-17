@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "results": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00010274600026605185,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "Contract behavior witness failed\nassert False\n +  where False = all(<generator object test_contract_witness.<locals>.<genexpr> at 0x76f3ffb58380>)",
+        "test_traceback": [
+          {
+            "path": "test_contract_witness.py",
+            "line": 40,
+            "source": "        assert all(c['passed'] for c in checks), 'Contract behavior witness failed'"
+          }
+        ]
+      },
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-utt6is1h/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\nalice@example.com,Alice Smith\\nbob@example.com,\\\"Bob, Jr.\\\"\\n\"}, \"actual\": \"email,name\\nold@example.com,Old Export\\n\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": false, \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.03709394100042118,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/witness-utt6is1h/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-utt6is1h/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\nalice@example.com,Alice Smith\\nbob@example.com,\\\"Bob, Jr.\\\"\\n\"}, \"actual\": \"email,name\\nold@example.com,Old Export\\n\", \"passed\": false}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": false, \"passed\": false}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00018812300004356075,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/clean.py": "4e4f19c305acd21efb3a275465cd82f535f557a663760329f63f89c31064baf7"
+  },
+  "wall_sec": 0.217437
+}

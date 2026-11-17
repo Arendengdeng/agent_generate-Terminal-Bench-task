@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "R4 forbids modifying the input file: after a successful run the input file at the first positional argument must be byte-for-byte unchanged (the Contract's input_spec permits files that end with a blank line, and says nothing authorising the tool to rewrite the input). The replacement rewrites the input file, stripping its trailing blank line, when it fixes the output. Expected: exit code 0 and the input fixture unchanged; the frozen suite only hashes a fixture with no trailing blank line, so it never detects this rewrite.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nAlice@Example.com,  Alice  \n\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\nalice@example.com,Alice\n"
+    }
+  ]
+}

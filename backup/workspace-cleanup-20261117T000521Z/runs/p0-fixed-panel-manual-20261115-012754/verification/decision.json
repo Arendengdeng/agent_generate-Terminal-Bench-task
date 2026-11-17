@@ -1,0 +1,36 @@
+{
+  "decision": "error",
+  "action": "investigate",
+  "reason_code": "PIPELINE_ERROR",
+  "reasons": [
+    "Pipeline failed or was cancelled."
+  ],
+  "responsible_module": null,
+  "investigate_modules": [],
+  "diagnostics": [
+    {
+      "code": "PIPELINE_ERROR",
+      "message": "Pipeline failed or was cancelled.",
+      "details": {
+        "stage": "test_generation",
+        "status": "error",
+        "error": {
+          "type": "SynthesisError",
+          "message": "Test Agent failed; see test-agent/tests.json and trace.jsonl"
+        }
+      },
+      "investigate_modules": []
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/run_result.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/static_check.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/preflight.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/test-agent/tests.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/independent-validation.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/validation-inputs.json",
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/p0-fixed-panel-manual-20261115-012754/verification/control-panel.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

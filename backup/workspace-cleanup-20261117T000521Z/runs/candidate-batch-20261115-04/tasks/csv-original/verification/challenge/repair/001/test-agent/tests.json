@@ -1,0 +1,121 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_clean.py::test_cli_success_exit_zero_and_header",
+        "test_clean.py::test_cli_canonical_csv_roundtrip_quoting",
+        "test_clean.py::test_cli_output_written_to_second_argument",
+        "test_input_immutability.py::test_trailing_blank_line_input_preserved",
+        "test_input_immutability.py::test_input_unchanged_on_repeated_runs_and_output_elsewhere"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_clean.py::test_quoted_commas_and_dedup_first_name",
+        "test_clean.py::test_case_and_whitespace_dedup",
+        "test_clean.py::test_stable_order_preserved_across_many_duplicates",
+        "test_clean.py::test_name_inner_whitespace_preserved",
+        "test_input_immutability.py::test_multiple_trailing_blank_lines_and_crlf_preserved",
+        "test_input_immutability.py::test_missing_final_newline_input_preserved",
+        "test_input_immutability.py::test_input_unchanged_on_repeated_runs_and_output_elsewhere"
+      ]
+    },
+    {
+      "requirement_id": "R3",
+      "test_names": [
+        "test_clean.py::test_header_only_input_gives_header_only_output",
+        "test_clean.py::test_varied_generated_inputs_match_spec",
+        "test_clean.py::test_large_input_up_to_limit",
+        "test_input_immutability.py::test_missing_final_newline_input_preserved"
+      ]
+    },
+    {
+      "requirement_id": "R4",
+      "test_names": [
+        "test_clean.py::test_input_file_not_modified",
+        "test_clean.py::test_clean_py_imports_stdlib_only",
+        "test_clean.py::test_runs_without_third_party_site_packages",
+        "test_input_immutability.py::test_trailing_blank_line_input_preserved",
+        "test_input_immutability.py::test_multiple_trailing_blank_lines_and_crlf_preserved",
+        "test_input_immutability.py::test_missing_final_newline_input_preserved",
+        "test_input_immutability.py::test_input_unchanged_on_repeated_runs_and_output_elsewhere"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6abfd33b019115682465160e00e19e0cc5ba3a290049e8a90e9f3f382a4781fc",
+    "inputs/environment/app/customers.csv": "097cf14176f54a369de9fb89da96bf03169c8a7e384bb146b85c703dba804917",
+    "inputs/instruction.md": "9e6e0bb7f4dcf62bd982aea23f41bf9f16800d0dcbe13e695927614e5f9bc364"
+  },
+  "parent_digest": "349d36605832c9829793fde8c2da33f80ba621179b782c51a5bd512323cb23fa",
+  "diagnosis": {
+    "requirement_id": "R4",
+    "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+    "test_path": "tests/test_clean.py",
+    "line": "1",
+    "evidence_id": "challenge:003",
+    "explanation": "Controller confirmed a missing Contract behavior assertion; see independent witness.",
+    "parent_digest": "349d36605832c9829793fde8c2da33f80ba621179b782c51a5bd512323cb23fa"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_clean.py::test_cli_success_exit_zero_and_header",
+    "test_clean.py::test_cli_canonical_csv_roundtrip_quoting",
+    "test_clean.py::test_cli_output_written_to_second_argument",
+    "test_clean.py::test_quoted_commas_and_dedup_first_name",
+    "test_clean.py::test_case_and_whitespace_dedup",
+    "test_clean.py::test_stable_order_preserved_across_many_duplicates",
+    "test_clean.py::test_name_inner_whitespace_preserved",
+    "test_clean.py::test_header_only_input_gives_header_only_output",
+    "test_clean.py::test_varied_generated_inputs_match_spec",
+    "test_clean.py::test_large_input_up_to_limit",
+    "test_clean.py::test_input_file_not_modified",
+    "test_clean.py::test_clean_py_imports_stdlib_only",
+    "test_clean.py::test_runs_without_third_party_site_packages",
+    "test_input_immutability.py::test_trailing_blank_line_input_preserved",
+    "test_input_immutability.py::test_multiple_trailing_blank_lines_and_crlf_preserved",
+    "test_input_immutability.py::test_missing_final_newline_input_preserved",
+    "test_input_immutability.py::test_input_unchanged_on_repeated_runs_and_output_elsewhere"
+  ],
+  "manifest": {
+    "fixtures/case_whitespace.csv": "22d8ea43044d9a194ab39fe65a67b2efc8a2cd86b4ef77ee31c442072fa14571",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/quoted_commas.csv": "247c7aa851f81a08077fe8f06507452fca0f5ed5e40bacd5270f5db568144f33",
+    "fixtures/small.csv": "097cf14176f54a369de9fb89da96bf03169c8a7e384bb146b85c703dba804917",
+    "test_clean.py": "9f355b95486aa823b17e8e86e527c9bc5290862eb3a913e6fc29bebe8eee7256",
+    "test_input_immutability.py": "3e0ef1bb38d0de0cf61fdf9673c4de8b90238686973144c213d19319cfbdd660"
+  },
+  "digest": "973d03e01140806109128b367c8eb54c5eed037df95421799184507048c88097",
+  "budget_used": {
+    "model_calls": 7,
+    "tool_calls": 9
+  },
+  "workflow_budget_used": {
+    "model_calls": 36,
+    "tool_calls": 47,
+    "token_usage": {
+      "prompt_tokens": 276337,
+      "completion_tokens": 12692,
+      "total_tokens": 289029
+    }
+  },
+  "cost": {
+    "wall_sec": 24.053,
+    "token_usage": {
+      "prompt_tokens": 276337,
+      "completion_tokens": 12692,
+      "total_tokens": 289029
+    }
+  }
+}

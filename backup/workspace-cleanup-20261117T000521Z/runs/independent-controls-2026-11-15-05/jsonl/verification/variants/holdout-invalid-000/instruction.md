@@ -1,0 +1,1 @@
+Implement the CLI according to the immutable Contract. Input: Zero to three JSONL integer lines, each integer in [-1,1]. Output: JSON with exactly count and sum; field order and whitespace are unrestricted.

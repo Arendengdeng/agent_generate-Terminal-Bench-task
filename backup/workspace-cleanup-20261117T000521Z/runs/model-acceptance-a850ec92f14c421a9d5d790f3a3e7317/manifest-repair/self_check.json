@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "digest": "60a8a63aa048af6a0cca1e91f35736dafbdefa9294a70af5e0ed234d4910faec",
+  "manifest": {
+    "checks/probe.py": "d39786c8cb18ffdb01710660012645c6f16708b400256f3011b72d9b5862cd92",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/archive/README.txt": "8f40808c9d4badfdf6ff8610ca7eb43500e5f6a7cf7c65d88a80107b80e0e789",
+    "draft/environment/app/src/__init__.py": "6b0acd19e32a4919172fad9681000416e57bcd891d2193a2da205aba3bc055ac",
+    "draft/environment/app/src/fs_walk.py": "64598404a97beb87c74183c6587d76f3691162c92e80b5a1415406a896d0a159",
+    "draft/environment/app/src/hashing.py": "f275b694f3667777bcc343dac511c8bbc99af339c7dc8ec09136ebf120b29725",
+    "draft/environment/app/src/manifest.py": "46a0353299af31cba7b461e20523db63b00d6bcb83ac1eea5c165d085756b03f",
+    "draft/environment/app/src/paths.py": "e8b483a6e563e695e515df2e2cf21c831b6b87d360e6ecd885835b200775fafb",
+    "draft/instruction.md": "ae01cb1d21a930a7e02a9a5e94593deff03a2d9dd51f0374cb48dfcd022196f0",
+    "draft/solution/solve.sh": "b6b546446719bfc89295333d008859c702c9c19023d68d492384c08cc7234de5",
+    "draft/solution/src/__init__.py": "7cd54b4c9ec058fbff5e49154296e869f4877ec5d8b6ac5a604780946aa78616",
+    "draft/solution/src/fs_walk.py": "cdaa35c2129b2d80a4b11ae5d3d3f497299c6be5ef4a87463602fa2cf3dbc3ef",
+    "draft/solution/src/hashing.py": "b630382b0f3ed307ec0657b54cb00535acb782f9111196d9998114b02fb12df5",
+    "draft/solution/src/manifest.py": "f70f1dc32f90b831e6d8c2a4d0f9fdc2ae242de71b155b6c41e71f5fefe0685e",
+    "draft/solution/src/paths.py": "8167777bce590a1eeb18c0665c19c1dc2b15b3efd226031d3febd1d9a23d2bb8"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "fail",
+        "message": "CLI 未正常退出: rc=1 stderr='Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 49, in <module>\\n    sys.exit(main())\\n             ^^^^^^\\n  File \"/app/src/manifest.py\", line 44, in main\\n    write_manifest(records, args.output_json)\\n  File \"/app/src/paths.py\", line 21, in write_manifest\\n    json.dump(records, handle, ensure_ascii=False, indent=2)\\n  File \"/usr/local/lib/python3.11/json/__init__.py\", line 180, in dump\\n    fp.write(chunk)\\nUnicodeEncodeError: \\'ascii\\' codec can\\'t encode character \\'\\\\xfc\\' in position 6: ordinal not in range(128)\\n'"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "CLI 未正常退出: rc=1 stderr='Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 49, in <module>\\n    sys.exit(main())\\n             ^^^^^^\\n  File \"/app/src/manifest.py\", line 44, in main\\n    write_manifest(records, args.output_json)\\n  File \"/app/src/paths.py\", line 21, in write_manifest\\n    json.dump(records, handle, ensure_ascii=False, indent=2)\\n  File \"/usr/local/lib/python3.11/json/__init__.py\", line 180, in dump\\n    fp.write(chunk)\\nUnicodeEncodeError: \\'ascii\\' codec can\\'t encode character \\'\\\\xfc\\' in position 6: ordinal not in range(128)\\n'"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "清单不匹配\n expected=[{\"path\": \"big/last.bin\", \"size\": 1048576, \"sha256\": \"172c15dc2e12b50e523d8e657cbe7fbb11c1053252bbf1e1431077d57d8128fd\"}, {\"path\": \"bin/raw.dat\", \"size\": 17, \"sha256\": \"88dc2470630f79412d4caaca039f8f921c9b26af17f4426c5e80fe183eabcc8b\"}, {\"path\": \"empty.bin\", \"size\": 0, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"path\": \"upper/B.txt\", \"size\": 2, \"sha256\": \"c0cde77fa8fef97d476c10aad3d2d54fcc2f336140d073651c2dcccf1e379fd6\"}, {\"path\": \"upper/a.txt\", \"size\": 2, \"sha256\": \"87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7\"}, {\"path\": \"upper/space name.txt\", \"size\": 7, \"sha256\": \"e47fbedb2823cf1ae4d4cdb8273635be2024cb870588e259c9b23d76ae49d484\"}]\n actual=[{\"path\": \"upper/space name.txt\", \"size\": 7, \"sha256\": \"e47fbedb2823cf1ae4d4cdb8273635be2024cb870588e259c9b23d76ae49d484\"}, {\"path\": \"upper/a.txt\", \"size\": 2, \"sha256\": \"87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7\"}, {\"path\": \"upper/b.txt\", \"size\": 2, \"sha256\": \"c0cde77fa8fef97d476c10aad3d2d54fcc2f336140d073651c2dcccf1e379fd6\"}, {\"path\": \"big/last.bin\", \"size\": 1048576, \"sha256\": \"172c15dc2e12b50e523d8e657cbe7fbb11c1053252bbf1e1431077d57d8128fd\"}, {\"path\": \"bin/raw.dat\", \"size\": 17, \"sha256\": \"88dc2470630f79412d4caaca039f8f921c9b26af17f4426c5e80fe183eabcc8b\"}, {\"path\": \"empty.bin\", \"size\": 0, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}]"
+      },
+      {
+        "id": "R4",
+        "status": "fail",
+        "message": "CLI 未正常退出: rc=1 stderr='Traceback (most recent call last):\\n  File \"/app/src/manifest.py\", line 49, in <module>\\n    sys.exit(main())\\n             ^^^^^^\\n  File \"/app/src/manifest.py\", line 44, in main\\n    write_manifest(records, args.output_json)\\n  File \"/app/src/paths.py\", line 21, in write_manifest\\n    json.dump(records, handle, ensure_ascii=False, indent=2)\\n  File \"/usr/local/lib/python3.11/json/__init__.py\", line 180, in dump\\n    fp.write(chunk)\\nUnicodeEncodeError: \\'ascii\\' codec can\\'t encode character \\'\\\\xfc\\' in position 6: ordinal not in range(128)\\n'"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/src/__init__.py",
+    "/app/src/fs_walk.py",
+    "/app/src/hashing.py",
+    "/app/src/manifest.py",
+    "/app/src/paths.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/archive/README.txt": "8f40808c9d4badfdf6ff8610ca7eb43500e5f6a7cf7c65d88a80107b80e0e789",
+      "draft/environment/app/src/__init__.py": "6b0acd19e32a4919172fad9681000416e57bcd891d2193a2da205aba3bc055ac",
+      "draft/environment/app/src/fs_walk.py": "64598404a97beb87c74183c6587d76f3691162c92e80b5a1415406a896d0a159",
+      "draft/environment/app/src/hashing.py": "f275b694f3667777bcc343dac511c8bbc99af339c7dc8ec09136ebf120b29725",
+      "draft/environment/app/src/manifest.py": "46a0353299af31cba7b461e20523db63b00d6bcb83ac1eea5c165d085756b03f",
+      "draft/environment/app/src/paths.py": "e8b483a6e563e695e515df2e2cf21c831b6b87d360e6ecd885835b200775fafb"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/archive/README.txt": "8f40808c9d4badfdf6ff8610ca7eb43500e5f6a7cf7c65d88a80107b80e0e789",
+      "draft/environment/app/src/__init__.py": "6b0acd19e32a4919172fad9681000416e57bcd891d2193a2da205aba3bc055ac",
+      "draft/environment/app/src/fs_walk.py": "64598404a97beb87c74183c6587d76f3691162c92e80b5a1415406a896d0a159",
+      "draft/environment/app/src/hashing.py": "f275b694f3667777bcc343dac511c8bbc99af339c7dc8ec09136ebf120b29725",
+      "draft/environment/app/src/manifest.py": "46a0353299af31cba7b461e20523db63b00d6bcb83ac1eea5c165d085756b03f",
+      "draft/environment/app/src/paths.py": "e8b483a6e563e695e515df2e2cf21c831b6b87d360e6ecd885835b200775fafb"
+    },
+    "unchanged": true
+  }
+}

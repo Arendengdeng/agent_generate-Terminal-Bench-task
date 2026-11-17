@@ -1,0 +1,26 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "The Contract fixes the command as `python /app/clean.py <input.csv> <output.csv>`: the CLI takes exactly two positional arguments (input then output), and a successful run writes the canonical CSV to the second argument. Invoking it with only one positional argument (the input file) is not the contracted invocation and must be rejected as a usage error, so it must not exit 0 and it must not write any canonical CSV output anywhere. The replacement exits 0 and writes a canonical CSV to the lone argument.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/only.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "only.csv": "email,name\nalice@example.com,Alice\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 2
+    },
+    {
+      "source": "file",
+      "path": "only.csv",
+      "value": "email,name\n"
+    }
+  ]
+}

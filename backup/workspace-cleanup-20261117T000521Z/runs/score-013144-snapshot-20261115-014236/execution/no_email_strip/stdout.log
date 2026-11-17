@@ -1,0 +1,86 @@
+F...F....F....                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+        assert_header(rows)
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.org", 'Carol "C" Jones'],
+            ["dave@example.net", ""],
+        ]
+E       AssertionError: assert [['  alice@ex...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 0 diff: ['  alice@example.com  ', 'Alice Smith'] != ['alice@example.com', 'Alice Smith']
+E         Left contains 2 more items, first extra item: [' bob@example.com ', 'Bob Again']
+E         Use -v to get more diff
+
+test_clean.py:55: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["  First@Mail.COM ", "  First Name  "],
+                ["second@mail.com", "Second"],
+                ["FIRST@MAIL.COM", "Other Name"],
+                ["first@mail.com", "Third"],
+                ["\tsecond@MAIL.com", "Second Again"],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["first@mail.com", "First Name"],
+            ["second@mail.com", "Second"],
+        ]
+E       AssertionError: assert [['email', 'n...econd Again']] == [['email', 'n...m', 'Second']]
+E         
+E         At index 1 diff: ['  first@mail.com ', 'First Name'] != ['first@mail.com', 'First Name']
+E         Left contains 2 more items, first extra item: ['first@mail.com', 'Other Name']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+_______________________ test_generated_large_duplicates ________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0')
+
+    def test_generated_large_duplicates(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        records = []
+        expected = []
+        for i in range(1000):
+            idx = i % 500
+            email = "user%03d@example.com" % idx
+            case_email = email.upper() if i % 2 else "  " + email + "  "
+            name = "Name %d" % i
+            records.append([case_email, name])
+            if i < 500:
+                expected.append([email, name])
+        write_csv(in_path, ["email", "name"], records)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['  user000@...Name 5'], ...] == [['user000@ex...Name 5'], ...]
+E         
+E         At index 0 diff: ['  user000@example.com  ', 'Name 0'] != ['user000@example.com', 'Name 0']
+E         Use -v to get more diff
+
+test_clean.py:197: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_generated_large_duplicates - AssertionError: asser...
+3 failed, 11 passed in 0.62s

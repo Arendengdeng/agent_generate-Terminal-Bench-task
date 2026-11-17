@@ -1,0 +1,48 @@
+...FF.F                                                                  [100%]
+=================================== FAILURES ===================================
+__________________________ test_double_equals_twice_n __________________________
+
+    def test_double_equals_twice_n():
+        for n in range(A, MAXI + 1):
+            obj = run(n)
+>           assert obj['double'] == 2 * n, (
+                'double mismatch for n=%r: %r' % (n, obj.get('double'))
+            )
+E           AssertionError: double mismatch for n=1: 1
+E           assert 1 == (2 * 1)
+
+test_behavior.py:61: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 0, "double": 0}
+{"value": 1, "double": 1}
+______________________________ test_probe_n_three ______________________________
+
+    def test_probe_n_three():
+        obj = run(PROBE)
+        assert obj['value'] == PROBE
+>       assert obj['double'] == 6
+E       assert 3 == 6
+
+test_behavior.py:70: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 3, "double": 3}
+______________________________ test_boundary_ten _______________________________
+
+    def test_boundary_ten():
+        obj = run(MAXI)
+>       assert obj == {'value': 10, 'double': 20}
+E       AssertionError: assert {'value': 10, 'double': 10} == {'value': 10, 'double': 20}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'double': 10} != {'double': 20}
+E         Use -v to get more diff
+
+test_behavior.py:81: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"value": 10, "double": 10}
+=========================== short test summary info ============================
+FAILED test_behavior.py::test_double_equals_twice_n - AssertionError: double ...
+FAILED test_behavior.py::test_probe_n_three - assert 3 == 6
+FAILED test_behavior.py::test_boundary_ten - AssertionError: assert {'value':...
+3 failed, 4 passed in 1.30s

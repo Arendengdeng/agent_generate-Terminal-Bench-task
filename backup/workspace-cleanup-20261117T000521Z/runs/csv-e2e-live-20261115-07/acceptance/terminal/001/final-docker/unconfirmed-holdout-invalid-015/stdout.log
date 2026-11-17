@@ -1,0 +1,77 @@
+................F..F...                                                  [100%]
+=================================== FAILURES ===================================
+__________________ test_large_mixed_generated_input_reference __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_mixed_generated_inp0')
+
+    def test_large_mixed_generated_input_reference(tmp_path):
+        """A 1000-record generated input checked against an independently computed result."""
+        work = str(tmp_path)
+        records = []
+        expected = []
+        seen = set()
+        for i in range(1000):
+            idx = (i * 37) % 700
+            raw_email = 'Person%03d@Example.COM' % idx
+            if i % 3 == 0:
+                raw_email = '  ' + raw_email + '\t'
+            if i % 4 == 0:
+                raw_email = raw_email.lower()
+            name = 'Person %d' % idx
+            if i % 5 == 0:
+                name = '  ' + name + ', Sr.  '
+                norm_name = 'Person %d, Sr.' % idx
+            else:
+                norm_name = name
+            records.append([raw_email, name])
+            norm_email = raw_email.strip().lower()
+            if norm_email not in seen:
+                seen.add(norm_email)
+                expected.append([norm_email, norm_name])
+        in_path = _write_rows(work, 'in.csv', ['email', 'name'], records)
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+        assert rows[0] == ['email', 'name']
+>       assert rows[1:] == expected, 'normalization/dedup/order mismatch on generated input'
+E       AssertionError: normalization/dedup/order mismatch on generated input
+E       assert [['person000@...5, Sr.'], ...] == [['person000@...5, Sr.'], ...]
+E         
+E         At index 1 diff: ['person001@example.com', 'Person 1'] != ['person037@example.com', 'Person 37']
+E         Use -v to get more diff
+
+test_clean_extra.py:129: AssertionError
+_________________ test_names_with_embedded_newline_and_quotes __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_names_with_embedded_newli0')
+
+    def test_names_with_embedded_newline_and_quotes(tmp_path):
+        work = str(tmp_path)
+        in_path = _write_rows(
+            work,
+            'in.csv',
+            ['email', 'name'],
+            [
+                ['n@x.com', 'line1\nline2'],
+                ['m@x.com', 'say "hi", please'],
+                ['N@X.COM', 'dropped'],
+            ],
+        )
+        out_path = os.path.join(work, 'out.csv')
+        rows = _run_ok(in_path, out_path)
+>       assert rows == [
+            ['email', 'name'],
+            ['n@x.com', 'line1\nline2'],
+            ['m@x.com', 'say "hi", please'],
+        ], rows
+E       AssertionError: [['email', 'name'], ['m@x.com', 'say "hi", please'], ['n@x.com', 'line1
+E         line2']]
+E       assert [['email', 'n...ine1\nline2']] == [['email', 'n...hi", please']]
+E         
+E         At index 1 diff: ['m@x.com', 'say "hi", please'] != ['n@x.com', 'line1\nline2']
+E         Use -v to get more diff
+
+test_clean_extra.py:176: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean_extra.py::test_large_mixed_generated_input_reference - Asse...
+FAILED test_clean_extra.py::test_names_with_embedded_newline_and_quotes - Ass...
+2 failed, 21 passed in 1.05s

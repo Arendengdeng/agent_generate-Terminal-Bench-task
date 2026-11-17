@@ -1,0 +1,137 @@
+{
+  "label": "nop",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001846349987317808,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'double': 0} != {'double': 2}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 9,
+            "source": "            assert json.loads(p.stdout) == {'value': n, 'double': 2*n}"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.08642995199625148,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 0, \"double\": 0}\n",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_behavior.py::test_value",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 1, \"double\": 0}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_value",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002479839968145825,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020564099395414814,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert '{\"value\": 3, \"double\": 0}\\n' == '{\"value\": 3, \"double\": 6}\\n'\n  \n  - {\"value\": 3, \"double\": 6}\n  ?                        ^\n  + {\"value\": 3, \"double\": 0}\n  ?                        ^",
+        "test_traceback": [
+          {
+            "path": "test_behavior.py",
+            "line": 14,
+            "source": "    assert result.stdout == '{\"value\": 3, \"double\": 6}\\n'"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04105618200264871,
+      "commands": [
+        {
+          "nodeid": "test_behavior.py::test_double",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "{\"value\": 3, \"double\": 0}\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_behavior.py::test_double",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019849499949486926,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-04/overstrict/verification/attempts/000/execution/nop/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09"
+  },
+  "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n__________________________________ test_value __________________________________\n\n    def test_value():\n        for n in range(11):\n            p = subprocess.run(['python3', '/app/clean.py', str(n)],capture_output=True,text=True,timeout=5)\n            assert p.returncode == 0\n            assert json.loads(p.stdout)['value'] == n\n            if n != 3:\n>               assert json.loads(p.stdout) == {'value': n, 'double': 2*n}\nE               AssertionError: assert {'value': 1, 'double': 0} == {'value': 1, 'double': 2}\nE                 \nE                 Omitting 1 identical items, use -vv to show\nE                 Differing items:\nE                 {'double': 0} != {'double': 2}\nE                 Use -v to get more diff\n\ntest_behavior.py:9: AssertionError\n_________________________________ test_double __________________________________\n\n    def test_double():\n        result = subprocess.run(['python3', '/app/clean.py', '3'],capture_output=True,text=True,timeout=5)\n        assert result.returncode == 0\n>       assert result.stdout == '{\"value\": 3, \"double\": 6}\\n'\nE       assert '{\"value\": 3, \"double\": 0}\\n' == '{\"value\": 3, \"double\": 6}\\n'\nE         \nE         - {\"value\": 3, \"double\": 6}\nE         ?                        ^\nE         + {\"value\": 3, \"double\": 0}\nE         ?                        ^\n\ntest_behavior.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED test_behavior.py::test_value - AssertionError: assert {'value': 1, 'do...\nFAILED test_behavior.py::test_double - assert '{\"value\": 3, \"double\": 0}\\n' =...\n2 failed in 0.17s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "outcome": "fail",
+  "wall_sec": 5.729,
+  "attribution": "uncertain"
+}

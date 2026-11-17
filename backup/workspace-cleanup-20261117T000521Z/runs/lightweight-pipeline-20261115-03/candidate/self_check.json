@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "digest": "a1fa471a0efed4db53c0d4018a11ff6f00260a6c1436f1fd1a8fdf40f02fa008",
+  "manifest": {
+    "checks/probe.py": "9c9db2cfc020db3c16aa08b4415a8da1002266f07a87f6b7c3c32500d0edb5a6",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "991311236156281a1694076c63b134296f61a918dc264b99e4b28d8dc9113f3f",
+    "draft/environment/app/sample_customers.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3",
+    "draft/instruction.md": "55f459f8c1b19a587014a052d17b43c370c5a7e39b8c97f48e668b053c24d42f",
+    "draft/solution/solve.sh": "a595556c97776c6115cd7b463854359625a2aab90d4a2f7cf387af9b67fb67de"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "rows mismatch: got [('alice@example.com', 'Alice Chen'), (' bob@example.com ', 'Bob Li'), ('carol@example.com', 'Carol\\nALICE@Example.COM,Alicia Chen\\ndave@example.com \"', ' Dave\\nBob@Example.com,Robert Li\\n  Carol@Example.com  ,Carol'), ('eve@example.com', 'Eve \"Evie\" Park'), ('EVE@example.com', 'Eve Second')] expected [('alice@example.com', 'Alice Chen'), ('bob@example.com', 'Bob Li'), ('carol@example.com', 'Carol, Jr.'), ('dave@example.com', 'Dave, Sr.'), ('eve@example.com', 'Eve \"Evie\" Park')]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "rows mismatch: got [('zzz@example.org', 'Zed\\naaa@example.org,Alpha Order\\nZZZ@EXAMPLE.ORG,Again\\n')] expected [('zzz@example.org', 'Zed, Zulu'), ('aaa@example.org', 'Alpha Order')]"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "991311236156281a1694076c63b134296f61a918dc264b99e4b28d8dc9113f3f",
+      "draft/environment/app/sample_customers.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "991311236156281a1694076c63b134296f61a918dc264b99e4b28d8dc9113f3f",
+      "draft/environment/app/sample_customers.csv": "66405f286de38dc370684257ea2c5a30ff0dd2c0afcd5e9fd6a9085edab421e3"
+    },
+    "unchanged": true
+  }
+}

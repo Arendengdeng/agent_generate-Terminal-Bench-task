@@ -1,0 +1,954 @@
+{
+  "status": "completed",
+  "pytest_exit_code": 1,
+  "reward": 0,
+  "error": null,
+  "nodeids": [
+    "test_summarize.py::test_sample_exit_code_and_structure",
+    "test_summarize.py::test_sample_values_exact",
+    "test_summarize.py::test_groups_only_by_service_across_levels",
+    "test_summarize.py::test_duplicate_records_not_lost",
+    "test_summarize.py::test_max_across_levels_not_per_level",
+    "test_summarize.py::test_empty_input_outputs_empty_array",
+    "test_summarize.py::test_empty_input_output_file_is_valid_json",
+    "test_summarize.py::test_ordering_python_string_sorted",
+    "test_summarize.py::test_unicode_service_names_sorted",
+    "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+    "test_summarize.py::test_input_file_not_modified",
+    "test_summarize.py::test_input_without_trailing_newline",
+    "test_summarize.py::test_single_line_zero_duration",
+    "test_summarize.py::test_large_input_1000_lines",
+    "test_summarize.py::test_extra_fields_ignored",
+    "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+    "test_summarize.py::test_runtime_uses_only_stdlib"
+  ],
+  "results": [
+    {
+      "nodeid": "test_summarize.py::test_sample_exit_code_and_structure",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0021155770000405028,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_sample_exit_code_and_structure",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "report services mismatch: ['alpha', 'beta', 'beta'] vs ['alpha', 'beta']\nassert ['alpha', 'beta', 'beta'] == ['alpha', 'beta']\n  \n  Left contains one more item: 'beta'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 96,
+            "source": "    assert_valid_structure(data, records)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 68,
+            "source": "    assert [obj[\"service\"] for obj in data] == services, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04022560399971553,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_sample_exit_code_and_structure",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_sample_exit_code_and_structure",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002024610002990812,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_sample_values_exact",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000583405000725179,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_sample_values_exact",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 9, ...}] == [{'service': ...ation_ms': 9}]\n  \n  At index 0 diff: {'service': 'alpha', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7} != {'service': 'alpha', 'count': 1, 'total_duration_ms': 7, 'max_duration_ms': 7}\n  Left contains one more item: {'service': 'beta', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 9, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 110,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.031041682999784825,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_sample_values_exact",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_sample_values_exact",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001873339997473522,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_groups_only_by_service_across_levels",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006337310005619656,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_groups_only_by_service_across_levels",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "report services mismatch: ['other', 'svc', 'svc', 'svc'] vs ['other', 'svc']\nassert ['other', 'svc', 'svc', 'svc'] == ['other', 'svc']\n  \n  Left contains 2 more items, first extra item: 'svc'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 128,
+            "source": "    assert_valid_structure(data, records)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 68,
+            "source": "    assert [obj[\"service\"] for obj in data] == services, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.028873680999822682,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_groups_only_by_service_across_levels",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_groups_only_by_service_across_levels",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001341619999948307,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_not_lost",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00041241700000682613,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_not_lost",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...ms': 38, ...}] == [{'service': ...ation_ms': 6}]\n  \n  At index 0 diff: {'service': 'dup', 'level': 'INFO', 'count': 9, 'total_duration_ms': 38, 'max_duration_ms': 6} != {'service': 'dup', 'count': 9, 'total_duration_ms': 38, 'max_duration_ms': 6}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 145,
+            "source": "    assert data == [{\"service\": \"dup\", \"count\": 9, \"total_duration_ms\": 38,"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.028782409000086773,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_duplicate_records_not_lost",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_not_lost",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019889400027750526,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_across_levels_not_per_level",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006095520002418198,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_across_levels_not_per_level",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "report services mismatch: ['m', 'm', 'm', 'n'] vs ['m', 'n']\nassert ['m', 'm', 'm', 'n'] == ['m', 'n']\n  \n  At index 1 diff: 'm' != 'n'\n  Left contains 2 more items, first extra item: 'm'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 161,
+            "source": "    assert_valid_structure(data, records)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 68,
+            "source": "    assert [obj[\"service\"] for obj in data] == services, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.030575466999835044,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_max_across_levels_not_per_level",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_across_levels_not_per_level",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001666629996179836,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000599771000452165,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03084797300016362,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016931000027398113,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_output_file_is_valid_json",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006190340000102879,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_output_file_is_valid_json",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02939961699939886,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_empty_input_output_file_is_valid_json",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_output_file_is_valid_json",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001812800001061987,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_ordering_python_string_sorted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007402769997497671,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_ordering_python_string_sorted",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "unexpected fields: ['count', 'level', 'max_duration_ms', 'service', 'total_duration_ms']\nassert {'count', 'le..._duration_ms'} == {'count', 'ma..._duration_ms'}\n  \n  Extra items in the left set:\n  'level'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 197,
+            "source": "    assert_valid_structure(data, records)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 73,
+            "source": "        assert set(obj.keys()) == FIELDS, \"unexpected fields: %r\" % (sorted(obj.keys()),)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.031233952999173198,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_ordering_python_string_sorted",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_ordering_python_string_sorted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00017280700012634043,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_service_names_sorted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006805189996157424,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_service_names_sorted",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "report services mismatch: ['ASCII', 'ASCII', 'Z', 'Z', 'service', 'service', 'Ñandú', 'Ñandú', 'é', 'é', '日本語', '日本語', '服务-乙', '服务-乙', '服务-甲', '服务-甲', '服务-甲', '😀', '😀'] vs ['ASCII', 'Z', 'service', 'Ñandú', 'é', '日本語', '服务-乙', '服务-甲', '😀']\nassert ['ASCII', 'AS...service', ...] == ['ASCII', 'Z'...', '日本語', ...]\n  \n  At index 1 diff: 'ASCII' != 'Z'\n  Left contains 10 more items, first extra item: 'é'\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 216,
+            "source": "    assert_valid_structure(data, records)"
+          },
+          {
+            "path": "test_summarize.py",
+            "line": 68,
+            "source": "    assert [obj[\"service\"] for obj in data] == services, ("
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03021721000004618,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_unicode_service_names_sorted",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_service_names_sorted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018165899928135332,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0004993890006517177,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 1, ...}] == [{'service': ...ation_ms': 1}]\n  \n  At index 0 diff: {'service': '服务-乙', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': '服务-乙', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 236,
+            "source": "    assert data == [{\"service\": \"服务-乙\", \"count\": 1,"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.037085607000335585,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_output_encoded_utf8_readable",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001348610003333306,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005490849998750491,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 2, ...}] == [{'service': ...ation_ms': 5}]\n  \n  At index 0 diff: {'service': 'a', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'a', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}\n  Left contains one more item: {'service': 'b', 'level': 'WARN', 'count': 1, 'total_duration_ms': 2, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 252,
+            "source": "    assert data == expected_report(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02966648100027669,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_input_file_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016592300016782247,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00043147900032636244,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 3, ...}] == [{'service': ...ation_ms': 3}]\n  \n  At index 0 diff: {'service': 'x', 'level': 'INFO', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2} != {'service': 'x', 'count': 1, 'total_duration_ms': 2, 'max_duration_ms': 2}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 269,
+            "source": "    assert data == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.031888036000054854,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_input_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00013440200018521864,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_line_zero_duration",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0013877230003345176,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_line_zero_duration",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 0, ...}] == [{'service': ...ation_ms': 0}]\n  \n  At index 0 diff: {'service': 'solo', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0} != {'service': 'solo', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 281,
+            "source": "    assert data == [{\"service\": \"solo\", \"count\": 1, \"total_duration_ms\": 0,"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.030663415999697463,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_single_line_zero_duration",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_line_zero_duration",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001605280003786902,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_large_input_1000_lines",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006131789996288717,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_large_input_1000_lines",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...71, ...}, ...] == [{'service': ...s': 967}, ...]\n  \n  At index 0 diff: {'service': 'svc-00', 'level': 'INFO', 'count': 10, 'total_duration_ms': 4995, 'max_duration_ms': 999} != {'service': 'svc-00', 'count': 28, 'total_duration_ms': 13986, 'max_duration_ms': 999}\n  Left contains 74 more items, first extra item: {'service': 'svc-12', 'level': 'WARN', 'count': 9, 'total_duration_ms': 4437, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 297,
+            "source": "    assert data == expected_report(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.044253269000364526,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_large_input_1000_lines",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_large_input_1000_lines",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001420739999957732,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_extra_fields_ignored",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006524339996758499,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_extra_fields_ignored",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 6, ...}] == [{'service': ...ation_ms': 6}]\n  \n  At index 0 diff: {'service': 'e1', 'level': 'INFO', 'count': 1, 'total_duration_ms': 4, 'max_duration_ms': 4} != {'service': 'e1', 'count': 2, 'total_duration_ms': 10, 'max_duration_ms': 6}\n  Left contains one more item: {'service': 'e1', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 6, ...}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 310,
+            "source": "    assert data == [{\"service\": \"e1\", \"count\": 2, \"total_duration_ms\": 10,"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.028718818000015744,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_extra_fields_ignored",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_extra_fields_ignored",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020092199974897085,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000532291000126861,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 2, ...}] == [{'service': ...ation_ms': 2}]\n  \n  At index 0 diff: {'service': 'p', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'p', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 324,
+            "source": "    assert data == expected_report(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.029313559000001987,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_path_relative_to_cwd_not_required_but_absolute_works",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00012846699974033982,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_runtime_uses_only_stdlib",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006269759996939683,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_runtime_uses_only_stdlib",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ..._ms': 1, ...}] == [{'service': ...ation_ms': 1}]\n  \n  At index 0 diff: {'service': 'lib', 'level': 'INFO', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1} != {'service': 'lib', 'count': 1, 'total_duration_ms': 1, 'max_duration_ms': 1}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 344,
+            "source": "    assert data == [{\"service\": \"lib\", \"count\": 1, \"total_duration_ms\": 1,"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.02995798400024796,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_runtime_uses_only_stdlib",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_runtime_uses_only_stdlib",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0011737640006685979,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "artifact_manifest": {
+    "/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309"
+  },
+  "wall_sec": 0.898243
+}

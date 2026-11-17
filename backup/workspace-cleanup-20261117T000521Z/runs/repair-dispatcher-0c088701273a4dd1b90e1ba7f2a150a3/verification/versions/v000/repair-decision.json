@@ -1,0 +1,68 @@
+{
+  "decision": "repair",
+  "action": "repair",
+  "reason_code": "CRITICAL_ISSUES",
+  "reasons": [
+    "Unresolved critical issues require attention."
+  ],
+  "responsible_module": "tests",
+  "investigate_modules": [
+    "tests"
+  ],
+  "diagnostics": [
+    {
+      "code": "CRITICAL_ISSUES",
+      "message": "Unresolved critical issues require attention.",
+      "details": [
+        {
+          "id": "test-diagnosis",
+          "message": "The test expects 43 but R1 explicitly requires 42.",
+          "responsible_module": "tests",
+          "requirement_ids": [
+            "R1"
+          ],
+          "evidence_paths": [
+            "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-0c088701273a4dd1b90e1ba7f2a150a3/verification/versions/v000/attribution.json"
+          ],
+          "details": {
+            "status": "confirmed",
+            "source": "host_contract_assertion_check",
+            "rule": "literal-stdout-v1",
+            "requirement_id": "R1",
+            "contract_quote": "Print 42 and exit successfully.",
+            "expected_stdout": "42\n",
+            "test_path": "tests/test_behavior.py",
+            "line": 6,
+            "nodeid": "test_behavior.py::test_output",
+            "command": [
+              "python3",
+              "/app/clean.py"
+            ],
+            "observed_literal": "b'43\\n'",
+            "tests_digest": "f25526670566da61888c4c42302b8b3de15e07f53e4782e5e5d676b130def98e",
+            "input_manifest": {
+              "inputs/contract.json": "5373dfa054cdbd4c775355dacbba207ce1df56d10ffe4cb04130d471ab19eb87",
+              "inputs/environment/Dockerfile": "d679f714862a98ae68fdcee7e9e450b921a29949d251062cc7f5c3c11f9445a9",
+              "inputs/environment/app/clean.py": "5d84b96c3fa6d5ac01ea84c72e3eb746f4ea4a5e7e9146ceeaf6c922c3e24e13",
+              "inputs/environment/app/private-data.txt": "938b901b3eb99148502d3251613254c042be613808c25566e9cf973a0c164999",
+              "inputs/instruction.md": "8c8c1fcf39146a761e0b7a7b6fff1442d2cda2e83a1c18a5083579570afc10af"
+            },
+            "evidence_ids": [
+              "oracle:test_behavior.py::test_output:call",
+              "nop:test_behavior.py::test_output:call",
+              "known-000:test_behavior.py::test_output:call"
+            ]
+          }
+        }
+      ],
+      "investigate_modules": [
+        "tests"
+      ]
+    }
+  ],
+  "evidence_paths": [
+    "/home/zyl/projects/agent_generate Terminal Bench task/runs/repair-dispatcher-0c088701273a4dd1b90e1ba7f2a150a3/verification/versions/v000/attribution.json"
+  ],
+  "task_dir": null,
+  "limitation": "Acceptance covers basic checks and the supplied Contract-reviewed finite control panel, not general test sufficiency or publication readiness."
+}

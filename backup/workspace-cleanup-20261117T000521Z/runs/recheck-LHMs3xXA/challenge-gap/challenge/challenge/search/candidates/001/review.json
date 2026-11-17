@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "The input n=1000000 is an integer within the specified range [0,1000000] (inclusive boundary), so it is in scope. Every assertion follows directly: R1 requires exit 0 with value=n, giving exit_code 0 and value 1000000; R2 requires double=2*n=2000000. The assertions check exactly these fields and values. The claimed defect (emitting 2000002) would indeed violate R2 at this in-range boundary input, so the witness establishes a concrete R2 violation. Note: output_spec allows extra whitespace/field order but the JSON source is checked by path, which is consistent. No ambiguity or extra requirements introduced.",
+  "contract_digest": "cf9f58179c1993ce380c906febc68c1996beca1da7dcd2a904d28714f2a1524e",
+  "witness_digest": "6409217289664171dc5037f231e214aaede87102eace0e6a8da4bdc4c6368a62",
+  "method": "isolated-contract-model-review-v1"
+}

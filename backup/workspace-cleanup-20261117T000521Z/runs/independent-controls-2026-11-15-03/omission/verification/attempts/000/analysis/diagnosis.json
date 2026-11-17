@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "For every permitted n, double equals 2*n.",
+  "test_path": "tests/test_behavior.py",
+  "line": "9",
+  "evidence_id": "invalid-000:outcome",
+  "explanation": "test_value explicitly skips the full-object equality assertion for n == 3 (`if n != 3:`), and test_double only asserts the type of double for n = 3 rather than its value. The invalid-000 control outputs {\"value\": 3, \"double\": 3} for n = 3 (see invalid-000:outcome command stdout) and therefore passes all tests even though R2 requires double == 2*n for every permitted n in [0,10]. The exemption for n=3 is not justified by the Contract and lets a defective implementation pass. The fix per the allowed patch scope is to replace only the cited assertion so that the full output object check `json.loads(result.stdout) == {'value': 3, 'double': 6}` applies to n = 3 as well (apply the full-object equality for every n in 0..10), while preserving the rest of the test files.",
+  "parent_digest": "95fde5c9c6cc1ab2f15d5ea95038419382ce9b0a4cd787ccf2fa60fd927e8fb9"
+}

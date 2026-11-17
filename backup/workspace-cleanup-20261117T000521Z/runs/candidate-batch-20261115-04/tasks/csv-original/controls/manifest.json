@@ -1,0 +1,350 @@
+{
+  "controls": [
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-correct",
+      "group": "feedback",
+      "role": "correct",
+      "implementation_digest": "7159036efab0236269244b94b1a48dfaaecda72045c523c47c29c9467b09fe73",
+      "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "Both sources use csv parsing/writing, strip/lower ASCII email and strip names; explicit first-occurrence order is preserved. The selected traversal/update policy implements first-name retention. Header-only input retains the header. Only the output is opened for writing; only clean.py is delivered and imports are standard library.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-correct-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-correct-audit/execution.json"
+        ]
+      }
+    },
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-correct",
+      "group": "holdout",
+      "role": "correct",
+      "implementation_digest": "27ebfca5c6183d6267c701e2131f90c6de2e57018ec01556c2f698d2ca048c32",
+      "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "Both sources use csv parsing/writing, strip/lower ASCII email and strip names; explicit first-occurrence order is preserved. The selected traversal/update policy implements first-name retention. Header-only input retains the header. Only the output is opened for writing; only clean.py is delivered and imports are standard library.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-correct-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-correct-audit/execution.json"
+        ]
+      }
+    },
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-invalid",
+      "group": "feedback",
+      "role": "invalid",
+      "implementation_digest": "5303400a91d9bd441885765d82ab58a768c16aa1389da3760dac169aa5d7e69b",
+      "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "CSV retention policy / JSONL count / manifest digest is deliberately wrong.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-invalid-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-invalid-audit/execution.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py",
+            "$WORK/input.csv",
+            "$WORK/output.csv"
+          ],
+          "stdin": "",
+          "expected": [
+            {
+              "email": "z@example.com",
+              "name": "First, 姓名"
+            },
+            {
+              "email": "a@example.com",
+              "name": "A \"quoted\""
+            }
+          ],
+          "observed": {
+            "label": "invalid-control",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00015070500376168638,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert [{'email': 'z...'A \"quoted\"'}] == [{'email': 'z...'A \"quoted\"'}]\n  \n  At index 0 diff: {'email': 'z@example.com', 'name': 'Last'} != {'email': 'z@example.com', 'name': 'First, 姓名'}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_control_audit.py",
+                      "line": 16,
+                      "source": "            assert actual==expected"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.04629749699961394,
+                "commands": [
+                  {
+                    "nodeid": "test_control_audit.py::test_independent_control_audit",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00019461299962131307,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/feedback-invalid-audit/execution.json",
+            "implementation_manifest": {
+              "/app/customers.csv": "097cf14176f54a369de9fb89da96bf03169c8a7e384bb146b85c703dba804917",
+              "/app/clean.py": "6abfd33b019115682465160e00e19e0cc5ba3a290049e8a90e9f3f382a4781fc",
+              "/solution/solve.sh": "78fb3c3b32b59767bf41c95a8dd953b79f6ada6c6ca77d2461b9359f341f9fed"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+            },
+            "received_artifact_manifest": {
+              "/app/clean.py": "8cdf95e224088260729b8d10d9266511445bb0fb53fcb1cc8fe17a0a3942c298"
+            },
+            "verifier_files_manifest": {
+              "expected.json": "5386b16ff272d364599c830cab288a91d8b555353ad5c69dadf1ccd401198c5f",
+              "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+              "test_control_audit.py": "7ca9d4e074f36d52601f74d9e294f4a18811523c68a26ff779df186b2f62c162"
+            },
+            "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'email': ' z@EXAMPLE.com ', 'name': ' First, 姓名 '}, {'email': 'a@example.com', 'name': ' A \"quoted\" '}, {'email': 'Z@example.com', 'name': ' Last '}], [{'email': 'z@example.com', 'name': 'First, 姓名'}, {'email': 'a@example.com', 'name': 'A \"quoted\"'}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.csv'; target=t/'output.csv'\n                with source.open('w',encoding='utf-8',newline='') as f:\n                    w=csv.DictWriter(f,fieldnames=['email','name']); w.writeheader(); w.writerows(data)\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/clean.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n                with target.open(encoding='utf-8',newline='') as f:\n                    reader=csv.DictReader(f); assert reader.fieldnames==['email','name']; actual=list(reader)\n>               assert actual==expected\nE               assert [{'email': 'z...'A \"quoted\"'}] == [{'email': 'z...'A \"quoted\"'}]\nE                 \nE                 At index 0 diff: {'email': 'z@example.com', 'name': 'Last'} != {'email': 'z@example.com', 'name': 'First, 姓名'}\nE                 Use -v to get more diff\n\ntest_control_audit.py:16: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - assert [{'emai...\n1 failed in 0.09s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "nodeids": [
+              "test_control_audit.py::test_independent_control_audit"
+            ],
+            "verifier_exit_code": 0,
+            "tests_digest": "c318f39e52695bf899fc8eb35cdd87d0c2a3c0e3b3c4d11b818b66b3368c71b5",
+            "outcome": "fail",
+            "wall_sec": 6.648,
+            "attribution": "uncertain"
+          },
+          "fixtures": [
+            {
+              "email": " z@EXAMPLE.com ",
+              "name": " First, 姓名 "
+            },
+            {
+              "email": "a@example.com",
+              "name": " A \"quoted\" "
+            },
+            {
+              "email": "Z@example.com",
+              "name": " Last "
+            }
+          ],
+          "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+        }
+      }
+    },
+    {
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-invalid",
+      "group": "holdout",
+      "role": "invalid",
+      "implementation_digest": "cbd76243e0b4859ae10037b679c67970427efd1dae77e08da55055d31acc6d0c",
+      "contract_digest": "22b9aaefa74612b7a46c7687ddf1af0dc3805b996f5885c536e05f5b7307affe",
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "CSV ordering / JSONL total / manifest size is deliberately wrong.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-invalid-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-invalid-audit/execution.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/clean.py",
+            "$WORK/input.csv",
+            "$WORK/output.csv"
+          ],
+          "stdin": "",
+          "expected": [
+            {
+              "email": "z@example.com",
+              "name": "First, 姓名"
+            },
+            {
+              "email": "a@example.com",
+              "name": "A \"quoted\""
+            }
+          ],
+          "observed": {
+            "label": "invalid-control",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00014353000005939975,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert [{'email': 'a... 'First, 姓名'}] == [{'email': 'z...'A \"quoted\"'}]\n  \n  At index 0 diff: {'email': 'a@example.com', 'name': 'A \"quoted\"'} != {'email': 'z@example.com', 'name': 'First, 姓名'}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_control_audit.py",
+                      "line": 16,
+                      "source": "            assert actual==expected"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.044645075999142136,
+                "commands": [
+                  {
+                    "nodeid": "test_control_audit.py::test_independent_control_audit",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0001986029965337366,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/csv-original/controls/holdout-invalid-audit/execution.json",
+            "implementation_manifest": {
+              "/app/customers.csv": "097cf14176f54a369de9fb89da96bf03169c8a7e384bb146b85c703dba804917",
+              "/app/clean.py": "6abfd33b019115682465160e00e19e0cc5ba3a290049e8a90e9f3f382a4781fc",
+              "/solution/solve.sh": "e325e5c094de872b3fb50db731256481e8c5c011f9693664382a7f95dec4d47b"
+            },
+            "artifact_manifest": {
+              "/app/clean.py": "71861d548d07640533f18b4fdb59857584c7a419835bbfc0cf4df0f8250ef5f8"
+            },
+            "received_artifact_manifest": {
+              "/app/clean.py": "71861d548d07640533f18b4fdb59857584c7a419835bbfc0cf4df0f8250ef5f8"
+            },
+            "verifier_files_manifest": {
+              "expected.json": "5386b16ff272d364599c830cab288a91d8b555353ad5c69dadf1ccd401198c5f",
+              "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+              "test_control_audit.py": "7ca9d4e074f36d52601f74d9e294f4a18811523c68a26ff779df186b2f62c162"
+            },
+            "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'email': ' z@EXAMPLE.com ', 'name': ' First, 姓名 '}, {'email': 'a@example.com', 'name': ' A \"quoted\" '}, {'email': 'Z@example.com', 'name': ' Last '}], [{'email': 'z@example.com', 'name': 'First, 姓名'}, {'email': 'a@example.com', 'name': 'A \"quoted\"'}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.csv'; target=t/'output.csv'\n                with source.open('w',encoding='utf-8',newline='') as f:\n                    w=csv.DictWriter(f,fieldnames=['email','name']); w.writeheader(); w.writerows(data)\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/clean.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n                with target.open(encoding='utf-8',newline='') as f:\n                    reader=csv.DictReader(f); assert reader.fieldnames==['email','name']; actual=list(reader)\n>               assert actual==expected\nE               assert [{'email': 'a... 'First, 姓名'}] == [{'email': 'z...'A \"quoted\"'}]\nE                 \nE                 At index 0 diff: {'email': 'a@example.com', 'name': 'A \"quoted\"'} != {'email': 'z@example.com', 'name': 'First, 姓名'}\nE                 Use -v to get more diff\n\ntest_control_audit.py:16: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - assert [{'emai...\n1 failed in 0.08s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "nodeids": [
+              "test_control_audit.py::test_independent_control_audit"
+            ],
+            "verifier_exit_code": 0,
+            "tests_digest": "c318f39e52695bf899fc8eb35cdd87d0c2a3c0e3b3c4d11b818b66b3368c71b5",
+            "outcome": "fail",
+            "wall_sec": 6.251,
+            "attribution": "uncertain"
+          },
+          "fixtures": [
+            {
+              "email": " z@EXAMPLE.com ",
+              "name": " First, 姓名 "
+            },
+            {
+              "email": "a@example.com",
+              "name": " A \"quoted\" "
+            },
+            {
+              "email": "Z@example.com",
+              "name": " Last "
+            }
+          ],
+          "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+        }
+      }
+    }
+  ]
+}

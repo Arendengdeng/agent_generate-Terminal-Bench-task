@@ -1,0 +1,50 @@
+[
+  {
+    "test": "test_real_witness_and_scoring_are_independent (test_challenge_agent.RealDockerWitnessTests.test_real_witness_and_scoring_are_independent)",
+    "log_line": 182,
+    "assertion": "    self.assertEqual(result['status'], 'discovered', result)",
+    "status": "error",
+    "stage": null,
+    "error": null,
+    "stop_reason": "challenge_execution_error",
+    "sample_reasons": [
+      "Verifier source integrity evidence mismatch"
+    ]
+  },
+  {
+    "test": "test_historical_candidate_real_agent_and_harbor (test_independent_verification.IndependentModelAcceptanceTests.test_historical_candidate_real_agent_and_harbor)",
+    "log_line": 193,
+    "assertion": "    self.assertTrue(result.get('basic_checks_passed'), result)",
+    "status": "error",
+    "stage": "challenge",
+    "error": {
+      "type": "CHALLENGE_INCOMPLETE",
+      "message": "BudgetExceeded"
+    },
+    "stop_reason": "docker_checks_passed",
+    "sample_reasons": []
+  },
+  {
+    "test": "test_real_execution_with_scripted_repair (test_repair_dispatcher.RealDispatcherTests.test_real_execution_with_scripted_repair)",
+    "log_line": 201,
+    "assertion": "    self.assertEqual(result['controller_decision']['decision'], 'accept', result)",
+    "status": "failed",
+    "stage": "repair",
+    "error": null,
+    "stop_reason": null,
+    "sample_reasons": []
+  },
+  {
+    "test": "test_real_all_pipeline_repairs_then_passes_harbor (test_test_agent_feedback_repair.HarborRepairTests.test_real_all_pipeline_repairs_then_passes_harbor)",
+    "log_line": 212,
+    "assertion": "    self.assertEqual(result['controller_decision']['decision'], 'accept', result)",
+    "status": "failed",
+    "stage": "test_execution",
+    "error": {
+      "type": "TEST_LOOP_NEEDS_REVIEW",
+      "message": "test_repair_requires_legal_and_invalid_controls"
+    },
+    "stop_reason": "test_repair_requires_legal_and_invalid_controls",
+    "sample_reasons": []
+  }
+]

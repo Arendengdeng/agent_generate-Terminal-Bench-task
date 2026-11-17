@@ -1,0 +1,33 @@
+{
+  "requirement_id": "R1",
+  "contract_quote": "CLI 用两个位置参数指定输入与输出，成功时退出码为 0，并写出规范 CSV。",
+  "rationale": "The contract's command is `python /app/clean.py <input.csv> <output.csv>`, so the second positional argument is the output file path and the result must be written to exactly that path. The sibling frozen test test_r1_output_path_is_user_supplied_second_arg confirms this semantics. Here the second argument is a path ending with a separator pointing at an existing directory that is NOT the output file `/tmp/w/R1/target.csv`; a conforming CLI writes the cleaned CSV to that exact path (header email,name plus rows in first-occurrence order). The candidate instead invents `<dir>/cleaned.csv` and leaves `target.csv` absent.",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out/target.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Alice@Example.com ,  Alice Chen\nbob@example.com,\"Doe, Bob\"\nALICE@example.com,Alice Chen (dup)\n",
+    "out/.keep": ""
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out/target.csv",
+      "value": "email,name\nalice@example.com,Alice Chen\nbob@example.com,\"Doe, Bob\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

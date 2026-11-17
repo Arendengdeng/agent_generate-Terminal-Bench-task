@@ -1,0 +1,54 @@
+{
+  "status": "diagnosed",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "7e602d1478571d873f2e55d447dd6848409cba86c7610306b92dc29e5e42bea4",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309",
+    "inputs/instruction.md": "c71965129aa88a1f40aece23527dcee93c7f0c76229949e51b4a8ab72f814d0e"
+  },
+  "parent_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+  "diagnosis": {
+    "requirement_id": "R3",
+    "contract_quote": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。",
+    "test_path": "tests/test_summarize.py",
+    "line": "333",
+    "evidence_id": "oracle:test_summarize.py::test_r3_unicode_fixture_grouping_and_order:call",
+    "explanation": "The test asserts the exact service order [\"Zebra\", \"alpha\", \"服务-乙\", \"日本\"] for the unicode.jsonl fixture, which is not Python string ascending order. The Contract/instruction requires ordering by Python string comparison of the service name, i.e. Unicode code point order: sorted([\"服务-乙\", \"日本\"]) == [\"日本\", \"服务-乙\"] since U+65E5 (日) < U+670D (服). So the correct expected order is [\"Zebra\", \"alpha\", \"日本\", \"服务-乙\"]. The same wrong literal order appears in test_r1_output_parses_as_utf8_json (line 141) and test_r4_input_bytes_crlf_and_utf8 (line 434). The oracle produced exactly the contract-correct order ['Zebra', 'alpha', '日本', '服务-乙'] while the other (service) groupings matched, confirming the defect is in my test's expected ordering literal, not in the implementation. Fix: replace the literal order in all three tests with the sorted() order of the fixture services (computed independently from the fixture lines), keeping the per-group count/total/max assertions and the input-preservation check unchanged. Note the remaining nop/invalid failures (extra `level` key, grouping by (service, level), count off-by-level, missing output strictness) are legitimate implementation defects per R1/R2 and need no change.",
+    "parent_digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5"
+  },
+  "attribution": "test_defect",
+  "manifest": {
+    "fixtures/mixed.jsonl": "aaceb7da933552a785848f626ac90df0cf2287cff3f0efed857b0c65f30ec002",
+    "fixtures/unicode.jsonl": "bfdddadc5377338815e8372caff389797a7e63a511765a7fe6da541b0375d823",
+    "test_summarize.py": "1264eedb886a281b93f71995c3ea1d18200dac553225882060f8c8e8d86abcb8"
+  },
+  "digest": "7d4e7300c9ebf7ac3ae65b2d7d915f873e06e77d736afa8b5acfcf692fb50cd5",
+  "budget_used": {
+    "model_calls": 22,
+    "tool_calls": 24
+  },
+  "workflow_budget_used": {
+    "model_calls": 29,
+    "tool_calls": 33,
+    "token_usage": {
+      "prompt_tokens": 584549,
+      "completion_tokens": 10436,
+      "total_tokens": 594985
+    }
+  },
+  "cost": {
+    "wall_sec": 41.047,
+    "token_usage": {
+      "prompt_tokens": 584549,
+      "completion_tokens": 10436,
+      "total_tokens": 594985
+    }
+  }
+}

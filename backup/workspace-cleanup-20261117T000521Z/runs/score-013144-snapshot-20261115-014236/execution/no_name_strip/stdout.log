@@ -1,0 +1,76 @@
+F...F......F..                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+        assert_header(rows)
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.org", 'Carol "C" Jones'],
+            ["dave@example.net", ""],
+        ]
+E       AssertionError: assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 0 diff: ['alice@example.com', '  Alice Smith  '] != ['alice@example.com', 'Alice Smith']
+E         Use -v to get more diff
+
+test_clean.py:55: AssertionError
+__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')
+
+    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["  First@Mail.COM ", "  First Name  "],
+                ["second@mail.com", "Second"],
+                ["FIRST@MAIL.COM", "Other Name"],
+                ["first@mail.com", "Third"],
+                ["\tsecond@MAIL.com", "Second Again"],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["first@mail.com", "First Name"],
+            ["second@mail.com", "Second"],
+        ]
+E       AssertionError: assert [['email', 'n...m', 'Second']] == [['email', 'n...m', 'Second']]
+E         
+E         At index 1 diff: ['first@mail.com', '  First Name  '] != ['first@mail.com', 'First Name']
+E         Use -v to get more diff
+
+test_clean.py:114: AssertionError
+________________ test_success_with_input_in_readonly_like_paths ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')
+
+    def test_success_with_input_in_readonly_like_paths(tmp_path):
+        # Ensures run only needs the two positional params and stdlib.
+        in_path = str(tmp_path / "input.csv")
+        write_csv(in_path, ["email", "name"], [["Solo@Ex.com", " Solo "]])
+        out = str(tmp_path / "nested_out.csv")
+        proc = run_cli(in_path, out)
+        assert proc.returncode == 0, "stderr=%r" % (proc.stderr,)
+        rows = read_output(out)
+>       assert rows == [["email", "name"], ["solo@ex.com", "Solo"]]
+E       AssertionError: assert [['email', 'n...m', ' Solo ']] == [['email', 'n...com', 'Solo']]
+E         
+E         At index 1 diff: ['solo@ex.com', ' Solo '] != ['solo@ex.com', 'Solo']
+E         Use -v to get more diff
+
+test_clean.py:220: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order
+FAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Assert...
+3 failed, 11 passed in 0.68s

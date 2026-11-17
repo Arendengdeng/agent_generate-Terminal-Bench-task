@@ -1,0 +1,109 @@
+{
+  "claim_id": "execution-reliability",
+  "verdict": "FAIL",
+  "stages": [
+    {
+      "stage": "input_validation",
+      "status": "completed"
+    },
+    {
+      "stage": "collection",
+      "status": "failed",
+      "evidence_ids": [
+        "e000001"
+      ]
+    }
+  ],
+  "responsibilities": [
+    {
+      "owner": "TEST",
+      "reason": "Immutable supplied test source cannot compile",
+      "evidence_ids": [
+        "e000001"
+      ],
+      "attempt": null,
+      "nodeid": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "e000000",
+      "run_id": "f9560714b9cb48aba0b1381dddfeccfc",
+      "attempt": null,
+      "nodeid": null,
+      "stage": "input_validation",
+      "kind": "request",
+      "timestamp": "2026-11-13T05:22:15.463953+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000000.json",
+      "sha256": "eaf9833867cacf3cdd34214b3c288693373775cd8aae4e6c279eae9b4159b0d5",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    },
+    {
+      "evidence_id": "e000001",
+      "run_id": "f9560714b9cb48aba0b1381dddfeccfc",
+      "attempt": null,
+      "nodeid": null,
+      "stage": "collection",
+      "kind": "test_syntax_error",
+      "timestamp": "2026-11-13T05:22:15.464408+00:00",
+      "producer": "validation-v1",
+      "path": "artifacts/e000001.json",
+      "sha256": "c0a2fefcd0d46cca7990668d93e570a21890528664128c6bbfaf9d8742076e42",
+      "complete": true,
+      "truncated": false,
+      "schema_version": 1
+    }
+  ],
+  "counterexamples": [
+    {
+      "counterexample_id": "ce0000",
+      "claim_id": "execution-reliability",
+      "contract_digest": "fbfb41c0b2bcb2ec67ac2ffeed4e4d7091a013f0c5ddd43b93be91321fccb715",
+      "requirement_ids": [],
+      "implementation_manifest": {
+        "/app/task.py": "0428773da1eb22b5368f26c2cdf9078cf1bc6eb6014a363e22702315c34fa125"
+      },
+      "input_digests": [],
+      "expected": "Test source must compile for collection",
+      "observed": {
+        "path": "test_behavior.py",
+        "line": 1
+      },
+      "replay": {
+        "repeats": 3,
+        "suite_timeout_sec": 10,
+        "total_timeout_sec": 90,
+        "command": {
+          "argv_prefix": [
+            "python3",
+            "/app/task.py"
+          ],
+          "input_arg": 2,
+          "output_arg": 3
+        },
+        "checker": "declared-io-v1",
+        "image": "independent-verifier:pytest-9.2.0"
+      },
+      "evidence_ids": [
+        "e000001"
+      ],
+      "schema_version": 1
+    }
+  ],
+  "attempts": [],
+  "limitations": [],
+  "cost": {
+    "wall_sec": 0.001964,
+    "executions": 0,
+    "containers": 0,
+    "artifact_bytes": 1136,
+    "model_calls": 0,
+    "cpu_sec": null,
+    "peak_memory_bytes": null
+  },
+  "cancelled": false,
+  "schema_version": 1
+}

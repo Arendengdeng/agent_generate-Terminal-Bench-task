@@ -1,0 +1,40 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "R3 requires that every legal input produce output satisfying the Contract spec, with no special-casing of particular examples. Contract output_spec fixes the output as a UTF-8 CSV whose header is email,name; the output path is merely the second positional argument and no filename pattern changes the required format. The delivered CLI special-cases output names ending in '-summary.json' and emits a JSON array instead of the CSV, so a header-only input written to out-summary.json yields JSON '[]' rather than the required header-only CSV. Expected for a header-only input: exit 0 and the output, parsed as CSV, equals exactly the single header row [['email','name']].",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out-summary.json"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "parsed_file",
+      "path": [
+        "out-summary.json",
+        "csv"
+      ],
+      "value": [
+        [
+          "email",
+          "name"
+        ]
+      ]
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+....F.F......                                                            [100%]
+=================================== FAILURES ===================================
+________________________ test_case_and_whitespace_dedup ________________________
+
+workdir = '/tmp/clean-test-lyp7vz92'
+
+    def test_case_and_whitespace_dedup(workdir):
+        src = copy_fixture("case_whitespace.csv", workdir)
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(src, out)
+        data = check_result(proc, out)
+        expected = expected_from_fixture("case_whitespace.csv")
+>       assert data[1:] == expected
+E       AssertionError: assert [['a@x.com', ...ng quoted  ']] == [['a@x.com', ...ding quoted']]
+E         
+E         At index 3 diff: ['e@x.com', 'Trailing space, quoted '] != ['e@x.com', 'Trailing space, quoted']
+E         Use -v to get more diff
+
+test_clean.py:140: AssertionError
+_____________________ test_name_inner_whitespace_preserved _____________________
+
+workdir = '/tmp/clean-test-ccafbl7i'
+
+    def test_name_inner_whitespace_preserved(workdir):
+        src = write_input(
+            workdir,
+            'email,name\n'
+            'p@q.com,  Anna  Maria  Lee  \n'
+            'r@q.com,"  tab\there  "\n'
+        )
+        out = os.path.join(workdir, "out.csv")
+        proc = run_clean(src, out)
+        data = check_result(proc, out)
+>       assert data[1:] == [
+            ["p@q.com", "Anna  Maria  Lee"],
+            ["r@q.com", "tab\there"],
+        ]
+E       AssertionError: assert [['p@q.com', ...tab\there  ']] == [['p@q.com', ... 'tab\there']]
+E         
+E         At index 1 diff: ['r@q.com', '  tab\there  '] != ['r@q.com', 'tab\there']
+E         Use -v to get more diff
+
+test_clean.py:185: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_case_and_whitespace_dedup - AssertionError: assert...
+FAILED test_clean.py::test_name_inner_whitespace_preserved - AssertionError: ...
+2 failed, 11 passed in 0.52s

@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "digest": "ec46844f08440edcdae0a1223c6a8fc2fe5beae5ba443acb915693ba6ab39a61",
+  "manifest": {
+    "checks/probe.py": "7a0a92dacffdaa2f6595b610ba89362bcbca975baf494650a5f4e6cc6337cf5a",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/clean.py": "b217d68163fef01888dcb5050277639ef48afff28ac22f0f0b50c1121792079d",
+    "draft/instruction.md": "5fdb9973aee84a45f07bd3898d0c96f8a95d9333a9d189d9cfd4adbab981f6eb",
+    "draft/solution/solve.sh": "5fefaaefc68f0cdbb2348a17bdf0f3a6b1c0fc649a9989031fff552720a04b8a"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "输出内容不符合去重/归一化规范: [['\"Alice@Example.COM  \"', 'Alice'], ['bob@example.com', '\"Bob'], ['alice@example.com', 'Alice Two'], ['carol@example.com', 'Carol']]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "多样数据输出不符合规范: [['email', 'name'], ['Zoe@Mail.Org', 'Zoe'], ['\"mike@mail.org\"', '\"Mike'], ['zoe@mail.org', 'Zoe Clone'], ['amy@mail.org', 'Amy']]"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/clean.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "b217d68163fef01888dcb5050277639ef48afff28ac22f0f0b50c1121792079d"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/clean.py": "b217d68163fef01888dcb5050277639ef48afff28ac22f0f0b50c1121792079d"
+    },
+    "unchanged": true
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "contract": {
+    "objective": "修复 JSONL 聚合工具，按 service 和 level 统计条数及 duration_ms 之和。",
+    "workspace": "/app",
+    "command": "python /app/summarize.py <input.jsonl> <output.json>",
+    "input_spec": "UTF-8 JSONL，每行对象包含非空字符串 service、级别 INFO/WARN/ERROR 和非负整数 duration_ms。最多 1000 行；允许空文件，不包含空行或非法 JSON。",
+    "output_spec": "UTF-8 JSON 数组；每个实际出现的 (service, level) 对应一个对象，恰含 service、level、count、total_duration_ms。按 service 再按 level 的 Python 字符串升序排列；空输入输出 []。",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/summarize.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "接受输入和输出路径，正常退出并产生符合结构的 JSON。"
+      },
+      {
+        "id": "R2",
+        "description": "同时按服务与级别分组，准确累计条数和非负整数耗时，不丢失重复记录。"
+      },
+      {
+        "id": "R3",
+        "description": "输出排序确定，只输出出现的分组；空文件输出 []；支持不同输入和 Unicode 服务名。"
+      },
+      {
+        "id": "R4",
+        "description": "不修改输入文件；只交付 summarize.py，运行依赖仅限标准库。"
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 10,
+      "max_input_lines": 1000
+    }
+  },
+  "source": "import json,sys\nwith open(sys.argv[1],encoding='utf-8') as f: records=[json.loads(line) for line in f]\ngroups={}\nfor row in records:\n    key=(row['service'],row['level'])\n    if key not in groups: groups[key]=dict(service=row['service'],level=row['level'],count=0,total_duration_ms=0)\n    g=groups[key]\n    g['count']=1\n    g['total_duration_ms']+=row['duration_ms']\n    pass\nresult=[groups[k] for k in sorted(groups)]\nwith open(sys.argv[2],'w',encoding='utf-8') as f: json.dump(result,f,ensure_ascii=False)\n",
+  "review": {
+    "status": "confirmed",
+    "reviewer": "Codex authored source review and independent Docker behavior audit",
+    "method": "contract-source-review-and-finite-behavior-audit",
+    "rationale": "CSV retention policy / JSONL count / manifest digest is deliberately wrong.",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "evidence_paths": [
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/controls/feedback-invalid-review.json",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/controls/test_control_audit.py",
+      "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/controls/feedback-invalid-audit/execution.json"
+    ],
+    "counterexample": {
+      "argv": [
+        "python3",
+        "/app/summarize.py",
+        "$WORK/input.jsonl",
+        "$WORK/output.json"
+      ],
+      "stdin": "",
+      "expected": [
+        {
+          "service": "api",
+          "level": "ERROR",
+          "count": 1,
+          "total_duration_ms": 2
+        },
+        {
+          "service": "api",
+          "level": "INFO",
+          "count": 2,
+          "total_duration_ms": 10
+        },
+        {
+          "service": "服务",
+          "level": "WARN",
+          "count": 1,
+          "total_duration_ms": 0
+        }
+      ],
+      "observed": {
+        "label": "invalid-control",
+        "expected_reward": 0,
+        "status": "completed",
+        "reward": 0,
+        "error": null,
+        "reports": [
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "setup",
+            "outcome": "passed",
+            "task_assertion": false,
+            "exception": null,
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.00018843099678633735,
+            "commands": [],
+            "xfail": false
+          },
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "call",
+            "outcome": "failed",
+            "task_assertion": true,
+            "exception": {
+              "type": "AssertionError",
+              "message": "assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\n  \n  At index 1 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 10} != {'service': 'api', 'level': 'INFO', 'count': 2, 'total_duration_ms': 10}\n  Use -v to get more diff",
+              "test_traceback": [
+                {
+                  "path": "test_control_audit.py",
+                  "line": 13,
+                  "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+                }
+              ]
+            },
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.039500126003986225,
+            "commands": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "status": "completed",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            ],
+            "xfail": false
+          },
+          {
+            "nodeid": "test_control_audit.py::test_independent_control_audit",
+            "when": "teardown",
+            "outcome": "passed",
+            "task_assertion": false,
+            "exception": null,
+            "stdout": "",
+            "stderr": "",
+            "duration_sec": 0.00020944800053257495,
+            "commands": [],
+            "xfail": false
+          }
+        ],
+        "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/controls/feedback-invalid-audit/execution.json",
+        "implementation_manifest": {
+          "/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7",
+          "/solution/solve.sh": "d80748287535d0914b1c716ae2f80fee77f057622e0ef32bb940a0b0a8d1657b"
+        },
+        "artifact_manifest": {
+          "/app/summarize.py": "32ef78aa319308835fda22fcd47526fd29d3827209ed507df0f99b71c05bcdfe"
+        },
+        "received_artifact_manifest": {
+          "/app/summarize.py": "32ef78aa319308835fda22fcd47526fd29d3827209ed507df0f99b71c05bcdfe"
+        },
+        "verifier_files_manifest": {
+          "expected.json": "859418c07445a7a3a86287a51848b6447bd3d7bb9afb60ea26e0ff3e6a14a3fc",
+          "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+          "test_control_audit.py": "f0a999f0338e49ac240323e30e422e28d6cc9aa28c9e659f400be05f87638cc9"
+        },
+        "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'service': '服务', 'level': 'WARN', 'duration_ms': 0}, {'service': 'api', 'level': 'INFO', 'duration_ms': 3}, {'service': 'api', 'level': 'INFO', 'duration_ms': 7}, {'service': 'api', 'level': 'ERROR', 'duration_ms': 2}], [{'service': 'api', 'level': 'ERROR', 'count': 1, 'total_duration_ms': 2}, {'service': 'api', 'level': 'INFO', 'count': 2, 'total_duration_ms': 10}, {'service': '服务', 'level': 'WARN', 'count': 1, 'total_duration_ms': 0}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.jsonl'; target=t/'output.json'\n                source.write_text(''.join(json.dumps(r,ensure_ascii=False)+'\\n' for r in data),encoding='utf-8')\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/summarize.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n>               assert json.loads(target.read_text(encoding='utf-8'))==expected\nE               AssertionError: assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\nE                 \nE                 At index 1 diff: {'service': 'api', 'level': 'INFO', 'count': 1, 'total_duration_ms': 10} != {'service': 'api', 'level': 'INFO', 'count': 2, 'total_duration_ms': 10}\nE                 Use -v to get more diff\n\ntest_control_audit.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - AssertionError...\n1 failed in 0.07s\n",
+        "stderr": "",
+        "pytest_exit_code": 1,
+        "nodeids": [
+          "test_control_audit.py::test_independent_control_audit"
+        ],
+        "verifier_exit_code": 0,
+        "tests_digest": "7d7a545c11a6959faedb1cbd8451403ac760c5b40f9516bc14859bad9f5360ee",
+        "outcome": "fail",
+        "wall_sec": 5.721,
+        "attribution": "uncertain"
+      },
+      "fixtures": [
+        {
+          "service": "服务",
+          "level": "WARN",
+          "duration_ms": 0
+        },
+        {
+          "service": "api",
+          "level": "INFO",
+          "duration_ms": 3
+        },
+        {
+          "service": "api",
+          "level": "INFO",
+          "duration_ms": 7
+        },
+        {
+          "service": "api",
+          "level": "ERROR",
+          "duration_ms": 2
+        }
+      ],
+      "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+    }
+  },
+  "limitation": "Finite probe plus source review; not exhaustive verification."
+}

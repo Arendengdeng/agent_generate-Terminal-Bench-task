@@ -1,0 +1,32 @@
+{
+  "requirement_id": "R4",
+  "contract_quote": "不修改输入文件；只交付 clean.py，运行依赖仅限 Python 标准库。",
+  "rationale": "R4 states the tool must not modify the input file. The Contract input_spec allows the email field to carry surrounding whitespace and to be arbitrary case, so an input whose records are not already in normalized form is a legal input whose bytes differ from any normalized rendering. Running `python /app/clean.py <input.csv> <output.csv>` on such an input must therefore leave the input file byte-for-byte unchanged, while still exiting 0 and writing the spec-conforming output CSV at the second positional argument (header email,name; email stripped and lowercased, name stripped; stable dedup on normalized email keeping the first name; comma-containing field CSV-quoted). The fixture is deliberately non-normal (leading/trailing spaces, uppercase address, a second record that is a duplicate after normalization), so any implementation that rewrites the input in place changes its bytes and is caught by the unchanged assertion, while the output assertion pins the required conforming result.",
+  "argv": [
+    "python",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n  Tess@Example.COM  ,  Tess  \nTESS@EXAMPLE.COM,Impostor\n  ravi@example.org ,\"Rao, Ravi\"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\ntess@example.com,Tess\nravi@example.org,\"Rao, Ravi\"\n"
+    },
+    {
+      "source": "unchanged",
+      "path": "in.csv",
+      "value": true
+    }
+  ]
+}

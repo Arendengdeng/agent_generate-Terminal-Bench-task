@@ -1,0 +1,30 @@
+commit b5f01aff133270f900354f04a21d24d9b58c5881
+Author:     Ardendengdeng <zs2320880467@gmail.com>
+AuthorDate: Sat Nov 14 23:21:15 2026 -0800
+Commit:     Ardendengdeng <zs2320880467@gmail.com>
+CommitDate: Sat Nov 14 23:21:15 2026 -0800
+
+    v2.2: 实现 Repair Dispatcher
+
+ .gitignore                                       |   9 +
+ README.md                                        |   4 +-
+ docs/repair-dispatcher.md                        |  74 ++++
+ examples/csv-repair/contract.json                |  19 +
+ examples/csv-repair/plan.json                    |  11 +
+ independent_verification/__init__.py             |   3 +
+ independent_verification/__main__.py             |   8 +-
+ independent_verification/agent.py                |  31 +-
+ independent_verification/attribution.py          | 200 ++++++++++
+ independent_verification/controller.py           |  74 +++-
+ independent_verification/exporter.py             |   9 +-
+ independent_verification/pipeline.py             |  18 +-
+ independent_verification/repair.py               | 401 ++++++++++++++++++++
+ independent_verification/test_repair_workflow.py |  25 +-
+ scripts/README.md                                |   3 +
+ scripts/repair_dispatcher_acceptance.py          |  92 +++++
+ synthesis_agent/agent.py                         |  72 +++-
+ tests/__init__.py                                |   0
+ tests/helpers.py                                 |  79 ++++
+ tests/test_repair_dispatcher.py                  | 455 +++++++++++++++++++++++
+ tests/test_test_agent_feedback_repair.py         |  72 ++--
+ 21 files changed, 1600 insertions(+), 59 deletions(-)

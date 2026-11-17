@@ -1,0 +1,146 @@
+F..F.FFFF.....                                                           [100%]
+=================================== FAILURES ===================================
+__________________ test_mixed_fixture_normalization_and_dedup __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')
+
+    def test_mixed_fixture_normalization_and_dedup(tmp_path):
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(os.path.join(FIXTURES, "mixed.csv"), out)
+        assert_header(rows)
+>       assert rows[1:] == [
+            ["alice@example.com", "Alice Smith"],
+            ["bob@example.com", "Bob, Jr."],
+            ["carol@example.org", 'Carol "C" Jones'],
+            ["dave@example.net", ""],
+        ]
+E       AssertionError: assert [['alice@exam...ple.net', '']] == [['alice@exam...ple.net', '']]
+E         
+E         At index 1 diff: ['bob@example.com', 'Bob', ' Jr.'] != ['bob@example.com', 'Bob, Jr.']
+E         Use -v to get more diff
+
+test_clean.py:55: AssertionError
+____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')
+
+    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["a@x.com", 'Doe, "John"'],
+                ["b@x.com", "Plain"],
+                ["c@x.com", ""],
+            ],
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["a@x.com", 'Doe, "John"'],
+            ["b@x.com", "Plain"],
+            ["c@x.com", ""],
+        ]
+E       assert [['email', 'n...c@x.com', '']] == [['email', 'n...c@x.com', '']]
+E         
+E         At index 1 diff: ['a@x.com', 'Doe', ' "John"'] != ['a@x.com', 'Doe, "John"']
+E         Use -v to get more diff
+
+test_clean.py:91: AssertionError
+_________________________ test_all_fields_quoted_input _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')
+
+    def test_all_fields_quoted_input(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(
+            in_path,
+            ["email", "name"],
+            [
+                ["X@Y.COM", "One, Two"],
+                ["x@y.com", "Duplicate"],
+                ["z@y.com", "Three"],
+            ],
+            quoting=csv.QUOTE_ALL,
+        )
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [
+            ["email", "name"],
+            ["x@y.com", "One, Two"],
+            ["z@y.com", "Three"],
+        ]
+E       AssertionError: assert [['email', 'n...om', 'Three']] == [['email', 'n...om', 'Three']]
+E         
+E         At index 1 diff: ['x@y.com', 'One', ' Two'] != ['x@y.com', 'One, Two']
+E         Use -v to get more diff
+
+test_clean.py:135: AssertionError
+________________________ test_output_uses_csv_escaping _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')
+
+    def test_output_uses_csv_escaping(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        write_csv(in_path, ["email", "name"], [["q@x.com", 'Smith, J "Q"']])
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"], ["q@x.com", 'Smith, J "Q"']]
+E       assert [['email', 'n...h', ' J "Q"']] == [['email', 'n...mith, J "Q"']]
+E         
+E         At index 1 diff: ['q@x.com', 'Smith', ' J "Q"'] != ['q@x.com', 'Smith, J "Q"']
+E         Use -v to get more diff
+
+test_clean.py:147: AssertionError
+______________________ test_crlf_input_with_quoted_commas ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')
+
+    def test_crlf_input_with_quoted_commas(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        data = 'email,name\r\nA@B.C,"Last, First"\r\na@b.c,"Other, Name"\r\n'
+        with open(in_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(data)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+>       assert rows == [["email", "name"], ["a@b.c", "Last, First"]]
+E       AssertionError: assert [['email', 'n...t', ' First']] == [['email', 'n...Last, First']]
+E         
+E         At index 1 diff: ['a@b.c', 'Last', ' First'] != ['a@b.c', 'Last, First']
+E         Use -v to get more diff
+
+test_clean.py:162: AssertionError
+_____________ test_generated_large_distinct_input_preserves_order ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')
+
+    def test_generated_large_distinct_input_preserves_order(tmp_path):
+        in_path = str(tmp_path / "in.csv")
+        expected = []
+        records = []
+        for i in range(1000):
+            email = "user%04d@example.com" % i
+            name = "User %d, Esq." % i if i % 3 == 0 else "User %d" % i
+            records.append([email, name])
+            expected.append([email, name])
+        write_csv(in_path, ["email", "name"], records)
+        out = str(tmp_path / "out.csv")
+        rows = run_and_check(in_path, out)
+        assert_header(rows)
+>       assert rows[1:] == expected
+E       AssertionError: assert [['user0000@e...User 5'], ...] == [['user0000@e...User 5'], ...]
+E         
+E         At index 0 diff: ['user0000@example.com', 'User 0', ' Esq.'] != ['user0000@example.com', 'User 0, Esq.']
+E         Use -v to get more diff
+
+test_clean.py:178: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - AssertionE...
+FAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names
+FAILED test_clean.py::test_all_fields_quoted_input - AssertionError: assert [...
+FAILED test_clean.py::test_output_uses_csv_escaping - assert [['email', 'n......
+FAILED test_clean.py::test_crlf_input_with_quoted_commas - AssertionError: as...
+FAILED test_clean.py::test_generated_large_distinct_input_preserves_order - A...
+6 failed, 8 passed in 0.77s

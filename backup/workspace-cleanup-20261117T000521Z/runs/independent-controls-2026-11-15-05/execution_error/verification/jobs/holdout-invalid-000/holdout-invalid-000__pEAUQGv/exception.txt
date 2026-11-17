@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 609, in run
+    await self._run()
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/trial/single_step.py", line 51, in _run
+    await self._run_verifier()
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/trial/single_step.py", line 98, in _run_verifier
+    self.result.verifier_result = await self._run_separate_verifier(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 1081, in _run_separate_verifier
+    return await self._verify_with_timeout(verifier, timeout_sec)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 974, in _verify_with_timeout
+    return await asyncio.wait_for(verifier.verify(), timeout=timeout_sec)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/zyl/projects/step2-3/.harbor-venv/lib/python3.12/site-packages/harbor/verifier/verifier.py", line 304, in verify
+    raise RewardFileNotFoundError(
+harbor.verifier.verifier.RewardFileNotFoundError: No reward file found at /home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/execution_error/verification/jobs/holdout-invalid-000/holdout-invalid-000__pEAUQGv/verifier/reward.txt or /home/zyl/projects/step2-3/runs/independent-controls-2026-11-15-05/execution_error/verification/jobs/holdout-invalid-000/holdout-invalid-000__pEAUQGv/verifier/reward.json

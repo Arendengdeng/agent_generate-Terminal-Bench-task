@@ -1,0 +1,7 @@
+{
+  "verdict": "confirmed",
+  "reason": "Input is in scope: two valid JSONL lines, unique services (beta/INFO, alpha/ERROR), non-negative ints, ≤1000 lines, no blank/invalid lines. output_spec requires ordering by service then level in Python string ascending order. \"alpha\" < \"beta\" (ASCII: 'a'<'b'), so alpha/ERROR must come before beta/INFO. Each (service,level) pair appears exactly once, so only two objects, each count=1 with total_duration_ms equal to the given duration (2 for beta, 1 for alpha). Assertions [0]=alpha/ERROR count1 total1, [1]=beta/INFO count1 total2, and the full array match this derivation exactly. Empty-element and case-sensitive level grouping are satisfied since levels are uppercase ASCII and service names are lowercase ASCII. Exit code 0 follows from R1's normal-exit requirement. All assertions follow directly from R3 (deterministic ascending ordering, only present groups) and output_spec; no extra constraints or implementation identity are asserted. The witness rationale correctly identifies the required non-lexicographic-origin order and labels it deterministic ascending, which matches Python sorted() ordering of strings. No ambiguity: keys compared as strings, one sort key sequence (service then level).",
+  "contract_digest": "a6e97f6594790fa6c168c70778792fec751f899353e487288cab7aa446473911",
+  "witness_digest": "e5a6ae15655758a172f91355bbeb396eec458bcd3cea175386c03ded993cf750",
+  "method": "isolated-contract-model-review-v1"
+}

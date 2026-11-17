@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "digest": "590882c110af4f9335a5757e50e138f6cd88387c1c21fa381aadc840621f4d81",
+  "manifest": {
+    "checks/probe.py": "649d36b348f73f1e25f75a7758f3a717adda09ed2aa661b5865dd67829eb5f0d",
+    "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "draft/environment/app/summarize.py": "b0dec89a0b7a789056699ee867fcd4145b0f5be95a131ef0b2c3e141b25c1a52",
+    "draft/instruction.md": "ae3d8bd88ad97463c5f6a6623a1cbd243d3f52148e8c61af8f54ab37a1821862",
+    "draft/solution/solve.sh": "b21a2181a4dc46c3d481f36943c2f37a959c97e5c94216e999fba418d83bbdbe",
+    "draft/solution/summarize.py": "d54f689f462f332b5b05dec96beb470917953bbb8c27a223cec7e7ceb2686c66"
+  },
+  "image_id": "sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535",
+  "independent_validation": false,
+  "initial": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "fail",
+        "message": "r2 mismatch: got [{'service': 'api', 'level': 'INFO', 'count': 7, 'total_duration_ms': 1021}, {'service': 'web', 'level': 'INFO', 'count': 2, 'total_duration_ms': 10}]"
+      },
+      {
+        "id": "R3",
+        "status": "fail",
+        "message": "r3 mismatch: got [{'service': 'Zeta', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 3}, {'service': 'alpha', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 7}, {'service': '订单', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 11}, {'service': '支付-β', 'level': 'ERROR', 'count': 2, 'total_duration_ms': 7}]"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "solution_execution": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "changed_paths": [
+    "/app/summarize.py"
+  ],
+  "repaired": {
+    "results": [
+      {
+        "id": "R1",
+        "status": "pass"
+      },
+      {
+        "id": "R2",
+        "status": "pass"
+      },
+      {
+        "id": "R3",
+        "status": "pass"
+      },
+      {
+        "id": "R4",
+        "status": "pass"
+      }
+    ],
+    "output": "",
+    "status": "completed"
+  },
+  "original_environment_integrity": {
+    "algorithm": "sha256",
+    "before": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "b0dec89a0b7a789056699ee867fcd4145b0f5be95a131ef0b2c3e141b25c1a52"
+    },
+    "after": {
+      "draft/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+      "draft/environment/app/summarize.py": "b0dec89a0b7a789056699ee867fcd4145b0f5be95a131ef0b2c3e141b25c1a52"
+    },
+    "unchanged": true
+  }
+}

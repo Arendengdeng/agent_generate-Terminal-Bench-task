@@ -1,0 +1,313 @@
+FFF...FF....FFF..                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_basic_dedupe_and_normalization ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_dedupe_and_normaliz0')
+
+    def test_basic_dedupe_and_normalization(tmp_path):
+        records = [
+            ("Alice@Example.com", "Alice"),
+            ("  alice@example.com  ", "Alice Dup"),
+            ("bob@example.com", "Bob"),
+            ("BOB@EXAMPLE.COM", "Bobby"),
+            ("carol@example.com", "  Carol  "),
+        ]
+>       data = check(tmp_path, records)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_dedupe_and_normaliz0')
+records = [('Alice@Example.com', 'Alice'), ('  alice@example.com  ', 'Alice Dup'), ('bob@example.com', 'Bob'), ('BOB@EXAMPLE.COM', 'Bobby'), ('carol@example.com', '  Carol  ')]
+csv_text = 'email,name\r\nAlice@Example.com,Alice\r\n  alice@example.com  ,Alice Dup\r\nbob@example.com,Bob\r\nBOB@EXAMPLE.COM,Bobby\r\ncarol@example.com,  Carol  \r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['Alice@Example.com', 'Alice'], ['alice@example.com', 'Alice Dup'], ['bob@example.com', 'Bob'], ['BOB@EXAMPLE.COM', 'Bobby'], ['carol@example.com', 'Carol']]
+E       assert [('Alice@Exam...om', 'Carol')] == [('alice@exam...om', 'Carol')]
+E         
+E         At index 0 diff: ('Alice@Example.com', 'Alice') != ('alice@example.com', 'Alice')
+E         Left contains 2 more items, first extra item: ('BOB@EXAMPLE.COM', 'Bobby')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+________________________ test_quoted_commas_and_quotes _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_commas_and_quotes0')
+
+    def test_quoted_commas_and_quotes(tmp_path):
+        csv_text = (
+            'email,name\r\n'
+            '"a@x.com","Smith, John"\r\n'
+            '"A@X.COM","Other, Name"\r\n'
+            'b@x.com,"He said ""hi"""\r\n'
+        )
+        records = [
+            ("a@x.com", 'Smith, John'),
+            ("A@X.COM", "Other, Name"),
+            ("b@x.com", 'He said "hi"'),
+        ]
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+>       assert rows == [
+            ["email", "name"],
+            ["a@x.com", "Smith, John"],
+            ["b@x.com", 'He said "hi"'],
+        ]
+E       assert [['email', 'n...aid ""hi"""']] == [['email', 'n...e said "hi"']]
+E         
+E         At index 1 diff: ['"a@x.com"', '"Smith'] != ['a@x.com', 'Smith, John']
+E         Left contains one more item: ['b@x.com', '"He said ""hi"""']
+E         Use -v to get more diff
+
+test_clean.py:97: AssertionError
+_________________________ test_multiline_quoted_field __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_multiline_quoted_field0')
+
+    def test_multiline_quoted_field(tmp_path):
+        csv_text = (
+            "email,name\r\n"
+            '"m@x.com","Line1\nLine2"\r\n'
+            '"M@X.COM","Other"\r\n'
+            'n@x.com,"keep"\r\n'
+        )
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+>       assert rows == [
+            ["email", "name"],
+            ["m@x.com", "Line1\nLine2"],
+            ["n@x.com", "keep"],
+        ]
+E       assert [['email', 'n...m', '"keep"']] == [['email', 'n...com', 'keep']]
+E         
+E         At index 1 diff: ['"m@x.com"', '"Line1'] != ['m@x.com', 'Line1\nLine2']
+E         Left contains 2 more items, first extra item: ['"M@X.COM"', '"Other"']
+E         Use -v to get more diff
+
+test_clean.py:116: AssertionError
+______________________ test_empty_name_preserved_as_empty ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_name_preserved_as_e0')
+
+    def test_empty_name_preserved_as_empty(tmp_path):
+        records = [
+            ("a@example.com", ""),
+            ("b@example.com", "   "),
+            ("A@EXAMPLE.COM", "later"),
+        ]
+>       rows = parse_output(check(tmp_path, records))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_empty_name_preserved_as_e0')
+records = [('a@example.com', ''), ('b@example.com', '   '), ('A@EXAMPLE.COM', 'later')]
+csv_text = 'email,name\r\na@example.com,\r\nb@example.com,   \r\nA@EXAMPLE.COM,later\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['a@example.com', ''], ['b@example.com', ''], ['A@EXAMPLE.COM', 'later']]
+E       assert [('a@example....OM', 'later')] == [('a@example....ple.com', '')]
+E         
+E         Left contains one more item: ('A@EXAMPLE.COM', 'later')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+_________________________ test_first_occurrence_order __________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')
+
+    def test_first_occurrence_order(tmp_path):
+        records = [
+            ("z@example.com", "Z"),
+            ("a@example.com", "A"),
+            ("y@example.com", "Y"),
+            ("Z@example.com", "Z2"),
+            (" a@Example.com ", "A2"),
+        ]
+>       rows = parse_output(check(tmp_path, records))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_first_occurrence_order0')
+records = [('z@example.com', 'Z'), ('a@example.com', 'A'), ('y@example.com', 'Y'), ('Z@example.com', 'Z2'), (' a@Example.com ', 'A2')]
+csv_text = 'email,name\r\nz@example.com,Z\r\na@example.com,A\r\ny@example.com,Y\r\nZ@example.com,Z2\r\n a@Example.com ,A2\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['z@example.com', 'Z'], ['a@example.com', 'A'], ['y@example.com', 'Y'], ['Z@example.com', 'Z2'], ['a@Example.com', 'A2']]
+E       assert [('z@example....e.com', 'A2')] == [('z@example....le.com', 'Y')]
+E         
+E         Left contains 2 more items, first extra item: ('Z@example.com', 'Z2')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+_________________________ test_varied_inputs[records1] _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records1_0')
+records = [('Mixed@CASE.com', ' Mixed Name '), ('mixed@case.com', 'Second')]
+
+    @pytest.mark.parametrize("records", [
+        [("single@example.com", "Only")],
+        [("Mixed@CASE.com", " Mixed Name "), ("mixed@case.com", "Second")],
+        [("a+b@x.com", "Plus"), ("A+B@X.com", "Dup")],
+    ])
+    def test_varied_inputs(tmp_path, records):
+>       check(tmp_path, records)
+
+test_clean.py:255: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records1_0')
+records = [('Mixed@CASE.com', ' Mixed Name '), ('mixed@case.com', 'Second')]
+csv_text = 'email,name\r\nMixed@CASE.com, Mixed Name \r\nmixed@case.com,Second\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['Mixed@CASE.com', 'Mixed Name'], ['mixed@case.com', 'Second']]
+E       assert [('Mixed@CASE...m', 'Second')] == [('mixed@case...'Mixed Name')]
+E         
+E         At index 0 diff: ('Mixed@CASE.com', 'Mixed Name') != ('mixed@case.com', 'Mixed Name')
+E         Left contains one more item: ('mixed@case.com', 'Second')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+_________________________ test_varied_inputs[records2] _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records2_0')
+records = [('a+b@x.com', 'Plus'), ('A+B@X.com', 'Dup')]
+
+    @pytest.mark.parametrize("records", [
+        [("single@example.com", "Only")],
+        [("Mixed@CASE.com", " Mixed Name "), ("mixed@case.com", "Second")],
+        [("a+b@x.com", "Plus"), ("A+B@X.com", "Dup")],
+    ])
+    def test_varied_inputs(tmp_path, records):
+>       check(tmp_path, records)
+
+test_clean.py:255: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_varied_inputs_records2_0')
+records = [('a+b@x.com', 'Plus'), ('A+B@X.com', 'Dup')]
+csv_text = 'email,name\r\na+b@x.com,Plus\r\nA+B@X.com,Dup\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['a+b@x.com', 'Plus'], ['A+B@X.com', 'Dup']]
+E       assert [('a+b@x.com'....com', 'Dup')] == [('a+b@x.com', 'Plus')]
+E         
+E         Left contains one more item: ('A+B@X.com', 'Dup')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+________________________ test_large_input_1000_records _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_records0')
+
+    def test_large_input_1000_records(tmp_path):
+        base = []
+        for i in range(600):
+            base.append(("user%03d@example.com" % i, "Name %d" % i))
+        for i in range(400):
+            base.append(("USER%03d@EXAMPLE.COM" % i, "Dup %d" % i))
+>       rows = parse_output(check(tmp_path, base))
+                            ^^^^^^^^^^^^^^^^^^^^^
+
+test_clean.py:264: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_large_input_1000_records0')
+records = [('user000@example.com', 'Name 0'), ('user001@example.com', 'Name 1'), ('user002@example.com', 'Name 2'), ('user003@example.com', 'Name 3'), ('user004@example.com', 'Name 4'), ('user005@example.com', 'Name 5'), ...]
+csv_text = 'email,name\r\nuser000@example.com,Name 0\r\nuser001@example.com,Name 1\r\nuser002@example.com,Name 2\r\nuser003@examp...6@EXAMPLE.COM,Dup 396\r\nUSER397@EXAMPLE.COM,Dup 397\r\nUSER398@EXAMPLE.COM,Dup 398\r\nUSER399@EXAMPLE.COM,Dup 399\r\n'
+
+    def check(tmp_path, records, csv_text=None):
+        if csv_text is None:
+            buf = io.StringIO()
+            writer = csv.writer(buf, lineterminator="\r\n")
+            writer.writerow(["email", "name"])
+            for r in records:
+                writer.writerow(list(r))
+            csv_text = buf.getvalue()
+        _, data = run_cli(tmp_path, csv_text.encode("utf-8"))
+        rows = parse_output(data)
+        exp = expected(records)
+        assert rows[0] == ["email", "name"], rows[0]
+>       assert [tuple(r) for r in rows[1:]] == exp[1:], rows
+E       AssertionError: [['email', 'name'], ['user000@example.com', 'Name 0'], ['user001@example.com', 'Name 1'], ['user002@example.com', 'Name 2'], ['user003@example.com', 'Name 3'], ['user004@example.com', 'Name 4'], ...]
+E       assert [('user000@ex...Name 5'), ...] == [('user000@ex...Name 5'), ...]
+E         
+E         Left contains 400 more items, first extra item: ('USER000@EXAMPLE.COM', 'Dup 0')
+E         Use -v to get more diff
+
+test_clean.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED test_clean.py::test_basic_dedupe_and_normalization - AssertionError: [...
+FAILED test_clean.py::test_quoted_commas_and_quotes - assert [['email', 'n......
+FAILED test_clean.py::test_multiline_quoted_field - assert [['email', 'n...m'...
+FAILED test_clean.py::test_empty_name_preserved_as_empty - AssertionError: [[...
+FAILED test_clean.py::test_first_occurrence_order - AssertionError: [['email'...
+FAILED test_clean.py::test_varied_inputs[records1] - AssertionError: [['email...
+FAILED test_clean.py::test_varied_inputs[records2] - AssertionError: [['email...
+FAILED test_clean.py::test_large_input_1000_records - AssertionError: [['emai...
+8 failed, 9 passed in 0.73s

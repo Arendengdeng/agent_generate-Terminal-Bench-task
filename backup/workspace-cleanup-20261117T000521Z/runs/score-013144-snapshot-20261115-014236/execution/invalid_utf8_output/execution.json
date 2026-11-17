@@ -1,0 +1,930 @@
+{
+  "label": "invalid_utf8_output",
+  "expected_reward": 0,
+  "status": "error",
+  "reward": null,
+  "error": [
+    "verifier exception: test_clean.py::test_mixed_fixture_normalization_and_dedup (call)",
+    "verifier exception: test_clean.py::test_header_only_input_produces_header_only_output (call)",
+    "verifier exception: test_clean.py::test_header_only_without_trailing_newline (call)",
+    "verifier exception: test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names (call)",
+    "verifier exception: test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order (call)",
+    "verifier exception: test_clean.py::test_all_fields_quoted_input (call)",
+    "verifier exception: test_clean.py::test_output_uses_csv_escaping (call)",
+    "verifier exception: test_clean.py::test_crlf_input_with_quoted_commas (call)",
+    "verifier exception: test_clean.py::test_generated_large_distinct_input_preserves_order (call)",
+    "verifier exception: test_clean.py::test_generated_large_duplicates (call)",
+    "verifier exception: test_clean.py::test_input_file_is_not_modified (call)",
+    "verifier exception: test_clean.py::test_success_with_input_in_readonly_like_paths (call)",
+    "pytest exit code and phase reports disagree",
+    "verifier exception: test_clean.py::test_mixed_fixture_normalization_and_dedup (call)",
+    "verifier exception: test_clean.py::test_header_only_input_produces_header_only_output (call)",
+    "verifier exception: test_clean.py::test_header_only_without_trailing_newline (call)",
+    "verifier exception: test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names (call)",
+    "verifier exception: test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order (call)",
+    "verifier exception: test_clean.py::test_all_fields_quoted_input (call)",
+    "verifier exception: test_clean.py::test_output_uses_csv_escaping (call)",
+    "verifier exception: test_clean.py::test_crlf_input_with_quoted_commas (call)",
+    "verifier exception: test_clean.py::test_generated_large_distinct_input_preserves_order (call)",
+    "verifier exception: test_clean.py::test_generated_large_duplicates (call)",
+    "verifier exception: test_clean.py::test_input_file_is_not_modified (call)",
+    "verifier exception: test_clean.py::test_success_with_input_in_readonly_like_paths (call)",
+    "pytest exit code and phase reports disagree"
+  ],
+  "reports": [
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.002852079996955581,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 53,
+            "source": "    rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.043863655999302864,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019621500541688874,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005974059968139045,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 65,
+            "source": "    rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05046708299778402,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_input_produces_header_only_output",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000211590995604638,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008187769999494776,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 74,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040466366001055576,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_header_only_without_trailing_newline",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00042191200191155076,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000658528006169945,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 90,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04358594999939669,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00024122800095938146,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007486410031560808,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 113,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04472878499655053,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015576900477753952,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005541560021811165,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 134,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05655868299800204,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_all_fields_quoted_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_all_fields_quoted_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00019276500097475946,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007105719996616244,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 146,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04735551999328891,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_output_uses_csv_escaping",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00023052700271364301,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005923019998590462,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 161,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05364861300040502,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_crlf_input_with_quoted_commas",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020443899848032743,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000684396996803116,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 176,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05280644799495349,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_distinct_input_preserves_order",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00041938999493140727,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.001446761001716368,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 195,
+            "source": "    rows = run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.053337593002652284,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_generated_large_duplicates",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_generated_large_duplicates",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021413200011011213,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007274480012711138,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 207,
+            "source": "    run_and_check(in_path, out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 43,
+            "source": "    return read_output(out_path)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.042525467004452366,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_input_file_is_not_modified",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_input_file_is_not_modified",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00018679600179893896,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000938832999963779,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": false,
+      "exception": {
+        "type": "UnicodeDecodeError",
+        "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "test_traceback": [
+          {
+            "path": "test_clean.py",
+            "line": 219,
+            "source": "    rows = read_output(out)"
+          },
+          {
+            "path": "test_clean.py",
+            "line": 35,
+            "source": "        return list(csv.reader(fh))"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.05671719500242034,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_success_with_input_in_readonly_like_paths",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00021415400260593742,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005351880026864819,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.038604442997893784,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_no_third_party_imports",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "BAD:\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_no_third_party_imports",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00015141000039875507,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006070769959478639,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04265851200034376,
+      "commands": [
+        {
+          "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+          "status": "completed",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n[private application frame omitted]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-unknown/pytest-0/test_wrong_argument_count_is_n0/missing.csv'\n"
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_clean.py::test_wrong_argument_count_is_not_success",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00020694800332421437,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/score-013144-snapshot-20261115-014236/execution/invalid_utf8_output/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "/solution/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc",
+    "/solution/solve.sh": "999b2539fe86bd2758bddbec168f25ab9f3bb02c8b89c1868e87c77013807bb0"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "7036ba1613807f18e1ca2d105fda400c373d1bb41fc403c53de8b6d382949abc"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "39aaf6b6c40a4eee0d69385c9e4b88df08a4ac7ac96f78327b461405acf38588",
+    "fixtures/header_only.csv": "28cefb569ef2053c8f182b7a34c1f67ed003c38cee13fa2f82b72380bc53debb",
+    "fixtures/mixed.csv": "af3160f3103ef47d1cba04682f51237c0cc0e21a11f8c886e7b6bc632154f6e5",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_clean.py": "dcb43b9c06908eabec9f94d1c3992e4bcbe9675a83d8c1fdaacf0c42077b23ea"
+  },
+  "stdout": "FFFFFFFFFFFF..                                                           [100%]\n=================================== FAILURES ===================================\n__________________ test_mixed_fixture_normalization_and_dedup __________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_mixed_fixture_normalizati0')\n\n    def test_mixed_fixture_normalization_and_dedup(tmp_path):\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(os.path.join(FIXTURES, \"mixed.csv\"), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:53: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58585f90>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n______________ test_header_only_input_produces_header_only_output ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_input_produce0')\n\n    def test_header_only_input_produces_header_only_output(tmp_path):\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(os.path.join(FIXTURES, \"header_only.csv\"), out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:65: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b584ab8d0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n__________________ test_header_only_without_trailing_newline ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_header_only_without_trail0')\n\n    def test_header_only_without_trailing_newline(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(\"email,name\")\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5841ef90>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n____________ test_quoted_fields_with_commas_quotes_and_blank_names _____________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_quoted_fields_with_commas0')\n\n    def test_quoted_fields_with_commas_quotes_and_blank_names(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"a@x.com\", 'Doe, \"John\"'],\n                [\"b@x.com\", \"Plain\"],\n                [\"c@x.com\", \"\"],\n            ],\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:90: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58587c50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n__________ test_whitespace_and_case_dedup_keeps_first_name_and_order ___________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_whitespace_and_case_dedup0')\n\n    def test_whitespace_and_case_dedup_keeps_first_name_and_order(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"  First@Mail.COM \", \"  First Name  \"],\n                [\"second@mail.com\", \"Second\"],\n                [\"FIRST@MAIL.COM\", \"Other Name\"],\n                [\"first@mail.com\", \"Third\"],\n                [\"\\tsecond@MAIL.com\", \"Second Again\"],\n            ],\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:113: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5845cad0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_________________________ test_all_fields_quoted_input _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_fields_quoted_input0')\n\n    def test_all_fields_quoted_input(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(\n            in_path,\n            [\"email\", \"name\"],\n            [\n                [\"X@Y.COM\", \"One, Two\"],\n                [\"x@y.com\", \"Duplicate\"],\n                [\"z@y.com\", \"Three\"],\n            ],\n            quoting=csv.QUOTE_ALL,\n        )\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:134: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b5842a490>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n________________________ test_output_uses_csv_escaping _________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_uses_csv_escaping0')\n\n    def test_output_uses_csv_escaping(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        write_csv(in_path, [\"email\", \"name\"], [[\"q@x.com\", 'Smith, J \"Q\"']])\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:146: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b585507d0>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n______________________ test_crlf_input_with_quoted_commas ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_crlf_input_with_quoted_co0')\n\n    def test_crlf_input_with_quoted_commas(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        data = 'email,name\\r\\nA@B.C,\"Last, First\"\\r\\na@b.c,\"Other, Name\"\\r\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(data)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:161: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58468210>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_____________ test_generated_large_distinct_input_preserves_order ______________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_distinct_0')\n\n    def test_generated_large_distinct_input_preserves_order(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        expected = []\n        records = []\n        for i in range(1000):\n            email = \"user%04d@example.com\" % i\n            name = \"User %d, Esq.\" % i if i % 3 == 0 else \"User %d\" % i\n            records.append([email, name])\n            expected.append([email, name])\n        write_csv(in_path, [\"email\", \"name\"], records)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:176: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58465b50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_______________________ test_generated_large_duplicates ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_generated_large_duplicate0')\n\n    def test_generated_large_duplicates(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        records = []\n        expected = []\n        for i in range(1000):\n            idx = i % 500\n            email = \"user%03d@example.com\" % idx\n            case_email = email.upper() if i % 2 else \"  \" + email + \"  \"\n            name = \"Name %d\" % i\n            records.append([case_email, name])\n            if i < 500:\n                expected.append([email, name])\n        write_csv(in_path, [\"email\", \"name\"], records)\n        out = str(tmp_path / \"out.csv\")\n>       rows = run_and_check(in_path, out)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_clean.py:195: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58512990>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n_______________________ test_input_file_is_not_modified ________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_input_file_is_not_modifie0')\n\n    def test_input_file_is_not_modified(tmp_path):\n        in_path = str(tmp_path / \"in.csv\")\n        content = 'email,name\\nA@B.C,\"Last, First\"\\na@b.c,Other\\n'\n        with open(in_path, \"w\", encoding=\"utf-8\", newline=\"\") as fh:\n            fh.write(content)\n        before = open(in_path, \"rb\").read()\n        out = str(tmp_path / \"out.csv\")\n>       run_and_check(in_path, out)\n\ntest_clean.py:207: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:43: in run_and_check\n    return read_output(out_path)\n           ^^^^^^^^^^^^^^^^^^^^^\ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b584fac50>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n________________ test_success_with_input_in_readonly_like_paths ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_success_with_input_in_rea0')\n\n    def test_success_with_input_in_readonly_like_paths(tmp_path):\n        # Ensures run only needs the two positional params and stdlib.\n        in_path = str(tmp_path / \"input.csv\")\n        write_csv(in_path, [\"email\", \"name\"], [[\"Solo@Ex.com\", \" Solo \"]])\n        out = str(tmp_path / \"nested_out.csv\")\n        proc = run_cli(in_path, out)\n        assert proc.returncode == 0, \"stderr=%r\" % (proc.stderr,)\n>       rows = read_output(out)\n               ^^^^^^^^^^^^^^^^\n\ntest_clean.py:219: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest_clean.py:35: in read_output\n    return list(csv.reader(fh))\n           ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <encodings.utf_8.IncrementalDecoder object at 0x779b58264790>\ninput = b'\\xff\\xfe', final = False\n\n>   ???\nE   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n\n<frozen codecs>:322: UnicodeDecodeError\n=========================== short test summary info ============================\nFAILED test_clean.py::test_mixed_fixture_normalization_and_dedup - UnicodeDec...\nFAILED test_clean.py::test_header_only_input_produces_header_only_output - Un...\nFAILED test_clean.py::test_header_only_without_trailing_newline - UnicodeDeco...\nFAILED test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names\nFAILED test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order\nFAILED test_clean.py::test_all_fields_quoted_input - UnicodeDecodeError: 'utf...\nFAILED test_clean.py::test_output_uses_csv_escaping - UnicodeDecodeError: 'ut...\nFAILED test_clean.py::test_crlf_input_with_quoted_commas - UnicodeDecodeError...\nFAILED test_clean.py::test_generated_large_distinct_input_preserves_order - U...\nFAILED test_clean.py::test_generated_large_duplicates - UnicodeDecodeError: '...\nFAILED test_clean.py::test_input_file_is_not_modified - UnicodeDecodeError: '...\nFAILED test_clean.py::test_success_with_input_in_readonly_like_paths - Unicod...\n12 failed, 2 passed in 0.88s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_clean.py::test_mixed_fixture_normalization_and_dedup",
+    "test_clean.py::test_header_only_input_produces_header_only_output",
+    "test_clean.py::test_header_only_without_trailing_newline",
+    "test_clean.py::test_quoted_fields_with_commas_quotes_and_blank_names",
+    "test_clean.py::test_whitespace_and_case_dedup_keeps_first_name_and_order",
+    "test_clean.py::test_all_fields_quoted_input",
+    "test_clean.py::test_output_uses_csv_escaping",
+    "test_clean.py::test_crlf_input_with_quoted_commas",
+    "test_clean.py::test_generated_large_distinct_input_preserves_order",
+    "test_clean.py::test_generated_large_duplicates",
+    "test_clean.py::test_input_file_is_not_modified",
+    "test_clean.py::test_success_with_input_in_readonly_like_paths",
+    "test_clean.py::test_no_third_party_imports",
+    "test_clean.py::test_wrong_argument_count_is_not_success"
+  ],
+  "verifier_exit_code": 2,
+  "tests_digest": "72aac00828defd2aca44df441d361a946d8a6c5a7c61a713ba4ad2db7b1d931e",
+  "outcome": "error",
+  "wall_sec": 17.765,
+  "attribution": "uncertain"
+}

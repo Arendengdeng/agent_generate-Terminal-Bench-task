@@ -1,0 +1,4 @@
+{
+  "edits": [],
+  "limitations": "无适用的 fixture_copy：测试中作为 CLI 输入的可变文件均为测试内自行创建（tmp_path），fixtures 目录下的 mixed.csv、header_only.csv 仅作为只读输入路径传入，测试未对其做变更或保留性检查，且不存在把 fixture 路径作为可变输入后续用于保持比对的变量，故不指定 fixture_copy 变换。\n\n无适用的 output_decode：output_spec 要求输出为 UTF-8 CSV，但测试中的 read_output 使用 encoding=\"utf-8\" 打开输出文件直接读取，未调用被测 clean.py 内部的解析函数；测试不存在解析“任务输出”（子进程 stdout/stderr 的解析只对 proc.stderr 做 repr 展示，未做 UTF-8 解码断言）。因此无可守护的“解析不可信任务输出”的函数。\n\n说明：test_no_third_party_imports 中 subprocess 的 proc.stdout.decode() 属测试代码自身的输出读取，不属被测程序解析逻辑，不应加 output_decode；且其契约针对依赖来源而非 UTF-8 输出格式。其它输出格式/布局（如非 CSV、非表头 email,name）不在支持范围，按要求作为限制报告。"
+}

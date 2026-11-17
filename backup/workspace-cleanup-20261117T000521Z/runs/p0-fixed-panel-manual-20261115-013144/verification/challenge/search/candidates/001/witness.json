@@ -1,0 +1,27 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "按归一化邮箱稳定去重，保留首次姓名，正确处理空白、大小写以及带引号和逗号的字段。",
+  "rationale": "The Contract output_spec fixes the behavior precisely: the email is '去掉首尾空白后转小写' (outer whitespace stripped, then lowercased), dedup is by that normalized email, the first occurrence and its name are kept, and output order is first-occurrence order, using CSV escaping. In the fixture, records 1 and 2 are the same address differing only in case ('Grace@Example.com' vs ' GRACE@EXAMPLE.COM '), so under normalization they are duplicates: only the first survives, with name 'Grace' (the second record's name 'Impostor' must not appear). The quoted-comma record has a distinct address and is kept with its name stripped and its comma properly CSV-escaped, and the email lowercased. Expected canonical CSV is therefore exactly the three rows below. An implementation that keys on case-preserving email fails this.",
+  "argv": [
+    "python",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\nGrace@Example.com,Grace\ngrace@example.com,Second Grace\n GRACE@EXAMPLE.COM ,Impostor\n  Ada@Example.ORG  ,\"Lovelace, Ada\"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\ngrace@example.com,Grace\nada@example.org,\"Lovelace, Ada\"\n"
+    }
+  ]
+}

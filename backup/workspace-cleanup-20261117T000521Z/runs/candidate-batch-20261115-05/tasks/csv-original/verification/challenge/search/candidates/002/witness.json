@@ -1,0 +1,27 @@
+{
+  "requirement_id": "R3",
+  "contract_quote": "仅有表头的输入产生仅有表头的输出；不同合法输入均满足规范，不硬编码示例。",
+  "rationale": "Contract 的 input_spec 说明 email 去掉首尾空白后非空、只含 ASCII 字符，并且字段可能包含逗号并遵循标准 CSV 引号规则；输出规范要求凡合法输入都按规范处理，不硬编码示例。夹具 in.csv 是合法输入：email 字段为带引号的 'a,b@x.com'（引号内的逗号属于字段内容，去掉首尾空白后为 'a,b@x.com'，非空且纯 ASCII），姓名为上带引号的 'Comma Email'。按输出规范，归一化邮箱 'a,b@x.com' 输出时同样要用 CSV 引号包裹，结果文件应为两行：表头加 '\"a,b@x.com\",Comma Email'。当前实现主动丢弃含逗号的 email 字段，导致输出只剩表头，违反 R3 中不同合法输入均满足规范的要求，因此断言输出文件内容等于上述规范化的两行。",
+  "argv": [
+    "python3",
+    "/app/clean.py",
+    "$WORK/in.csv",
+    "$WORK/out.csv"
+  ],
+  "stdin": "",
+  "fixtures": {
+    "in.csv": "email,name\n\"a,b@x.com\",\"Comma Email\"\n"
+  },
+  "assertions": [
+    {
+      "source": "exit_code",
+      "path": [],
+      "value": 0
+    },
+    {
+      "source": "file",
+      "path": "out.csv",
+      "value": "email,name\n\"a,b@x.com\",Comma Email\n"
+    }
+  ]
+}

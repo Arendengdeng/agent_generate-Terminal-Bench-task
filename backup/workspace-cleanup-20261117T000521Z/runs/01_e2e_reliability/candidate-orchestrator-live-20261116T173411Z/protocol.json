@@ -1,0 +1,44 @@
+{
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "image": "python:3.11-slim",
+    "max_model_calls": 90,
+    "max_tool_calls": 300,
+    "command_timeout_sec": 30,
+    "api_timeout_sec": 120,
+    "max_file_bytes": 256000,
+    "max_total_bytes": 2000000,
+    "max_files": 100,
+    "max_output_bytes": 64000,
+    "max_response_bytes": 1000000,
+    "max_context_bytes": 300000,
+    "max_completion_tokens": 8000,
+    "max_diagnosis_calls": 2,
+    "max_diagnosis_context_bytes": 24576,
+    "max_diagnosis_completion_tokens": 2000,
+    "consistency_rules": [],
+    "memory_mb": 256,
+    "cpus": 1.0,
+    "pids_limit": 64
+  },
+  "max_candidates": 3,
+  "max_total_tokens": 600000,
+  "max_no_progress": 8,
+  "max_self_check_failures": 3,
+  "verification_options": {
+    "controls_manifest": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/preregistered-controls.json",
+    "challenge": true,
+    "repair_tests": true,
+    "max_challenge_attempts": 4,
+    "max_test_repairs": 2,
+    "harbor_python": "/home/zyl/projects/agent_generate Terminal Bench task/.harbor-venv/bin/python"
+  },
+  "code_version": "23943391556ea7618d9256d5ebf3c058a9eba1bb6183e742529b4032522bdf1d",
+  "plan": "/home/zyl/projects/agent_generate Terminal Bench task/examples/csv-repair/plan.json",
+  "contract": "/home/zyl/projects/agent_generate Terminal Bench task/examples/csv-repair/contract.json",
+  "accepted_requires": {
+    "native_controller": "accept",
+    "independent_validation": true
+  }
+}

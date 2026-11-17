@@ -1,0 +1,233 @@
+{
+  "reviewer": "Codex Contract source inspection plus independent finite-domain checker",
+  "method": "contract-source-review-and-exhaustive-reference-check",
+  "cases": [
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "0"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 0,
+        "double": 0
+      },
+      "observed": {
+        "double": 0,
+        "value": 0
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "1"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 1,
+        "double": 2
+      },
+      "observed": {
+        "double": 2,
+        "value": 1
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "2"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 2,
+        "double": 4
+      },
+      "observed": {
+        "double": 4,
+        "value": 2
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "3"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 3,
+        "double": 6
+      },
+      "observed": {
+        "double": 6,
+        "value": 3
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "4"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 4,
+        "double": 8
+      },
+      "observed": {
+        "double": 8,
+        "value": 4
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "5"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 5,
+        "double": 10
+      },
+      "observed": {
+        "double": 10,
+        "value": 5
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "6"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 6,
+        "double": 12
+      },
+      "observed": {
+        "double": 12,
+        "value": 6
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "7"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 7,
+        "double": 14
+      },
+      "observed": {
+        "double": 14,
+        "value": 7
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "8"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 8,
+        "double": 16
+      },
+      "observed": {
+        "double": 16,
+        "value": 8
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "9"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 9,
+        "double": 18
+      },
+      "observed": {
+        "double": 18,
+        "value": 9
+      },
+      "exit_code": 0,
+      "agrees": true
+    },
+    {
+      "argv": [
+        "python3",
+        "/app/clean.py",
+        "10"
+      ],
+      "stdin": "",
+      "expected": {
+        "value": 10,
+        "double": 20
+      },
+      "observed": {
+        "double": 20,
+        "value": 10
+      },
+      "exit_code": 0,
+      "agrees": true
+    }
+  ],
+  "reference_basis": "Expected values computed directly from the public Contract before test execution.",
+  "source": "import json,sys\nx=int(sys.argv[1])\nprint(json.dumps({'double':x+x,'value':x},separators=(',',':')))\n",
+  "contract": {
+    "objective": "numeric public CLI behavior.",
+    "workspace": "/app",
+    "command": "python /app/clean.py <n>",
+    "input_spec": "Integer n in [0,10].",
+    "output_spec": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+    "deliverables": {
+      "artifact_paths": [
+        "/app/clean.py"
+      ],
+      "allowed_dependencies": "python-stdlib",
+      "allow_additional_files": false
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "Exit successfully and output a JSON object whose value equals n."
+      },
+      {
+        "id": "R2",
+        "description": "For every permitted n, double equals 2*n."
+      }
+    ],
+    "limits": {
+      "command_timeout_sec": 5
+    }
+  }
+}

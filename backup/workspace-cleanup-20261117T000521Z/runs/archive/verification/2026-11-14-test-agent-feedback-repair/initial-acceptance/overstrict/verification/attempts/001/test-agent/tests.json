@@ -1,0 +1,69 @@
+{
+  "status": "tests_generated",
+  "error": null,
+  "tests_dir": "tests",
+  "trace_path": "trace.jsonl",
+  "entrypoint_template": "pytest-wrapper-v1",
+  "reward_policy": "pass_1_assertion_fail_0_error_null",
+  "coverage": [
+    {
+      "requirement_id": "R1",
+      "test_names": [
+        "test_behavior.py::test_value"
+      ]
+    },
+    {
+      "requirement_id": "R2",
+      "test_names": [
+        "test_behavior.py::test_double"
+      ]
+    }
+  ],
+  "independent_validation": false,
+  "input_manifest": {
+    "inputs/contract.json": "e0a0fde90c93bb86985287f6bbe8647d5d5f9b992fc6d9fce4d111299262fcec",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "6c6afc33bf4e9a9aa96d494a1a1a2842f0eee8cd64052764b8412771a7693f09",
+    "inputs/instruction.md": "c45a21e8f954eb68c235b907e7d782800123b68d32248b929840c7fde45539ee"
+  },
+  "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd",
+  "diagnosis": {
+    "requirement_id": "R2",
+    "contract_quote": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+    "test_path": "tests/test_behavior.py",
+    "line": "14",
+    "evidence_id": "known-000:test_behavior.py::test_double:call",
+    "explanation": "test_double compares the raw stdout to a fixed string with a particular field order and spacing, explicitly rejected by the Contract; the correct known-000 implementation outputs '{\"double\":6,\"value\":3}' and fails. The test must parse JSON and assert double==2*n for all n in [0,10], plus the 'exactly' keys constraint.",
+    "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+  },
+  "attribution": "test_defect",
+  "nodeids": [
+    "test_behavior.py::test_value",
+    "test_behavior.py::test_double"
+  ],
+  "manifest": {
+    "test_behavior.py": "7a8329097af484ffbf93969d452c012cf7c3fc7f94e094c635c81a5cb5ac8cd8"
+  },
+  "digest": "569667a754e3a29a4e5b06b216341298dacd863947589eda134600de4f9d120c",
+  "budget_used": {
+    "model_calls": 8,
+    "tool_calls": 11
+  },
+  "workflow_budget_used": {
+    "model_calls": 8,
+    "tool_calls": 11,
+    "token_usage": {
+      "prompt_tokens": 56736,
+      "completion_tokens": 873,
+      "total_tokens": 57609
+    }
+  },
+  "cost": {
+    "wall_sec": 16.35,
+    "token_usage": {
+      "prompt_tokens": 56736,
+      "completion_tokens": 873,
+      "total_tokens": 57609
+    }
+  }
+}

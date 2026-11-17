@@ -1,0 +1,662 @@
+{
+  "label": "nop",
+  "expected_reward": 0,
+  "status": "completed",
+  "reward": 0,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_summarize.py::test_basic_grouping_counts_and_sums",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0034301479972782545,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_basic_grouping_counts_and_sums",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {('alpha', 'I...: (1, 0), ...} == {('alpha', 'I...: (1, 3), ...}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {('beta', 'INFO'): (1, 0)} != {('beta', 'INFO'): (1, 3)}\n  {('alpha', 'INFO'): (3, 0)} != {('alpha', 'INFO'): (3, 40)}\n  {('alpha', 'ERROR'): (1, 0)} != {('alpha', 'ERROR'): (1, 5)}\n  {('alpha', 'WARN'): (1, 0)} != {('alpha', 'WARN'): (1, 7)}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 86,
+            "source": "    assert as_map(rows) == expected_map(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.040412602000287734,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_basic_grouping_counts_and_sums",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_basic_grouping_counts_and_sums",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002448699960950762,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_sorted_by_service_then_level",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007301579971681349,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_sorted_by_service_then_level",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [('订单服务', 'ER...vc', 'ERROR')] == [('Apple', 'W...单服务', 'INFO')]\n  \n  At index 0 diff: ('订单服务', 'ERROR') != ('Apple', 'WARN')\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 98,
+            "source": "    assert keys == sorted(keys)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03590824999992037,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_output_sorted_by_service_then_level",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_output_sorted_by_service_then_level",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006746169965481386,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_and_mixed_case_services",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006744679994881153,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_and_mixed_case_services",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert (2, 0) == (2, 199)\n  \n  At index 1 diff: 0 != 199\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 111,
+            "source": "    assert mapping[(\"订单服务\", \"ERROR\")] == (2, 199)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03716077099670656,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_unicode_and_mixed_case_services",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_and_mixed_case_services",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002691389963729307,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_all_counted",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005437889994936995,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_all_counted",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {('svc', 'WARN'): (5, 0)} == {('svc', 'WARN'): (5, 12346)}\n  \n  Differing items:\n  {('svc', 'WARN'): (5, 0)} != {('svc', 'WARN'): (5, 12346)}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 127,
+            "source": "    assert as_map(rows) == {(\"svc\", \"WARN\"): (5, 12346)}"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03688413499912713,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_duplicate_records_all_counted",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_duplicate_records_all_counted",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00043567099783103913,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0005137779953656718,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.03421408100257395,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_empty_input_outputs_empty_array",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001592679982422851,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_preserved",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0008580049980082549,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_preserved",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.035812381996947806,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_input_file_preserved",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_input_file_preserved",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00022344500030158088,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_fixture_input_preserved",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007979830043041147,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_fixture_input_preserved",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.038069484995503444,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_unicode_fixture_input_preserved",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_unicode_fixture_input_preserved",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0001916820037877187,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_different_inputs_produce_different_outputs",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0006792740023229271,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_different_inputs_produce_different_outputs",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.07638070599932689,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_different_inputs_produce_different_outputs",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_summarize.py::test_different_inputs_produce_different_outputs",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_different_inputs_produce_different_outputs",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002168220016756095,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_rerun_is_deterministic",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00074738499824889,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_rerun_is_deterministic",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.08277542799623916,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_rerun_is_deterministic",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "nodeid": "test_summarize.py::test_rerun_is_deterministic",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_rerun_is_deterministic",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00016278399561997503,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.000625599997874815,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {('s3', 'ERRO...: (2, 0), ...} == {('s3', 'ERRO... (2, 83), ...}\n  \n  Omitting 2 identical items, use -vv to show\n  Differing items:\n  {('s1', 'INFO'): (1, 0)} != {('s1', 'INFO'): (1, 999999999)}\n  {('s1', 'ERROR'): (1, 0)} != {('s1', 'ERROR'): (1, 1)}\n  {('s2', 'WARN'): (2, 0)} != {('s2', 'WARN'): (2, 83)}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 207,
+            "source": "    assert as_map(rows) == expected_map(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.041032717999769375,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00028383099561324343,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_record_input",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007050190033623949,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_record_input",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 7}]\n  \n  At index 0 diff: {'service': 'only', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0} != {'service': 'only', 'level': 'INFO', 'count': 1, 'total_duration_ms': 7}\n  Use -v to get more diff",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 222,
+            "source": "    assert rows == ["
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.04593249900062801,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_single_record_input",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_single_record_input",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00022061200434109196,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_lines_boundary",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0007451139972545207,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_lines_boundary",
+      "when": "call",
+      "outcome": "failed",
+      "task_assertion": true,
+      "exception": {
+        "type": "AssertionError",
+        "message": "assert {('svc0', 'IN... (48, 0), ...} == {('svc0', 'IN..., 23832), ...}\n  \n  Differing items:\n  {('svc5', 'ERROR'): (48, 0)} != {('svc5', 'ERROR'): (48, 23928)}\n  {('svc3', 'INFO'): (48, 0)} != {('svc3', 'INFO'): (48, 23832)}\n  {('svc3', 'WARN'): (48, 0)} != {('svc3', 'WARN'): (48, 24168)}\n  {('svc6', 'INFO'): (48, 0)} != {('svc6', 'INFO'): (48, 23976)}\n  {('svc6', 'WARN'): (47, 0)} != {('svc6', 'WARN'): (47, 23312)}...\n  \n  ...Full output truncated, use '-vv' to show",
+        "test_traceback": [
+          {
+            "path": "test_summarize.py",
+            "line": 246,
+            "source": "    assert as_map(rows) == expected_map(records)"
+          }
+        ]
+      },
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.06072211799619254,
+      "commands": [
+        {
+          "nodeid": "test_summarize.py::test_max_lines_boundary",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_summarize.py::test_max_lines_boundary",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.0002115199968102388,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-original/verification/attempts/000/execution/nop/execution.json",
+  "implementation_manifest": {
+    "/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7"
+  },
+  "artifact_manifest": {
+    "/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7"
+  },
+  "received_artifact_manifest": {
+    "/app/summarize.py": "17d44bd573b6523a3a8da18bd3f9dca14e20ec9b9fdcd7b0bc98993cdf7423e7"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "01faf79d20a2d6afbb180b98f0fa4aa9e344efc39d13d0cbb65072f87dcfbd5e",
+    "fixtures/basic.jsonl": "5c918f8db428aedd19c6026391c43d420cf2eb49ea158e4e00750b0b3082b2ae",
+    "fixtures/duplicates.jsonl": "e9756c0a8a7c81bb64e38e4be2309661320b4faf148f64fbf439fe20f29e6663",
+    "fixtures/empty.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/unicode.jsonl": "9a373f33835ee3f025e7b8c16cad431ef925a50ec8141e1fc9658442b4435606",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_summarize.py": "7bc2453db675e780d6391f985156bad7561df05102eb666e069f544712000eac"
+  },
+  "stdout": "FFFF.....FFF                                                             [100%]\n=================================== FAILURES ===================================\n_____________________ test_basic_grouping_counts_and_sums ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_basic_grouping_counts_and0')\n\n    def test_basic_grouping_counts_and_sums(tmp_path):\n        inp = copy_fixture(\"basic.jsonl\", tmp_path)\n        out = tmp_path / \"out.json\"\n        proc = run_cli(inp, str(out))\n        assert proc.returncode == 0, proc.stderr\n        assert out.exists(), \"output file not written\"\n        rows = load_output(str(out))\n        assert_structure(rows)\n        records = read_fixture(\"basic.jsonl\")\n>       assert as_map(rows) == expected_map(records)\nE       AssertionError: assert {('alpha', 'I...: (1, 0), ...} == {('alpha', 'I...: (1, 3), ...}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Differing items:\nE         {('beta', 'INFO'): (1, 0)} != {('beta', 'INFO'): (1, 3)}\nE         {('alpha', 'INFO'): (3, 0)} != {('alpha', 'INFO'): (3, 40)}\nE         {('alpha', 'ERROR'): (1, 0)} != {('alpha', 'ERROR'): (1, 5)}\nE         {('alpha', 'WARN'): (1, 0)} != {('alpha', 'WARN'): (1, 7)}\nE         Use -v to get more diff\n\ntest_summarize.py:86: AssertionError\n___________________ test_output_sorted_by_service_then_level ___________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_output_sorted_by_service_0')\n\n    def test_output_sorted_by_service_then_level(tmp_path):\n        inp = copy_fixture(\"unicode.jsonl\", tmp_path)\n        out = tmp_path / \"out.json\"\n        proc = run_cli(inp, str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        assert_structure(rows)\n        keys = [(r[\"service\"], r[\"level\"]) for r in rows]\n>       assert keys == sorted(keys)\nE       AssertionError: assert [('订单服务', 'ER...vc', 'ERROR')] == [('Apple', 'W...单服务', 'INFO')]\nE         \nE         At index 0 diff: ('订单服务', 'ERROR') != ('Apple', 'WARN')\nE         Use -v to get more diff\n\ntest_summarize.py:98: AssertionError\n_____________________ test_unicode_and_mixed_case_services _____________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_unicode_and_mixed_case_se0')\n\n    def test_unicode_and_mixed_case_services(tmp_path):\n        inp = copy_fixture(\"unicode.jsonl\", tmp_path)\n        out = tmp_path / \"out.json\"\n        proc = run_cli(inp, str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        mapping = as_map(rows)\n>       assert mapping[(\"订单服务\", \"ERROR\")] == (2, 199)\nE       assert (2, 0) == (2, 199)\nE         \nE         At index 1 diff: 0 != 199\nE         Use -v to get more diff\n\ntest_summarize.py:111: AssertionError\n______________________ test_duplicate_records_all_counted ______________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_duplicate_records_all_cou0')\n\n    def test_duplicate_records_all_counted(tmp_path):\n        inp = copy_fixture(\"duplicates.jsonl\", tmp_path)\n        out = tmp_path / \"out.json\"\n        proc = run_cli(inp, str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        assert_structure(rows)\n>       assert as_map(rows) == {(\"svc\", \"WARN\"): (5, 12346)}\nE       AssertionError: assert {('svc', 'WARN'): (5, 0)} == {('svc', 'WARN'): (5, 12346)}\nE         \nE         Differing items:\nE         {('svc', 'WARN'): (5, 0)} != {('svc', 'WARN'): (5, 12346)}\nE         Use -v to get more diff\n\ntest_summarize.py:127: AssertionError\n_________________ test_all_levels_and_large_nonnegative_values _________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_all_levels_and_large_nonn0')\n\n    def test_all_levels_and_large_nonnegative_values(tmp_path):\n        records = [\n            {\"service\": \"s3\", \"level\": \"ERROR\", \"duration_ms\": 0},\n            {\"service\": \"s1\", \"level\": \"INFO\", \"duration_ms\": 999999999},\n            {\"service\": \"s1\", \"level\": \"ERROR\", \"duration_ms\": 1},\n            {\"service\": \"s2\", \"level\": \"WARN\", \"duration_ms\": 41},\n            {\"service\": \"s2\", \"level\": \"WARN\", \"duration_ms\": 42},\n            {\"service\": \"s1\", \"level\": \"WARN\", \"duration_ms\": 0},\n        ]\n        inp = tmp_path / \"in.jsonl\"\n        with open(inp, \"w\", encoding=\"utf-8\") as handle:\n            for rec in records:\n                handle.write(json.dumps(rec) + \"\\n\")\n        out = tmp_path / \"out.json\"\n        proc = run_cli(str(inp), str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        assert_structure(rows)\n>       assert as_map(rows) == expected_map(records)\nE       AssertionError: assert {('s3', 'ERRO...: (2, 0), ...} == {('s3', 'ERRO... (2, 83), ...}\nE         \nE         Omitting 2 identical items, use -vv to show\nE         Differing items:\nE         {('s1', 'INFO'): (1, 0)} != {('s1', 'INFO'): (1, 999999999)}\nE         {('s1', 'ERROR'): (1, 0)} != {('s1', 'ERROR'): (1, 1)}\nE         {('s2', 'WARN'): (2, 0)} != {('s2', 'WARN'): (2, 83)}\nE         Use -v to get more diff\n\ntest_summarize.py:207: AssertionError\n___________________________ test_single_record_input ___________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_single_record_input0')\n\n    def test_single_record_input(tmp_path):\n        records = [{\"service\": \"only\", \"level\": \"INFO\", \"duration_ms\": 7}]\n        inp = tmp_path / \"one.jsonl\"\n        with open(inp, \"w\", encoding=\"utf-8\") as handle:\n            handle.write(json.dumps(records[0]) + \"\\n\")\n        out = tmp_path / \"out.json\"\n        proc = run_cli(str(inp), str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        assert_structure(rows)\n>       assert rows == [\n            {\"service\": \"only\", \"level\": \"INFO\", \"count\": 1, \"total_duration_ms\": 7}\n        ]\nE       AssertionError: assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 7}]\nE         \nE         At index 0 diff: {'service': 'only', 'level': 'INFO', 'count': 1, 'total_duration_ms': 0} != {'service': 'only', 'level': 'INFO', 'count': 1, 'total_duration_ms': 7}\nE         Use -v to get more diff\n\ntest_summarize.py:222: AssertionError\n___________________________ test_max_lines_boundary ____________________________\n\ntmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_max_lines_boundary0')\n\n    def test_max_lines_boundary(tmp_path):\n        records = []\n        for i in range(1000):\n            records.append(\n                {\n                    \"service\": \"svc%d\" % (i % 7),\n                    \"level\": (\"INFO\", \"WARN\", \"ERROR\")[i % 3],\n                    \"duration_ms\": i,\n                }\n            )\n        inp = tmp_path / \"big.jsonl\"\n        with open(inp, \"w\", encoding=\"utf-8\") as handle:\n            for rec in records:\n                handle.write(json.dumps(rec) + \"\\n\")\n        out = tmp_path / \"out.json\"\n        proc = run_cli(str(inp), str(out))\n        assert proc.returncode == 0, proc.stderr\n        rows = load_output(str(out))\n        assert_structure(rows)\n>       assert as_map(rows) == expected_map(records)\nE       AssertionError: assert {('svc0', 'IN... (48, 0), ...} == {('svc0', 'IN..., 23832), ...}\nE         \nE         Differing items:\nE         {('svc5', 'ERROR'): (48, 0)} != {('svc5', 'ERROR'): (48, 23928)}\nE         {('svc3', 'INFO'): (48, 0)} != {('svc3', 'INFO'): (48, 23832)}\nE         {('svc3', 'WARN'): (48, 0)} != {('svc3', 'WARN'): (48, 24168)}\nE         {('svc6', 'INFO'): (48, 0)} != {('svc6', 'INFO'): (48, 23976)}\nE         {('svc6', 'WARN'): (47, 0)} != {('svc6', 'WARN'): (47, 23312)}...\nE         \nE         ...Full output truncated, use '-vv' to show\n\ntest_summarize.py:246: AssertionError\n=========================== short test summary info ============================\nFAILED test_summarize.py::test_basic_grouping_counts_and_sums - AssertionErro...\nFAILED test_summarize.py::test_output_sorted_by_service_then_level - Assertio...\nFAILED test_summarize.py::test_unicode_and_mixed_case_services - assert (2, 0...\nFAILED test_summarize.py::test_duplicate_records_all_counted - AssertionError...\nFAILED test_summarize.py::test_all_levels_and_large_nonnegative_values - Asse...\nFAILED test_summarize.py::test_single_record_input - AssertionError: assert [...\nFAILED test_summarize.py::test_max_lines_boundary - AssertionError: assert {(...\n7 failed, 5 passed in 0.76s\n",
+  "stderr": "",
+  "pytest_exit_code": 1,
+  "nodeids": [
+    "test_summarize.py::test_basic_grouping_counts_and_sums",
+    "test_summarize.py::test_output_sorted_by_service_then_level",
+    "test_summarize.py::test_unicode_and_mixed_case_services",
+    "test_summarize.py::test_duplicate_records_all_counted",
+    "test_summarize.py::test_empty_input_outputs_empty_array",
+    "test_summarize.py::test_input_file_preserved",
+    "test_summarize.py::test_unicode_fixture_input_preserved",
+    "test_summarize.py::test_different_inputs_produce_different_outputs",
+    "test_summarize.py::test_rerun_is_deterministic",
+    "test_summarize.py::test_all_levels_and_large_nonnegative_values",
+    "test_summarize.py::test_single_record_input",
+    "test_summarize.py::test_max_lines_boundary"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "ce92028002897883139b764c3699de7345f9cf5691b5d3d42d41141ec2e8ec8e",
+  "outcome": "fail",
+  "wall_sec": 5.8,
+  "attribution": "uncertain"
+}

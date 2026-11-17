@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "contract_digest": "0ada231e47beee1fe2ac6dc4354e645989ed1563a8075345d2fc7b04e3e66b81",
+  "controls": [
+    {
+      "id": "known-000",
+      "group": "feedback",
+      "role": "correct",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-correct",
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/controls/known-000",
+      "implementation_digest": "ad07495ec229465a81cfb2451815d7426d6ed454fadd674dbb03cee4ea2a0241",
+      "contract_digest": "0ada231e47beee1fe2ac6dc4354e645989ed1563a8075345d2fc7b04e3e66b81",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "Both standard-library sources parse each JSONL record once, initialize counts and sums to zero, add every record including duplicates and sort by the required key. The service-only key merges levels and max starts at zero, valid for nonnegative durations. Empty input gives []; JSON preserves Unicode semantically. Only output is written, and only summarize.py is delivered.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-correct-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-correct-audit/execution.json"
+        ]
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/known-000/000.txt",
+          "sha256": "fefe70bdbd10a0b56b040bf56c3b2f90e0d4f9f1d9e2f13d9e959a35aab93a8d"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/known-000/001.txt",
+          "sha256": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/known-000/002.txt",
+          "sha256": "23a96d558a9e27fdd6091eb064b29a3b2d69eaf11fecade35d582d3956f1ee2f"
+        }
+      ]
+    },
+    {
+      "id": "holdout-correct-000",
+      "group": "holdout",
+      "role": "correct",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-correct",
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/controls/holdout-correct-000",
+      "implementation_digest": "e100f6d4454119381c86e6e84766ae56b8e93eab277cc89cf52acf7a9369c861",
+      "contract_digest": "0ada231e47beee1fe2ac6dc4354e645989ed1563a8075345d2fc7b04e3e66b81",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "Both standard-library sources parse each JSONL record once, initialize counts and sums to zero, add every record including duplicates and sort by the required key. The service-only key merges levels and max starts at zero, valid for nonnegative durations. Empty input gives []; JSON preserves Unicode semantically. Only output is written, and only summarize.py is delivered.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-correct-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-correct-audit/execution.json"
+        ]
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-correct-000/000.txt",
+          "sha256": "0e260ae57fcf5ef99dbab8d2580b73b29c6d902a93397f817da0d97ead760079"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-correct-000/001.txt",
+          "sha256": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-correct-000/002.txt",
+          "sha256": "14fd7a806657832e5abe45774184fdf22bfc30037e473e164f891dccee08a6c5"
+        }
+      ]
+    },
+    {
+      "id": "invalid-000",
+      "group": "feedback",
+      "role": "invalid",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-invalid",
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/controls/invalid-000",
+      "implementation_digest": "cb02d0e648c29a6edadab4324ea6b9b21cede6e9c8a0833bec7546ba7efd9575",
+      "contract_digest": "0ada231e47beee1fe2ac6dc4354e645989ed1563a8075345d2fc7b04e3e66b81",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "CSV retention policy / JSONL count / manifest digest is deliberately wrong.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-invalid-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-invalid-audit/execution.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/summarize.py",
+            "$WORK/input.jsonl",
+            "$WORK/output.json"
+          ],
+          "stdin": "",
+          "expected": [
+            {
+              "service": "api",
+              "count": 3,
+              "total_duration_ms": 12,
+              "max_duration_ms": 7
+            },
+            {
+              "service": "服务",
+              "count": 1,
+              "total_duration_ms": 0,
+              "max_duration_ms": 0
+            }
+          ],
+          "observed": {
+            "label": "invalid-control",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.0001989559968933463,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\n  \n  At index 0 diff: {'service': 'api', 'count': 1, 'total_duration_ms': 12, 'max_duration_ms': 7} != {'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_control_audit.py",
+                      "line": 13,
+                      "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.03999453399592312,
+                "commands": [
+                  {
+                    "nodeid": "test_control_audit.py::test_independent_control_audit",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00024652399588376284,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/feedback-invalid-audit/execution.json",
+            "implementation_manifest": {
+              "/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309",
+              "/solution/solve.sh": "239275f1c2ffbdaf9c71f6beebf8aad12005e5064b26eb2328a20b66204822c3"
+            },
+            "artifact_manifest": {
+              "/app/summarize.py": "3dabe7a9219524ab1e618f22f02395c524aebaeeb054870e696b6152498c3cb8"
+            },
+            "received_artifact_manifest": {
+              "/app/summarize.py": "3dabe7a9219524ab1e618f22f02395c524aebaeeb054870e696b6152498c3cb8"
+            },
+            "verifier_files_manifest": {
+              "expected.json": "859418c07445a7a3a86287a51848b6447bd3d7bb9afb60ea26e0ff3e6a14a3fc",
+              "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+              "test_control_audit.py": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+            },
+            "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'service': '服务', 'level': 'WARN', 'duration_ms': 0}, {'service': 'api', 'level': 'INFO', 'duration_ms': 3}, {'service': 'api', 'level': 'INFO', 'duration_ms': 7}, {'service': 'api', 'level': 'ERROR', 'duration_ms': 2}], [{'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}, {'service': '服务', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.jsonl'; target=t/'output.json'\n                source.write_text(''.join(json.dumps(r,ensure_ascii=False)+'\\n' for r in data),encoding='utf-8')\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/summarize.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n>               assert json.loads(target.read_text(encoding='utf-8'))==expected\nE               AssertionError: assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\nE                 \nE                 At index 0 diff: {'service': 'api', 'count': 1, 'total_duration_ms': 12, 'max_duration_ms': 7} != {'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}\nE                 Use -v to get more diff\n\ntest_control_audit.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - AssertionError...\n1 failed in 0.09s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "nodeids": [
+              "test_control_audit.py::test_independent_control_audit"
+            ],
+            "verifier_exit_code": 0,
+            "tests_digest": "c70d05dbb50291116b447640d9cc62d15cc08f8e1adfb069a4db82533a8eecf0",
+            "outcome": "fail",
+            "wall_sec": 6.942,
+            "attribution": "uncertain"
+          },
+          "fixtures": [
+            {
+              "service": "服务",
+              "level": "WARN",
+              "duration_ms": 0
+            },
+            {
+              "service": "api",
+              "level": "INFO",
+              "duration_ms": 3
+            },
+            {
+              "service": "api",
+              "level": "INFO",
+              "duration_ms": 7
+            },
+            {
+              "service": "api",
+              "level": "ERROR",
+              "duration_ms": 2
+            }
+          ],
+          "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+        }
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/invalid-000/000.txt",
+          "sha256": "f6b2546cf2e12edd7277d02031b7d4b0339655e9e13ca74267e6911fc8e03921"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/invalid-000/001.txt",
+          "sha256": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/invalid-000/002.txt",
+          "sha256": "0993f8ed5e3998916ae6362d7a44bcb03634f4694ab0ceda84909eaeccd90264"
+        }
+      ]
+    },
+    {
+      "id": "holdout-invalid-000",
+      "group": "holdout",
+      "role": "invalid",
+      "source": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-invalid",
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/controls/holdout-invalid-000",
+      "implementation_digest": "9897ca3ab668f6380cf494b994149d189e25627b938ac72243730328fb295016",
+      "contract_digest": "0ada231e47beee1fe2ac6dc4354e645989ed1563a8075345d2fc7b04e3e66b81",
+      "confirmation": "confirmed",
+      "confirmation_reasons": [],
+      "review": {
+        "status": "confirmed",
+        "reviewer": "Codex authored source review and independent Docker behavior audit",
+        "method": "contract-source-review-and-finite-behavior-audit",
+        "rationale": "CSV ordering / JSONL total / manifest size is deliberately wrong.",
+        "requirement_ids": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "evidence_paths": [
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-invalid-review.json",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/test_control_audit.py",
+          "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-invalid-audit/execution.json"
+        ],
+        "counterexample": {
+          "argv": [
+            "python3",
+            "/app/summarize.py",
+            "$WORK/input.jsonl",
+            "$WORK/output.json"
+          ],
+          "stdin": "",
+          "expected": [
+            {
+              "service": "api",
+              "count": 3,
+              "total_duration_ms": 12,
+              "max_duration_ms": 7
+            },
+            {
+              "service": "服务",
+              "count": 1,
+              "total_duration_ms": 0,
+              "max_duration_ms": 0
+            }
+          ],
+          "observed": {
+            "label": "invalid-control",
+            "expected_reward": 0,
+            "status": "completed",
+            "reward": 0,
+            "error": null,
+            "reports": [
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "setup",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00028309199842624366,
+                "commands": [],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "call",
+                "outcome": "failed",
+                "task_assertion": true,
+                "exception": {
+                  "type": "AssertionError",
+                  "message": "assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\n  \n  At index 0 diff: {'service': 'api', 'count': 3, 'total_duration_ms': 15, 'max_duration_ms': 7} != {'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}\n  Use -v to get more diff",
+                  "test_traceback": [
+                    {
+                      "path": "test_control_audit.py",
+                      "line": 13,
+                      "source": "            assert json.loads(target.read_text(encoding='utf-8'))==expected"
+                    }
+                  ]
+                },
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.05648096799995983,
+                "commands": [
+                  {
+                    "nodeid": "test_control_audit.py::test_independent_control_audit",
+                    "status": "completed",
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                ],
+                "xfail": false
+              },
+              {
+                "nodeid": "test_control_audit.py::test_independent_control_audit",
+                "when": "teardown",
+                "outcome": "passed",
+                "task_assertion": false,
+                "exception": null,
+                "stdout": "",
+                "stderr": "",
+                "duration_sec": 0.00026520500250626355,
+                "commands": [],
+                "xfail": false
+              }
+            ],
+            "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-04/tasks/jsonl-variant/controls/holdout-invalid-audit/execution.json",
+            "implementation_manifest": {
+              "/app/summarize.py": "2f3bf0aba142000089696060332430a384693b284d964b225d34bd986476b309",
+              "/solution/solve.sh": "19aab2f2d9e22dfc9206c9b236fb0113d99dd18d750bb0b911b74ddee6e94cfb"
+            },
+            "artifact_manifest": {
+              "/app/summarize.py": "6a54032e6fa0485f148c84d455d11fca6404edbadca1bc805eac796a08c66000"
+            },
+            "received_artifact_manifest": {
+              "/app/summarize.py": "6a54032e6fa0485f148c84d455d11fca6404edbadca1bc805eac796a08c66000"
+            },
+            "verifier_files_manifest": {
+              "expected.json": "859418c07445a7a3a86287a51848b6447bd3d7bb9afb60ea26e0ff3e6a14a3fc",
+              "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+              "test_control_audit.py": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+            },
+            "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_independent_control_audit ________________________\n\n    def test_independent_control_audit():\n        for data,expected in [([{'service': '服务', 'level': 'WARN', 'duration_ms': 0}, {'service': 'api', 'level': 'INFO', 'duration_ms': 3}, {'service': 'api', 'level': 'INFO', 'duration_ms': 7}, {'service': 'api', 'level': 'ERROR', 'duration_ms': 2}], [{'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}, {'service': '服务', 'count': 1, 'total_duration_ms': 0, 'max_duration_ms': 0}]), ([], [])]:\n            with tempfile.TemporaryDirectory() as work:\n                t=Path(work)\n                source=t/'input.jsonl'; target=t/'output.json'\n                source.write_text(''.join(json.dumps(r,ensure_ascii=False)+'\\n' for r in data),encoding='utf-8')\n                before=source.read_bytes()\n                p=subprocess.run(['python3','/app/summarize.py',str(source),str(target)],capture_output=True,timeout=10)\n                assert p.returncode==0\n>               assert json.loads(target.read_text(encoding='utf-8'))==expected\nE               AssertionError: assert [{'service': ...ation_ms': 0}] == [{'service': ...ation_ms': 0}]\nE                 \nE                 At index 0 diff: {'service': 'api', 'count': 3, 'total_duration_ms': 15, 'max_duration_ms': 7} != {'service': 'api', 'count': 3, 'total_duration_ms': 12, 'max_duration_ms': 7}\nE                 Use -v to get more diff\n\ntest_control_audit.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED test_control_audit.py::test_independent_control_audit - AssertionError...\n1 failed in 0.11s\n",
+            "stderr": "",
+            "pytest_exit_code": 1,
+            "nodeids": [
+              "test_control_audit.py::test_independent_control_audit"
+            ],
+            "verifier_exit_code": 0,
+            "tests_digest": "c70d05dbb50291116b447640d9cc62d15cc08f8e1adfb069a4db82533a8eecf0",
+            "outcome": "fail",
+            "wall_sec": 7.456,
+            "attribution": "uncertain"
+          },
+          "fixtures": [
+            {
+              "service": "服务",
+              "level": "WARN",
+              "duration_ms": 0
+            },
+            {
+              "service": "api",
+              "level": "INFO",
+              "duration_ms": 3
+            },
+            {
+              "service": "api",
+              "level": "INFO",
+              "duration_ms": 7
+            },
+            {
+              "service": "api",
+              "level": "ERROR",
+              "duration_ms": 2
+            }
+          ],
+          "reproduce": "Run saved test_control_audit.py in a fresh verifier with this solution."
+        }
+      },
+      "review_evidence": [
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-invalid-000/000.txt",
+          "sha256": "776c3e1d23904a752c093c7e265d9d5ab9bd0f99f0c2260e71d1e034b8089f0d"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-invalid-000/001.txt",
+          "sha256": "ba1b2c322fbcde5fddd2dc856693a975e7e6e87e94ccf72e5acfe3f547aa76a0"
+        },
+        {
+          "path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/candidate-batch-20261115-05/tasks/jsonl-variant/verification/control-reviews/holdout-invalid-000/002.txt",
+          "sha256": "cb0957fc5bd69fa17c456c17ad5c89abfa240db3acd9ba98a1e609e63afd7eef"
+        }
+      ]
+    }
+  ]
+}

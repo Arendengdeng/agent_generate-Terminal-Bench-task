@@ -1,0 +1,9 @@
+{
+  "requirement_id": "R2",
+  "contract_quote": "JSON with exactly value=n and double=2*n; field order and whitespace are unrestricted.",
+  "test_path": "tests/test_behavior.py",
+  "line": "14",
+  "evidence_id": "known-000:test_behavior.py::test_double:call",
+  "explanation": "test_double compares the raw stdout to a fixed string with a particular field order and spacing, explicitly rejected by the Contract; the correct known-000 implementation outputs '{\"double\":6,\"value\":3}' and fails. The test must parse JSON and assert double==2*n for all n in [0,10], plus the 'exactly' keys constraint.",
+  "parent_digest": "d8d4de3bd289b00f7ceda28d31fb19de4abb4e776624c2a73779b576737910dd"
+}

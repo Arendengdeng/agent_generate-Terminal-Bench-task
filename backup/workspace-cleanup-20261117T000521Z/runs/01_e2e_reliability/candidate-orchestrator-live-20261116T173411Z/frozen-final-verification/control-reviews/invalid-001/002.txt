@@ -1,0 +1,364 @@
+{
+  "status": "passed",
+  "samples": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "violation_status": "unconfirmed",
+      "requirement_id": "R1",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/solution",
+      "solution_digest": "0ad3af56e575919c121876c0c42a2ea30c1bb65c81d806e8e9b651833ef7a059",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/witness.json",
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "reason": "Ambiguity: the fixture writes to \"$WORK/out/target.csv\", but the output directory \"out\" is only created implicitly through a fixture entry (\"out/.keep\"). The Contract/observation semantics do not state that parent directories of fixture paths are created, nor does any Requirement obligate clean.py to create missing parent directories. Thus the exit_code assertion (0) and the file assertion depend on an unguaranteed precondition; a correct implementation that expects an existing output directory could fail, and the witness provides no guaranteed mechanism to create it. (The dedup/normalization expectations themselves are consistent with R1/R2, and the unchanged-input assertion follows from R4, but the directory-creation uncertainty makes the whole witness unconfirmed.)"
+    },
+    {
+      "id": "001",
+      "status": "resolved_docker",
+      "violation_status": "confirmed",
+      "requirement_id": "R2",
+      "solution_dir": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/solution",
+      "solution_digest": "cdc4b0d60d23883989ed342c9b846836e675a923966fce71df61279e932c6edd",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/witness.json",
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "candidate_observation": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "checks": [
+          {
+            "assertion": {
+              "source": "exit_code",
+              "path": [],
+              "value": 0
+            },
+            "actual": 0,
+            "passed": true
+          },
+          {
+            "assertion": {
+              "source": "parsed_file",
+              "path": [
+                "people.csv",
+                "csv"
+              ],
+              "value": [
+                [
+                  "email",
+                  "name"
+                ],
+                [
+                  "bob@example.com",
+                  "Doe, Bob"
+                ],
+                [
+                  "alice@example.com",
+                  "Alice Chen"
+                ]
+              ]
+            },
+            "actual_error": "FileNotFoundError",
+            "passed": false
+          },
+          {
+            "assertion": {
+              "source": "unchanged",
+              "path": "in.csv",
+              "value": true
+            },
+            "actual": true,
+            "passed": true
+          }
+        ]
+      },
+      "witness_controls": [
+        {
+          "label": "oracle",
+          "status": "completed",
+          "reward": 1
+        },
+        {
+          "label": "known-000",
+          "status": "completed",
+          "reward": 1
+        }
+      ],
+      "scoring_feedback": [
+        {
+          "repeat": 0,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        },
+        {
+          "repeat": 1,
+          "status": "completed",
+          "reward": 1,
+          "failures": []
+        }
+      ],
+      "decision": {
+        "decision": "repair",
+        "responsible_module": "tests",
+        "reason_code": "CONFIRMED_FALSE_ACCEPTANCE",
+        "requirement_ids": [
+          "R2"
+        ],
+        "evidence_digest": "94d14c9d6e9771abfeaf2b3b0dbb2b584101a4b199777586209d30466fec2158"
+      },
+      "evidence_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/001/evidence.json"
+    }
+  ],
+  "unresolved": [],
+  "repairs": 1,
+  "initial_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/frozen-tests",
+  "initial_tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+  "final_tests_output": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/repair/001/test-agent",
+  "input_manifest": {
+    "inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "inputs/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "inputs/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "inputs/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84"
+  },
+  "candidate_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/candidate",
+  "comparison_matrix": [
+    {
+      "version": 0,
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "version": 0,
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "version": 0,
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "version": 0,
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "version": 0,
+      "tests_digest": "581e69ef8909e4c6780b5647b2c81a169ccd034e101f35dc305f31bb664ff881",
+      "label": "invalid-001",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 0
+    },
+    {
+      "version": 1,
+      "tests_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+      "label": "oracle",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "version": 1,
+      "tests_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+      "label": "nop",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "version": 1,
+      "tests_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+      "label": "known-000",
+      "status": "completed",
+      "reward": 1,
+      "expected_reward": 1
+    },
+    {
+      "version": 1,
+      "tests_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+      "label": "invalid-000",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    },
+    {
+      "version": 1,
+      "tests_digest": "1c73fac5dc9bc55c90ffd2f0e692662ca5346e9f0bba26ba74af70383f0ceb70",
+      "label": "invalid-001",
+      "status": "completed",
+      "reward": 0,
+      "expected_reward": 0
+    }
+  ],
+  "supplied_invalid_count": 1,
+  "search_status": "completed",
+  "evidence_manifest": {
+    "controls/known-000/solve.sh": "56e10cf9a5f6a97a55ba8e2a460b473c6c10fad6f2df3fff618a0a915baaa5ef",
+    "final-witness/001/invalid-challenge/execution.json": "324477a648ecf10b7b1fd43e259c49fec74d4a0004f6a53747821df0866ad0aa",
+    "final-witness/001/invalid-challenge/pytest.json": "f8e851ab8f29a881aa1bba2191f47400a3be0e13573a1e787d1ea00f3c983693",
+    "final-witness/001/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "final-witness/001/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-witness/001/invalid-challenge/stdout.log": "1f84076300b0f1c8230c50e65176df265eddd9761e249bdce0fbcfad8385bd5f",
+    "final-witness/001/known-000/execution.json": "bb7715768f2caffd0088dc62e4d9dc2a36d4d0a297daf2fb372da89f72b3d1a7",
+    "final-witness/001/known-000/pytest.json": "8e0565b10ad0741ebca94ef1a37b09b3c37e16c4551c41109a15b2196c4b8165",
+    "final-witness/001/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "final-witness/001/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-witness/001/known-000/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "final-witness/001/oracle/execution.json": "9a5434d388aac057748180eb94226fc9d38b7f0af623c5dba1b0c2e1d28c15b2",
+    "final-witness/001/oracle/pytest.json": "23621fd1fc689a70ea350bd8ff755221854198fbacc4a4f7ba61f772bc4c927e",
+    "final-witness/001/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "final-witness/001/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-witness/001/oracle/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "frozen-tests/tests/test_clean.py": "55e05a64da8227450274cf0180c47f8f4850a00913f7682073a9147b6514e85e",
+    "frozen-tests/tests.json": "7014b8944e2bc5ad6a2e2b3817d78cad5bb1c79c56ca086c7fd2729379df3ed5",
+    "repair/000/execution/execution.json": "714a76b9485e71fa96ae5c4a6e368030fb4d6855aae5c03d11115e1dfbda15f6",
+    "repair/000/execution/invalid-000/execution.json": "66abde45b94dc3718714ec47fa8e13030f17d7890141bbf69853af9e068fa9fa",
+    "repair/000/execution/invalid-000/pytest.json": "6164b7ef5434c7b6359f396a76f02431097521bdded92162eb4503d8efb2951a",
+    "repair/000/execution/invalid-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/000/execution/invalid-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/000/execution/invalid-000/stdout.log": "3b8daec4c34f7ac7bc0bb4ec875487f4ac8bb178d785f52817d4a8d33bd84625",
+    "repair/000/execution/invalid-001/execution.json": "2109564eb2422a7a83a84c0676aa8a9f720374f1cc4e25611c84862e92b62409",
+    "repair/000/execution/invalid-001/pytest.json": "b9ad3cfa598e89eda0300225b7c97aa55a2e55cc6886b7a74537bd5e5626b974",
+    "repair/000/execution/invalid-001/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/000/execution/invalid-001/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/000/execution/invalid-001/stdout.log": "a619c729d5f62ba3716916a9242d81212c4191a3c68c13669a9c1a32cffc4178",
+    "repair/000/execution/known-000/execution.json": "c91e297bab6c8faccc0ada9f38801582d3d73441e3367aec52b4489343229347",
+    "repair/000/execution/known-000/pytest.json": "3af96bee9173ac0d21ebd95438ddb8c13b9116717f19e099f105ef69ae83485e",
+    "repair/000/execution/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/000/execution/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/000/execution/known-000/stdout.log": "a619c729d5f62ba3716916a9242d81212c4191a3c68c13669a9c1a32cffc4178",
+    "repair/000/execution/nop/execution.json": "ded9828cad6469c769eeb9449cc4eeb65cdbf1fb4db388bef941f17237d67280",
+    "repair/000/execution/nop/pytest.json": "9b3594319528e58a4537c9959fd3c25b0cc1b010a29d0f0b9275c13025a5b874",
+    "repair/000/execution/nop/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/000/execution/nop/stdout.log": "e58f989fdb0936f54930258435dbd562ee715282514ac9324bf2a917e1167ca3",
+    "repair/000/execution/oracle/execution.json": "004b87645a442dbd8761d619b9f3f24feaf3d852398928c5bc224b47b7d9cd34",
+    "repair/000/execution/oracle/pytest.json": "5c9424729a01bb4982a10c7653ff4e431e4c3f8e50bbc63304a09041ace95659",
+    "repair/000/execution/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/000/execution/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/000/execution/oracle/stdout.log": "0f38b705536b7f450c850253af3850d74369e157484dc645385b3da5c3d00d57",
+    "repair/001/changes.patch": "77696fc082d37b48e12668391d1c9e97a6f5c23737dfbe50bb8f132674333f03",
+    "repair/001/execution/execution.json": "a38c3b9ae386d9d863506cee94dc1fabd21af04c27377c95b851951c6388e698",
+    "repair/001/execution/invalid-000/execution.json": "cea2fd7ce58d2c5fefb6e18bd1313f99d8bd936693581d1d680e04c34dadb95d",
+    "repair/001/execution/invalid-000/pytest.json": "e37438a09b367d2cc3836b6865a451598803f997c4f072ef1ed49dd42965816f",
+    "repair/001/execution/invalid-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/001/execution/invalid-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/001/execution/invalid-000/stdout.log": "08fbe41d5ecea2450b69ac2362b28a0bf8f4e4b0c248c6817507264e7fcbb3b6",
+    "repair/001/execution/invalid-001/execution.json": "e08ca0c59203ed7c17175de859170b6866234deb0b54056de70804801019db51",
+    "repair/001/execution/invalid-001/pytest.json": "0c5b7e1eb90107996e6f90ed7616760a90dc69872882cf8995abce0f1ca63a36",
+    "repair/001/execution/invalid-001/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/001/execution/invalid-001/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/001/execution/invalid-001/stdout.log": "c2adc9d5ca7aebdf57252bf10a870268c059a327a773b96d6635d0f487f5e344",
+    "repair/001/execution/known-000/execution.json": "f71afecd5568bd94135a6f1b29477f4e06e7c74a43f919f64aa6db01f747f15e",
+    "repair/001/execution/known-000/pytest.json": "93b537f4bbf4ff460375356567e3d0f2392ceaba02c0deebd55e50e352789337",
+    "repair/001/execution/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/001/execution/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/001/execution/known-000/stdout.log": "221fb8b20378d7c228b40e66ffc88997188ff14ee5ee8822b8707947fff912d7",
+    "repair/001/execution/nop/execution.json": "adc6e7429b7006a886bb5dae0bbd303fe7f115ae9931a1854b98246c22cdcedc",
+    "repair/001/execution/nop/pytest.json": "1375a874b2a93f485c691fc4e5d3fa44354649f44234b4b9d5c61f83717af49b",
+    "repair/001/execution/nop/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/001/execution/nop/stdout.log": "1c477ec07473196e3af9b782b0b1e8f6dd544b9d42e2d7655fe0aac9d375c0ea",
+    "repair/001/execution/oracle/execution.json": "89b74eca5bc2d346cc9bb5dbffadf7dd8ad612e777165442a99e0ddefd02152c",
+    "repair/001/execution/oracle/pytest.json": "caafc0dbedf33900af7d175378168826234ee52778294f80aaaf06831760b2d1",
+    "repair/001/execution/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "repair/001/execution/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repair/001/execution/oracle/stdout.log": "c0e69ce52e4f3a02942b6f29633f9e3eb8f4519496f5980d860f8301b0e98e31",
+    "repair/001/patch-review.json": "a7ddfcbb2774c62dfef97801412b096f1fc363c6751466a93684d59cfa5406e5",
+    "repair/001/test-agent/collection.json": "16d363ea74cb28525593f02d827a8db63f3d82458077498945a9e2082f6445e3",
+    "repair/001/test-agent/collections/000/collection.json": "16d363ea74cb28525593f02d827a8db63f3d82458077498945a9e2082f6445e3",
+    "repair/001/test-agent/collections/000/tests/test_challenge_r2.py": "759762e4422e15fd35b85570a6397af3ec0ada8e8954b1e8a6fd300bc33aeaa1",
+    "repair/001/test-agent/collections/000/tests/test_clean.py": "55e05a64da8227450274cf0180c47f8f4850a00913f7682073a9147b6514e85e",
+    "repair/001/test-agent/diagnosis.json": "1321b2a0be6c1902bdeaa43163f30585e8952024635714e2279bf29da738557f",
+    "repair/001/test-agent/feedback.json": "9795c8f9f380312b5ffa36fb26f3a3576c02d2779c5fdbdf2888823a166c6127",
+    "repair/001/test-agent/inputs/contract.json": "32f4da4bdbee71f6b32439db89e33d897f47800118a6768a2fb31e4df41d4911",
+    "repair/001/test-agent/inputs/environment/Dockerfile": "9e8175f20d2d4b227f84aa2f73a7b9caf3f003b7f9fece1e9986d5bb9c09bd01",
+    "repair/001/test-agent/inputs/environment/app/clean.py": "65197f28d81c8e573416d357675cbab9a6f0fce0181140fc896dbcbe114e1242",
+    "repair/001/test-agent/inputs/environment/app/sample.csv": "9d49f37b320e062e99a90a9f3b94b82bfde81949b3946fef45b12f9d94e6c9cc",
+    "repair/001/test-agent/inputs/instruction.md": "911362d2c7aaa6481ce49170c1596ef6f524cf13c48a6075d6435c2c12c22e84",
+    "repair/001/test-agent/tests/test_challenge_r2.py": "759762e4422e15fd35b85570a6397af3ec0ada8e8954b1e8a6fd300bc33aeaa1",
+    "repair/001/test-agent/tests/test_clean.py": "55e05a64da8227450274cf0180c47f8f4850a00913f7682073a9147b6514e85e",
+    "repair/001/test-agent/tests.json": "d84c63dd11236af55208a81f9f3f06c2bb048905957130b0d1c5407e3c8c7651",
+    "repair/001/test-agent/trace.jsonl": "dfbe3658e0478ea122f9fb4145ce78fc20412a8769f3e04d7943f5956151bfb4",
+    "search/candidates/000/result.json": "940998e4e02bcf306f4143fcdb85cd6d5e35fd4b791e05ae081086b88d14e9f0",
+    "search/candidates/000/review.json": "c5e0b5182586acffb45f591d09f28671247b208cbf14f5e50d17ed52156a9114",
+    "search/candidates/000/solution/solve.sh": "ca45af683f4548c35ce53422537c9026dd39714368b7a0996ad14bda8f1343c6",
+    "search/candidates/000/witness.json": "194fbd270f8ddb5361975489efd60ad759ae0c5fb5340fbb8590723f682cc1ca",
+    "search/candidates/001/decision.json": "cb3db0c423c6d825a3b124e786c4e8e743173bac22391ee307525bb0f3ede91d",
+    "search/candidates/001/evidence.json": "d1c73e44c7b7c2e47530a58ea38fec87029fc72adb3ea32c4ca51ebb5f333ea5",
+    "search/candidates/001/observations.json": "4b8a9b454ff5b035a09e9be5cbf68a7ef609bb3777bae425842a05a9be0b54fd",
+    "search/candidates/001/result.json": "d2b43f9fe30eefd0fb75b4c48590c2fade5cabb20e4075a0d7732ae7135a5c37",
+    "search/candidates/001/review.json": "f1f631469b687d7de99ba0db1a2a1b69abd2f5e63623e4c13eeba4f362a94aea",
+    "search/candidates/001/scoring-0/execution.json": "34344c4b7900bed3dc53447263efe842b3c091613659b00aff950d2fab53fd8f",
+    "search/candidates/001/scoring-0/pytest.json": "c043a31171da37c87c8fa13e89874b09de86d844fee1bb5f3b150b91b252417a",
+    "search/candidates/001/scoring-0/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/scoring-0/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/scoring-0/stdout.log": "0f38b705536b7f450c850253af3850d74369e157484dc645385b3da5c3d00d57",
+    "search/candidates/001/scoring-1/execution.json": "7dbfb7bdb7d70f09ce3242711e62947895addc88c896c35fc7f0e151434762e9",
+    "search/candidates/001/scoring-1/pytest.json": "fe3c14d8247718e81ec7f0ce57f3b17e6e091cd300728fa77a461a96707c39f9",
+    "search/candidates/001/scoring-1/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/scoring-1/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/scoring-1/stdout.log": "0f38b705536b7f450c850253af3850d74369e157484dc645385b3da5c3d00d57",
+    "search/candidates/001/solution/solve.sh": "0eda2ca0a635462b3264eddf6e2b0158be67a38b94a5e38e420e66c7c4898b94",
+    "search/candidates/001/witness/invalid-challenge/execution.json": "8dfe3f91a3df3ed477674f164a96bc45cbc7056cc826ef9fdd78f01f4f1b76be",
+    "search/candidates/001/witness/invalid-challenge/pytest.json": "0c91caaae7a68787a479b0a3b31b75f9736e44e5c33cbc06ffb11939e66d2707",
+    "search/candidates/001/witness/invalid-challenge/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/invalid-challenge/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/invalid-challenge/stdout.log": "203146d293d46aaf3b631379ebc1abb0104c5fa5b344d22cfb6631c5aa64b644",
+    "search/candidates/001/witness/known-000/execution.json": "924df685ac6095eda85ff6d56144f66c82227dd1bc5334946951cf5d280db79c",
+    "search/candidates/001/witness/known-000/pytest.json": "69a06c7acf11d947eb084dc8ccd830ddb938c79b42f40a0d87d20a1a0cc42b8a",
+    "search/candidates/001/witness/known-000/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/known-000/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/known-000/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/001/witness/oracle/execution.json": "df1bbc725a83fbcf8e5aaf031539d9e11d0b1d7da96641ded266f7bdf2c5c7cb",
+    "search/candidates/001/witness/oracle/pytest.json": "f8c37ca5b070d6b850982e52b062d4b5a37498382b75f5fd34340d37f079012b",
+    "search/candidates/001/witness/oracle/solution-execution.json": "0765c95806b10addb2925536a0666d0b35b8703c31ba49a46d8b52c83412f8be",
+    "search/candidates/001/witness/oracle/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "search/candidates/001/witness/oracle/stdout.log": "f4c77b58e2280613a49ba18da1c4a02d440e862c49a6c8fe5daaf277333ff99d",
+    "search/candidates/001/witness.json": "48c6d3d188567503430821881745d5868f5b742e215fce172527d5367b9a14e9",
+    "search/challenge.json": "da3ad77451df5016979ad6959f071afef2b73f74b89459b0d8349e899e1b4d0f",
+    "search/trace.jsonl": "336b52483ac4db7f0885018a2ee09c3aae5c83855184873ff498c41c54ec9914",
+    "trace.jsonl": "126fa7dc343a36e808e0d32717d5a297ac9e33718604c74dd970ef4de91ab872"
+  },
+  "known_correct": [
+    {
+      "path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/controls/known-000",
+      "manifest": {
+        "solve.sh": "56e10cf9a5f6a97a55ba8e2a460b473c6c10fad6f2df3fff618a0a915baaa5ef"
+      }
+    }
+  ],
+  "final_execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/repair/001/execution/execution.json",
+  "stop_reason": "docker_controls_passed",
+  "budget_used": {
+    "model_calls": 54,
+    "tool_calls": 67,
+    "max_total_tokens": 600000,
+    "token_usage_complete": true,
+    "token_usage": {
+      "prompt_tokens": 401272,
+      "completion_tokens": 27422,
+      "total_tokens": 428694
+    }
+  },
+  "review_queue": [
+    {
+      "id": "000",
+      "status": "unconfirmed",
+      "reason": "Ambiguity: the fixture writes to \"$WORK/out/target.csv\", but the output directory \"out\" is only created implicitly through a fixture entry (\"out/.keep\"). The Contract/observation semantics do not state that parent directories of fixture paths are created, nor does any Requirement obligate clean.py to create missing parent directories. Thus the exit_code assertion (0) and the file assertion depend on an unguaranteed precondition; a correct implementation that expects an existing output directory could fail, and the witness provides no guaranteed mechanism to create it. (The dedup/normalization expectations themselves are consistent with R1/R2, and the unchanged-input assertion follows from R4, but the directory-creation uncertainty makes the whole witness unconfirmed.)",
+      "witness_path": "/home/zyl/projects/agent_generate Terminal Bench task/reports/candidate-orchestrator-live-20261116T173411Z/batch/candidates/0002/verification/challenge/search/candidates/000/witness.json"
+    }
+  ]
+}

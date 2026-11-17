@@ -1,0 +1,81 @@
+{
+  "label": "oracle",
+  "expected_reward": 1,
+  "status": "completed",
+  "reward": 1,
+  "error": null,
+  "reports": [
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "setup",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "",
+      "stderr": "",
+      "duration_sec": 0.00014637499998571002,
+      "commands": [],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "call",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-0b2u6due/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"in.csv\", \"value\": \"email,name\\nA@B.C ,\\\"Last, First\\\"\\na@b.c,Other\\n\"}, \"actual\": \"email,name\\nA@B.C ,\\\"Last, First\\\"\\na@b.c,Other\\n\", \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\na@b.c,\\\"Last, First\\\"\\n\"}, \"actual\": \"email,name\\na@b.c,\\\"Last, First\\\"\\n\", \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.031211516999974265,
+      "commands": [
+        {
+          "nodeid": "test_contract_witness.py::test_contract_witness",
+          "status": "completed",
+          "returncode": 0,
+          "stdout": "wrote 1 rows to /tmp/witness-0b2u6due/out.csv\n",
+          "stderr": ""
+        }
+      ],
+      "xfail": false
+    },
+    {
+      "nodeid": "test_contract_witness.py::test_contract_witness",
+      "when": "teardown",
+      "outcome": "passed",
+      "task_assertion": false,
+      "exception": null,
+      "stdout": "WITNESS_OBSERVATION={\"exit_code\": 0, \"stdout\": \"wrote 1 rows to /tmp/witness-0b2u6due/out.csv\\n\", \"stderr\": \"\", \"checks\": [{\"assertion\": {\"source\": \"exit_code\", \"path\": [], \"value\": 0}, \"actual\": 0, \"passed\": true}, {\"assertion\": {\"source\": \"unchanged\", \"path\": \"in.csv\", \"value\": true}, \"actual\": true, \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"in.csv\", \"value\": \"email,name\\nA@B.C ,\\\"Last, First\\\"\\na@b.c,Other\\n\"}, \"actual\": \"email,name\\nA@B.C ,\\\"Last, First\\\"\\na@b.c,Other\\n\", \"passed\": true}, {\"assertion\": {\"source\": \"file\", \"path\": \"out.csv\", \"value\": \"email,name\\na@b.c,\\\"Last, First\\\"\\n\"}, \"actual\": \"email,name\\na@b.c,\\\"Last, First\\\"\\n\", \"passed\": true}]}\n",
+      "stderr": "",
+      "duration_sec": 0.00016566599992984266,
+      "commands": [],
+      "xfail": false
+    }
+  ],
+  "execution_path": "/home/zyl/projects/agent_generate Terminal Bench task/runs/csv-e2e-live-20261115-06/acceptance/discovery/search/candidates/007/witness/oracle/execution.json",
+  "implementation_manifest": {
+    "/app/clean.py": "715d0daba3dae2b22921ae15c27b4862a3df873b953da82c78fb0fddad972202",
+    "/solution/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b",
+    "/solution/solve.sh": "538306304ae4dfa116b71039e712ac3f29512813e5aca83d18d578572ef62194"
+  },
+  "artifact_manifest": {
+    "/app/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b"
+  },
+  "received_artifact_manifest": {
+    "/app/clean.py": "554146020bd11acdbd08e9c45095ecc53ef85a317382fc121ce80eb192ec738b"
+  },
+  "verifier_files_manifest": {
+    "expected.json": "874f49c0fa5c38eab0b96d5121ccd440e9b75b4fc48983028c263d309a93a516",
+    "run_tests.py": "2b20674fe55fbd090e3c92691bacf72739fc8fe2413867bfeb04aaf034620a42",
+    "test_contract_witness.py": "6843199b33c77cc54d561a21d1726468b2ad634641f117d38baf8300b3cae547"
+  },
+  "stdout": ".                                                                        [100%]\n1 passed in 0.04s\n",
+  "stderr": "",
+  "pytest_exit_code": 0,
+  "nodeids": [
+    "test_contract_witness.py::test_contract_witness"
+  ],
+  "verifier_exit_code": 0,
+  "tests_digest": "34c7b6e97548959261ffdb7b35869785c9c9978886b10e4eb305d12cefd90e68",
+  "outcome": "pass",
+  "wall_sec": 4.2,
+  "attribution": "uncertain"
+}
