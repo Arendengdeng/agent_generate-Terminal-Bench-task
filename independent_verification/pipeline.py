@@ -55,7 +55,7 @@ def preflight(root, harbor, require_harbor=True):
 def verify(candidate_path, output, *, config=None, stage='all', tests_output=None,
            harbor_python=None, client=None, known_correct=(), critical_issues=(),
            repair_tests=None, max_test_repairs=2, known_invalid=(),
-           repair=False, max_repairs=2, _budget=None,
+           repair=False, max_repairs=2, _budget=None, repair_policy='execution-feedback-v1', acceptance_tests=None,
            holdout_correct=(), holdout_invalid=(), controls_manifest=None, challenge=None, max_challenge_attempts=4):
     if challenge is not None and type(challenge) is not bool:
         raise ValueError('challenge must be a boolean or None')
@@ -65,6 +65,8 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         raise ValueError('Challenge requires all/run and cannot be combined with cross-module --repair')
     if type(repair) is not bool:
         raise ValueError('repair must be a boolean')
+    if acceptance_tests is not None and not repair:
+        raise ValueError('acceptance_tests requires cross-module repair')
     if type(max_repairs) is not int or max_repairs < 0:
         raise ValueError('max_repairs must be a nonnegative integer')
     if repair:
@@ -76,6 +78,7 @@ def verify(candidate_path, output, *, config=None, stage='all', tests_output=Non
         return RepairDispatcher(config, client).run(candidate_path, output, tests_output=tests_output,
             max_repairs=max_repairs, known_correct=tuple(known_correct), known_invalid=tuple(known_invalid),
             critical_issues=tuple(critical_issues), harbor_python=harbor_python,
+            repair_policy=repair_policy, acceptance_tests=acceptance_tests,
             holdout_correct=tuple(holdout_correct), holdout_invalid=tuple(holdout_invalid), controls_manifest=controls_manifest,
             budget=_budget)
     started = time.monotonic()

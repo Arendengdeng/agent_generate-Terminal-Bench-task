@@ -184,6 +184,8 @@ class DockerTestRunner:
                              pytest_exit_code=report['pytest_exit_code'],
                              nodeids=report['nodeids'], verifier_exit_code=proc.exit_code,
                              tests_digest=hashlib.sha256(json.dumps(tests, sort_keys=True).encode()).hexdigest())
+                trial.update(command=['python3', '-I', '/tmp/tests/run_tests.py', '--report-dir', '/tmp/report'],
+                             cwd='/app', exit_code=proc.exit_code)
         except Exception as exc:
             import subprocess
             cause = exc
@@ -213,6 +215,8 @@ def model_feedback(execution):
     if any(t.get('label', '').startswith(('holdout-', 'unconfirmed-holdout-')) for t in execution['trials']):
         raise SandboxError('holdout results cannot be projected into agent feedback')
     evidence = []
+    if execution.get('error'):
+        evidence.append({'id': 'execution:outcome', 'type': 'execution_error', 'error': execution['error']})
     trials = []
     requirements = {r['id']: r['description'] for r in execution.get('requirements', [])}
     mapping = {}
@@ -226,10 +230,12 @@ def model_feedback(execution):
                        'artifact_manifest': trial.get('artifact_manifest', {})})
         trials[-1]['stdout'] = trial.get('stdout', '')
         trials[-1]['stderr'] = trial.get('stderr', '')
+        trials[-1].update({k: trial.get(k) for k in ('command', 'cwd', 'exit_code', 'error_kind')})
         trials[-1]['results'] = [{**row, 'requirement_ids': mapping.get(row['nodeid'], [])}
                                  for row in trial.get('reports', [])]
         evidence.append({'id': trial['label'] + ':outcome',
-                         **{k: trial[k] for k in ('label', 'status', 'reward', 'expected_reward')}})
+                         **{k: trial[k] for k in ('label', 'status', 'reward', 'expected_reward')},
+                         'error': trial.get('error'), 'error_kind': trial.get('error_kind')})
         for row in trial.get('reports', []):
             if row['outcome'] != 'passed':
                 evidence.append({'id': f"{trial['label']}:{row['nodeid']}:{row['when']}",

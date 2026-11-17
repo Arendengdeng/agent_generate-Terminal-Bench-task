@@ -8,7 +8,7 @@ from synthesis_agent.trace import redact
 from .common import new_directory, write_json
 
 
-MODULES = {'synthesis', 'solution', 'tests', 'environment', 'contract',
+MODULES = {'synthesis', 'solution', 'probe', 'tests', 'environment', 'contract',
            'task', 'exporter', 'infrastructure'}
 PARTIAL = {'inspected': 'static_check', 'tests_generated': 'test_generation',
            'exported': 'export'}

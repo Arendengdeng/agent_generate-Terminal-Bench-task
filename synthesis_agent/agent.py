@@ -34,7 +34,7 @@ TOOLS = [
 ]
 
 
-SYSTEM_PROMPT = """You are the Synthesis Agent for Linux Python-standard-library CLI data-processing repair tasks.
+SYSTEM_PROMPT = """You are the Synthesis Agent for Linux Python-standard-library CLI repair tasks.
 Generate a new task from the actual Plan, Contract and optional reference materials. Do not substitute a stock task.
 Contract is immutable and defines task requirements and permitted task artifacts.
 Instruction must not add obligations outside Contract, including output line endings or behavior for out-of-domain inputs. Reject incompatible scope by explaining the conflict.
@@ -78,7 +78,7 @@ class SynthesisAgent:
         candidate = CandidateTask.load(candidate_path, self.config)
         if request['candidate_manifest'] != candidate.metadata['manifest']:
             raise SynthesisError('repair request does not bind current candidate')
-        if request['responsible_module'] not in {'synthesis', 'solution', 'environment', 'task'}:
+        if request['responsible_module'] not in {'synthesis', 'solution', 'environment', 'task', 'probe'}:
             raise SynthesisError('unsupported synthesis repair owner')
         plan_path = candidate.source / 'plan.json'
         plan = read_json(plan_path) if plan_path.exists() else {
@@ -261,6 +261,8 @@ class SynthesisAgent:
             if files.digest() != digest:
                 report["status"] = "error"
                 report.setdefault("error", "initial candidate mutated during self-check")
+            from .feedback import self_check_feedback
+            report['execution_feedback'] = self_check_feedback(report, contract)
             last_check = report
             save("self_check.json", report)
             return report
