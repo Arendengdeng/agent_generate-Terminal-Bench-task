@@ -16,6 +16,118 @@ from .pipeline import preflight, verify
 from .harbor import Harbor
 
 
+def compare_repairs(cases, output, *, config=None, repetitions=3, max_repairs=2,
+                    harbor_python=None, verifier=None, experiment_id='02_general_repair'):
+    """Paired repair policies on explicit immutable inputs, with no task branches.
+
+    Cases provide id, task_type, candidate, tests, acceptance_tests and a reviewed
+    controls_manifest. A transfer batch must use the recorded development source
+    digest; this function never adjusts prompts or rules between cases.
+    """
+    from synthesis_agent.feedback import POLICY, fingerprint
+    from synthesis_agent.trace import provenance, redact
+    from synthesis_agent.files import load_seed
+    from .exporter import HARBOR_NETWORK_MODE
+    if type(repetitions) is not int or repetitions < 1:
+        raise ValueError('repetitions must be positive')
+    if type(max_repairs) is not int or max_repairs < 0:
+        raise ValueError('max_repairs must be nonnegative')
+    if not isinstance(cases, list) or not cases:
+        raise ValueError('explicit frozen cases are required')
+    ids = [c['id'] for c in cases]
+    if len(ids) != len(set(ids)) or any(not isinstance(i, str) or not i or
+            any(ch not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for ch in i) for i in ids):
+        raise ValueError('case IDs must be unique path-safe names')
+    config = config or Config.from_env()
+
+    def inputs(case):
+        candidate = CandidateTask.load(case['candidate'], config)
+        development = load_tests(candidate, case['tests'], config)[0]
+        acceptance = load_tests(candidate, case['acceptance_tests'], config)[0]
+        controls = read_json(case['controls_manifest'])
+        control_hashes = []
+        for row in controls['controls']:
+            control_hashes.append({'source': load_seed(row['source'], config).manifest(),
+                                   'reviews': {str(path): fingerprint(Path(path).read_text())
+                                               for path in row.get('review', {}).get('evidence_paths', [])}})
+        plan = candidate.source / 'plan.json'
+        return fingerprint({'candidate': candidate.metadata, 'contract': candidate.contract,
+                            'plan': read_json(plan) if plan.exists() else None,
+                            'development': development, 'acceptance': acceptance,
+                            'controls': controls, 'control_files': control_hashes})
+
+    signatures = {c['id']: inputs(c) for c in cases}
+    version = provenance()
+    root = new_directory(output)
+    rows = []
+    from .repair_proofs import ADAPTERS
+    protocol = {'schema_version': 1, 'experiment_id': experiment_id, 'run_id': root.name,
+                'source': version, 'cases': cases, 'input_digests': signatures,
+                'config': config.public(), 'repetitions': repetitions, 'max_repairs': max_repairs,
+                'policies': ['host-contract-evidence-v1', POLICY], 'harbor_network_mode': HARBOR_NETWORK_MODE,
+                'task_specific_logic': {'baseline_proofs': [a.RULE for a in ADAPTERS],
+                                        'configured_consistency_rules': list(config.consistency_rules),
+                                        'new_diagnosis_rules': []},
+                'evidence_kind': 'native' if verifier is None else 'protocol_only'}
+    write_json(root / 'protocol.json', redact(protocol, config.api_key))
+    runner = verifier or verify
+    status = 'completed'
+    error = None
+    if verifier is None:
+        ready = preflight(root, Harbor(harbor_python))
+        if ready['status'] != 'ready' or not config.model:
+            result = {'status': 'blocked', 'reason': 'dependencies_unavailable' if ready['status'] != 'ready' else 'model_unconfigured',
+                      'experiment_id': experiment_id, 'run_id': root.name,
+                      'rows': [], 'summary': {}, 'evidence_kind': 'native', 'experiments_run': 0}
+            write_json(root / 'comparison.json', result)
+            return result
+    try:
+        for case in cases:
+            for repetition in range(1, repetitions + 1):
+                for policy in protocol['policies']:
+                    if inputs(case) != signatures[case['id']] or provenance()['source_digest'] != version['source_digest']:
+                        raise SynthesisError('frozen inputs or shared source changed during comparison')
+                    budget = {'model_calls': 0, 'tool_calls': 0}
+                    result = runner(case['candidate'], root / case['id'] / f'{repetition:03d}' / policy,
+                                    config=config, repair=True, repair_policy=policy, max_repairs=max_repairs,
+                                    tests_output=case['tests'], acceptance_tests=case['acceptance_tests'],
+                                    controls_manifest=case['controls_manifest'], harbor_python=harbor_python,
+                                    _budget=budget, challenge=False)
+                    history = result.get('repair_workflow', {})
+                    accepted = result.get('controller_decision', {}).get('decision') == 'accept'
+                    rows.append({'case': case['id'], 'task_type': case['task_type'], 'repetition': repetition,
+                                 'policy': policy, 'decision': result.get('controller_decision', {}).get('decision'),
+                                 'native_accepted': verifier is None and accepted and result.get('end_to_end_validated') is True,
+                                 'status': result['status'], 'repairs': history.get('repairs', 0),
+                                 'stop_reason': history.get('stop_reason'), 'budget': history.get('budget_used', budget),
+                                 'regressions': sum(len(v.get('regressions', [])) for v in history.get('versions', []))})
+                    write_json(root / 'progress' / f'{len(rows):04d}.json', redact(rows[-1], config.api_key))
+                    if inputs(case) != signatures[case['id']] or provenance()['source_digest'] != version['source_digest']:
+                        raise SynthesisError('frozen inputs or shared source changed during comparison')
+    except KeyboardInterrupt:
+        status = 'cancelled'
+    except Exception as exc:
+        status, error = 'error', {'type': type(exc).__name__, 'message': str(exc)}
+    summaries = {}
+    from collections import Counter
+    for policy in protocol['policies']:
+        group = [r for r in rows if r['policy'] == policy]
+        summaries[policy] = {'executed': len(group), 'native_accepted': sum(r['native_accepted'] for r in group),
+                             'native_acceptance_rate': sum(r['native_accepted'] for r in group) / len(group) if group else None,
+                             'regressions': sum(r['regressions'] for r in group),
+                             'repair_attempts': sum(r['repairs'] for r in group),
+                             'stop_reasons': dict(Counter(r['stop_reason'] for r in group)),
+                             'model_calls': sum(r['budget'].get('model_calls', 0) for r in group),
+                             'tool_calls': sum(r['budget'].get('tool_calls', 0) for r in group),
+                             'reported_tokens': sum(r['budget'].get('token_usage', {}).get('total_tokens', 0) for r in group),
+                             'token_usage_complete': bool(group) and all(r['budget'].get('token_usage_complete') is True for r in group)}
+    result = redact({'status': status, 'error': error, 'rows': rows, 'summary': summaries,
+                     'experiment_id': experiment_id, 'run_id': root.name,
+                     'evidence_kind': protocol['evidence_kind']}, config.api_key)
+    write_json(root / 'comparison.json', result)
+    return result
+
+
 def metrics(execution):
     incorrect = [t for t in execution['trials'] if t['label'].startswith('invalid-')]
     correct = [t for t in execution['trials'] if t['label'] == 'oracle' or t['label'].startswith('known-')]

@@ -14,13 +14,15 @@ def require_text(obj, keys):
 def validate_inputs(plan, contract):
     require_text(plan, ["title", "category", "goal", "scenario"])
     if plan["category"] not in {"cli_repair", "code_repair"}:
-        raise SynthesisError("UNSUPPORTED_DIRECTION: only Python CLI data processing repair is supported")
+        raise SynthesisError("UNSUPPORTED_DIRECTION: only Python CLI repair is supported")
     if not isinstance(plan.get("skills"), list) or not plan["skills"] or any(not isinstance(s, str) or not s.strip() for s in plan["skills"]):
         raise SynthesisError("skills must be a nonempty string list")
     # Legacy plans omit these fields; explicit conflicting declarations are rejected.
-    for key, expected in {"language": "python", "environment": "linux-docker", "task_kind": "cli_data_processing"}.items():
+    for key, expected in {"language": "python", "environment": "linux-docker"}.items():
         if key in plan and plan[key] != expected:
             raise SynthesisError(f"UNSUPPORTED_DIRECTION: {key} must be {expected}")
+    if 'task_kind' in plan and plan['task_kind'] not in {'cli_data_processing', 'cli_repair'}:
+        raise SynthesisError('UNSUPPORTED_DIRECTION: task_kind must be cli_data_processing or cli_repair')
     require_text(contract, ["objective", "workspace", "command", "input_spec", "output_spec"])
     if contract["workspace"] != "/app" or not contract["command"].startswith(("python ", "python3 ")):
         raise SynthesisError("UNSUPPORTED_DIRECTION: requires a Python CLI in /app")

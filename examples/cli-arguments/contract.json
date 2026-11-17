@@ -1,0 +1,19 @@
+{
+  "objective": "Repair greeting CLI argument handling, output and help behavior.",
+  "workspace": "/app",
+  "command": "python /app/src/greet.py --name <name> [--repeat <n>] [--upper]",
+  "input_spec": "Arguments use standard long-option syntax. --name is required except with --help and contains 1 to 100 Unicode characters with at least one non-whitespace character and no CR or LF. --repeat defaults to 1 and, when supplied, is an integer from 1 through 5. --upper is a flag. Argument order may vary. Missing required values, blank names, out-of-range repeat values, non-integer repeats and unknown options are invalid. Duplicate options and other name values are outside the input domain.",
+  "output_spec": "On valid input, write exactly repeat lines of Hello, <name>! followed by LF to stdout and exit 0; preserve the name exactly. With --upper, apply Python str.upper() to each entire greeting before writing it. Successful greetings write no stderr. On invalid input, exit 2, write no stdout, and write a nonempty diagnostic to stderr; diagnostic wording is unspecified. --help alone exits 0, writes nonempty help mentioning --name, --repeat and --upper to stdout, and writes no stderr.",
+  "deliverables": {
+    "artifact_paths": ["/app/src"],
+    "allowed_dependencies": "python-stdlib",
+    "allow_additional_files": true
+  },
+  "requirements": [
+    {"id": "R1", "description": "Accept required --name, optional --repeat and --upper in any order; default repeat to 1 and produce exactly the specified greetings with exit 0 and empty stderr."},
+    {"id": "R2", "description": "Preserve Unicode and surrounding spaces in valid names; apply Python str.upper() to the entire greeting only when --upper is supplied."},
+    {"id": "R3", "description": "Reject missing values, missing --name, blank names, non-integer or out-of-range repeats and unknown options with exit 2, empty stdout and nonempty stderr."},
+    {"id": "R4", "description": "Support --help alone without requiring --name; exit 0 with nonempty stdout mentioning all supported options and empty stderr. The CLI must not modify files."}
+  ],
+  "limits": {"command_timeout_sec": 5}
+}

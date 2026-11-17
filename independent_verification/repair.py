@@ -1,6 +1,6 @@
 """Controller-authorized repairs of immutable, versioned task snapshots."""
 import copy
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 import difflib
 import hashlib
 import json
@@ -10,7 +10,7 @@ from synthesis_agent.agent import SynthesisAgent
 from synthesis_agent.config import Config
 from synthesis_agent.errors import BudgetExceeded, SynthesisError
 from synthesis_agent.files import FileSet, load_seed, read_json, read_regular
-from synthesis_agent.trace import redact
+from synthesis_agent.trace import redact, provenance, run_identity
 from .agent import TestAgent
 from .attribution import UnconfirmedAttribution, verify_test_diagnosis, verify_test_patch, verify_control_matrix
 from .candidate import CandidateTask, check_candidate
@@ -18,11 +18,13 @@ from .common import new_directory, write_json
 from .controller import decide, report_paths
 from .docker_test_runner import DockerTestRunner
 from .exporter import load_tests
+from synthesis_agent.feedback import POLICY
 
 
 SCOPES = {
     'tests': ['tests/'],
     'solution': ['draft/solution/'],
+    'probe': ['checks/probe.py'],
     'environment': ['draft/environment/app/'],
     'task': ['draft/instruction.md'],
     'synthesis': ['draft/instruction.md', 'draft/environment/app/', 'draft/solution/', 'checks/probe.py'],
@@ -44,6 +46,9 @@ class RepairRequest:
     tests_digest: str | None
     allowed_paths: list
     remaining_budget: dict
+    components: list = field(default_factory=list)
+    diagnosis: dict | None = None
+    required_checks: list = field(default_factory=lambda: ['self_check', 'development', 'controls', 'frozen_acceptance'])
 
 
 class ReviewRequired(SynthesisError):
@@ -78,17 +83,25 @@ class RepairDispatcher:
 
     def run(self, candidate_path, output, *, tests_output=None, max_repairs=2,
             known_correct=(), known_invalid=(), critical_issues=(), harbor_python=None,
-            holdout_correct=(), holdout_invalid=(), controls_manifest=None, budget=None):
+            holdout_correct=(), holdout_invalid=(), controls_manifest=None, budget=None,
+            repair_policy=POLICY, acceptance_tests=None):
         if type(max_repairs) is not int or max_repairs < 0:
             raise ValueError('max_repairs must be a nonnegative integer')
+        if repair_policy not in {POLICY, 'host-contract-evidence-v1'}:
+            raise ValueError('unknown repair policy')
+        generic = repair_policy == POLICY
+        use_frozen = generic or acceptance_tests is not None
         root = new_directory(output)
         budget = budget if budget is not None else {'model_calls': 0, 'tool_calls': 0}
         history = {'status': 'running', 'stop_reason': None, 'repairs': 0,
                    'max_repairs': max_repairs, 'versions': [], 'attempts': [],
                    'unresolved_issues': copy.deepcopy(list(critical_issues)), 'resolved_issues': [],
-                   'attribution_policy': 'host-contract-evidence-v1', 'controls': {},
+                   'attribution_policy': repair_policy, 'controls': {},
                    'budget_limits': {'model_calls': self.config.max_model_calls,
                                      'tool_calls': self.config.max_tool_calls}}
+        from .exporter import HARBOR_NETWORK_MODE
+        history.update(provenance=provenance(), config=self.config.public(), **run_identity(root),
+                       network_mode={'diagnosis': 'none', 'docker': 'none', 'harbor': HARBOR_NETWORK_MODE})
         final = None
         panel = {'schema_version': 1, 'contract_digest': None, 'controls': []}
         candidate = None
@@ -97,6 +110,11 @@ class RepairDispatcher:
         version = 0
         seen = set()
         old_files = None
+        frozen_suite = None
+        failure_categories = []
+        pending_execution = None
+        rejected_trial = None
+        patch_rejections = 0
 
         def stop(reason, status='needs_review'):
             history.update(status=status, stop_reason=reason)
@@ -112,6 +130,9 @@ class RepairDispatcher:
 
         try:
             candidate = self._snapshot(candidate_path, root / 'versions/v000/candidate')
+            history['contract_digest'] = fingerprint(candidate.contract)
+            history['plan_digest'] = (fingerprint(read_json(candidate.source / 'plan.json'))
+                                      if (candidate.source / 'plan.json').exists() else None)
             from .panel import prepare_panel
             panel = prepare_panel(candidate, root / 'panel-input', self.config, known_correct=known_correct, known_invalid=known_invalid,
                 holdout_correct=holdout_correct, holdout_invalid=holdout_invalid, controls_manifest=controls_manifest)
@@ -139,17 +160,24 @@ class RepairDispatcher:
                 current_tests = root / 'versions/v000/test-agent'
                 tests.export(current_tests / 'tests')
                 write_json(current_tests / 'tests.json', metadata)
+            if acceptance_tests is not None:
+                frozen_suite = self._freeze_tests(candidate, acceptance_tests, root / 'acceptance-tests')
+                history['acceptance_suite'] = frozen_suite
             while True:
                 work = root / 'versions' / f'v{version:03d}'
-                static = check_candidate(candidate, self.config)
-                write_json(work / 'static_check.json', static)
-                if static['status'] == 'passed':
-                    for issue in history['unresolved_issues']:
-                        if issue.get('id') == 'static':
-                            history['resolved_issues'].append({**issue, 'resolved_in': f'v{version:03d}',
-                                'resolution_evidence': [str(work / 'static_check.json')]})
-                row = version_row()
-                history['versions'].append(row)
+                retrying = pending_execution is not None
+                if retrying:
+                    row = history['versions'][-1]
+                else:
+                    static = check_candidate(candidate, self.config)
+                    write_json(work / 'static_check.json', static)
+                    if static['status'] == 'passed':
+                        for issue in history['unresolved_issues']:
+                            if issue.get('id') == 'static':
+                                history['resolved_issues'].append({**issue, 'resolved_in': f'v{version:03d}',
+                                    'resolution_evidence': [str(work / 'static_check.json')]})
+                    row = version_row()
+                    history['versions'].append(row)
                 if critical_issues:
                     stop('external_attribution_unverified')
                     break
@@ -158,7 +186,18 @@ class RepairDispatcher:
                     generated = self.test_agent.generate(candidate.test_input(), current_tests, budget=budget)
                     self._require_agent(generated, 'tests_generated')
                     row.update(version_row())
-                if row['digest'] in seen:
+                if use_frozen and static['status'] == 'passed' and frozen_suite is None:
+                    # An explicitly supplied suite is preferable when development tests
+                    # contain a known defect. Never silently repair the acceptance suite.
+                    if tests_output is None:
+                        accepted_tests = root / 'acceptance-generation'
+                        generated = self.test_agent.generate(candidate.test_input(), accepted_tests, budget=budget)
+                        self._require_agent(generated, 'tests_generated')
+                    else:
+                        accepted_tests = current_tests
+                    frozen_suite = self._freeze_tests(candidate, accepted_tests, root / 'acceptance-tests')
+                    history['acceptance_suite'] = frozen_suite
+                if not retrying and row['digest'] in seen:
                     stop('repeated_version')
                     break
                 seen.add(row['digest'])
@@ -171,24 +210,44 @@ class RepairDispatcher:
                                 'evidence_paths': [str(work / 'static_check.json')], 'details': static['errors'],
                                 'requirement_ids': [r['id'] for r in candidate.contract['requirements']]}]
                 else:
-                    execution = self.runner.run(candidate, current_tests, work / 'execution',
-                                                known_correct, known_invalid=known_invalid)
+                    if retrying:
+                        execution, pending_execution = pending_execution, None
+                    else:
+                        execution = self.runner.run(candidate, current_tests, work / 'execution',
+                                                    known_correct, known_invalid=known_invalid)
                     row['execution_path'] = str(work / 'execution/execution.json')
                     row['execution_status'] = execution['status']
                     row['execution_digest'] = fingerprint(execution)
+                    row['outcomes'] = {t['label']: {'status': t['status'], 'reward': t['reward'],
+                                                     'expected_reward': t['expected_reward']}
+                                       for t in execution.get('trials', [])}
+                    prior = next((v for v in reversed(history['versions'][:-1]) if v.get('outcomes')), None)
+                    row['regressions'] = [] if prior is None else [label for label, old in prior['outcomes'].items()
+                        if old['status'] == 'completed' and old['reward'] == old['expected_reward']
+                        and row['outcomes'].get(label) != old]
                     if execution['status'] in {'passed', 'failed'}:
                         verify_control_matrix(execution, len(known_correct), len(known_invalid))
                     if execution['status'] != 'passed':
-                        if execution['status'] != 'failed':
+                        if execution['status'] == 'cancelled' or (execution['status'] != 'failed' and not generic):
                             stop('execution_error', 'cancelled' if execution['status'] == 'cancelled' else 'error')
                             break
                         history['unresolved_issues'] = [{'id': 'execution', 'message': 'Execution failure has no confirmed attribution',
                                                          'evidence_paths': [row['execution_path']]}]
-                        if not known_correct or not known_invalid:
+                        if not generic and (not known_correct or not known_invalid):
                             stop('test_repair_requires_legal_and_invalid_controls')
                             break
                         from .diagnosis import prepare_feedback
-                        feedback = prepare_feedback(candidate, current_tests, execution, self.config)
+                        feedback = prepare_feedback(candidate, current_tests, execution, self.config,
+                                                    policy=repair_policy, version=row['version'])
+                        if rejected_trial:
+                            feedback['previous_trial_rejection'] = rejected_trial
+                        if generic and not retrying:
+                            category = 'execution_error' if execution['status'] == 'error' else 'assertion_failure'
+                            failure_categories.append(category)
+                            row['failure_category'] = category
+                            if len(failure_categories) >= 2 and len(set(failure_categories[-2:])) == 1:
+                                stop('repeated_failure_category')
+                                break
                         if feedback['repair_permission'] == 'analysis_only' and not issues:
                             stop('unattributed_execution_failure')
                             history['unresolved_issues'] = [{'id': 'execution', 'message': 'Oracle failure alone has no attribution',
@@ -201,28 +260,35 @@ class RepairDispatcher:
                                 history['unresolved_issues'] = [{'id': 'execution', 'message': 'Failed checks remain unresolved',
                                                                 'evidence_paths': [row['execution_path']]}]
                                 break
+                            analysis_dir = work / ('analysis' if not retrying else f'analysis-{history["repairs"]:03d}')
+                            attribution_path = work / ('attribution.json' if not retrying else f'attribution-{history["repairs"]:03d}.json')
                             analysis = self.test_agent.analyze(candidate.test_input(), current_tests, feedback,
-                                                               work / 'analysis', budget=budget)
+                                                               analysis_dir, budget=budget)
                             if analysis['status'] != 'diagnosed':
                                 self._require_agent(analysis, 'diagnosed')
                             diagnosis = analysis['diagnosis']
+                            components = diagnosis.get('components', ['tests'])
+                            if generic and 'tests' in components and (not known_correct or not known_invalid):
+                                stop('test_repair_requires_legal_and_invalid_controls')
+                                break
                             try:
                                 attribution = verify_test_diagnosis(candidate, current_tests, execution, diagnosis, self.config)
                             except UnconfirmedAttribution as exc:
-                                write_json(work / 'attribution.json', {'status': 'needs_review', 'reason': str(exc),
+                                write_json(attribution_path, {'status': 'needs_review', 'reason': str(exc),
                                     'source': 'host_contract_assertion_check'})
                                 raise
-                            write_json(work / 'attribution.json', attribution)
+                            write_json(attribution_path, attribution)
                             feedback['host_patch_rule'] = attribution
-                            row['attribution_path'] = str(work / 'attribution.json')
+                            row['attribution_path'] = str(attribution_path)
+                            row['diagnosis_path'] = str(analysis_dir / 'diagnosis.json')
                             row['attribution_digest'] = fingerprint(attribution)
-                            issues.append({'id': 'test-diagnosis', 'message': diagnosis['explanation'],
-                                           'responsible_module': 'tests',
+                            issues.append({'id': 'execution-diagnosis' if generic else 'test-diagnosis', 'message': diagnosis['explanation'],
+                                           'responsible_module': components[0] if len(components) == 1 else 'synthesis',
                                            'requirement_ids': [diagnosis['requirement_id']],
-                                           'evidence_paths': [str(work / 'attribution.json')], 'details': attribution})
+                                           'evidence_paths': [str(attribution_path)], 'details': attribution})
                     if execution['status'] == 'passed':
                         for issue in history['unresolved_issues']:
-                            if issue.get('id') == 'test-diagnosis':
+                            if issue.get('id') in {'test-diagnosis', 'execution-diagnosis'}:
                                 history['resolved_issues'].append({**issue, 'resolved_in': row['version'],
                                     'resolution_evidence': [row['execution_path']]})
                 history['unresolved_issues'] = issues
@@ -230,8 +296,12 @@ class RepairDispatcher:
                     # Final full verification is separate and cannot repair frozen inputs.
                     from .pipeline import verify
                     final_dir = work / 'validation'
+                    final_tests = current_tests
+                    if use_frozen:
+                        self._verify_frozen_tests(frozen_suite)
+                        final_tests = self._bind_frozen_tests(candidate, frozen_suite, work / 'acceptance-bound')
                     final = verify(candidate.source, final_dir, config=self.config, stage='run',
-                                   tests_output=current_tests, repair_tests=False, repair=False,
+                                   tests_output=final_tests, repair_tests=False, repair=False, challenge=False,
                                    known_correct=(), known_invalid=(),
                                    harbor_python=harbor_python, _budget=budget,
                                    controls_manifest=root / 'final-controls-manifest.json')
@@ -244,7 +314,8 @@ class RepairDispatcher:
                              'cancelled' if final['status'] == 'cancelled' else final['controller_decision']['decision']))
                     break
                 decision = self._decision(static, issues)
-                write_json(work / 'repair-decision.json', decision)
+                write_json(work / ('repair-decision.json' if not retrying else
+                                   f'repair-decision-{history["repairs"]:03d}.json'), decision)
                 if decision['decision'] != 'repair' or decision['responsible_module'] not in SCOPES:
                     stop('unsupported_or_uncertain_attribution')
                     break
@@ -253,6 +324,8 @@ class RepairDispatcher:
                     break
                 self._check_budget(budget)
                 owner = decision['responsible_module']
+                components = diagnosis.get('components', [owner]) if diagnosis else [owner]
+                allowed_paths = list(dict.fromkeys(p for component in components for p in SCOPES[component]))
                 if owner == 'tests' and (feedback is None or diagnosis is None):
                     # External issues alone do not bypass the test diagnosis boundary.
                     stop('test_issue_requires_current_diagnosis')
@@ -265,34 +338,66 @@ class RepairDispatcher:
                 request = RepairRequest(row['version'], [i.get('id', f'issue-{n}') for n, i in enumerate(issues)], owner,
                     [r for r in candidate.contract['requirements'] if not req_ids or r['id'] in req_ids],
                     [{'message': i['message'], 'evidence_paths': i['evidence_paths'], 'details': i.get('details')} for i in issues],
-                    candidate.metadata['manifest'], row['tests_digest'], SCOPES[owner],
-                    {k: getattr(self.config, 'max_' + k) - budget[k] for k in ('model_calls', 'tool_calls')})
+                    candidate.metadata['manifest'], row['tests_digest'], allowed_paths,
+                    {k: getattr(self.config, 'max_' + k) - budget[k] for k in ('model_calls', 'tool_calls')},
+                    components=components, diagnosis=diagnosis)
                 attempt_dir = root / 'repairs' / f'{history["repairs"]:03d}'
                 write_json(attempt_dir / 'request.json', redact(asdict(request), self.config.api_key))
                 attempt = {'request_path': str(attempt_dir / 'request.json'), 'parent_version': row['version'],
                            'responsible_module': owner, 'attribution_path': row.get('attribution_path'),
                            'attribution_digest': row.get('attribution_digest'), 'response_path': str(attempt_dir / 'response.json'), 'budget_before': copy.deepcopy(budget), 'status': 'started'}
+                attempt['components'] = components
+                attempt['diagnosis_path'] = row.get('diagnosis_path')
                 history['attempts'].append(attempt)
                 history['repairs'] += 1
                 next_work = root / 'versions' / f'v{version+1:03d}'
                 old_files = self._files(candidate, current_tests)
-                if owner == 'tests':
+                if 'tests' in components:
                     new_tests = next_work / 'test-agent'
+                    if new_tests.exists():
+                        new_tests = next_work / f'test-agent-{history["repairs"]:03d}'
                     public_request = {k: v for k, v in asdict(request).items() if k != 'candidate_manifest'}
                     feedback = {**feedback, 'repair_request': public_request, 'approved_diagnosis': diagnosis}
                     fixed = self.test_agent.repair(candidate.test_input(), current_tests, feedback, new_tests,
                                                    budget=budget, approved_diagnosis=diagnosis)
                     write_json(attempt_dir / 'response.json', redact(fixed, self.config.api_key))
                     self._require_agent(fixed, 'tests_generated')
-                    patch_verification = verify_test_patch(candidate, current_tests, new_tests, diagnosis, self.config)
+                    try:
+                        patch_verification = verify_test_patch(candidate, current_tests, new_tests, diagnosis, self.config)
+                    except UnconfirmedAttribution as exc:
+                        if not generic:
+                            raise
+                        rejected_files = {p: s for p, s in old_files.items() if not p.startswith('tests/')}
+                        rejected_files.update({'tests/' + p: s for p, s in load_seed(new_tests / 'tests', self.config).files.items()})
+                        self._write_patch(attempt_dir / 'changes.patch', old_files, rejected_files)
+                        rejection = {'type': 'host_patch_rejection', 'reason': str(exc),
+                                     'patch_excerpt': (attempt_dir / 'changes.patch').read_text()[:4000]}
+                        write_json(attempt_dir / 'rejection.json', rejection)
+                        attempt.update(status='rejected', rejected_tests_path=str(new_tests),
+                                       rejected_tests_digest=load_seed(new_tests / 'tests', self.config).digest(),
+                                       rejection_path=str(attempt_dir / 'rejection.json'),
+                                       rejection_digest=fingerprint(rejection), rejection_reason=str(exc),
+                                       changes_path=str(attempt_dir / 'changes.patch'), budget_after=copy.deepcopy(budget))
+                        patch_rejections += 1
+                        if patch_rejections >= 2:
+                            stop('repeated_patch_rejection')
+                            break
+                        rejected_trial, pending_execution = rejection, execution
+                        continue
                     write_json(attempt_dir / 'patch-verification.json', patch_verification)
                     attempt['patch_verification_path'] = str(attempt_dir / 'patch-verification.json')
                     attempt['patch_verification_digest'] = fingerprint(patch_verification)
+                    attempt['patched_tests_path'] = str(new_tests)
                     current_tests = new_tests
-                else:
+                if set(components) - {'tests'}:
                     new_candidate_dir = next_work / 'candidate'
-                    fixed = self.synthesis_agent.repair(candidate.source, asdict(request), new_candidate_dir, budget=budget)
-                    write_json(attempt_dir / 'response.json', redact(fixed, self.config.api_key))
+                    synthesis_request = asdict(request)
+                    synthesis_request['allowed_paths'] = [p for p in allowed_paths if p != 'tests/']
+                    synthesis_request['responsible_module'] = owner if owner != 'tests' else 'synthesis'
+                    if generic:
+                        synthesis_request['execution_feedback'] = feedback.get('execution_feedback') if feedback else None
+                    fixed = self.synthesis_agent.repair(candidate.source, synthesis_request, new_candidate_dir, budget=budget)
+                    write_json(attempt_dir / ('synthesis-response.json' if 'tests' in components else 'response.json'), redact(fixed, self.config.api_key))
                     self._require_agent(fixed, 'candidate_generated')
                     updated = CandidateTask.load(new_candidate_dir, self.config)
                     if updated.contract != candidate.contract:
@@ -300,9 +405,13 @@ class RepairDispatcher:
                     if (candidate.source / 'plan.json').exists():
                         if read_json(updated.source / 'plan.json') != read_json(candidate.source / 'plan.json'):
                             raise SynthesisError('repair modified frozen Plan')
-                    self._check_scope(candidate, updated, SCOPES[owner], owner)
+                    self._check_scope(candidate, updated, synthesis_request['allowed_paths'], owner)
                     if updated.input_manifest() != candidate.input_manifest():
-                        current_tests = None
+                        if generic and current_tests is not None:
+                            dev = self._freeze_tests(candidate, current_tests, next_work / 'development-parent')
+                            current_tests = self._bind_frozen_tests(updated, dev, next_work / 'development-bound')
+                        else:
+                            current_tests = None
                     candidate = updated
                 new_files = self._files(candidate, current_tests)
                 self._write_patch(attempt_dir / 'changes.patch', old_files, new_files)
@@ -312,6 +421,8 @@ class RepairDispatcher:
                     stop('no_changes')
                     break
                 version += 1
+                rejected_trial = None
+                patch_rejections = 0
         except KeyboardInterrupt:
             stop('cancelled', 'cancelled')
         except Exception as exc:
@@ -409,6 +520,36 @@ class RepairDispatcher:
             paths.append(target)
             history['controls'][kind].append({'source': str(source), 'path': str(target), 'manifest': files.manifest()})
         return tuple(paths)
+
+    def _freeze_tests(self, candidate, source, output):
+        metadata, tests = load_tests(candidate, source, self.config, check_static=False)
+        tests.export(output / 'tests')
+        write_json(output / 'tests.json', metadata)
+        return {'path': str(output), 'digest': tests.digest(), 'manifest': tests.manifest(),
+                'metadata_digest': fingerprint(metadata), 'contract_digest': fingerprint(candidate.contract)}
+
+    def _verify_frozen_tests(self, frozen):
+        if not frozen:
+            raise ReviewRequired('independent_acceptance_suite_missing')
+        path = Path(frozen['path'])
+        files = load_seed(path / 'tests', self.config)
+        if (files.digest() != frozen['digest'] or files.manifest() != frozen['manifest']
+                or fingerprint(read_json(path / 'tests.json')) != frozen['metadata_digest']):
+            raise ReviewRequired('frozen_acceptance_suite_changed')
+
+    def _bind_frozen_tests(self, candidate, frozen, output):
+        """Rebind metadata after public environment changes; never regenerate tests."""
+        self._verify_frozen_tests(frozen)
+        if fingerprint(candidate.contract) != frozen['contract_digest']:
+            raise ReviewRequired('frozen_acceptance_contract_changed')
+        original = Path(frozen['path'])
+        files = load_seed(original / 'tests', self.config)
+        files.export(output / 'tests')
+        metadata = read_json(original / 'tests.json')
+        metadata['input_manifest'] = candidate.input_manifest()
+        metadata['frozen_acceptance_digest'] = frozen['digest']
+        write_json(output / 'tests.json', metadata)
+        return output
 
     def _write_patch(self, path, before, after):
         changes = ''.join(line for name in sorted(before.keys() | after.keys())

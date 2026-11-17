@@ -1,0 +1,12 @@
+{
+  "experiment_id": "02_general_repair",
+  "question": "Can one execution-feedback mechanism diagnose and repair different CLI tasks without new task-specific semantic rules?",
+  "development_task_types": ["csv"],
+  "transfer_task_types": ["jsonl", "manifest", "cli_arguments"],
+  "policies": ["host-contract-evidence-v1", "execution-feedback-v1"],
+  "repetitions": 3,
+  "max_repairs": 2,
+  "paired_inputs": ["candidate", "development_tests", "frozen_acceptance_tests", "reviewed_feedback_controls", "reviewed_holdout_controls"],
+  "constraints": ["Freeze source, prompts, configuration and budgets before transfer evaluation.", "Held-out evidence never enters repair tools.", "Record every new task-specific rule as a mechanism change.", "A scripted-model smoke is not live-model capability evidence.", "Harbor public-network validation is not strict no-network validation."],
+  "metrics": ["native_acceptance_rate", "stop_reasons", "repair_attempts", "regressions", "model_calls", "tool_calls", "reported_tokens", "token_usage_complete"]
+}

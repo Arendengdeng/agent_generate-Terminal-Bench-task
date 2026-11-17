@@ -2,7 +2,35 @@
 import hashlib
 import json
 import re
+import subprocess
+from pathlib import Path
 from urllib.parse import quote
+
+
+def provenance():
+    """Record source content even when Git metadata is unavailable or dirty."""
+    root = Path(__file__).resolve().parents[1]
+    source = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+              for package in ('synthesis_agent', 'independent_verification')
+              for p in sorted((root / package).rglob('*.py'))}
+    result = {'source_digest': hashlib.sha256(json.dumps(source, sort_keys=True).encode()).hexdigest()}
+    for key, args in [('git_commit', ['rev-parse', 'HEAD']), ('git_status', ['status', '--short'])]:
+        try:
+            proc = subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True, timeout=10)
+            result[key] = proc.stdout.strip() if proc.returncode == 0 else None
+        except (OSError, subprocess.TimeoutExpired):
+            result[key] = None
+    result['dirty'] = bool(result['git_status']) if result['git_status'] is not None else None
+    return result
+
+
+def run_identity(output):
+    """Identify canonical experiment output, including nested verification stages."""
+    path = Path(output).absolute()
+    for index, part in enumerate(path.parts):
+        if part == 'runs' and index + 2 < len(path.parts):
+            return {'experiment_id': path.parts[index + 1], 'run_id': path.parts[index + 2]}
+    return {'experiment_id': None, 'run_id': path.name}
 
 
 def redact(value, api_key=""):

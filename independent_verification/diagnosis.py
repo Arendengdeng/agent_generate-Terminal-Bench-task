@@ -6,11 +6,21 @@ from .attribution import UnconfirmedAttribution
 from .docker_test_runner import model_feedback
 from .repair_proofs import supported_diagnoses, require_adapter, repair_capability
 from .exporter import load_tests
+from synthesis_agent.feedback import POLICY, execution_feedback, fingerprint
 
 
-def prepare_feedback(candidate, tests_output, execution, config):
+def prepare_feedback(candidate, tests_output, execution, config, *, policy='host-contract-evidence-v1', version=None):
     if check_instruction(candidate.contract, candidate.instruction, rules=config.consistency_rules)['status'] == 'blocked':
         raise UnconfirmedAttribution('instruction_contract_drift_requires_synthesis')
+    if policy == POLICY:
+        metadata, tests = load_tests(candidate, tests_output, config)
+        feedback = model_feedback(execution)
+        feedback.update(policy=POLICY, execution_digest=fingerprint(execution),
+                        repair_permission='diagnosis_required')
+        feedback['execution_feedback'] = execution_feedback(feedback, version=version)
+        feedback['evidence'] = feedback['execution_feedback']['evidence']
+        feedback['permission_reason'] = 'Evidence permits investigation; only the Controller may authorize a trial.'
+        return feedback
     require_adapter(candidate.contract)
     metadata, tests = load_tests(candidate, tests_output, config)
     capability = repair_capability(candidate.contract, metadata, tests.files)
