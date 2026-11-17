@@ -292,6 +292,7 @@ def finish(root, result, config):
         result['wall_sec'] = round(time.time() - result['started_unix'], 3)
     batch_path = root / 'batch' / 'batch.json'
     batch = read(batch_path) if batch_path.exists() else {}
+    protocol = result.get('protocol') or read(root / 'inputs/protocol.json')
     result['costs'] = costs(root, batch.get('budget', {'model_calls': 0, 'tool_calls': 0}))
     result['candidates'] = batch.get('candidates', [])
     summaries = sorted(root.glob('revalidation-*-summary.json'))
@@ -313,6 +314,8 @@ def finish(root, result, config):
                             'challenge_repairs': run.get('challenge', {}).get('repairs', 0),
                             'general_repairs': run.get('repair_workflow', {}).get('repairs', 0),
                             'general_stop_reason': run.get('repair_workflow', {}).get('stop_reason'),
+                            'general_attempts': [{k: a.get(k) for k in ('index', 'status', 'components', 'responsible_module', 'diagnosis_path', 'changes_path')}
+                                for a in run.get('repair_workflow', {}).get('attempts', [])],
                             'challenge_samples': [{k: s.get(k) for k in ('id', 'status', 'violation_status', 'reason')}
                                                   for s in run.get('challenge', {}).get('samples', [])]})
         if (work / 'exception.json').exists():
@@ -328,15 +331,16 @@ def finish(root, result, config):
              f"Native Controller decision: `{result.get('native_controller_decision')}`",
              f"Reason: `{result.get('reason')}`", f"Evidence: `{root.relative_to(REPO)}`", '',
              'Environment: same host, fresh containers; Harbor network mode: public.',
-             f"Model: {config.model}; budget: 40 model calls / 120 tools / 500,000 tokens / 10 candidates.",
+             f"Model: {config.model}; budget: {protocol['max_model_calls']} model calls / "
+             f"{protocol['max_tool_calls']} tools / {protocol['max_total_tokens']:,} tokens / {protocol['max_candidates']} candidates.",
              f"API attempts: {totals['api_attempts']}; known tokens: {totals['total_tokens']}; "
              f"unknown attempts: {totals['unknown_usage_attempts']}; reserved unknown tokens: "
              f"{result['costs']['unknown_token_reserve']}.", '',
-             '## Stage costs', '', '| Stage | API attempts | Failures | Known tokens | Unknown usage |',
-             '|---|---:|---:|---:|---:|']
+             '## Stage costs', '', '| Stage | API attempts | Tools | Failures | Input tokens | Output tokens | Known tokens | Unknown usage |',
+             '|---|---:|---:|---:|---:|---:|---:|---:|']
     for stage, counts in result['costs']['stages'].items():
-        lines.append(f"| {stage} | {counts['api_attempts']} | {counts['api_failures']} | "
-                     f"{counts['total_tokens']} | {counts['unknown_usage_attempts']} |")
+        lines.append(f"| {stage} | {counts['api_attempts']} | {counts['tool_calls']} | {counts['api_failures']} | "
+                     f"{counts['prompt_tokens']} | {counts['completion_tokens']} | {counts['total_tokens']} | {counts['unknown_usage_attempts']} |")
     lines += ['', '## Outcome and limitations', '',
               'Original native reports remain unchanged; each replay has a separate decision and pytest evidence.',
               f"Completed revalidation rounds: {len(result.get('revalidations', []))}.",
@@ -357,10 +361,12 @@ def finish(root, result, config):
                   f"Docker: `{env.get('docker', {}).get('status')}`; "
                   f"Harbor: `{env.get('harbor', {}).get('status')}`; API: `{env.get('model_api', {}).get('status')}`.",
                   f"Details: `{root.relative_to(REPO)}/preflight/environment.json`."]
+    protocol_source = shlex.quote(result.get('protocol_source', str(Path(__file__).with_name('protocol.json'))))
+    command = 'python3 experiments/01_e2e_reliability/run.py --protocol ' + protocol_source
     lines += ['', '## Reproduction', '',
-              '`python3 experiments/01_e2e_reliability/run.py` creates a new run with the same protocol.',
+              f'`{command}` creates a new run with the same protocol.',
               'Do not resume or overwrite this run after an environmental change; use a new run ID.',
-              f"Run command: `python3 experiments/01_e2e_reliability/run.py --run-id {root.name}`"]
+              f"Original run command: `{command} --run-id {root.name}`"]
     with report.open('a', encoding='utf-8') as stream:
         if report.stat().st_size:
             stream.write('\n---\n\n')
@@ -386,7 +392,8 @@ def main(argv=None):
     result = {'schema_version': 1, 'experiment_id': protocol['experiment_id'], 'run_id': run_id, 'native_controller_decision': None,
               'native_controller_evidence': None, 'native_independent_validation': None,
               'started_at': datetime.now(timezone.utc).isoformat(), 'started_unix': time.time(),
-              'experiment_result': 'incomplete', 'revalidations': []}
+              'experiment_result': 'incomplete', 'revalidations': [],
+              'protocol': protocol, 'protocol_source': str(args.protocol)}
     saved = capture_provenance(root, config)
     try:
         shutil.copytree(REPO / 'specs' / protocol['task_id'], root / 'inputs')

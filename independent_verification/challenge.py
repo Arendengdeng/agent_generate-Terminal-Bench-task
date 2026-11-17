@@ -27,13 +27,15 @@ class Calls:
     """Shared accounting with isolated model conversations and durable, redacted traces."""
     def __init__(self, config, client, budget, root):
         self.config, self.client, self.budget, self.root = config, client, budget, Path(root)
+        self.phase = 'challenge_review'
 
     def record(self, event, **data):
         with (self.root / 'trace.jsonl').open('a') as out:
-            out.write(json.dumps(summarize(redact({'event': event, **data}, self.config.api_key))) + '\n')
+            out.write(json.dumps(summarize(redact({'event': event, 'phase': self.phase, **data}, self.config.api_key))) + '\n')
 
     def complete(self, messages, tools, *, allow_batch=False):
         c, budget = self.config, self.budget
+        self.phase = 'challenge_search' if allow_batch else 'challenge_review'
         if len(json.dumps(messages).encode()) > c.max_context_bytes:
             raise BudgetExceeded('Challenge context budget exhausted')
         for attempt in range(3):
@@ -65,6 +67,7 @@ class Calls:
         if budget['tool_calls'] + len(proposed) > c.max_tool_calls:
             raise BudgetExceeded('shared tool budget exhausted')
         budget['tool_calls'] += len(proposed)
+        self.record('tools_charged', count=len(proposed))
         call = proposed[0]
         return message, call['function']['name'], json.loads(call['function']['arguments'])
 

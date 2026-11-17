@@ -41,3 +41,26 @@ rejects the candidate. This stricter freeze boundary is explicit in e2e_protocol
 development repairs retain the original limit. Three frozen replays run only after native
 accept. The historical Step 1 protocol and old runs are unchanged. Reports and evidence
 use experiment_id=02_general_repair. No subsystem smoke counts as full generation success.
+
+## Exploratory run with higher shared limits
+
+```bash
+python3 experiments/01_e2e_reliability/run.py --protocol experiments/02_general_repair/e2e_exploration_protocol.json
+```
+
+This separately frozen exploratory protocol allows 80 model attempts, 240 Agent tool
+calls and 1,000,000 reported/reserved tokens for the whole batch. There are no stage
+reservations or quotas. Existing candidate, repair, Challenge, no-progress and acceptance
+conditions remain unchanged. The generic Synthesis/Test prompts also clarify Contract
+boundaries and evidence-based correction, so comparisons cannot isolate a budget effect.
+No required generation or verification is skipped to reduce calls. Three frozen replays
+remain conditional on native accept, with Harbor public networking explicitly recorded.
+
+Trace phase metadata and experiment analysis distinguish initial synthesis, follow-up
+after failed self-check, development/acceptance test generation, diagnosis, test/Synthesis
+repairs, Challenge search and witness review. API retries are counted in shared totals.
+Self-checks, Docker panels and host process durations are separate execution observations,
+not additional Agent tool charges. Full input/output token counts and candidate/stage
+breakdowns reconcile against the original ledger. Read-only calls are not automatically
+classified as waste. Not-reached stages supply no estimate of their full cost. Historical
+40-call runs are preserved and are not pooled with the exploratory run as a success rate.

@@ -117,6 +117,90 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(result['totals']['unknown_usage_attempts'], 1)
         self.assertEqual(result['reconciliation']['token_differences']['total_tokens'], 0)
 
+    def test_exploratory_costs_distinguish_roles_and_host_work(self):
+        def api(phase, attempt=1, failed=False):
+            return {'event': 'api_attempt', 'phase': phase, 'details': {
+                'event': 'api_failure' if failed else 'api_success', 'attempt': attempt,
+                'wall_sec': 1, 'usage': None if failed else {'prompt_tokens': 10, 'completion_tokens': 5, 'total_tokens': 15}}}
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            def trace(relative, events):
+                p = root / 'batch/candidates/0001' / relative / 'trace.jsonl'
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text('\n'.join(json.dumps(e) for e in events))
+            trace('candidate', [api('synthesis'),
+                {'event': 'tool_start', 'phase': 'synthesis', 'step': 1, 'tool_call_id': 'check',
+                 'tool': 'self_check', 'persisted_digest': 'same', 'budget': {'elapsed_sec': 1}},
+                {'event': 'tool_result', 'phase': 'self_check_followup', 'step': 1, 'tool_call_id': 'check',
+                 'tool': 'self_check', 'persisted_digest': 'same', 'budget': {'elapsed_sec': 4},
+                 'observation': {'status': 'failed'}}, api('self_check_followup')])
+            trace('verification/acceptance-generation', [api('independent_test')])
+            trace('verification/versions/v000/test-agent', [api('independent_test')])
+            trace('verification/versions/v000/analysis-001', [api('diagnosis', failed=True), api('diagnosis', attempt=2)])
+            trace('verification/versions/v001/candidate', [api('synthesis_repair')])
+            trace('verification/versions/v001/test-agent-001', [api('test_repair')])
+            trace('verification/challenge/search', [api('challenge_search'),
+                {'event': 'tools_charged', 'phase': 'challenge_search', 'count': 2}])
+            trace('verification/challenge/review', [api('challenge_review'),
+                {'event': 'model_usage', 'usage': {'total_tokens': 99999}}])
+            (root / 'preflight').mkdir()
+            (root / 'preflight/docker.process.json').write_text(json.dumps({'exit_code': 0, 'wall_sec': 2}))
+            panel = root / 'batch/candidates/0001/verification/final-docker/execution.json'
+            panel.parent.mkdir(parents=True)
+            panel.write_text(json.dumps({'status': 'passed', 'trials': [{'label': 'oracle', 'status': 'completed', 'reward': 1}]}))
+            result = costs(root, {'model_calls': 10, 'tool_calls': 3, 'token_usage': {
+                'prompt_tokens': 90, 'completion_tokens': 45, 'total_tokens': 135},
+                'unknown_token_reserve': 20000, 'token_usage_complete': False})
+        for phase in ['synthesis', 'self_check_followup', 'independent_test', 'acceptance_test',
+                      'synthesis_repair', 'test_repair', 'challenge_search', 'challenge_review']:
+            self.assertEqual(result['stages'][phase]['api_attempts'], 1, phase)
+        self.assertEqual(result['stages']['diagnosis']['api_attempts'], 2)
+        self.assertEqual(result['stages']['diagnosis']['transport_retries'], 1)
+        self.assertEqual(result['stages']['diagnosis']['unknown_usage_attempts'], 1)
+        self.assertEqual(result['totals']['total_tokens'], 135)
+        self.assertEqual(result['totals']['tool_calls'], 3)
+        self.assertEqual(result['reconciliation']['model_call_difference'], 0)
+        self.assertEqual(result['reconciliation']['tool_call_difference'], 0)
+        self.assertEqual(result['reconciliation']['token_differences']['total_tokens'], 0)
+        self.assertEqual(result['by_candidate']['0001']['acceptance_test']['total_tokens'], 15)
+        self.assertEqual(result['stages']['unattributed']['api_attempts'], 0)
+        self.assertEqual(result['tool_activity'][0]['persisted_change'], False)
+        self.assertEqual(result['executions']['self_checks'][0]['wall_sec'], 3)
+        self.assertEqual(len(result['executions']['docker_panels']), 1)
+        self.assertEqual(len(result['executions']['host_processes']), 1)
+
+    def test_exploratory_protocol_and_report_preserve_limits_and_reproduction(self):
+        protocol_path = ROOT / 'experiments/02_general_repair/e2e_exploration_protocol.json'
+        protocol = driver.read(protocol_path)
+        previous = driver.read(ROOT / 'experiments/02_general_repair/e2e_protocol.json')
+        self.assertEqual([protocol[k] for k in ['max_model_calls', 'max_tool_calls', 'max_total_tokens']],
+                         [80, 240, 1000000])
+        self.assertEqual(previous['max_model_calls'], 40)
+        self.assertFalse(protocol['stage_reservations'])
+        for key in ['max_candidates', 'max_no_progress', 'max_self_check_failures', 'max_test_repairs',
+                    'max_challenge_attempts', 'revalidation_rounds', 'challenge_frozen_test_repairs', 'network_mode']:
+            self.assertEqual(protocol[key], previous[key])
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            for folder in ['specs', 'benchmarks']:
+                import shutil
+                shutil.copytree(ROOT / folder, repo / folder)
+            with patch.object(driver, 'REPO', repo), patch.object(driver, 'load_environment'), \
+                 patch.object(driver, 'capture_provenance', return_value={}), \
+                 patch.object(driver, 'environment_check', return_value={'status': 'unavailable'}), \
+                 patch.object(driver, 'CandidateOrchestrator') as orchestrator:
+                self.assertEqual(driver.main(['--protocol', str(protocol_path), '--run-id', 'exploratory-test']), 1)
+                orchestrator.assert_not_called()
+            result = driver.read(repo / 'runs/02_general_repair/exploratory-test/experiment-result.json')
+            report = (repo / 'reports/02_general_repair/runs.md').read_text()
+            self.assertEqual(result['protocol'], protocol)
+            self.assertEqual(result['costs']['totals']['api_attempts'], 0)
+            self.assertEqual(result['costs']['stages']['diagnosis']['tool_calls'], 0)
+            self.assertIn('budget: 80 model calls / 240 tools / 1,000,000 tokens / 10 candidates.', report)
+            import shlex
+            self.assertIn('--protocol ' + shlex.quote(str(protocol_path)), report)
+            self.assertEqual(result['revalidations'], [])
+
     def test_preflight_failure_never_runs_orchestrator_or_overwrites_native(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo = Path(temporary)

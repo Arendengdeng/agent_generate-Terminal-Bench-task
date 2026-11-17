@@ -41,6 +41,11 @@ particular algorithms, or a particular patch. Do not add requirements missing fr
 Contract is authoritative: instruction cannot impose output serialization or out-of-domain obligations absent from Contract.
 Use subprocesses to run the actual task CLI in /app. Use temporary fixture directories under /tmp,
 explicit timeout and captured output. Assert task exit codes and required outputs before parsing them.
+Dependency checks must use the Contract's supported interface with valid arguments and fixtures.
+A CLI need not be safe to import with missing arguments unless Contract explicitly requires this.
+Do not require import safety, a main guard, a specific entrypoint organization or algorithm for a CLI-only Contract.
+Before finish, check that each assertion tests a Contract obligation rather than an extra interface assumption.
+For unordered structures compare sets or consistently ordered values; preserve order assertions when required.
 Convert expected task failures (including CLI timeout, missing output, invalid required output format)
 to AssertionError or pytest.fail; leave unexpected test/fixture errors as exceptions. Never use a
 blanket except Exception: pytest.fail. Test input preservation when required. Do not modify /app.
@@ -225,7 +230,9 @@ class TestAgent:
 
         def trace(event, **fields):
             row = {"event": event, "model_call": model_calls, "tool_call": calls,
-                   "elapsed_sec": round(time.monotonic() - started, 3), **fields}
+                   "elapsed_sec": round(time.monotonic() - started, 3),
+                   "phase": 'diagnosis' if diagnose_only else 'test_repair' if previous is not None else 'independent_test',
+                   **fields}
             with (root / "trace.jsonl").open("a", encoding="utf-8") as stream:
                 stream.write(json.dumps(summarize(redact(row, c.api_key)), ensure_ascii=False) + "\n")
 
